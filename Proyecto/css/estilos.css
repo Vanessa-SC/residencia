@@ -1,0 +1,125 @@
+*{
+	font-size: 18px;
+}
+  /* HEADER */
+
+.titulo {
+	display: inline-block;
+	float: center;
+	text-align: center;
+	
+}
+div.navbar.header{
+	flex-wrap: nowrap !important;
+}
+
+.logoSEP {
+	width: 200px;
+	height: auto;
+}
+
+.logoTecNM {
+ width: 150px;
+}
+
+.navbar h1{
+	font-size: 24px;
+	font-weight: 700;
+
+}
+
+.navbar h2{
+	font-size: 16px;
+	font-weight: 500;
+}
+
+.navbar h3{
+	font-size:14px;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+.menu {
+	background-color: #6F193F;
+}
+
+.prog_menu ul {
+	background-color: #6F193F;
+    color: #fff;
+    padding: .5em 4em;
+    width: 100%;
+    text-align: center;
+}
+.prog_menu li {
+	display: inline;
+}
+.prog_menu li a {
+	color: #ffffff;
+	text-decoration: none;
+	padding: 10px;
+}
+.prog_menu ul li:hover {
+	background-color: #cccccc;
+	padding: 10px;
+}
+
+.menu a.nav-link {
+	color: #fff;
+}
+
+.welcome p {
+	padding: 20px 0;
+	margin: 0 0 0 15px;
+	font-weight: 500;
+	color: #791425;
+}
+
+.actdoc {
+	color: #6F193F;
+	font-weight: 600;
+	padding: 10px;
+	background: #CCCCCC;
+}
+
+.item{
+	list-style: none;
+}
+.item-start{
+	list-style: none;
+	text-align: left;
+}
+.item-end{
+	list-style: none;
+	display: block;
+	text-align: right !important;
+}
+
+.home_icon {
+	/*width: 20px;
+	height: auto;
+	background-image: url("../images/home.png");
+	background-repeat: no-repeat;
+	text-align: center;*/
+	background: url(../images/home.png) no-repeat center;
+    padding: 20px !important;
+}
+
+
+/* Programa_institucional */
+
+.logoITD{
+	width: 150px;
+    padding: 0px;
+    height: auto;
+    display: inline-flex;
+    margin: auto;
+}
+.programa_page h1{
+	font-size: 20px;
+	font-weight: 700;
+}
+
+.programa_page h3{
+	font-size: 16px;
+	font-weight: 600;
+}
