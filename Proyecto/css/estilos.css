@@ -43,6 +43,12 @@ div.navbar.header {
 
 .menu {
     background-color: #6F193F;
+    vertical-align: middle !important;
+}
+
+.titulo_white {
+    font-size: 18px;
+    font-weight: 500; 
 }
 
 button.op {
@@ -106,28 +112,10 @@ button.op {
     display: block;
     text-align: right !important;
 }
-
-button {
-    background-color: #CCCCCC !important;
-}
-
-.home_icon {
-    /*width: 20px;
-	height: auto;
-	background-image: url("../images/home.png");
-	background-repeat: no-repeat;
-	text-align: center;*/
-    background: url(../images/home.png) no-repeat center;
-    padding: .875rem !important;
-    background-size: cover;
-    background-position: center;
-}
-
-
 /* Programa_institucional */
 
 .logoITD {
-    width: 150px;
+    width: 120px;
     padding: 0px;
     height: auto;
     display: inline-flex;
@@ -144,6 +132,48 @@ button {
     font-weight: 600;
 }
 
+/* IMAGENES, ICONOS & BOTONES */
+
+button {
+    background-color: #CCCCCC !important;
+}
+
+.home_icon {
+    background: url(../images/home.png) no-repeat center;
+    padding: .875rem !important;
+    background-size: cover;
+    background-position: center;
+}
+
+.editar_icon {
+    background: url(../images/editar.png) no-repeat center;
+    padding: .875rem !important;
+    background-size: cover;
+}
+
+.back_icon {
+    background: url(../images/back.png) no-repeat center;
+    padding: .875rem !important;
+    background-size: cover;
+}
+
+.import_icon {
+    background: url(../images/import.png) no-repeat center;
+    padding: .875rem !important;
+    background-size: cover;
+}
+
+.ok_icon {
+    background: url(../images/ok-blank.png) no-repeat center;
+    padding: .875rem !important;
+    background-size: cover;
+}
+
+cancel_icon {
+    background: url(../images/cancel-blank.png) no-repeat center;
+    padding: .875rem !important;
+    background-size: cover;
+}
 .red{
     background: url(../images/red.png) no-repeat center;
     background-size: cover;
@@ -160,4 +190,17 @@ button {
     background: url(../images/upload.png) no-repeat center;
     background-size: cover;
     background-position: center;
+    cursor: pointer;
+}
+
+.btn-inv {
+    background-color:#6F193F !important; 
+    background-position: center;
+    background-size: contain;
+    border: none;
+    padding-right: 2.275rem !important; 
+}
+
+button.btn.btn-inv.no-btn {
+    cursor: default;
 }
