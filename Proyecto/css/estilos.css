@@ -145,6 +145,12 @@ button {
     background-position: center;
 }
 
+.home_icon2 {
+    background: url(../images/home-circle.png) no-repeat center;
+    padding: .875rem !important;
+    background-size: cover;
+    background-position: center;
+}
 .editar_icon {
     background: url(../images/editar.png) no-repeat center;
     padding: .875rem !important;
@@ -164,16 +170,47 @@ button {
 }
 
 .ok_icon {
-    background: url(../images/ok-blank.png) no-repeat center;
+    background: url(../images/ok.png) no-repeat center;
     padding: .875rem !important;
     background-size: cover;
 }
 
-cancel_icon {
-    background: url(../images/cancel-blank.png) no-repeat center;
+.cancel_icon {
+    background: url(../images/cancel.png) no-repeat center;
     padding: .875rem !important;
     background-size: cover;
 }
+
+.info_icon {
+    background: url(../images/info.png) no-repeat center;
+    padding: .875rem !important;
+    background-size: cover;
+}
+
+.add_icon {
+    background: url(../images/add.png) no-repeat center;
+    padding: .875rem !important;
+    background-size: cover;
+}
+
+.add_icon2 {
+    background: url(../images/add2.png) no-repeat center;
+    padding: .875rem !important;
+    background-size: cover;
+}
+
+.plus_icon {
+    background: url(../images/plus.png) no-repeat center;
+    padding: 1.1rem !important;
+    background-size: cover;
+}
+
+.eye_icon {
+    background: url(../images/eye.png) no-repeat center;
+    padding: 1.1rem !important;
+    background-size: cover;
+}
+
 .red{
     background: url(../images/red.png) no-repeat center;
     background-size: cover;
