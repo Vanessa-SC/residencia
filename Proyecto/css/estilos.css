@@ -2,6 +2,11 @@
     font-size: 16px;
 }
 
+.bg-wine {
+    background-color: #6F193F;
+    color: #fff;
+}
+
 /* HEADER */
 
 .titulo {
@@ -48,7 +53,7 @@ div.navbar.header {
 
 .titulo_white {
     font-size: 18px;
-    font-weight: 500; 
+    font-weight: 500;
 }
 
 button.op {
@@ -112,6 +117,7 @@ button.op {
     display: block;
     text-align: right !important;
 }
+
 /* Programa_institucional */
 
 .logoITD {
@@ -131,6 +137,118 @@ button.op {
     font-size: 16px;
     font-weight: 600;
 }
+
+/*  LOGIN PAGE */
+
+div.main {
+    background: #6F193F;
+    background: radial-gradient(ellipse at center, #6F193F 1%, #451620 100%);
+    width: 100%;
+    height: calc(80vh);
+}
+
+#login form {
+    width: 250px;
+}
+
+#login,
+.logo {
+    display: inline-block;
+    width: 40%;
+}
+
+#login {
+    border-right: 1px solid #fff;
+    padding: 0px 22px;
+    width: 59%;
+}
+
+.logo {
+    background: url(../images/Logo%20ITD.png) no-repeat center; 
+    background-size: cover;
+    background-size: contain;
+}
+
+#login form span.fa {
+    background-color: #fff;
+    border-radius: 3px 0px 0px 3px;
+    color: #000;
+    display: block;
+    float: left;
+    height: 50px;
+    font-size: 24px;
+    line-height: 50px;
+    text-align: center;
+    width: 50px;
+}
+
+#login form input {
+    height: 50px;
+}
+
+#login form input[type="text"],
+input[type="password"] {
+    background-color: #fff;
+    border-radius: 0px 3px 3px 0px;
+    color: #000;
+    margin-bottom: 1em;
+    padding: 0 16px;
+    width: 200px;
+}
+
+#login form input[type="submit"] {
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    background-color: #000000;
+    color: #eee;
+    font-weight: bold;
+    /* margin-bottom: 2em; */
+    text-transform: uppercase;
+    padding: 5px 10px;
+    height: 30px;
+}
+
+#login > p {
+    text-align: center;
+}
+
+#login > p span {
+    padding-left: 5px;
+}
+
+.middle {
+    display: flex;
+    width: 600px;
+}
+
+#login.login {
+    box-sizing: border-box;
+    margin: 0px auto;
+
+    &:before,
+    &:after {
+        box-sizing: border-box;
+    }
+
+}
+
+input {
+    border: none;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5em;
+    padding: 0;
+    -webkit-appearance: none;
+}
+
+.container-login {
+    left: 50%;
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
 
 /* IMAGENES, ICONOS & BOTONES */
 
@@ -153,6 +271,7 @@ button {
     background-position: center;
     background-size: contain;
 }
+
 .editar_icon {
     background: url(../images/editar.png) no-repeat center;
     padding: .875rem !important;
@@ -236,14 +355,26 @@ button {
     background-size: cover;
     background-size: contain;
 }
+.user_icon {
+    background: url(../images/user.png) no-repeat center;
+    padding: 1.1rem !important;
+    background-size: cover;
+    background-size: contain;
+}
+.pass_icon {
+    background: url(../images/password.png) no-repeat center;
+    padding: 1.1rem !important;
+    background-size: cover;
+    background-size: contain;
+}
 
-.red{
+.red {
     background: url(../images/red.png) no-repeat center;
     background-size: cover;
     background-position: center;
 }
 
-.green{
+.green {
     background: url(../images/green.png) no-repeat center;
     background-size: cover;
     background-position: center;
@@ -253,7 +384,7 @@ button {
     color: #6F193F;
 }
 
-.docup{
+.docup {
     background: url(../images/upload.png) no-repeat center;
     background-size: cover;
     background-position: center;
@@ -261,11 +392,11 @@ button {
 }
 
 .btn-inv {
-    background-color:#6F193F !important; 
+    background-color: #6F193F !important;
     background-position: center;
     background-size: contain;
     border: none;
-    padding-right: 2.275rem !important; 
+    padding-right: 2.275rem !important;
 }
 
 button.btn.btn-inv.no-btn {
