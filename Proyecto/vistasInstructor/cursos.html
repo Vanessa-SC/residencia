@@ -2,6 +2,7 @@
 <html lang="en">
 	<head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Document</title>
 </head>
 <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -101,8 +102,16 @@
                             <th scope="row">1</th>
                             <td>Diplomado para la Formaci&oacute;n y Desarrollo de Competencias Docentes - M&oacute;dulo II: Planeaci&oacute;n del Proceso de Aprendizaje</td>
                             <td>18 al 22 de junio del 2019 <br>9:00 - 15:00 Hrs.</td>
-                            <td><button class="btn bg-white erase_icon"></button></td>
-                            <td><button class="btn bg-white documento_icon"></button></td>
+                            <td><button class="btn bg-white borrar_icon"></button></td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="btn bg-white documento_icon" data-toggle="dropdown"><span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                    <li><a href="#">Encuesta Gesti&oacute;n de Calidad</a></li>
+                                    <li><a href="#">Encuesta Capacitaci&oacute;n del Curso</a></li>
+                                    </ul>
+                                    </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -113,4 +122,7 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script></html>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</html>
