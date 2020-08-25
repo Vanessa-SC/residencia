@@ -374,8 +374,30 @@ button {
     background-size: cover;
     background-size: contain;
 }
+
 .pass_icon {
     background: url(../images/password.png) no-repeat center;
+    padding: 1.1rem !important;
+    background-size: cover;
+    background-size: contain;
+}
+
+.reload_icon {
+    background: url(../images/reload.png) no-repeat center;
+    padding: 1.1rem !important;
+    background-size: cover;
+    background-size: contain;
+}
+
+.atras_icon {
+    background: url(../images/atras.png) no-repeat center;
+    padding: 1.1rem !important;
+    background-size: cover;
+    background-size: contain;
+}
+
+.adelante_icon {
+    background: url(../images/adelante.png) no-repeat center;
     padding: 1.1rem !important;
     background-size: cover;
     background-size: contain;
@@ -402,6 +424,10 @@ button {
     background-size: cover;
     background-position: center;
     cursor: pointer;
+}
+
+.no-cursor {
+    cursor: default !important;
 }
 
 .btn-inv {
