@@ -307,6 +307,13 @@ button {
     background-size: contain;
 }
 
+.documento_icon {
+    background: url(../images/documento.png) no-repeat center;
+    padding: .875rem !important;
+    background-size: cover;
+    background-size: contain;
+}
+
 .info_icon {
     background: url(../images/info.png) no-repeat center;
     padding: .875rem !important;
