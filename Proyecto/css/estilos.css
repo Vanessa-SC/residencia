@@ -252,6 +252,10 @@ input {
 
 /* IMAGENES, ICONOS & BOTONES */
 
+.center {
+    align-content: center;
+}
+
 button {
     background-color: #CCCCCC !important;
 }
@@ -324,6 +328,13 @@ button {
 .add_icon2 {
     background: url(../images/add2.png) no-repeat center;
     padding: .875rem !important;
+    background-size: cover;
+    background-size: contain;
+}
+
+.ok-blank_icon {
+    background: url(../images/ok-blank.png) no-repeat center;
+    padding: 1.1rem !important;
     background-size: cover;
     background-size: contain;
 }
