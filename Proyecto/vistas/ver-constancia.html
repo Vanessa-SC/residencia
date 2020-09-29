@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" ng-app="appConstancias">
 
 <head>
     <meta charset="UTF-8">
-    <title>Documentacion</title>
+    <title>Constancia</title>
 </head>
 
 <link rel="stylesheet" href="../css/bootstrap.min.css">
 <link rel="stylesheet" href="../css/estilos.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+<script src="../js/appConstancias.js"></script>
 
 <body>
     <nav>
@@ -29,7 +31,7 @@
             <div class="p-2"><button class="btn btn-inv no-btn"></button></div>
         </div>
     </nav>
-    <div class="container">
+    <div class="container" ng-controller="constanciasController">
       <div class="row pt-5 text-center">
           <div class="col-sm-1 font-weight-bold pb-4">Folio: <br> AB23</div>
           <div class="col-sm-11">Diplomado para la formaci&oacute;n y Desarrollo de Competencias Docentes — M&oacute;dulo II: Planeaci&oacute;n del proceso de aprendizaje.</div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" ng-app="appCurso">
 
 <head>
     <meta charset="UTF-8">
@@ -7,6 +7,8 @@
 </head>
 <link rel="stylesheet" href="../css/bootstrap.min.css">
 <link rel="stylesheet" href="../css/estilos.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+<script src="../js/appCurso.js"></script>
 
 <body>
     <nav>
@@ -28,7 +30,7 @@
             <div class="p-2"><button class="btn btn-inv no-btn"></button></div>
         </div>
     </nav>
-    <div class="container">
+    <div class="container" ng-controller="cursoController">
         <div class="programa_page d-flex justify-content-center">
             <div class="p-2"><img src="../images/Logo ITD.png" alt="logo ITD" class="logoITD"></div>
             <div class="p-4">
@@ -42,12 +44,12 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-3  text-center"><strong>Instructor postulado</strong></div>
-                    <div class="col-sm-5">ISC Cristabel Armstrong Aramburo</div>
+                    <div class="col-sm-5">{{instructor}}</div>
                     <div class="col-sm-3 text-center"><strong>Fecha:</strong></div>
                     <div class="w-100"></div>
                     <div class="col-sm-2 text-center"><strong>Curso a impartir:</strong></div>
-                    <div class="col-sm-6">Diplomado para la Formaci&oacute;n y Desarrollo de Competencias Docentes</div>
-                    <div class="col-sm-3 text-center">21 Agosto 2020</div>
+                    <div class="col-sm-6">{{curso}}</div>
+                    <div class="col-sm-3 text-center">{{fecha}}</div>
                     <div class="w-100"></div>
                     <br>
                     <div class="col text-center"><a href="documentacion.html" style="color: #000;"><u>Oficio de registro de curso <button class="btn bg-white import_icon"></button></u></a></div>
@@ -65,19 +67,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th></th>
-                    <th scope="row">1</th>
-                    <td>Diseño del curso (Ficha Tecnica)</td>
+                <tr ng-repeat="doc in documentos">
+                    <th><!--<button class=" btn bg-white info_icon"></button>--></th>
+                    <th scope="row">{{doc.numero}}</th>
+                    <td>{{doc.documento}}</td>
                     <td><button class="btn bg-white import_icon"></button></td>
-                    <td><button class="btn bg-white ok_icon"></button></td>
-                </tr>
-                <tr>
-                    <th><button class=" btn bg-white info_icon"> </th>
-                    <th scope="row"></button>2</th>
-                    <td>Curr&iacute;culum</td>
-                    <td><button class="btn bg-white import_icon"></button></td>
-                    <td><button class="btn bg-white cancel_icon"></button></td>
+                    <td><button class="btn bg-white {{doc.validado}}_icon"></button></td>
                 </tr>
             </tbody>
         </table>

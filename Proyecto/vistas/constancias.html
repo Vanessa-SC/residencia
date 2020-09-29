@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" ng-app="appConstancias">
 
 <head>
     <meta charset="UTF-8">
@@ -8,6 +8,8 @@
 
 <link rel="stylesheet" href="../css/bootstrap.min.css">
 <link rel="stylesheet" href="../css/estilos.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+<script src="../js/appConstancias.js"></script>
 
 <body>
     <nav>
@@ -29,7 +31,7 @@
             <div class="p-2"><button class="btn btn-inv no-btn"></button></div>
         </div>
     </nav>
-    <div class="container">
+    <div class="container" ng-controller="constanciasController">
         <div class="d-flex justify-content-between">
             <div class="input-group mb-3 p-2 col-sm-4 mt-4">
                 <div class="input-group-prepend">
@@ -59,16 +61,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">AB3214</th>
-                    <td>Diplomado para la formación y desarrollo de competencias docentes</td>
-                    <td>18 al 22 de junio del 2019 <br>9:00 - 15:00 Hrs.</td>
-                    <td><a href="ver-constancia.html"><button class="btn bg-white eye_icon"></button></a></td>
-                </tr>
-                <tr>
-                    <th scope="row">AB3220</th>
-                    <td>Diplomado para la formación de tutores</td>
-                    <td>8 al 22 de junio del 2019 <br>9:00 - 15:00 Hrs.</td>
+                <tr ng-repeat="x in constancia">
+                    <th scope="row">{{x.folio}}</th>
+                    <td>{{x.curso}}</td>
+                    <td>{{x.fecha}}</td>
                     <td><a href="ver-constancia.html"><button class="btn bg-white eye_icon"></button></a></td>
                 </tr>
 

@@ -304,6 +304,13 @@ button {
     background-size: contain;
 }
 
+.no_icon {
+    background: url(../images/cancel.png) no-repeat center;
+    padding: .875rem !important;
+    background-size: cover;
+    background-size: contain;
+}
+
 .cancel_icon {
     background: url(../images/cancel.png) no-repeat center;
     padding: .875rem !important;

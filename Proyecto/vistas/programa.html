@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="appPrograma">
 	<head>
     <meta charset="UTF-8">
     <title>Document</title>
 </head>
 <link rel="stylesheet" href="../css/bootstrap.min.css">
 <link rel="stylesheet" href="../css/estilos.css">
-
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+<script src="../js/appPrograma.js"></script>
 <body>
     <nav>
         <div class="navbar navbar-light bg-white d-flex justify-content-around">
@@ -45,12 +46,12 @@
 
         </div>
     </nav>
-    <div class="container">
+    <div class="container"  ng-controller="programaController">
         <div class="programa_page d-flex justify-content-center">
             <div class="p-2"><img src="../images/Logo ITD.png" alt="logo ITD" class="logoITD"></div>
             <div class="p-4">
                 <div class="text-center">
-                    <h1>Periodo Agosto/Diciembre 2020</h1>
+                    <h1>Periodo: {{periodo}}</h1>
                     <h3>Formaci&oacute;n de Programa Institucional y Actualizaci&oacute;n docente y Profesional</h3>
                 </div>
             </div>
@@ -68,24 +69,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row"> <img src="../images/green.png"></th>
-                    <td>I.S.C. Cristabel Armstrong Aramburo</td>
-                    <td>Diplomado para la Formación y Desarrollo de Competencias Docenter</td>
-                    <td>
-                        18 a 22 de Junio de 2019<br> 9:00 - 15:00
-                    </td>
+                <tr ng-repeat="x in curso">
+                    <th scope="row"> <img src="../images/{{x.val}}.png"></th>
+                    <td> {{x.maestro}} </td>
+                    <td> {{x.curso}} </td>
+                    <td> {{x.horario}} </td>
                     <td><a href="cursos.html"><button class="btn bg-white editar_icon"></button></a></td>
-                </tr>
-                <tr>
-                    <th scope="row"> <img src="../images/red.png"></th>
-                    <td>Dra. Dora Luz Gonzalez</td>
-                    <td>Diplomado para la formación de tutores</td>
-                    <td>
-                        18 a 22 de Junio de 2019 <br> 9:00 - 15:00
-                    </td>
-                    <td><a href="cursos.html"><button class="btn bg-white editar_icon"></button></a></td>
-
                 </tr>
             </tbody>
         </table>
