@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="es" ng-app="appConstancias">
 
 <head>
@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="../css/bootstrap.min.css">
 <link rel="stylesheet" href="../css/estilos.css">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
-<script src="../js/appConstancias.js"></script>
+<script src="../js/AngularJS/appConstancias.js"></script>
 
 <body>
     <nav>
@@ -30,8 +30,8 @@
             <div class="p-2 text-white"><span class="titulo_white text-uppercase">Constancias</span></div>
             <div class="p-2"><button class="btn btn-inv no-btn"></button></div>
         </div>
-    </nav>
-    <div class="container" ng-controller="constanciasController">
+    </nav> -->
+    <div class="container">
         <div class="d-flex justify-content-between">
             <div class="input-group mb-3 p-2 col-sm-4 mt-4">
                 <div class="input-group-prepend">
@@ -65,12 +65,15 @@
                     <th scope="row">{{x.folio}}</th>
                     <td>{{x.curso}}</td>
                     <td>{{x.fecha}}</td>
-                    <td><a href="ver-constancia.html"><button class="btn bg-white eye_icon"></button></a></td>
+                    <td><a href="#!ver">
+                        <button class="btn bg-white eye_icon" ng-click="ver(x.folio)"></button></button>
+                    </a></td>
+                    <!-- <td><button class="btn bg-white eye_icon" ng-click="ver(x.folio)"></button></td> -->
                 </tr>
 
             </tbody>
         </table>
-    </div>
+    <!-- </div>
 </body>
 
-</html>
+</html> -->
