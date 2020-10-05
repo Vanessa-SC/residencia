@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../css/bootstrap.css">
     </script>
     <link rel="stylesheet" href="../css/estilos.css">
-    <script src="../js/AngularJS/constancias.js"></script>
+    <script src="../js/AngularJS/appConstancias.js"></script>
 </head>
 
 <body>
@@ -32,29 +32,10 @@
             <div class="p-2"><button class="btn btn-inv no-btn"></button></div>
         </div>
     </nav>
-    <div class="container" ng-controller="constanciaController">
+    <div class="container" ng-controller="constanciasController">
         <div ng-view></div>
-        <!-- <table class="table text-center mt-5">
-            <thead>
-                <tr>
-                    <th scope="col">Folio</th>
-                    <th scope="col"> </th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="x in constancia">
-                    <th scope="row">{{x.folio}}</th>
-                    <td>{{x.curso}}</td>
-                    <td>{{x.fecha}}</td>
-                    <td><a href="#!verconstancia/{{x.folio}}"><button class="btn bg-white eye_icon"></button></a></td>
-                </tr>
-            </tbody>
-        </table> -->
+        
     </div>
-
-    {{ "Hola" }}
 </body>
 
 </html>

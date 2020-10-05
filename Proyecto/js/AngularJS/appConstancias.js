@@ -1,20 +1,34 @@
-var app = angular.module("appConstancias", []);
+var app = angular.module("appConstancia", ["ngRoute"]);
 
-app.controller("constanciasController", [
-  "$scope",
-  function ($scope) {
-    $scope.constancia = [
-      {
-        folio: "AB3214",
-        curso:
-          "Diplomado para la Formación y Desarrollo de Competencias Docentes",
-        fecha: "18 a 22 de Junio de 2019, 9:00 - 15:00",
-      },
-      {
-        folio: "AB3220",
-        curso: "Diplomado para la formación de tutores",
-        fecha: "18 a 22 de Junio de 2019, 9:00 - 15:00",
-      },
-    ];
-  },
-]);
+app.config(function($routeProvider) {
+  $routeProvider
+    .when("/ver", {
+      templateUrl: "../vistasCoordinador/ver-constancia.html",
+      controller: "constanciasController",
+    })
+    .when("/", {
+      templateUrl: "../vistasCoordinador/constancias.html",
+      controller: "constanciasController",
+    });
+});
+
+
+app.controller('constanciasController', function($scope, $http) {
+
+  $http({
+    method: 'GET',
+    url: '/Residencia/Proyecto/files/constancias.js'
+  }).then(function successCallback(response) {
+    $scope.datos = response.data;
+  }, function errorCallback(response) {
+    console.log(response);
+  });
+
+  $scope.ver = function (folio,curso){
+    $scope.folioCons = folio;
+    $scope.cursoCons = curso;
+    console.log(folio+' '+curso);
+
+  }
+
+})

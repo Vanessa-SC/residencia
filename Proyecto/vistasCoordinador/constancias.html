@@ -1,79 +1,43 @@
-<!-- <!DOCTYPE html>
-<html lang="es" ng-app="appConstancias">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Constancias</title>
-</head>
-
-<link rel="stylesheet" href="../css/bootstrap.min.css">
-<link rel="stylesheet" href="../css/estilos.css">
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
-<script src="../js/AngularJS/appConstancias.js"></script>
-
-<body>
-    <nav>
-        <div class="navbar navbar-light bg-white d-flex justify-content-around">
-            <img class="logoSEP" src="../images/Logo SEP.png" alt="logo SEP">
-            <div class="titulo text-center">
-                <h1>SISTEMA INTEGRAL DE INFORMACI&Oacute;N</h1>
-                <h2>Instituto Tecnol&oacute;gico de Durango</h2>
-                <h3>Portal de maestros</h3>
+<div class="container" ng-controller="constanciasController">
+    <div class="d-flex justify-content-between">
+        <div class="input-group mb-3 p-2 col-sm-4 mt-4">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Constancias</label>
             </div>
-            <img class="logoTecNM" src="../images/Logo TecNM.png" alt="">
+            <select class="custom-select" id="inputGroupSelect01">
+                <option selected>Filtrar...</option>
+                <option value="AB">AB</option>
+                <option value="AC">AC</option>
+                <option value="AD">AD</option>
+            </select>
         </div>
-        <div class="text-center actdoc">
-            Actualizaci&oacute;n docente
-        </div>
-        <div class="menu d-flex justify-content-between">
-            <div class="p-2"><a href="../index.html"><button class="btn btn-inv home_icon2"></button></a></div>
-            <div class="p-2 text-white"><span class="titulo_white text-uppercase">Constancias</span></div>
-            <div class="p-2"><button class="btn btn-inv no-btn"></button></div>
-        </div>
-    </nav> -->
-    <div class="container">
-        <div class="d-flex justify-content-between">
-            <div class="input-group mb-3 p-2 col-sm-4 mt-4">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">Constancias</label>
-                </div>
-                <select class="custom-select" id="inputGroupSelect01">
-                    <option selected>Filtrar...</option>
-                    <option value="AB">AB</option>
-                    <option value="AC">AC</option>
-                    <option value="AD">AD</option>
-                </select>
-            </div>
-            <div class="mb-3 p-2 mt-4">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="nuevaConstancia">Generar constancias</label>
-                    <a href="generar-constancia.html"><button id="nuevaConstancia" class="btn bg-white border-dark plus_icon" type="button"></button></a>
-                </div>
+        <div class="mb-3 p-2 mt-4">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="nuevaConstancia">Generar constancias</label>
+                <a href="generar-constancia.html"><button id="nuevaConstancia" class="btn bg-white border-dark plus_icon" type="button"></button></a>
             </div>
         </div>
-        <table class="table text-center mt-5">
-            <thead>
-                <tr>
-                    <th scope="col">Folio</th>
-                    <th scope="col"> </th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="x in constancia">
-                    <th scope="row">{{x.folio}}</th>
-                    <td>{{x.curso}}</td>
-                    <td>{{x.fecha}}</td>
-                    <td><a href="#!ver">
-                        <button class="btn bg-white eye_icon" ng-click="ver(x.folio)"></button></button>
-                    </a></td>
-                    <!-- <td><button class="btn bg-white eye_icon" ng-click="ver(x.folio)"></button></td> -->
-                </tr>
-
-            </tbody>
-        </table>
-    <!-- </div>
-</body>
-
-</html> -->
+    </div>
+    <table class="table text-center mt-5">
+        <thead>
+            <tr>
+                <th scope="col">Folio</th>
+                <th scope="col"> </th>
+                <th scope="col">Fecha</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="x in datos.constancias">
+                <th scope="row">{{x.folio}}</th>
+                <td>{{x.curso}}</td>
+                <td>{{x.fecha}}</td>
+                <td>
+                    <a href="#!ver">
+                        <button class="btn bg-white eye_icon" ng-click="ver(x.folio,x.curso)"></button>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

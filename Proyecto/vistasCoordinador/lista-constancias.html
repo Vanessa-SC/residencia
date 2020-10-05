@@ -1,0 +1,46 @@
+
+    <div class="container">
+        <div class="d-flex justify-content-between">
+            <div class="input-group mb-3 p-2 col-sm-4 mt-4">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Constancias</label>
+                </div>
+                <select class="custom-select" id="inputGroupSelect01">
+                    <option selected>Filtrar...</option>
+                    <option value="AB">AB</option>
+                    <option value="AC">AC</option>
+                    <option value="AD">AD</option>
+                </select>
+            </div>
+            <div class="mb-3 p-2 mt-4">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="nuevaConstancia">Generar constancias</label>
+                    <a href="generar-constancia.html"><button id="nuevaConstancia"
+                            class="btn bg-white border-dark plus_icon" type="button"></button></a>
+                </div>
+            </div>
+        </div>
+        <table class="table text-center mt-5">
+            <thead>
+                <tr>
+                    <th scope="col">Folio</th>
+                    <th scope="col"> </th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="x in constancia">
+                    <th scope="row">{{x.folio}}</th>
+                    <td>{{x.curso}}</td>
+                    <td>{{x.fecha}}</td>
+                    <td>
+                        <a href="#!ver">
+                            <button class="btn bg-white eye_icon" ng-click="ver(x.folio,x.curso)"></button></button>
+                        </a>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>

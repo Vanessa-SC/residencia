@@ -1,23 +1,20 @@
-var app = angular.module("appPrograma", []);
+var app = angular.module('appPrograma', []);
 
-app.controller("programaController", [
-  "$scope",
-  function ($scope) {
-    $scope.periodo = "Agosto/Diciembre 2020";
-    $scope.curso = [
-      {
-        val: "red",
-        maestro: "I.S.C. Cristabel Armstrong Aramburo",
-        curso:
-          "Diplomado para la Formación y Desarrollo de Competencias Docentes",
-        horario: "18 a 22 de Junio de 2019, 9:00 - 15:00",
-      },
-      {
-        val: "green",
-        maestro: "Dra. Dora Luz Gonzalez",
-        curso: "Diplomado para la formación de tutores",
-        horario: "18 a 22 de Junio de 2019, 9:00 - 15:00",
-      },
-    ];
-  },
-]);
+app.controller('programaController', function($scope, $http) {
+
+    $scope.importar = function() {
+        $http({
+            method: 'GET',
+            //url: '/Residencia/Proyecto/backend/getCursos.php'
+            url: '/Residencia/Proyecto/files/cursos.js'
+        }).then(function successCallback(response) {
+            $scope.cursos = response.data;
+            console.log(response.data);
+        }, function errorCallback(response) {
+            console.log(response);
+        });
+    }
+
+  $scope.importar();
+
+});
