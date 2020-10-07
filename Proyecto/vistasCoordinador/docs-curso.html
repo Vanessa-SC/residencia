@@ -1,21 +1,9 @@
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <title>Constancia</title>
-</head>
-
-<link rel="stylesheet" href="../css/bootstrap.min.css">
-<link rel="stylesheet" href="../css/estilos.css">
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
-<script src="../js/AngularJS/appConstancias.js"></script>
-
-<body>
+<div class="container">
     <div class="programa_page d-flex justify-content-center">
-        <div class="p-2"><img src="../images/Logo ITD.png" alt="logo ITD" class="logoITD"></div>
+        <div class="p-2"><img src="/Residencia/Proyecto/images/Logo ITD.png" alt="logo ITD" class="logoITD"></div>
         <div class="p-4">
             <div class="text-center">
-                <h1>Periodo Agosto/Diciembre 2020</h1>
+                <h1>Periodo {{datos.periodo}}</h1>
                 <h3>Formaci&oacute;n de Programa Institucional y Actualizaci&oacute;n docente y Profesional</h3>
             </div>
         </div>
@@ -24,22 +12,15 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-sm-3  text-center"><strong>Instructor postulado</strong></div>
-                <div class="col-sm-5">{{instructor}}</div>
+                <div class="col-sm-5">{{datos.instructor}}</div>
                 <div class="col-sm-3 text-center"><strong>Fecha:</strong></div>
                 <div class="w-100"></div>
                 <div class="col-sm-2 text-center"><strong>Curso a impartir:</strong></div>
-                <div class="col-sm-6">{{curso}}</div>
-                <div class="col-sm-3 text-center">{{fecha}}</div>
+                <div class="col-sm-6">{{datos.curso}}</div>
+                <div class="col-sm-3 text-center">{{datos.fecha}}</div>
                 <div class="w-100"></div>
                 <br>
-                <div class="col text-center">
-                    <a href="documentacion.html" style="color: #000;">
-                        <u>
-                            Oficio de registro de curso
-                            <button class="btn bg-white import_icon"></button>
-                        </u>
-                    </a>
-                </div>
+                <div class="col text-center"><a href="documentacion.html" style="color: #000;"><u>Oficio de registro de curso <button class="btn bg-white import_icon"></button></u></a></div>
             </div>
         </div>
     </div>
@@ -54,16 +35,17 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="doc in documentos">
-                <th></th>
-                <th scope="row">{{doc.numero}}</th>
+            <tr ng-repeat="doc in datos.documentos">
+                <th><button class=" btn bg-white"></button></th>
+                <th scope="row">{{doc.no}}</th>
                 <td>{{doc.documento}}</td>
-                <td><button class="btn bg-white import_icon"></button></td>
+                <td>
+                    <a href="#!verDoc">
+                        <button class="btn bg-white import_icon" ng-click="verDoc(doc.documento)"></button>
+                    </a>
+                </td>
                 <td><button class="btn bg-white {{doc.validado}}_icon"></button></td>
             </tr>
         </tbody>
     </table>
-    </div>
-</body>
-
-</html>
+</div>

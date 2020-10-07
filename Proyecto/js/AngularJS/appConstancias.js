@@ -13,7 +13,7 @@ app.config(function($routeProvider) {
 });
 
 
-app.controller('constanciasController', function($scope, $http) {
+app.controller('constanciasController', ['$scope', '$http', function($scope, $http) {
 
   $http({
     method: 'GET',
@@ -24,11 +24,22 @@ app.controller('constanciasController', function($scope, $http) {
     console.log(response);
   });
 
-  $scope.ver = function (folio,curso){
-    $scope.folioCons = folio;
-    $scope.cursoCons = curso;
-    console.log(folio+' '+curso);
+  $scope.folio = "";
+  $scope.curso = "";
+  
+  $scope.ver = function(folio, curso) {
+
+    // $scope.constancia = {
+    //   "constancia": [{
+    //     "folio": folio,
+    //     "curso": curso
+    //   }]
+    // }
+
+    $scope.folio = folio;
+    $scope.curso = curso;
+    //console.log($scope.constancia);
 
   }
 
-})
+}]);

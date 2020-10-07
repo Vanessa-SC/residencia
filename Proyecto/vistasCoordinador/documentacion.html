@@ -1,45 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Documentacion</title>
-</head>
-
-<link rel="stylesheet" href="../css/bootstrap.min.css">
-<link rel="stylesheet" href="../css/estilos.css">
-
-<body>
-    <nav>
-        <div class="navbar navbar-light bg-white d-flex justify-content-around">
-            <img class="logoSEP" src="../images/Logo SEP.png" alt="logo SEP">
-            <div class="titulo text-center">
-                <h1>SISTEMA INTEGRAL DE INFORMACI&Oacute;N</h1>
-                <h2>Instituto Tecnol&oacute;gico de Durango</h2>
-                <h3>Portal de maestros</h3>
-            </div>
-            <img class="logoTecNM" src="../images/Logo TecNM.png" alt="">
-        </div>
-        <div class="text-center actdoc">
-            Actualizaci&oacute;n docente
-        </div>
-        <div class="menu d-flex justify-content-between">
-            <div class="p-2"><a href="cursos.html"><button class="btn btn-inv back_icon"></button></a></div>
-            <div class="p-2 text-white"><span class="titulo_white text-uppercase">Documentaci&oacute;n</span></div>
-            <div class="p-2"><button class="btn btn-inv no-btn"></button></div>
-        </div>
-    </nav>
-    <div class="container">
-        <div class="p-2 text-center">
-            <h3>Oficio de registro de curso</h3>
-        </div>
-        <div class="d-flex">
-            <div><img src="../images/Logo%20ITD.png" class="logoITD" alt=""></div>
-            <div class="embed-responsive embed-responsive-4by3">
-                <iframe class="embed-responsive-item" src="../files/Manual%20Tecnico.pdf" allowfullscreen></iframe>
-            </div>
-        </div>
-        <div class="card-footer text-muted text-center">Todos los derechos reservados. ITD 2020</div>
-
+<div class="container">
+    <div class="p-2 text-center">
+        <h3>{{documento.titulo}}</h3>
     </div>
-</body></html>
+    <div class="d-flex">
+        <div>
+            <a href="#!">
+                <img src="/Residencia/Proyecto/images/icons8_left_52px.png" width="50" alt="regresar"><span class="btn">Volver</span>
+            </a>
+        </div>
+        <div><img src="../images/Logo%20ITD.png" class="logoITD" alt=""></div>
+        <div class="embed-responsive embed-responsive-4by3">
+            <iframe class="embed-responsive-item" src="../files/Manual%20Tecnico.pdf" allowfullscreen></iframe>
+        </div>
+    </div>
+    <div class="card-footer text-muted text-center">Todos los derechos reservados. ITD 2020</div>
+</div>
