@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appJefe">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Cursos</title>
+	</head>
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/estilos.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+	<script src="/Residencia/Proyecto/js/AngularJS/appJefe.js"></script>
+	<body>
+		<nav>
+			<div class="navbar navbar-light bg-white d-flex justify-content-around">
+				<img class="logoSEP" src="../images/Logo SEP.png" alt="logo SEP">
+				<div class="titulo text-center">
+					<h1>SISTEMA INTEGRAL DE INFORMACI&Oacute;N</h1>
+					<h2>Instituto Tecnol&oacute;gico de Durango</h2>
+					<h3>Portal de maestros</h3>
+				</div>
+				<img class="logoTecNM" src="../images/Logo TecNM.png" alt="">
+			</div>
+			<div class="menu">
+				<div class="d-flex">
+					<div class="p-2">
+						<button type="button" class="btn bg-secondary btn-sm text-light">Informaci&oacute;n docente</button>
+					</div>
+					<div class="p-2">
+						<button type="button" class="btn bg-secondary btn-sm text-light">Materias</button>
+					</div>
+					<div class="p-2">
+						<button type="button" class="btn bg-secondary btn-sm text-light">Evaluaci&oacute;n</button>
+					</div>
+					<div class="p-2">
+						<button type="button" class="btn op bg-secondary text-light" style="font-size: 12px !important;" li class="item dropdown">
+						<div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actualizaci&oacute;n docente</div>
+						<div class="dropdown-menu">
+							<a class="opc dropdown-item" href="cursos.html">Cursos</a>
+						</div>
+					</li>
+					</button>
+				</div>
+				<div class="ml-auto p-2"><button type="button" class="btn bg-secondary btn-sm text-light">Cerrar sesi&oacute;n</button></div>
+			</div>
+		</div>
+	</nav>
+	<div class="container" ng-controller="cursosCtrl">
+		
+		<div class="d-flex justify-content-end">
+			<div class="mb-3 p-2 mt-4">
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="nuevaConstancia">Generar Curso</label>
+					<a href="generar-curso.html"><button id="nuevoCurso" class="btn bg-white border-dark plus_icon" type="button"></button></a>
+				</div>
+			</div>
+		</div>
+		<table class="table text-center table-responsive">
+			<thead>
+				<tr>
+					<th scope="col">Maestro</th>
+					<th scope="col">Curso a impartir</th>
+					<th scope="col">Fecha</th>
+					<th scope="col">Documentos</th>
+					<th>Eliminar/Editar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="x in datos.cursos">
+					<td class="align-middle"> {{x.maestro}} </td>
+					<td class="align-middle"> {{x.curso}} </td>
+					<td class="align-middle"> {{x.fecha}} </td>
+					<td class="align-middle"><a href="subir-docscurso.html">
+						<button class="btn bg-white">
+						<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-file-earmark-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+							<path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
+							<path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z"/>
+							<path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+						</svg>
+						</button>
+					</a>
+				</td>
+				<td>
+					<a href="#">
+						<button class="btn bg-white">
+						<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+							<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+							<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+						</svg>
+						</button>
+					</a>
+					<a href="#">
+						<button class="btn bg-white">
+						<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+							<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+							<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+						</svg>
+						</button>
+					</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</html>
