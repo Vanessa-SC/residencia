@@ -441,6 +441,13 @@ button {
     background-size: cover;
     background-size: contain;
 }
+
+.upload_icon {
+    background: url(../images/upload.png) no-repeat center;
+    padding: 1em !important;
+    background-size: cover;
+    background-size: contain;
+}
 .red {
     background: url(../images/red.png) no-repeat center;
     background-size: cover;
