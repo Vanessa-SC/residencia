@@ -1,21 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="appConstancia">
+<html lang="en" ng-app="appCurso">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Ver constancia</title>
+        <title>Documentos del curso</title>
     </head>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/estilos.css">
     <script src="../js/AngularJS/angular.min.js"></script>
-    <script src="../js/AngularJS/appConstancias.js"></script>
+    <script src="../js/AngularJS/appCurso.js"></script>
     <body>
         <ng-include src="'nav.html'"></ng-include>
-        <div class="container" ng-controller="constanciasController">
-            <div class="row pt-4 text-center">
+        <div class="container" ng-controller="cursoController">
+            <div class=" pt-4 text-center">
                 <div>
-                    <div class="col-sm-2 font-weight-bold pb-4 ml-5">Folio: {{folio}} <br></div>
-                    <div class="col-sm-8">{{curso}}</div>
+                    <div class="col-sm-2 font-weight-bold pb-4 mx-auto">Documento: {{doc}} <br></div>
                 </div>
                 
             </div>
@@ -26,6 +24,8 @@
                 </div>
                 <div class="embed-responsive embed-responsive-4by3 w-75 pl-5 ml-5">
                     <iframe class="embed-responsive-item" src="../files/doc.pdf" allowfullscreen></iframe>
+
+
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app>
 
 <head>
     <meta charset="UTF-8">
@@ -11,28 +11,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
 
 <body>
-    <nav>
-        <div class="navbar navbar-light bg-white d-flex justify-content-around">
-            <img class="logoSEP" src="../images/Logo SEP.png" alt="logo SEP">
-            <div class="titulo text-center">
-                <h1>SISTEMA INTEGRAL DE INFORMACI&Oacute;N</h1>
-                <h2>Instituto Tecnol&oacute;gico de Durango</h2>
-                <h3>Portal de maestros</h3>
-            </div>
-            <img class="logoTecNM" src="../images/Logo TecNM.png" alt="">
-        </div>
-        <div class="text-center actdoc">
-            Actualizaci&oacute;n docente
-        </div>
-        <div class="menu d-flex justify-content-between">
-            <div class="p-2"><a href="../index.html"><button class="btn btn-inv home_icon2"></button></a></div>
-            <div class="p-2 text-white"><span class="titulo_white">Convocatorias</span></div>
-            <div class="p-2"><button class="btn btn-inv no-btn"></button></div>
-        </div>
-    </nav>
+    <ng-include src="'nav.html'"></ng-include>
+
     <div class="container">
        <div class="d-flex justify-content-between">
-            <div class="input-group mb-5 mt-4 col-sm-4">
+            <div class="input-group mb-3 mt-4 col-sm-4">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="periodo">Periodo</label>
                     </div>
@@ -43,22 +26,24 @@
                         <option value="3">Marzo 2020</option>
                     </select>
                 </div>
-            <div class=" mb-5 mt-4">
+            <div class=" mb-3 mt-4">
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="nuevaConvocatoria">Generar convocatoria</label>
-                    <a href="generar-constancia.html"><button id="nuevaConvocatoria" class="btn bg-white border-dark plus_icon" type="button"></button></a>
+                    <a href="#"><button id="nuevaConvocatoria" class="btn bg-white border-dark plus_icon" type="button"></button></a>
                 </div>
             </div>
         </div>
         <div class="border-bottom border-dark mb-4"></div>
-
-
-        <div class="d-flex w-75 m-auto">
+        <div class="d-flex w-50 m-auto">
             <div class="embed-responsive embed-responsive-4by3">
-                <iframe class="embed-responsive-item" src="../files/Manual%20Tecnico.pdf" allowfullscreen></iframe>
+                <iframe class="embed-responsive-item" src="../files/doc.pdf" allowfullscreen></iframe>
             </div>
         </div>
         <div class="card-footer text-muted text-center">Todos los derechos reservados. ITD 2020</div>
 
     </div>
-</body></html>
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</html>
