@@ -1,16 +1,5 @@
-var app = angular.module("appCurso", ["ngRoute"]);
+var app = angular.module("appCurso", []);
 
-app.config(function($routeProvider) {
-  $routeProvider
-    .when("/", {
-      templateUrl: "../vistasCoordinador/docs-curso.html",
-      controller: "cursoController",
-    })
-    .when("/verDoc", {
-      templateUrl: "../vistasCoordinador/documentacion.html",
-      controller: "cursoController",
-    });
-});
 
 app.controller('cursoController', function($scope, $http) {
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="appCurso">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -8,11 +8,35 @@
 <link rel="stylesheet" href="../css/bootstrap.min.css">
 <link rel="stylesheet" href="../css/estilos.css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-<script src="../js/AngularJS/angular.min.js"></script>
-<script src="../js/AngularJS/appCurso.js"></script>
 
-<body >
-    <ng-include src="'nav.html'"></ng-include>
+<body class="bg-light">
+    <nav>
+        <div class="navbar navbar-light bg-white d-flex justify-content-around">
+            <img class="logoSEP" src="../images/Logo SEP.png" alt="logo SEP">
+            <div class="titulo text-center">
+                <h1>SISTEMA INTEGRAL DE INFORMACI&Oacute;N</h1>
+                <h2>Instituto Tecnol&oacute;gico de Durango</h2>
+                <h3>Portal de maestros</h3>
+            </div>
+            <img class="logoTecNM" src="../images/Logo TecNM.png" alt="">
+        </div>
+        <div class="menu text-white d-flex">
+
+            <div class="p-3">
+                <a href="../index.html">
+                    <button class="btn btn-inv home_icon2"></button>
+                </a></div>
+
+            <div class="mt-2"><button class="btn bg-gray" style="font-weight: 600">Cursos</button></div>
+            <div class="mx-auto p-3 text-uppercase titulo_white">Información del curso</div>
+            <div class="p-3">
+                <a href="#">
+                    <button class="btn btn-inv no-cursor"></button>
+                </a></div>
+
+            <div class="mt-2"><button class="btn btn-inv no-cursor" style="font-weight: 600"></button></div>
+        </div>
+    </nav>
     <div class="container">
         <p class="w-500 text-center p-4 mt-5 border-bottom border-dark">
             1. Diplomado para la Formaci&oacute;n y Desarrollo de Competencias Docentes - M&oacute;dulo II
@@ -47,7 +71,7 @@
         </table>
         <div class="text-center">
             <button class="btn m-2 bg-white atras_icon"></button>
-            <!-- <button class="btn m-2 bg-white reload_icon"></button> -->
+            <button class="btn m-2 bg-white reload_icon"></button>
             <button class="btn m-2 bg-white editar_icon"></button>
             <button class="btn m-2 bg-white adelante_icon"></button>
         </div>

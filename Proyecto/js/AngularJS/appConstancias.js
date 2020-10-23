@@ -1,17 +1,4 @@
-var app = angular.module("appConstancia", ["ngRoute"]);
-
-app.config(function($routeProvider) {
-  $routeProvider
-    .when("/ver", {
-      templateUrl: "../vistasCoordinador/ver-constancia.html",
-      controller: "constanciasController",
-    })
-    .when("/", {
-      templateUrl: "../vistasCoordinador/constancias.html",
-      controller: "constanciasController",
-    });
-});
-
+var app = angular.module("appConstancia", []);
 
 app.controller('constanciasController', ['$scope', '$http', function($scope, $http) {
 
@@ -20,6 +7,7 @@ app.controller('constanciasController', ['$scope', '$http', function($scope, $ht
     url: '/Residencia/Proyecto/files/constancias.js'
   }).then(function successCallback(response) {
     $scope.datos = response.data;
+    console.log(response.data);
   }, function errorCallback(response) {
     console.log(response);
   });
@@ -29,16 +17,9 @@ app.controller('constanciasController', ['$scope', '$http', function($scope, $ht
   
   $scope.ver = function(folio, curso) {
 
-    // $scope.constancia = {
-    //   "constancia": [{
-    //     "folio": folio,
-    //     "curso": curso
-    //   }]
-    // }
-
     $scope.folio = folio;
     $scope.curso = curso;
-    //console.log($scope.constancia);
+    console.log($scope.constancia);
 
   }
 
