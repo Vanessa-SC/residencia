@@ -62,9 +62,10 @@
 					<div class="col text-center">
 						<a href="documentacion.html" style="color: #000;">
 							<u>Oficio de registro de curso <button class="btn bg-white">
-							<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-up-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-up-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 								<path fill-rule="evenodd" d="M2 2a2 2 0 0 1 2-2h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm7 2l.5-2.5 3 3L10 5a1 1 0 0 1-1-1zM6.354 9.854a.5.5 0 0 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 8.707V12.5a.5.5 0 0 1-1 0V8.707L6.354 9.854z"/>
 							</svg>
+							
 							</button>
 							</u>
 						</a>
@@ -78,7 +79,8 @@
 					<th></th>
 					<th scope="col">No.</th>
 					<th scope="col">Documentos</th>
-					<th scope="col">Subir</th>
+					<th scope="col">Ver</th>
+					<th scope="col">Validar</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -86,6 +88,7 @@
 					<th><button class=" btn bg-white"></button></th>
 					<th scope="row" class="align-middle">{{doc.no}}</th>
 					<td class="align-middle">{{doc.documento}}</td>
+
 					<td>
 						<a href="#">
 							<button class="btn bg-white" ng-click="verDoc(doc.documento)">
@@ -95,9 +98,12 @@
 								<path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V7.707l1.146 1.147a.5.5 0 0 0 .708-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L7.5 7.707V11.5a.5.5 0 0 0 .5.5z"/>
 							</svg>
 							</button>
+
 						</a>
 					</td>
+					 <th scope="row"> <img src="../../Proyecto/images/ok.png"></th>
 				</tr>
+
 			</tbody>
 		</table>
 	</div>
