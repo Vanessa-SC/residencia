@@ -401,6 +401,13 @@ input {
     background-size: contain;
 }
 
+.documentos_icon {
+    background: url(../images/documentos.png) no-repeat center;
+    padding: 1.1rem !important;
+    background-size: cover;
+    background-size: contain;
+}
+
 .send_icon {
     background: url(../images/send.png) no-repeat center;
     padding: 1.1rem !important;
@@ -409,6 +416,13 @@ input {
 }
 .user_icon {
     background: url(../images/user.png) no-repeat center;
+    padding: 1.1rem !important;
+    background-size: cover;
+    background-size: contain;
+}
+
+.grupo_icon {
+    background: url(../images/grupo.png) no-repeat center;
     padding: 1.1rem !important;
     background-size: cover;
     background-size: contain;

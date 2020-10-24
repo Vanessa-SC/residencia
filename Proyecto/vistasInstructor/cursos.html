@@ -29,60 +29,23 @@
                     <th scope="col">No.</th>
                     <th scope="col">Curso</th>
                     <th scope="col">Periodo de realizaci&oacute;n</th>
-                    <th scope="col">M&aacute;s informaci&oacute;n</th>
-                    <th scope="col">Inscribirme</th>
+                    <th scope="col">Subir documentaci&oacute;n</th>
+                    <th scope="col">Asistencia</th>
+                    <th scope="col">Participantes</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="x in curso">
                     <th></th>
                     <th scope="row">1</th>
-                    <td>{{x.curso}}</td>
+                    <td><a href="informacion-curso.html">{{x.curso}}</a></td>
                     <td>{{x.horario}}</td>
-                    <td><a href="informacion-curso.html"><button class="btn bg-white import_icon"></button></a></td>
-                    <td><button class="btn bg-white editar_icon"></button></td>
+                    <td><a href="subir-docscurso.html"><button class="btn bg-white documento_icon"></button></a></td>
+                    <td><a href="asistencia.html"><button class="btn bg-white calendario_icon"></button></a></td>
+                    <td><a href=""><button class="btn bg-white grupo_icon"></button></a></td>
                 </tr>
             </tbody>
         </table>
-
-        <div class="text-center">
-            <h4>Cursos Inscritos</h4>
-        </div>
-
-        <div class="card  border-dark mb-3">
-            <div class="card-body">
-                <table class="table text-center">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th scope="col">No.</th>
-                            <th scope="col">Curso</th>
-                            <th scope="col">Periodo de realizaci&oacute;n</th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th></th>
-                            <th scope="row">1</th>
-                            <td>Diplomado para la Formaci&oacute;n y Desarrollo de Competencias Docentes - M&oacute;dulo II: Planeaci&oacute;n del Proceso de Aprendizaje</td>
-                            <td>18 al 22 de junio del 2019 <br>9:00 - 15:00 Hrs.</td>
-                            <td><button class="btn bg-white borrar_icon"></button></td>
-                            <td>
-                                <div class="dropdown">
-                                    <button class="btn bg-white documento_icon" data-toggle="dropdown"><span class="caret"></span></button>
-                                    <ul class="dropdown-menu">
-                                    <li><a href="encuesta.html">Encuesta Gesti&oacute;n de Calidad</a></li>
-                                    <li><a href="#">Encuesta Capacitaci&oacute;n del Curso</a></li>
-                                    </ul>
-                                    </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
 
     </div>
 </body>
