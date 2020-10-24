@@ -463,6 +463,20 @@ input {
     background-size: contain;
 }
 
+.encuesta_icon {
+    background: url(../images/encuesta.png) no-repeat center;
+    padding: 1.2rem !important;
+    background-size: cover;
+    background-size: contain;
+}
+
+.logout_icon {
+    background: url(../images/logout.png) no-repeat center;
+    padding: 1.1rem !important;
+    background-size: cover;
+    background-size: contain;
+}
+
 .papel_icon {
     background: url(../images/documentos.png) no-repeat center;
     padding: 1.2rem !important;
