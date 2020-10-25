@@ -2,7 +2,7 @@
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
-	$database = "bd_sistemaAD";
+	$database = "bd_actDocente";
 	
 	$conn = new mysqli($servername, $username, $password, $database);
 
