@@ -4,7 +4,7 @@ app.config(function($routeProvider, $locationProvider) {
 	$routeProvider.when('/', {
 		templateUrl: 'login.html',
 		controller: 'loginCtrl'
-	}).when('/logout',{
+	}).when('/logout', {
 		resolve: {
 			deadResolve: function($location, user) {
 				user.clearData();
@@ -17,18 +17,57 @@ app.config(function($routeProvider, $locationProvider) {
 	}).when('/inicio', {
 		resolve: {
 			check: function($location, user) {
-				if(!user.isUserLoggedIn()) {
+				if (!user.isUserLoggedIn()) {
 					$location.path('/login');
 				}
 			},
 		},
 		templateUrl: 'inicio.html',
 		controller: 'inicioCtrl'
+	}).when('/inicioC', {
+		resolve: {
+			check: function($location, user) {
+				if (!user.isUserLoggedIn()) {
+					$location.path('/login');
+				}
+			},
+		},
+		templateUrl: './vistasC/inicio.html',
+		controller: 'inicioCtrl'
+	}).when('/inicioD', {
+		resolve: {
+			check: function($location, user) {
+				if (!user.isUserLoggedIn()) {
+					$location.path('/login');
+				}
+			},
+		},
+		templateUrl: './vistasD/inicio.html',
+		controller: 'inicioCtrl'
+	}).when('/inicioI', {
+		resolve: {
+			check: function($location, user) {
+				if (!user.isUserLoggedIn()) {
+					$location.path('/login');
+				}
+			},
+		},
+		templateUrl: './vistasI/inicio.html',
+		controller: 'inicioCtrl'
+	}).when('/inicioJ', {
+		resolve: {
+			check: function($location, user) {
+				if (!user.isUserLoggedIn()) {
+					$location.path('/login');
+				}
+			},
+		},
+		templateUrl: './vistasJ/inicio.html',
+		controller: 'inicioCtrl'
 	}).otherwise({
 		templateUrl: '404.html'
 	});
-	// $locationProvider.hashPrefix('');
-	// $locationProvider.html5Mode({enabled:true, baseUrl:false});
+	
 });
 
 
@@ -36,6 +75,7 @@ app.service('user', function() {
 	var username;
 	var loggedin = false;
 	var id;
+	var tipoUser;
 
 	this.setName = function(name) {
 		username = name;
@@ -48,13 +88,21 @@ app.service('user', function() {
 	this.setID = function(userID) {
 		id = userID;
 	};
-	
+
 	this.getID = function() {
 		return id;
 	};
 
+	this.setTipo = function(tipoUsuario) {
+		tipoUser = tipoUsuario;
+	};
+
+	this.getTipo = function() {
+		return id;
+	};
+
 	this.isUserLoggedIn = function() {
-		if(!!localStorage.getItem('login')) {
+		if (!!localStorage.getItem('login')) {
 			loggedin = true;
 			var data = JSON.parse(localStorage.getItem('login'));
 			username = data.username;
@@ -108,7 +156,17 @@ app.controller('loginCtrl', function($scope, $http, $location, user) {
 				// user.userLoggedIn();
 				// user.setName(response.data.user);
 				user.saveData(response.data);
-				$location.path('/inicio');
+
+				if (response.data.rol == 1) {
+					$location.path('/inicioC');
+				} else if (response.data.rol == 2) {
+					$location.path('/inicioJ');
+				} else if (response.data.rol == 3) {
+					$location.path('/inicioD');
+				} else if (response.data.rol == 4) {
+					$location.path('/inicioI');
+				}
+
 			} else {
 				alert('Verifique que sus datos sean correctos');
 			}
@@ -121,7 +179,7 @@ app.controller('inicioCtrl', function($scope, $http, $location, user) {
 
 	$scope.user = user.getName();
 
-	$scope.salir = function(){
+	$scope.salir = function() {
 		$location.path('/logout');
 	}
 });

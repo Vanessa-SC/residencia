@@ -20,6 +20,8 @@ $password = mysqli_real_escape_string($con, $_POST['password']);
 $query = "SELECT * FROM `usuario` WHERE `nombreUsuario`='$username' AND `contrasena`='$password'";
 
 $result = mysqli_query($con, $query);
+$user = mysqli_fetch_all($result,MYSQLI_ASSOC);
+
 
 if(mysqli_num_rows($result) > 0) {
 	$response['status'] = 'loggedin';
@@ -33,6 +35,6 @@ if(mysqli_num_rows($result) > 0) {
 
 
 
-echo json_encode($response);
+// echo json_encode($response);
 
-
+echo json_encode($user[0]+$response,JSON_FORCE_OBJECT);
