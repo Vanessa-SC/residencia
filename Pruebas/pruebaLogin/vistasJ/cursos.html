@@ -1,43 +1,32 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="appJefe">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Cursos</title>
-	</head>
-	<link rel="stylesheet" href="../css/bootstrap.min.css">
-	<link rel="stylesheet" href="../css/estilos.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
-	<script src="/Residencia/Proyecto/js/AngularJS/appJefe.js"></script>
-	<body>
-    <ng-include src="'nav-Jefe.html'"></ng-include>
-	<div class="container" ng-controller="cursosCtrl">
-		
-		<div class="d-flex justify-content-end">
-			<div class="mb-3 p-2 mt-4">
-				<div class="input-group-prepend">
-					<label class="input-group-text" for="nuevaConstancia">Generar Curso</label>
-					<a href="generar-curso.html"><button id="nuevoCurso" class="btn bg-white border-dark plus_icon" type="button"></button></a>
-				</div>
+<ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasJ/nav.html'"></ng-include>
+<div class="container">
+	
+	<div class="d-flex justify-content-end">
+		<div class="mb-3 p-2 mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="nuevaConstancia">Generar Curso</label>
+				<a href="#!/inicioJ/cursos/generar"><button id="nuevoCurso" class="btn bg-white border-dark plus_icon" type="button"></button></a>
 			</div>
 		</div>
-		<table class="table text-center table-responsive">
-			<thead>
-				<tr>
-					<th scope="col">Maestro</th>
-					<th scope="col">Curso a impartir</th>
-					<th scope="col">Fecha</th>
-					<th scope="col">Subir Documentos</th>
-					<th scope="col">Validar Documentos</th>
-					<th>Eliminar/Editar</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="x in datos.cursos">
-					<td class="align-middle"> {{x.maestro}} </td>
-					<td class="align-middle"> {{x.curso}} </td>
-					<td class="align-middle"> {{x.fecha}} </td>
-					<td class="align-middle"><a href="subir-docscurso.html">
+	</div>
+	<table class="table text-center table-responsive">
+		<thead>
+			<tr>
+				<th scope="col">Maestro</th>
+				<th scope="col">Curso a impartir</th>
+				<th scope="col">Fecha</th>
+				<th scope="col">Subir Documentos</th>
+				<th scope="col">Validar Documentos</th>
+				<th>Eliminar/Editar</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="x in cursos.cursos">
+				<td class="align-middle"> {{x.maestro}} </td>
+				<td class="align-middle"> {{x.curso}} </td>
+				<td class="align-middle"> {{x.fecha}} </td>
+				<td class="align-middle">
+					<a href="#!/inicioJ/cursos/subirDocumentos">
 						<button class="btn bg-white">
 						<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-file-earmark-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 							<path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
@@ -47,7 +36,8 @@
 						</button>
 					</a>
 				</td>
-				<td class="align-middle"><a href="ValidarDoc.html">
+				<td class="align-middle">
+					<a href="#!/inicioJ/cursos/validarDocumentos">
 						<button class="btn bg-white">
 						<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-file-earmark-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 							<path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
@@ -78,8 +68,4 @@
 			</tr>
 		</tbody>
 	</table>
-</body>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-</html>
+</div>

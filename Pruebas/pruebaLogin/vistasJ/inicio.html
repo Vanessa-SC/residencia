@@ -1,24 +1,5 @@
-<!-- <div class="d-flex justify-content-center mt-5">
-	<div class="align-middle ">
-		<div class="card">
-			<div class="card-header">
-				
-			</div>
-			<div class="card-body">
-				<h5 class="card-title">¡Bienvenido {{user}}!</h5>
-				<p class="card-text"><button class="btn bg-primary text-white" ng-click="salir()">Cerrar sesión</button></p>
-			</div>
-		</div>
-	</div>
-</div>
-
- -->
-<!-- Plantilla incio -->
-
-
-
 <!DOCTYPE html>
-<html lang="en" ng-app>
+<html lang="en" ng-app="myApp">
     <head>
         <meta charset="UTF-8">
         <title>Inicio</title>
@@ -26,28 +7,18 @@
     <link rel="stylesheet" href="/Residencia/Proyecto/css/bootstrap.min.css">
     <link rel="stylesheet" href="/Residencia/Proyecto/css/estilos.css">
     <script src="/Residencia/Proyecto/js/AngularJS/angular.min.js"></script>
+    
+    <script src="/Residencia/Proyecto/js/AngularJS/angular-route.min.js"></script>
+    <!-- <script src="../app.js"></script> -->
     <body>
-    	<ng-include src="'./vistasJ/nav.html'"></ng-include>
-    <div class="container">
-        <div class="welcome text-center">
-            <p>Bienvenido (a) <br>
-            {{user}} </p>
-        </div>
-        <div class="row">
-            <p class="col-sm-5">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam alias suscipit incidunt. Saepe delectus, harum nemo esse nobis distinctio, dolore ipsum. Repellendus, officia velit reprehenderit ullam dolor inventore magnam tenetur.
-            </p>
-        </div>
-        <p class="text-bold">Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br>
-            Lorem ipsum dolor sit amet.<br>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit a quas provident voluptatibus placeat rem illo quod. Fugiat aspernatur, aut ad odit, sit sunt tenetur, laudantium illum amet fuga sed.</p>
-    </div>
-</body>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<!-- <script src="/Residencia/Proyecto/js/bootstrap.js"></script>
-<script src="/Residencia/Proyecto/js/jquery-3.5.1.slim.min.js"></script>
-<script src="/Residencia/Proyecto/js/popper.min.js"></script> -->
+        
+        <ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasJ/nav.html'"></ng-include>
+        
+        <ng-include src="'./vistasJ/welcome.html'"></ng-include>
+        <!-- <div ng-view></div> -->
+        
+    </body>
+    <script src="/Residencia/Proyecto/js/bootstrap.js"></script>
+    <script src="/Residencia/Proyecto/js/jquery-3.5.1.slim.min.js"></script>
+    <script src="/Residencia/Proyecto/js/popper.min.js"></script>
 </html>
-

@@ -2,91 +2,155 @@ var app = angular.module('myApp', ['ngRoute']);
 
 app.config(function($routeProvider, $locationProvider) {
 	$routeProvider.when('/', {
-		templateUrl: 'login.html',
-		controller: 'loginCtrl'
-	}).when('/logout', {
-		resolve: {
-			deadResolve: function($location, user) {
-				user.clearData();
-				$location.path('/');
+			resolve: {
+				check: function($location, user) {
+					if (user.isUserLoggedIn()) {
+						$location.path(user.getPath());
+					}
+
+				},
+			},
+			templateUrl: 'login.html',
+			controller: 'loginCtrl'
+		}).when('/logout', {
+			resolve: {
+				deadResolve: function($location, user) {
+					user.clearData();
+					$location.path('/');
+				}
 			}
-		}
-	}).when('/login', {
-		resolve: {
-			check: function($location, user) {
-				if (user.isUserLoggedIn()) {
-					$location.path(user.getPath());
-				}
-				
+		}).when('/login', {
+			resolve: {
+				check: function($location, user) {
+					if (user.isUserLoggedIn()) {
+						$location.path(user.getPath());
+					}
+
+				},
 			},
-		},
-		templateUrl: 'login.html',
-		controller: 'loginCtrl'
-	}).when('/inicio', {
-		resolve: {
-			check: function($location, user) {
-				if (!user.isUserLoggedIn()) {
-					$location.path('/login');
-				}
+			templateUrl: 'login.html',
+			controller: 'loginCtrl'
+		}).when('/inicio', {
+			resolve: {
+				check: function($location, user) {
+					if (!user.isUserLoggedIn()) {
+						$location.path('/login');
+					} else {
+						$location.path(user.getPath());
+					}
+				},
 			},
-		},
-		templateUrl: 'inicio.html',
-		controller: 'inicioCtrl'
-	}).when('/inicioC', {
-		resolve: {
-			check: function($location, user) {
-				if (!user.isUserLoggedIn()) {
-					$location.path('/login');
-				}
-				if (user.isUserLoggedIn()) {
-					$location.path(user.getPath());
-				}
+			templateUrl: 'inicio.html',
+			controller: 'inicioCtrl'
+		})
+		/*  RUTAS PARA EL USUARIO COORDINADOR */
+		.when('/inicioC', {
+			resolve: {
+				check: function($location, user) {
+					if (!user.isUserLoggedIn()) {
+						$location.path('/login');
+					}
+					if (user.isUserLoggedIn()) {
+						$location.path(user.getPath());
+					}
+				},
 			},
-		},
-		templateUrl: './vistasC/inicio.html',
-		controller: 'inicioCtrl'
-	}).when('/inicioD', {
-		resolve: {
-			check: function($location, user) {
-				if (!user.isUserLoggedIn()) {
-					$location.path('/login');
-				}
-				if (user.isUserLoggedIn()) {
-					$location.path(user.getPath());
-				}
+			templateUrl: './vistasC/inicio.html',
+			controller: 'inicioCtrl'
+		}).when('/inicioC/programa', {
+			templateUrl: './vistasC/programa.html',
+			controller: 'programaCtrl'
+		}).when('/inicioC/programa/infoCurso', {
+			templateUrl: './vistasC/info-curso.html',
+			controller: 'programaCtrl'
+		}).when('/inicioC/programa/documentosCurso', {
+			templateUrl: './vistasC/docs-curso.html',
+			controller: 'programaCtrl'
+		}).when('/inicioC/programa/verDocumento', {
+			templateUrl: './vistasC/ver-doc.html',
+			controller: 'programaCtrl'
+		}).when('/inicioC/constancias', {
+			templateUrl: './vistasC/constancias.html',
+			controller: 'constanciasCtrl'
+		}).when('/inicioC/constancias/ver', {
+			templateUrl: './vistasC/ver-constancia.html',
+			controller: 'constanciasCtrl'
+		}).when('/inicioC/constancias/generar', {
+			templateUrl: './vistasC/generar-constancia.html',
+			controller: 'constanciasCtrl'
+		}).when('/inicioC/convocatorias', {
+			templateUrl: './vistasC/convocatoria.html',
+			controller: 'convocatoriaCtrl'
+		}).when('/inicioC/convocatorias/generar', {
+			templateUrl: './vistasC/generar-convocatoria.html',
+			controller: 'convocatoriaCtrl'
+		})
+
+		/*  RUTAS PARA EL USUARIO DOCENTE */
+		.when('/inicioD', {
+			resolve: {
+				check: function($location, user) {
+					if (!user.isUserLoggedIn()) {
+						$location.path('/login');
+					}
+					if (user.isUserLoggedIn()) {
+						$location.path(user.getPath());
+					}
+				},
 			},
-		},
-		templateUrl: './vistasD/inicio.html',
-		controller: 'inicioCtrl'
-	}).when('/inicioI', {
-		resolve: {
-			check: function($location, user) {
-				if (!user.isUserLoggedIn()) {
-					$location.path('/login');
-				}
-				if (user.isUserLoggedIn()) {
-					$location.path(user.getPath());
-				}
+			templateUrl: './vistasD/inicio.html',
+			controller: 'inicioCtrl'
+		})
+		/*  RUTAS PARA EL USUARIO INSTRUCTOR */
+		.when('/inicioI', {
+			resolve: {
+				check: function($location, user) {
+					if (!user.isUserLoggedIn()) {
+						$location.path('/login');
+					}
+					if (user.isUserLoggedIn()) {
+						$location.path(user.getPath());
+					}
+				},
 			},
-		},
-		templateUrl: './vistasI/inicio.html',
-		controller: 'inicioCtrl'
-	}).when('/inicioJ', {
-		resolve: {
-			check: function($location, user) {
-				if (!user.isUserLoggedIn()) {
-					$location.path('/login');
-				}
-				if (user.isUserLoggedIn()) {
-					$location.path(user.getPath());
-				}
+			templateUrl: './vistasI/inicio.html',
+			controller: 'inicioCtrl'
+		})
+		/*  RUTAS PARA EL USUARIO JEFE DE DOCENCIA */
+		.when('/inicioJ', {
+			resolve: {
+				check: function($location, user) {
+					if (!user.isUserLoggedIn()) {
+						$location.path('/login');
+					}
+					if (user.isUserLoggedIn()) {
+						$location.path(user.getPath());
+					}
+				},
 			},
-		},
-		templateUrl: './vistasJ/inicio.html',
-		controller: 'inicioCtrl'
-	}).otherwise({
-		templateUrl: '404.html'
-	});
+			templateUrl: './vistasJ/inicio.html',
+			controller: 'inicioCtrl'
+		}).when('/inicioJ/cursos', {
+			templateUrl: './vistasJ/cursos.html',
+			controller: 'cursosJCtrl'
+		}).when('/inicioJ/cursos/generar', {
+			template: '<div class="text-center"><h1>Próximamente</h1></div>',
+			controller: 'cursosJCtrl'
+		}).when('/inicioJ/cursos/subirDocumentos', {
+			templateUrl: './vistasJ/subir-docscurso.html',
+			controller: 'cursosJCtrl'
+		}).when('/inicioJ/cursos/validarDocumentos', {
+			templateUrl: './vistasJ/validarDoc.html',
+			controller: 'cursosJCtrl'
+		}).when('/inicioJ/encuesta', {
+			templateUrl: './vistasJ/encuesta.html',
+			controller: 'encuestaJCtrl'
+		})
+
+
+		.otherwise({
+			templateUrl: '404.html'
+		});
 
 });
 
@@ -121,7 +185,7 @@ app.service('user', function() {
 		return rol;
 	};
 
-	this.getPath= function() {
+	this.getPath = function() {
 		if (!!localStorage.getItem('login')) {
 			var data = JSON.parse(localStorage.getItem('login'));
 			path = data.path;
@@ -220,4 +284,85 @@ app.controller('inicioCtrl', function($scope, $http, $location, user) {
 	$scope.salir = function() {
 		$location.path('/logout');
 	}
+
+	$scope.goTo = function(path) {
+		$location.path(path);
+	}
+});
+
+app.controller('programaCtrl', function($scope, $http, $location, user) {
+
+	$scope.getCursos = function() {
+		$http({
+			method: 'GET',
+			//url: '/Residencia/Proyecto/backend/getCursos.php'
+			url: '/Residencia/Proyecto/files/cursos.js'
+		}).then(function successCallback(response) {
+			$scope.cursos = response.data;
+			console.log(response.data);
+		}, function errorCallback(response) {
+			console.log(response);
+		});
+	}
+
+	$scope.getCursos();
+
+	$scope.getDocumentosCurso = function() {
+		$http({
+			method: 'GET',
+			url: '/Residencia/Proyecto/files/docsCurso.js'
+		}).then(function successCallback(response) {
+			$scope.datos = response.data;
+			console.log(response.data);
+		}, function errorCallback(response) {
+			alert("No hay datos.")
+		});
+	}
+
+	$scope.getDocumentosCurso();
+
+});
+
+app.controller('constanciasCtrl', function($scope, $http, $location, user) {
+
+});
+
+app.controller('convocatoriaCtrl', function($scope, $http, $location, user) {
+
+});
+
+app.controller('cursosJCtrl', function($scope, $http, $location, user) {
+
+	$scope.getCursos = function() {
+		$http({
+			method: 'GET',
+			url: '/Residencia/Proyecto/files/cursos.js'
+		}).then(function successCallback(response) {
+			$scope.cursos = response.data;
+			console.log(response.data);
+		}, function errorCallback(response) {
+			alert("No hay datos.")
+		});
+	}
+
+	$scope.getCursos();
+
+
+	$scope.getDocumentos = function() {
+		$http({
+			method: 'GET',
+			url: '/Residencia/Proyecto/files/docsCurso.js'
+		}).then(function successCallback(response) {
+			$scope.documentos = response.data;
+			console.log(response.data);
+		}, function errorCallback(response) {
+			alert("No hay datos.")
+		});
+	}
+
+	$scope.getDocumentos();
+});
+
+app.controller('encuestaJCtrl', function($scope, $http, $location, user) {
+
 });

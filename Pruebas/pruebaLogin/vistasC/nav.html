@@ -1,12 +1,3 @@
-<div class="navbar navbar-light bg-white d-flex justify-content-around">
-    <img class="logoSEP" src="/Residencia/Proyecto/images/Logo SEP.png" alt="logo SEP">
-    <div class="titulo text-center">
-        <h1>SISTEMA INTEGRAL DE INFORMACI&Oacute;N</h1>
-        <h2>Instituto Tecnol&oacute;gico de Durango</h2>
-        <h3>Portal de maestros</h3>
-    </div>
-    <img class="logoTecNM" src="/Residencia/Proyecto/images/Logo TecNM.png" alt="">
-</div>
 
 <nav class="navbar navbar-expand-md navbar-dark menu">
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,27 +6,28 @@
 <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item">
-            <a class="nav-link" href="inicio.html">Información docente</a>
+            <a class="nav-link" href="#!/inicioC">Información docente</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Materias</a>
+            <a class="nav-link">Materias</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Evaluación</a>
+            <a class="nav-link">Evaluación</a>
         </li>
         <li class="nav-item  dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Actualización Docente
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="programa.html">Programa Institucional</a>
-                <a class="dropdown-item" href="convocatorias.html">Convocatorias</a>
-                <a class="dropdown-item" href="constancias.html">Constancias</a>
+                <a class="dropdown-item" href="#!/inicioC/programa">Programa Institucional</a>
+                <a class="dropdown-item" href="#!/inicioC/convocatorias">Convocatorias</a>
+                <a class="dropdown-item" href="#!/inicioC/constancias">Constancias</a>
             </div>
         </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-        <button type="button" class="btn btn-small btn-outline-light" ng-click="salir()">Cerrar sesión</button>
+        <a href="#!/logout"><button type="button" class="btn btn-small btn-outline-light">Cerrar sesión</button></a>
+        
     </form>
 </div>
 </nav>
