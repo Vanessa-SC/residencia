@@ -12,6 +12,14 @@ app.config(function($routeProvider, $locationProvider) {
 			}
 		}
 	}).when('/login', {
+		resolve: {
+			check: function($location, user) {
+				if (user.isUserLoggedIn()) {
+					$location.path(user.getPath());
+				}
+				
+			},
+		},
 		templateUrl: 'login.html',
 		controller: 'loginCtrl'
 	}).when('/inicio', {
@@ -30,6 +38,9 @@ app.config(function($routeProvider, $locationProvider) {
 				if (!user.isUserLoggedIn()) {
 					$location.path('/login');
 				}
+				if (user.isUserLoggedIn()) {
+					$location.path(user.getPath());
+				}
 			},
 		},
 		templateUrl: './vistasC/inicio.html',
@@ -39,6 +50,9 @@ app.config(function($routeProvider, $locationProvider) {
 			check: function($location, user) {
 				if (!user.isUserLoggedIn()) {
 					$location.path('/login');
+				}
+				if (user.isUserLoggedIn()) {
+					$location.path(user.getPath());
 				}
 			},
 		},
@@ -50,6 +64,9 @@ app.config(function($routeProvider, $locationProvider) {
 				if (!user.isUserLoggedIn()) {
 					$location.path('/login');
 				}
+				if (user.isUserLoggedIn()) {
+					$location.path(user.getPath());
+				}
 			},
 		},
 		templateUrl: './vistasI/inicio.html',
@@ -60,6 +77,9 @@ app.config(function($routeProvider, $locationProvider) {
 				if (!user.isUserLoggedIn()) {
 					$location.path('/login');
 				}
+				if (user.isUserLoggedIn()) {
+					$location.path(user.getPath());
+				}
 			},
 		},
 		templateUrl: './vistasJ/inicio.html',
@@ -67,7 +87,7 @@ app.config(function($routeProvider, $locationProvider) {
 	}).otherwise({
 		templateUrl: '404.html'
 	});
-	
+
 });
 
 
@@ -75,7 +95,7 @@ app.service('user', function() {
 	var username;
 	var loggedin = false;
 	var id;
-	var tipoUser;
+	var rol;
 
 	this.setName = function(name) {
 		username = name;
@@ -93,12 +113,20 @@ app.service('user', function() {
 		return id;
 	};
 
-	this.setTipo = function(tipoUsuario) {
-		tipoUser = tipoUsuario;
+	this.getRol = function() {
+		if (!!localStorage.getItem('login')) {
+			var data = JSON.parse(localStorage.getItem('login'));
+			rol = data.rol;
+		}
+		return rol;
 	};
 
-	this.getTipo = function() {
-		return id;
+	this.getPath= function() {
+		if (!!localStorage.getItem('login')) {
+			var data = JSON.parse(localStorage.getItem('login'));
+			path = data.path;
+		}
+		return path;
 	};
 
 	this.isUserLoggedIn = function() {
@@ -106,7 +134,8 @@ app.service('user', function() {
 			loggedin = true;
 			var data = JSON.parse(localStorage.getItem('login'));
 			username = data.username;
-			id = data.id;
+			id = data.idUsuario;
+			rol = data.rol;
 		}
 		return loggedin;
 	};
@@ -115,13 +144,18 @@ app.service('user', function() {
 		loggedin = true;
 	};
 
-	this.saveData = function(data) {
+	this.saveData = function(data, ruta) {
 		username = data.user;
-		id = data.id;
+		id = data.idUsuario;
+		rol = data.rol;
+		path = ruta;
+
 		loggedin = true;
 		localStorage.setItem('login', JSON.stringify({
 			username: username,
-			id: id
+			id: id,
+			rol: rol,
+			path: path
 		}));
 	};
 
@@ -155,15 +189,19 @@ app.controller('loginCtrl', function($scope, $http, $location, user) {
 			if (response.data.status == 'loggedin') {
 				// user.userLoggedIn();
 				// user.setName(response.data.user);
-				user.saveData(response.data);
+				// user.saveData(response.data, '');
 
 				if (response.data.rol == 1) {
+					user.saveData(response.data, '/inicioC');
 					$location.path('/inicioC');
 				} else if (response.data.rol == 2) {
+					user.saveData(response.data, '/inicioJ');
 					$location.path('/inicioJ');
 				} else if (response.data.rol == 3) {
+					user.saveData(response.data, '/inicioD');
 					$location.path('/inicioD');
 				} else if (response.data.rol == 4) {
+					user.saveData(response.data, '/inicioI');
 					$location.path('/inicioI');
 				}
 
