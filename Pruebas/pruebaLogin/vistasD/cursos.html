@@ -1,0 +1,63 @@
+<ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasD/nav.html'"></ng-include>
+<div class="container">
+    <div class="programa_page d-flex justify-content-center">
+        <div class="p-2"><img src="/Residencia/Proyecto/images/Logo ITD.png" alt="logo ITD" class="logoITD"></div>
+        <div class="p-4">
+            <div class="text-center">
+                <h1>Periodo: {{periodo}}</h1>
+                <h3>Formaci&oacute;n de Programa Institucional y Actualizaci&oacute;n docente y Profesional</h3>
+            </div>
+        </div>
+    </div>
+    <table class="table text-center">
+        <thead>
+            <tr>
+                <th></th>
+                <th scope="col">No.</th>
+                <th scope="col">Curso</th>
+                <th scope="col">Periodo de realizaci&oacute;n</th>
+                <th scope="col">M&aacute;s informaci&oacute;n</th>
+                <th scope="col">Inscribirme</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="x in curso">
+                <th></th>
+                <th scope="row">1</th>
+                <td><a href="#!/inicioD/cursos/informacion">{{x.curso}}</a></td>
+                <td>{{x.horario}}</td>
+                <td><a href="#!/inicioD/cursos/informacion"><button class="btn bg-white import_icon"></button></a></td>
+                <td><button class="btn bg-white editar_icon"></button></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-center">
+        <h4>Cursos Inscritos</h4>
+    </div>
+    <div class="card  border-dark mb-3">
+        <div class="card-body">
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th scope="col">No.</th>
+                        <th scope="col">Curso</th>
+                        <th scope="col">Periodo de realizaci&oacute;n</th>
+                        <th scope="col">Salir del curso</th>
+                        <th scope="col">Encuesta de opini&oacute;n</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th scope="row">1</th>
+                        <td>Diplomado para la Formaci&oacute;n y Desarrollo de Competencias Docentes - M&oacute;dulo II: Planeaci&oacute;n del Proceso de Aprendizaje</td>
+                        <td>18 al 22 de junio del 2019 <br>9:00 - 15:00 Hrs.</td>
+                        <td><button class="btn bg-white logout_icon"></button></td>
+                        <td><a href="#!/inicioD/cursos/encuesta"><button class="btn bg-white encuesta_icon"></button></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

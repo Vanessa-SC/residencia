@@ -108,6 +108,30 @@ app.config(function($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistasD/inicio.html',
 			controller: 'inicioCtrl'
+		}).when('/inicioD/cursos', {
+			templateUrl: './vistasD/cursos.html',
+			controller: 'cursosDCtrl'
+
+		}).when('/inicioD/cursos/encuesta', {
+			templateUrl: './vistasD/encuesta.html',
+			controller: 'encuestaDCtrl'
+
+		}).when('/inicioD/misCursos', {
+			templateUrl: './vistasD/misCursos.html',
+			controller: 'misCursosDCtrl'
+
+		}).when('/inicioD/constancias', {
+			templateUrl: './vistasD/constancias.html',
+			controller: 'constanciasDCtrl'
+
+		}).when('/inicioD/constancias/descargar', {
+			templateUrl: './vistasD/descargarConstancia.html',
+			controller: 'constanciasDCtrl'
+
+		}).when('/inicioD/cursos/informacion', {
+			templateUrl: './vistasD/info-curso.html',
+			controller: 'cursosDCtrl'
+
 		})
 		/*  RUTAS PARA EL USUARIO INSTRUCTOR */
 		.when('/inicioI', {
@@ -154,7 +178,7 @@ app.config(function($routeProvider, $locationProvider) {
 		}).when('/inicioI/cursos/participantes', {
 			templateUrl: './vistasI/participantes.html',
 			controller: 'participantesICtrl'
-			
+
 		})
 		/*  RUTAS PARA EL USUARIO JEFE DE DOCENCIA */
 		.when('/inicioJ', {
@@ -274,8 +298,6 @@ app.service('user', function() {
 	}
 });
 
-
-
 app.controller('loginCtrl', function($scope, $http, $location, user) {
 	$scope.gotoInicio = function() {
 		$location.path('/inicio');
@@ -318,7 +340,6 @@ app.controller('loginCtrl', function($scope, $http, $location, user) {
 		});
 	}
 });
-
 
 app.controller('inicioCtrl', function($scope, $http, $location, user) {
 
@@ -449,5 +470,45 @@ app.controller('cursosJCtrl', function($scope, $http, $location, user) {
 });
 
 app.controller('encuestaJCtrl', function($scope, $http, $location, user) {
+
+});
+
+/*	CONTROLADORES PARA EL USUARIO DOCENTE */
+app.controller('cursosDCtrl', function($scope, $http, $location, user) {
+	$scope.periodo = "Agosto/Diciembre 2020";
+	$scope.curso = [{
+		val: "red",
+		curso: "Diplomado para la Formación y Desarrollo de Competencias Docentes",
+		horario: "18 a 22 de Junio de 2019, 9:00 - 15:00",
+	}, {
+		val: "green",
+		curso: "Diplomado para la formación de tutores",
+		horario: "18 a 22 de Junio de 2019, 9:00 - 15:00",
+	}, ];
+
+	$scope.getDocumentos = function() {
+		$http({
+			method: 'GET',
+			url: '/Residencia/Proyecto/files/docsCurso.js'
+		}).then(function successCallback(response) {
+			$scope.documentos = response.data;
+			console.log(response.data);
+		}, function errorCallback(response) {
+			alert("No hay datos.")
+		});
+	}
+
+	$scope.getDocumentos();
+});
+
+app.controller('encuestaDCtrl', function($scope, $http, $location, user) {
+
+});
+
+app.controller('misCursosDCtrl', function($scope, $http, $location, user) {
+
+});
+
+app.controller('constanciasDCtrl', function($scope, $http, $location, user) {
 
 });
