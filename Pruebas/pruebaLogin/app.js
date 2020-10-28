@@ -60,27 +60,35 @@ app.config(function($routeProvider, $locationProvider) {
 		}).when('/inicioC/programa', {
 			templateUrl: './vistasC/programa.html',
 			controller: 'programaCtrl'
+
 		}).when('/inicioC/programa/infoCurso', {
 			templateUrl: './vistasC/info-curso.html',
 			controller: 'programaCtrl'
+
 		}).when('/inicioC/programa/documentosCurso', {
 			templateUrl: './vistasC/docs-curso.html',
 			controller: 'programaCtrl'
+
 		}).when('/inicioC/programa/verDocumento', {
 			templateUrl: './vistasC/ver-doc.html',
 			controller: 'programaCtrl'
+
 		}).when('/inicioC/constancias', {
 			templateUrl: './vistasC/constancias.html',
 			controller: 'constanciasCtrl'
+
 		}).when('/inicioC/constancias/ver', {
 			templateUrl: './vistasC/ver-constancia.html',
 			controller: 'constanciasCtrl'
+
 		}).when('/inicioC/constancias/generar', {
 			templateUrl: './vistasC/generar-constancia.html',
 			controller: 'constanciasCtrl'
+
 		}).when('/inicioC/convocatorias', {
 			templateUrl: './vistasC/convocatoria.html',
 			controller: 'convocatoriaCtrl'
+
 		}).when('/inicioC/convocatorias/generar', {
 			templateUrl: './vistasC/generar-convocatoria.html',
 			controller: 'convocatoriaCtrl'
@@ -115,6 +123,38 @@ app.config(function($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistasI/inicio.html',
 			controller: 'inicioCtrl'
+
+		}).when('/inicioI/cursos', {
+			templateUrl: './vistasI/cursos.html',
+			controller: 'cursosICtrl'
+
+		}).when('/inicioI/cursos/infoCurso', {
+			templateUrl: './vistasI/info-curso.html',
+			controller: 'cursosICtrl'
+
+		})
+		.when('/inicioI/cursos/subir-docscurso', {
+			templateUrl: './vistasI/subir-docscurso.html',
+			controller: 'cursosICtrl'
+
+		})
+		.when('/inicioI/cursos/infoCurso', {
+			templateUrl: './vistasI/info-curso.html',
+			controller: 'cursosICtrl'
+
+		})
+		.when('/inicioI/cursos/infoCurso', {
+			templateUrl: './vistasI/info-curso.html',
+			controller: 'cursosICtrl'
+
+		}).when('/inicioI/cursos/asistencia', {
+			templateUrl: './vistasI/asistencia.html',
+			controller: 'asistenciaICtrl'
+
+		}).when('/inicioI/cursos/participantes', {
+			templateUrl: './vistasI/participantes.html',
+			controller: 'participantesICtrl'
+			
 		})
 		/*  RUTAS PARA EL USUARIO JEFE DE DOCENCIA */
 		.when('/inicioJ', {
@@ -130,25 +170,28 @@ app.config(function($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistasJ/inicio.html',
 			controller: 'inicioCtrl'
+
 		}).when('/inicioJ/cursos', {
 			templateUrl: './vistasJ/cursos.html',
 			controller: 'cursosJCtrl'
+
 		}).when('/inicioJ/cursos/generar', {
 			template: '<div class="text-center"><h1>Próximamente</h1></div>',
 			controller: 'cursosJCtrl'
+
 		}).when('/inicioJ/cursos/subirDocumentos', {
 			templateUrl: './vistasJ/subir-docscurso.html',
 			controller: 'cursosJCtrl'
+
 		}).when('/inicioJ/cursos/validarDocumentos', {
 			templateUrl: './vistasJ/validarDoc.html',
 			controller: 'cursosJCtrl'
+
 		}).when('/inicioJ/encuesta', {
 			templateUrl: './vistasJ/encuesta.html',
 			controller: 'encuestaJCtrl'
-		})
 
-
-		.otherwise({
+		}).otherwise({
 			templateUrl: '404.html'
 		});
 
@@ -290,6 +333,8 @@ app.controller('inicioCtrl', function($scope, $http, $location, user) {
 	}
 });
 
+/* CONTROLADORES PARA EL USUARIO COORDINADOR*/
+
 app.controller('programaCtrl', function($scope, $http, $location, user) {
 
 	$scope.getCursos = function() {
@@ -330,6 +375,46 @@ app.controller('constanciasCtrl', function($scope, $http, $location, user) {
 app.controller('convocatoriaCtrl', function($scope, $http, $location, user) {
 
 });
+
+/* CONTROLADORES PARA EL USUARIO INSTRUCTOR */
+app.controller('cursosICtrl', function($scope, $http, $location, user) {
+
+	$scope.periodo = "Agosto/Diciembre 2020";
+	$scope.curso = [{
+		val: "red",
+		curso: "Diplomado para la Formación y Desarrollo de Competencias Docentes",
+		horario: "18 a 22 de Junio de 2019, 9:00 - 15:00",
+	}, {
+		val: "green",
+		curso: "Diplomado para la formación de tutores",
+		horario: "18 a 22 de Junio de 2019, 9:00 - 15:00",
+	}, ];
+
+	$scope.getDocumentos = function() {
+		$http({
+			method: 'GET',
+			url: '/Residencia/Proyecto/files/docsCurso.js'
+		}).then(function successCallback(response) {
+			$scope.documentos = response.data;
+			console.log(response.data);
+		}, function errorCallback(response) {
+			alert("No hay datos.")
+		});
+	}
+
+	$scope.getDocumentos();
+
+});
+
+app.controller('asistenciaICtrl', function($scope, $http, $location, user) {
+
+});
+
+app.controller('participantesICtrl', function($scope, $http, $location, user) {
+
+});
+
+/* CONTROLADORES PARA EL USUARIO JEFE */
 
 app.controller('cursosJCtrl', function($scope, $http, $location, user) {
 

@@ -535,3 +535,15 @@ input {
 button.btn.btn-inv.no-btn {
     cursor: default;
 }
+
+@media (max-width: 800px) {
+  .logoHeader {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    display: none;
+  }
+}
