@@ -298,6 +298,19 @@ app.service('user', function() {
 	}
 });
 
+app.service('curso', function() {
+	var id;
+
+	this.setID = function(cursoID) {
+		id = cursoID;
+	};
+
+	this.getID = function() {
+		return id;
+	};
+
+});
+
 app.controller('loginCtrl', function($scope, $http, $location, user) {
 	$scope.gotoInicio = function() {
 		$location.path('/inicio');
@@ -356,40 +369,94 @@ app.controller('inicioCtrl', function($scope, $http, $location, user) {
 
 /* CONTROLADORES PARA EL USUARIO COORDINADOR*/
 
-app.controller('programaCtrl', function($scope, $http, $location, user) {
+app.controller('programaCtrl', function($scope, $http, $location, user, curso) {
 
 	$scope.getCursos = function() {
 		$http({
 			method: 'GET',
-			//url: '/Residencia/Proyecto/backend/getCursos.php'
-			url: '/Residencia/Proyecto/files/cursos.js'
+			url: '/Residencia/Pruebas/pruebaLogin/php/getCursos.php'
 		}).then(function successCallback(response) {
 			$scope.cursos = response.data;
-			console.log(response.data);
+			// console.log(response.data);
 		}, function errorCallback(response) {
 			console.log(response);
 		});
 	}
-
-	$scope.getCursos();
 
 	$scope.getDocumentosCurso = function() {
 		$http({
 			method: 'GET',
 			url: '/Residencia/Proyecto/files/docsCurso.js'
 		}).then(function successCallback(response) {
-			$scope.datos = response.data;
-			console.log(response.data);
+			$scope.documentos = response.data;
+			// console.log(response.data);
 		}, function errorCallback(response) {
 			alert("No hay datos.")
 		});
 	}
 
-	$scope.getDocumentosCurso();
 
+	$scope.cursoID = function(id) {
+		curso.setID(id);
+		$location.path('/inicioC/programa/infoCurso');
+	}
+
+	$scope.getInfoCurso = function() {
+
+		$scope.idCurso = curso.getID();
+		console.log($scope.idCurso);
+
+		if ($scope.idCurso != "") {
+			$http({
+				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getInfoCurso.php',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idCurso=' + $scope.idCurso
+			}).then(function successCallback(response) {
+				$scope.infoCurso = response.data;
+				console.log(response.data);
+			}, function errorCallback(response) {
+
+			});
+		}
+
+	}
+
+	$scope.back = function() {
+		window.history.back();
+	};
+
+	// $scope.reload();
+	$scope.getDocumentosCurso();
+	$scope.getCursos();
+	$scope.getInfoCurso();
 });
 
 app.controller('constanciasCtrl', function($scope, $http, $location, user) {
+
+
+	$http({
+		method: 'GET',
+		url: '/Residencia/Proyecto/files/constancias.js'
+	}).then(function successCallback(response) {
+		$scope.datos = response.data;
+		console.log(response.data);
+	}, function errorCallback(response) {
+		console.log(response);
+	});
+
+	$scope.folio = "";
+	$scope.curso = "";
+
+	$scope.ver = function(folio, curso) {
+
+		$scope.folio = folio;
+		$scope.curso = curso;
+		console.log($scope.constancia);
+
+	}
 
 });
 

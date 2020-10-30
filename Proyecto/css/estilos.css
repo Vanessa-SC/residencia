@@ -176,7 +176,7 @@ div.main {
 }
 
 .logo {
-    background: url(../images/Logo%20ITD.png) no-repeat center; 
+    background: url(/Residencia/proyecto/images/Logo%20ITD.png) no-repeat center; 
     background-size: cover;
     background-size: contain;
 }
@@ -270,12 +270,28 @@ input {
 .nav-link:hover{
     color: #fff !important;
 }
-/*button {
-    background-color: #CCCCCC !important;
-}*/
+
+button.btn-back {
+    border: solid 1px #6f193f;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 0.25em;
+}
+
+button.btn-back:hover {
+    background-color: #6f193f;
+    color: #FFFFFF;
+}
+
+.back_icon:hover {
+    background: url(/Residencia/proyecto/images/back_white.png) no-repeat center;
+    padding: .875rem !important;
+    background-size: contain;
+}
+
 
 .home_icon {
-    background: url(../images/home.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/home.png) no-repeat center;
     padding: .875rem !important;
     background-size: cover;
     background-position: center;
@@ -283,7 +299,7 @@ input {
 }
 
 .home_icon2 {
-    background: url(../images/home-circle.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/home-circle.png) no-repeat center;
     padding: .875rem !important;
     background-size: cover;
     background-position: center;
@@ -291,220 +307,219 @@ input {
 }
 
 .editar_icon {
-    background: url(../images/editar.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/editar.png) no-repeat center;
     padding: .875rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .back_icon {
-    background: url(../images/back.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/back_wine.png) no-repeat center;
     padding: .875rem !important;
-    background-size: cover;
     background-size: contain;
 }
 
 .import_icon {
-    background: url(../images/import.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/import.png) no-repeat center;
     padding: .875rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .ok_icon {
-    background: url(../images/ok.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/ok.png) no-repeat center;
     padding: .875rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .no_icon {
-    background: url(../images/cancel.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/cancel.png) no-repeat center;
     padding: .875rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .cancel_icon {
-    background: url(../images/cancel.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/cancel.png) no-repeat center;
     padding: .875rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .info_icon {
-    background: url(../images/info.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/info.png) no-repeat center;
     padding: .875rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .moreinfo_icon {
-    background: url(../images/mas-info.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/mas-info.png) no-repeat center;
     padding: .875rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .add_icon {
-    background: url(../images/add.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/add.png) no-repeat center;
     padding: .875rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .add_icon2 {
-    background: url(../images/add2.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/add2.png) no-repeat center;
     padding: .875rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .ok-blank_icon {
-    background: url(../images/ok-blank.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/ok-blank.png) no-repeat center;
     padding: 1.1rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .plus_icon {
-    background: url(../images/plus.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/plus.png) no-repeat center;
     padding: 1.1rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .eye_icon {
-    background: url(../images/eye.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/eye.png) no-repeat center;
     padding: 1.1rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .erase_icon {
-    background: url(../images/erase.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/erase.png) no-repeat center;
     padding: 1.1rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .borrar_icon {
-    background: url(../images/borrar.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/borrar.png) no-repeat center;
     padding: 1.1rem !important;
     background-size: cover;
     background-size: contain;
 }
 .documento_icon {
-    background: url(../images/documento.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/documento.png) no-repeat center;
     padding: 1.1rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .documentos_icon {
-    background: url(../images/documentos.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/documentos.png) no-repeat center;
     padding: 1.1rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .send_icon {
-    background: url(../images/send.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/send.png) no-repeat center;
     padding: 1.1rem !important;
     background-size: cover;
     background-size: contain;
 }
 .user_icon {
-    background: url(../images/user.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/user.png) no-repeat center;
     padding: 1.1rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .grupo_icon {
-    background: url(../images/grupo.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/grupo.png) no-repeat center;
     padding: 1.1rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .pass_icon {
-    background: url(../images/password.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/password.png) no-repeat center;
     padding: 1.1rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .reload_icon {
-    background: url(../images/reload.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/reload.png) no-repeat center;
     padding: 1.1rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .atras_icon {
-    background: url(../images/atras.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/atras.png) no-repeat center;
     padding: 1.1rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .adelante_icon {
-    background: url(../images/adelante.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/adelante.png) no-repeat center;
     padding: 1.1rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .calendario_icon {
-    background: url(../images/calendario.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/calendario.png) no-repeat center;
     padding: 1.1rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .encuesta_icon {
-    background: url(../images/encuesta.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/encuesta.png) no-repeat center;
     padding: 1.2rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .logout_icon {
-    background: url(../images/logout.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/logout.png) no-repeat center;
     padding: 1.1rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .papel_icon {
-    background: url(../images/documentos.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/documentos.png) no-repeat center;
     padding: 1.2rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .download_icon {
-    background: url(../images/download.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/download.png) no-repeat center;
     padding: 1.1rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .upload_icon {
-    background: url(../images/upload.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/upload.png) no-repeat center;
     padding: 1em !important;
     background-size: cover;
     background-size: contain;
 }
 .red {
-    background: url(../images/red.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/red.png) no-repeat center;
     background-size: cover;
     background-position: center;
 }
 
 .green {
-    background: url(../images/green.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/green.png) no-repeat center;
     background-size: cover;
     background-position: center;
 }
@@ -514,7 +529,7 @@ input {
 }
 
 .docup {
-    background: url(../images/upload.png) no-repeat center;
+    background: url(/Residencia/proyecto/images/upload.png) no-repeat center;
     background-size: cover;
     background-position: center;
     cursor: pointer;
