@@ -555,7 +555,7 @@ app.controller('cursosDCtrl', function($scope, $http, $location, user, curso) {
 		});
 	}
 
-	$scope.getDocumentosCurso = function() {
+	/*$scope.getDocumentosCurso = function() {
 		$http({
 			method: 'GET',
 			url: '/Residencia/Proyecto/files/docsCurso.js'
@@ -565,7 +565,7 @@ app.controller('cursosDCtrl', function($scope, $http, $location, user, curso) {
 		}, function errorCallback(response) {
 			alert("No hay datos.")
 		});
-	}
+	}*/
 
 
 	$scope.cursoID = function(id) {
@@ -601,7 +601,7 @@ app.controller('cursosDCtrl', function($scope, $http, $location, user, curso) {
 	};
 
 	// $scope.reload();
-	$scope.getDocumentosCurso();
+	//$scope.getDocumentosCurso();
 	$scope.getCursos();
 	$scope.getInfoCurso();
 });
