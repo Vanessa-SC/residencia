@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-10-2020 a las 20:51:36
+-- Tiempo de generación: 31-10-2020 a las 01:00:02
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.1.32
 
@@ -71,20 +71,29 @@ CREATE TABLE `curso` (
   `idCurso` int(11) NOT NULL,
   `Folio` varchar(45) NOT NULL,
   `ClaveRegistro` varchar(45) NOT NULL,
-  `nombreCurso` varchar(45) NOT NULL,
+  `nombreCurso` varchar(250) NOT NULL,
   `periodo` varchar(45) NOT NULL,
   `duracion` int(11) NOT NULL,
   `horario` varchar(45) NOT NULL,
   `fechaInicio` varchar(45) NOT NULL,
   `fechaFin` varchar(45) NOT NULL,
   `modalidad` varchar(45) NOT NULL,
+  `lugar` varchar(150) NOT NULL,
   `destinatarios` varchar(45) NOT NULL,
-  `objetivo` varchar(45) NOT NULL,
-  `observaciones` varchar(45) DEFAULT NULL,
+  `objetivo` varchar(300) NOT NULL,
+  `observaciones` varchar(200) DEFAULT NULL,
   `validado` varchar(45) NOT NULL,
   `Instructor_idInstructor` int(11) NOT NULL,
   `Departamento_idDepartamento` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `curso`
+--
+
+INSERT INTO `curso` (`idCurso`, `Folio`, `ClaveRegistro`, `nombreCurso`, `periodo`, `duracion`, `horario`, `fechaInicio`, `fechaFin`, `modalidad`, `lugar`, `destinatarios`, `objetivo`, `observaciones`, `validado`, `Instructor_idInstructor`, `Departamento_idDepartamento`) VALUES
+(1, 'AB18222020', 'DFF2020', 'Diplomado para la Formación y Desarrollo de Competencias Docentes - Módulo II: Planeación del proceso de Aprendizaje', 'Agosto - Diciembre 2019', 30, '9:00 - 15:00 Hrs.', '18-Junio-2019', '22-Junio-2019', 'Presencial', 'Centro de cómputo ITD', 'Docentes del ITD', 'Diseña la planeación por competencias del curso para facilitar el aprendizaje del estudiante a través de la organización y seguimiento de las actividades a desarrollar.', NULL, 'no', 1, 2),
+(2, 'AAAA2020', 'ABCD20', 'Curso de prueba', 'Enero - Junio 2021', 30, '8:00 - 14:00', '12 Enero 2021', '19 Enero 2021', 'Virtual', 'ITD', 'Personal docente', 'Probar algo', 'Ninguna observación', 'no', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -107,8 +116,17 @@ CREATE TABLE `curso_has_documento` (
 
 CREATE TABLE `departamento` (
   `idDepartamento` int(11) NOT NULL,
+  `nombreDepartamento` varchar(200) NOT NULL,
   `Jefe` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `departamento`
+--
+
+INSERT INTO `departamento` (`idDepartamento`, `nombreDepartamento`, `Jefe`) VALUES
+(1, 'Desarrollo Académico', 'Anapaula Rivas Barraza'),
+(2, 'Sistemas y computación', 'Rocío Valadez');
 
 -- --------------------------------------------------------
 
@@ -162,6 +180,13 @@ CREATE TABLE `instructor` (
   `Correo` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `instructor`
+--
+
+INSERT INTO `instructor` (`idInstructor`, `nombreInstructor`, `RFC`, `CURP`, `fechaNacimiento`, `telefono`, `Correo`) VALUES
+(1, 'I.S.C. Cristabel Armstrong Aramburo', 'ARACxxxxxx', 'ARACxxxxxxxxxxx', 'xx-xx-xxxx', '618xxxxxxx', 'cristabel@correo.mx');
+
 -- --------------------------------------------------------
 
 --
@@ -186,6 +211,16 @@ CREATE TABLE `usuario` (
   `nombreUsuario` varchar(45) NOT NULL,
   `contrasena` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`idUsuario`, `Departamento_idDepartamento`, `rol`, `nombreUsuario`, `contrasena`) VALUES
+(1, 1, '2', 'Anapaula Rivas Barraza', 'da2020'),
+(2, 1, '1', 'admin', 'admin'),
+(3, 1, '3', 'user docente', 'user'),
+(4, 1, '4', 'usuario instructor', 'user');
 
 -- --------------------------------------------------------
 
@@ -306,13 +341,13 @@ ALTER TABLE `constancia`
 -- AUTO_INCREMENT de la tabla `curso`
 --
 ALTER TABLE `curso`
-  MODIFY `idCurso` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCurso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `departamento`
 --
 ALTER TABLE `departamento`
-  MODIFY `idDepartamento` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idDepartamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `documento`
@@ -330,7 +365,7 @@ ALTER TABLE `evaluacion`
 -- AUTO_INCREMENT de la tabla `instructor`
 --
 ALTER TABLE `instructor`
-  MODIFY `idInstructor` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idInstructor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `pregunta`
@@ -342,7 +377,7 @@ ALTER TABLE `pregunta`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
