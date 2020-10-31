@@ -541,31 +541,69 @@ app.controller('encuestaJCtrl', function($scope, $http, $location, user) {
 });
 
 /*	CONTROLADORES PARA EL USUARIO DOCENTE */
-app.controller('cursosDCtrl', function($scope, $http, $location, user) {
-	$scope.periodo = "Agosto/Diciembre 2020";
-	$scope.curso = [{
-		val: "red",
-		curso: "Diplomado para la Formación y Desarrollo de Competencias Docentes",
-		horario: "18 a 22 de Junio de 2019, 9:00 - 15:00",
-	}, {
-		val: "green",
-		curso: "Diplomado para la formación de tutores",
-		horario: "18 a 22 de Junio de 2019, 9:00 - 15:00",
-	}, ];
+app.controller('cursosDCtrl', function($scope, $http, $location, user, curso) {
 
-	$scope.getDocumentos = function() {
+	$scope.getCursos = function() {
+		$http({
+			method: 'GET',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getCursos.php'
+		}).then(function successCallback(response) {
+			$scope.cursos = response.data;
+			// console.log(response.data);
+		}, function errorCallback(response) {
+			console.log(response);
+		});
+	}
+
+	/*$scope.getDocumentosCurso = function() {
 		$http({
 			method: 'GET',
 			url: '/Residencia/Proyecto/files/docsCurso.js'
 		}).then(function successCallback(response) {
 			$scope.documentos = response.data;
-			console.log(response.data);
+			// console.log(response.data);
 		}, function errorCallback(response) {
 			alert("No hay datos.")
 		});
+	}*/
+
+
+	$scope.cursoID = function(id) {
+		curso.setID(id);
+		$location.path('/inicioC/programa/infoCurso');
 	}
 
-	$scope.getDocumentos();
+	$scope.getInfoCurso = function() {
+
+		$scope.idCurso = curso.getID();
+		console.log($scope.idCurso);
+
+		if ($scope.idCurso != "") {
+			$http({
+				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getInfoCurso.php',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idCurso=' + $scope.idCurso
+			}).then(function successCallback(response) {
+				$scope.infoCurso = response.data;
+				console.log(response.data);
+			}, function errorCallback(response) {
+
+			});
+		}
+
+	}
+
+	$scope.back = function() {
+		window.history.back();
+	};
+
+	// $scope.reload();
+	//$scope.getDocumentosCurso();
+	$scope.getCursos();
+	$scope.getInfoCurso();
 });
 
 app.controller('encuestaDCtrl', function($scope, $http, $location, user) {
