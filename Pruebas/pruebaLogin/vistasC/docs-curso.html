@@ -1,10 +1,14 @@
 <ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasC/nav.html'"></ng-include>
 <div class="container">
     <div class="programa_page d-flex justify-content-center">
+        <div class="pt-5">
+            <button title="Regresar a la página anterior" class="btn-back back_icon" ng-click="back()">
+            </button>            
+        </div>
         <div class="p-2"><img src="/Residencia/Proyecto/images/Logo ITD.png" alt="logo ITD" class="logoITD"></div>
         <div class="p-4">
             <div class="text-center">
-                <h1>Periodo {{datos.periodo}} AD-2020</h1>
+                <h1>Periodo {{periodo}} AD-2020</h1>
                 <h3>Formaci&oacute;n de Programa Institucional y Actualizaci&oacute;n docente y Profesional</h3>
             </div>
         </div>
@@ -13,12 +17,12 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-sm-3  text-center"><strong>Instructor postulado</strong></div>
-                <div class="col-sm-5">{{datos.instructor}}</div>
+                <div class="col-sm-5">{{infoCurso.maestro}}</div>
                 <div class="col-sm-3 text-center"><strong>Fecha:</strong></div>
                 <div class="w-100"></div>
                 <div class="col-sm-2 text-center"><strong>Curso a impartir:</strong></div>
-                <div class="col-sm-6">{{datos.curso}}</div>
-                <div class="col-sm-3 text-center">{{datos.fecha}}</div>
+                <div class="col-sm-6">{{infoCurso.curso}}</div>
+                <div class="col-sm-3 text-center">{{infoCurso.fecha}} <br> {{infoCurso.horario}} </div>
                 <div class="w-100"></div>
                 <br>
                 <div class="col text-center"><a href="#!/inicioC/programa/verDocumento" style="color: #000;"><u>Oficio de registro de curso <button class="btn bg-white import_icon"></button></u></a></div>
@@ -36,16 +40,19 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="doc in datos.documentos">
+            <tr ng-repeat="doc in documentos">
                 <th><button class=" btn bg-white"></button></th>
-                <th scope="row">{{doc.no}}</th>
-                <td>{{doc.documento}}</td>
+                <th scope="row">{{doc.idDocumento}}</th>
+                <td>{{doc.nombreDocumento}}</td>
                 <td>
                     <a href="#!/inicioC/programa/verDocumento">
                         <button class="btn bg-white import_icon"></button>
                     </a>
                 </td>
-                <td><button class="btn bg-white {{doc.validado}}_icon"></button></td>
+                <td>
+                    <button class="btn bg-white ok_icon"></button>
+                    <button class="btn bg-white no_icon"></button>
+                </td>
             </tr>
         </tbody>
     </table>

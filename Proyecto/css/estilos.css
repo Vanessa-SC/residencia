@@ -347,6 +347,15 @@ button.btn-back:hover {
     background-size: contain;
 }
 
+
+.no_icon {
+    background: url(/Residencia/proyecto/images/no.png) no-repeat center;
+    padding: .875rem !important;
+    background-size: cover;
+    background-size: contain;
+}
+
+
 .info_icon {
     background: url(/Residencia/proyecto/images/info.png) no-repeat center;
     padding: .875rem !important;

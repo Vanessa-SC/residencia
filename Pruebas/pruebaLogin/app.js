@@ -1,27 +1,30 @@
 var app = angular.module('myApp', ['ngRoute']);
 
-app.config(function($routeProvider, $locationProvider) {
+app.config(function ($routeProvider, $locationProvider) {
 	$routeProvider.when('/', {
+			/* Comprobar si el usuario está loggeado 
+			para redireccionar a su template correspondiente*/
 			resolve: {
-				check: function($location, user) {
+				check: function ($location, user) {
 					if (user.isUserLoggedIn()) {
 						$location.path(user.getPath());
 					}
-
 				},
 			},
 			templateUrl: 'login.html',
 			controller: 'loginCtrl'
 		}).when('/logout', {
+			/* Limpia las variables que autentican al usuario */
 			resolve: {
-				deadResolve: function($location, user) {
+				deadResolve: function ($location, user) {
 					user.clearData();
 					$location.path('/');
 				}
 			}
 		}).when('/login', {
+			/* Evita que el usuario vaya al login si está loggeado */
 			resolve: {
-				check: function($location, user) {
+				check: function ($location, user) {
 					if (user.isUserLoggedIn()) {
 						$location.path(user.getPath());
 					}
@@ -31,8 +34,9 @@ app.config(function($routeProvider, $locationProvider) {
 			templateUrl: 'login.html',
 			controller: 'loginCtrl'
 		}).when('/inicio', {
+			/* Verifica si está loggeado, sino lo manda a su template de inicio */
 			resolve: {
-				check: function($location, user) {
+				check: function ($location, user) {
 					if (!user.isUserLoggedIn()) {
 						$location.path('/login');
 					} else {
@@ -46,7 +50,7 @@ app.config(function($routeProvider, $locationProvider) {
 		/*  RUTAS PARA EL USUARIO COORDINADOR */
 		.when('/inicioC', {
 			resolve: {
-				check: function($location, user) {
+				check: function ($location, user) {
 					if (!user.isUserLoggedIn()) {
 						$location.path('/login');
 					}
@@ -97,7 +101,7 @@ app.config(function($routeProvider, $locationProvider) {
 		/*  RUTAS PARA EL USUARIO DOCENTE */
 		.when('/inicioD', {
 			resolve: {
-				check: function($location, user) {
+				check: function ($location, user) {
 					if (!user.isUserLoggedIn()) {
 						$location.path('/login');
 					}
@@ -136,7 +140,7 @@ app.config(function($routeProvider, $locationProvider) {
 		/*  RUTAS PARA EL USUARIO INSTRUCTOR */
 		.when('/inicioI', {
 			resolve: {
-				check: function($location, user) {
+				check: function ($location, user) {
 					if (!user.isUserLoggedIn()) {
 						$location.path('/login');
 					}
@@ -183,7 +187,7 @@ app.config(function($routeProvider, $locationProvider) {
 		/*  RUTAS PARA EL USUARIO JEFE DE DOCENCIA */
 		.when('/inicioJ', {
 			resolve: {
-				check: function($location, user) {
+				check: function ($location, user) {
 					if (!user.isUserLoggedIn()) {
 						$location.path('/login');
 					}
@@ -222,29 +226,29 @@ app.config(function($routeProvider, $locationProvider) {
 });
 
 
-app.service('user', function() {
+app.service('user', function () {
 	var username;
 	var loggedin = false;
 	var id;
 	var rol;
 
-	this.setName = function(name) {
+	this.setName = function (name) {
 		username = name;
 	};
 
-	this.getName = function() {
+	this.getName = function () {
 		return username;
 	};
 
-	this.setID = function(userID) {
+	this.setID = function (userID) {
 		id = userID;
 	};
 
-	this.getID = function() {
+	this.getID = function () {
 		return id;
 	};
 
-	this.getRol = function() {
+	this.getRol = function () {
 		if (!!localStorage.getItem('login')) {
 			var data = JSON.parse(localStorage.getItem('login'));
 			rol = data.rol;
@@ -252,7 +256,7 @@ app.service('user', function() {
 		return rol;
 	};
 
-	this.getPath = function() {
+	this.getPath = function () {
 		if (!!localStorage.getItem('login')) {
 			var data = JSON.parse(localStorage.getItem('login'));
 			path = data.path;
@@ -260,7 +264,7 @@ app.service('user', function() {
 		return path;
 	};
 
-	this.isUserLoggedIn = function() {
+	this.isUserLoggedIn = function () {
 		if (!!localStorage.getItem('login')) {
 			loggedin = true;
 			var data = JSON.parse(localStorage.getItem('login'));
@@ -271,11 +275,11 @@ app.service('user', function() {
 		return loggedin;
 	};
 
-	this.userLoggedIn = function() {
+	this.userLoggedIn = function () {
 		loggedin = true;
 	};
 
-	this.saveData = function(data, ruta) {
+	this.saveData = function (data, ruta) {
 		username = data.user;
 		id = data.idUsuario;
 		rol = data.rol;
@@ -290,7 +294,7 @@ app.service('user', function() {
 		}));
 	};
 
-	this.clearData = function() {
+	this.clearData = function () {
 		localStorage.removeItem('login');
 		username = "";
 		id = "";
@@ -298,25 +302,25 @@ app.service('user', function() {
 	}
 });
 
-app.service('curso', function() {
+app.service('curso', function () {
 	var id;
 
-	this.setID = function(cursoID) {
+	this.setID = function (cursoID) {
 		id = cursoID;
 	};
 
-	this.getID = function() {
+	this.getID = function () {
 		return id;
 	};
 
 });
 
-app.controller('loginCtrl', function($scope, $http, $location, user) {
-	$scope.gotoInicio = function() {
+app.controller('loginCtrl', function ($scope, $http, $location, user) {
+	$scope.gotoInicio = function () {
 		$location.path('/inicio');
 	}
 
-	$scope.login = function() {
+	$scope.login = function () {
 		var username = $scope.username;
 		var password = $scope.password;
 
@@ -327,7 +331,7 @@ app.controller('loginCtrl', function($scope, $http, $location, user) {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},
 			data: 'username=' + username + '&password=' + password
-		}).then(function(response) {
+		}).then(function (response) {
 			if (response.data.status == 'loggedin') {
 				// user.userLoggedIn();
 				// user.setName(response.data.user);
@@ -354,24 +358,24 @@ app.controller('loginCtrl', function($scope, $http, $location, user) {
 	}
 });
 
-app.controller('inicioCtrl', function($scope, $http, $location, user) {
+app.controller('inicioCtrl', function ($scope, $http, $location, user) {
 
 	$scope.user = user.getName();
 
-	$scope.salir = function() {
+	$scope.salir = function () {
 		$location.path('/logout');
 	}
 
-	$scope.goTo = function(path) {
+	$scope.goTo = function (path) {
 		$location.path(path);
 	}
 });
 
 /* CONTROLADORES PARA EL USUARIO COORDINADOR*/
 
-app.controller('programaCtrl', function($scope, $http, $location, user, curso) {
+app.controller('programaCtrl', function ($scope, $http, $location, user, curso) {
 
-	$scope.getCursos = function() {
+	$scope.getCursos = function () {
 		$http({
 			method: 'GET',
 			url: '/Residencia/Pruebas/pruebaLogin/php/getCursos.php'
@@ -383,28 +387,28 @@ app.controller('programaCtrl', function($scope, $http, $location, user, curso) {
 		});
 	}
 
-	$scope.getDocumentosCurso = function() {
+	$scope.getDocumentosCurso = function () {
 		$http({
 			method: 'GET',
-			url: '/Residencia/Proyecto/files/docsCurso.js'
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getDocumentos.php'
 		}).then(function successCallback(response) {
 			$scope.documentos = response.data;
-			// console.log(response.data);
+			console.log(response.data);
 		}, function errorCallback(response) {
 			alert("No hay datos.")
 		});
 	}
 
 
-	$scope.cursoID = function(id) {
+	$scope.cursoID = function (id) {
 		curso.setID(id);
-		$location.path('/inicioC/programa/infoCurso');
+		// $location.path('/inicioC/programa/infoCurso');
 	}
 
-	$scope.getInfoCurso = function() {
+	$scope.getInfoCurso = function () {
 
 		$scope.idCurso = curso.getID();
-		console.log($scope.idCurso);
+		// console.log($scope.idCurso);
 
 		if ($scope.idCurso != "") {
 			$http({
@@ -424,7 +428,7 @@ app.controller('programaCtrl', function($scope, $http, $location, user, curso) {
 
 	}
 
-	$scope.back = function() {
+	$scope.back = function () {
 		window.history.back();
 	};
 
@@ -434,7 +438,7 @@ app.controller('programaCtrl', function($scope, $http, $location, user, curso) {
 	$scope.getInfoCurso();
 });
 
-app.controller('constanciasCtrl', function($scope, $http, $location, user) {
+app.controller('constanciasCtrl', function ($scope, $http, $location, user) {
 
 
 	$http({
@@ -450,7 +454,7 @@ app.controller('constanciasCtrl', function($scope, $http, $location, user) {
 	$scope.folio = "";
 	$scope.curso = "";
 
-	$scope.ver = function(folio, curso) {
+	$scope.ver = function (folio, curso) {
 
 		$scope.folio = folio;
 		$scope.curso = curso;
@@ -460,12 +464,12 @@ app.controller('constanciasCtrl', function($scope, $http, $location, user) {
 
 });
 
-app.controller('convocatoriaCtrl', function($scope, $http, $location, user) {
+app.controller('convocatoriaCtrl', function ($scope, $http, $location, user) {
 
 });
 
 /* CONTROLADORES PARA EL USUARIO INSTRUCTOR */
-app.controller('cursosICtrl', function($scope, $http, $location, user) {
+app.controller('cursosICtrl', function ($scope, $http, $location, user) {
 
 	$scope.periodo = "Agosto/Diciembre 2020";
 	$scope.curso = [{
@@ -478,7 +482,7 @@ app.controller('cursosICtrl', function($scope, $http, $location, user) {
 		horario: "18 a 22 de Junio de 2019, 9:00 - 15:00",
 	}, ];
 
-	$scope.getDocumentos = function() {
+	$scope.getDocumentos = function () {
 		$http({
 			method: 'GET',
 			url: '/Residencia/Proyecto/files/docsCurso.js'
@@ -494,19 +498,19 @@ app.controller('cursosICtrl', function($scope, $http, $location, user) {
 
 });
 
-app.controller('asistenciaICtrl', function($scope, $http, $location, user) {
+app.controller('asistenciaICtrl', function ($scope, $http, $location, user) {
 
 });
 
-app.controller('participantesICtrl', function($scope, $http, $location, user) {
+app.controller('participantesICtrl', function ($scope, $http, $location, user) {
 
 });
 
 /* CONTROLADORES PARA EL USUARIO JEFE */
 
-app.controller('cursosJCtrl', function($scope, $http, $location, user) {
+app.controller('cursosJCtrl', function ($scope, $http, $location, user) {
 
-	$scope.getCursos = function() {
+	$scope.getCursos = function () {
 		$http({
 			method: 'GET',
 			url: '/Residencia/Proyecto/files/cursos.js'
@@ -521,7 +525,7 @@ app.controller('cursosJCtrl', function($scope, $http, $location, user) {
 	$scope.getCursos();
 
 
-	$scope.getDocumentos = function() {
+	$scope.getDocumentos = function () {
 		$http({
 			method: 'GET',
 			url: '/Residencia/Proyecto/files/docsCurso.js'
@@ -536,14 +540,14 @@ app.controller('cursosJCtrl', function($scope, $http, $location, user) {
 	$scope.getDocumentos();
 });
 
-app.controller('encuestaJCtrl', function($scope, $http, $location, user) {
+app.controller('encuestaJCtrl', function ($scope, $http, $location, user) {
 
 });
 
 /*	CONTROLADORES PARA EL USUARIO DOCENTE */
-app.controller('cursosDCtrl', function($scope, $http, $location, user, curso) {
+app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso) {
 
-	$scope.getCursos = function() {
+	$scope.getCursos = function () {
 		$http({
 			method: 'GET',
 			url: '/Residencia/Pruebas/pruebaLogin/php/getCursos.php'
@@ -568,12 +572,12 @@ app.controller('cursosDCtrl', function($scope, $http, $location, user, curso) {
 	}*/
 
 
-	$scope.cursoID = function(id) {
+	$scope.cursoID = function (id) {
 		curso.setID(id);
-		$location.path('/inicioC/programa/infoCurso');
+		// $location.path('/inicioC/programa/infoCurso');
 	}
 
-	$scope.getInfoCurso = function() {
+	$scope.getInfoCurso = function () {
 
 		$scope.idCurso = curso.getID();
 		console.log($scope.idCurso);
@@ -596,7 +600,7 @@ app.controller('cursosDCtrl', function($scope, $http, $location, user, curso) {
 
 	}
 
-	$scope.back = function() {
+	$scope.back = function () {
 		window.history.back();
 	};
 
@@ -606,14 +610,14 @@ app.controller('cursosDCtrl', function($scope, $http, $location, user, curso) {
 	$scope.getInfoCurso();
 });
 
-app.controller('encuestaDCtrl', function($scope, $http, $location, user) {
+app.controller('encuestaDCtrl', function ($scope, $http, $location, user) {
 
 });
 
-app.controller('misCursosDCtrl', function($scope, $http, $location, user) {
+app.controller('misCursosDCtrl', function ($scope, $http, $location, user) {
 
 });
 
-app.controller('constanciasDCtrl', function($scope, $http, $location, user) {
+app.controller('constanciasDCtrl', function ($scope, $http, $location, user) {
 
 });
