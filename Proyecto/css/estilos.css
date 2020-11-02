@@ -1,7 +1,11 @@
 * {
     font-size: 16px;
+    
 }
-
+h1 {
+    font-size: 20px;
+    font-weight: 700;
+}
 .bg-wine {
     background-color: #6F193F;
     color: #fff;
@@ -238,10 +242,10 @@ input[type="password"] {
     box-sizing: border-box;
     margin: 0px auto;
 
-    &:before,
+    /* &:before,
     &:after {
         box-sizing: border-box;
-    }
+    } */
 
 }
 

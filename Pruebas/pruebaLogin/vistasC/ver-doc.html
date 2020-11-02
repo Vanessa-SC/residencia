@@ -1,9 +1,12 @@
 <ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasC/nav.html'"></ng-include>
 
-<div class="container">
+<div class="container" ng-init="getDoc()">
     <div class=" pt-4 text-center">
         <div>
-            <div class="col-sm-2 font-weight-bold pb-4 mx-auto">Documento: {{doc}} <br></div>
+            <div class="col-sm-2 font-weight-bold pb-4 mx-auto mb-4">
+                <!-- Documento: {{documentoCurso.nombreDocumento}} -->
+                Documento: {{documentoCurso}}
+            </div>
         </div>
         
     </div>
@@ -13,7 +16,7 @@
             <img src="/Residencia/proyecto/images/Logo%20ITD.png" class="logoITD" alt="">
         </div>
         <div class="embed-responsive embed-responsive-4by3 w-75 pl-5 ml-5">
-            <iframe class="embed-responsive-item" src="/Residencia/Proyecto/files/doc.pdf" allowfullscreen></iframe>
+            <iframe class="embed-responsive-item" src="/Residencia/Proyecto/files/{{documentoCurso.rutaArchivo}}" allowfullscreen></iframe>
         </div>
     </div>
 </div>

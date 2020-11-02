@@ -304,6 +304,7 @@ app.service('user', function () {
 
 app.service('curso', function () {
 	var id;
+	var idDoc;
 
 	this.setID = function (cursoID) {
 		id = cursoID;
@@ -313,7 +314,33 @@ app.service('curso', function () {
 		return id;
 	};
 
+	this.setIDdocumento = function(idDocumento){
+		idDoc = idDocumento;
+	};
+
+	this.getIDdocumento = function (){
+		return idDoc;
+	};
+
 });
+
+app.service('periodoService', function ($q, $http) {
+
+	return {
+		getPeriodo: function () {
+			return $http({
+				method: 'GET',
+				url: '/Residencia/Pruebas/pruebaLogin/php/periodoActual.php'
+			}).then(function successCallback(response) {
+				return response.data.periodo;
+			}, function errorCallback(response) {
+				return $q.reject(response.data);
+			});
+		}
+	}
+})
+
+
 
 app.controller('loginCtrl', function ($scope, $http, $location, user) {
 	$scope.gotoInicio = function () {
@@ -358,7 +385,7 @@ app.controller('loginCtrl', function ($scope, $http, $location, user) {
 	}
 });
 
-app.controller('inicioCtrl', function ($scope, $http, $location, user) {
+app.controller('inicioCtrl',function ($scope, $http, $location, user, periodoService) {
 
 	$scope.user = user.getName();
 
@@ -369,11 +396,18 @@ app.controller('inicioCtrl', function ($scope, $http, $location, user) {
 	$scope.goTo = function (path) {
 		$location.path(path);
 	}
+
+	$scope.periodo = periodoService.getPeriodo()
+	.then(function (response) {
+		$scope.periodo = response;        
+	}, function (error) {
+		console.log(response);           
+	});
 });
 
 /* CONTROLADORES PARA EL USUARIO COORDINADOR*/
 
-app.controller('programaCtrl', function ($scope, $http, $location, user, curso) {
+app.controller('programaCtrl', function ($scope, $http, $location, user, curso, periodoService) {
 
 	$scope.getCursos = function () {
 		$http({
@@ -387,13 +421,20 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso) 
 		});
 	}
 
-	$scope.getDocumentosCurso = function () {
+	$scope.periodo = periodoService.getPeriodo()
+	.then(function (response) {
+		$scope.periodo = response;        
+	}, function (error) {
+		console.log(response);           
+	});
+
+	$scope.getListaDocumentosCurso = function () {
 		$http({
 			method: 'GET',
 			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getDocumentos.php'
 		}).then(function successCallback(response) {
 			$scope.documentos = response.data;
-			console.log(response.data);
+			// console.log(response.data);
 		}, function errorCallback(response) {
 			alert("No hay datos.")
 		});
@@ -402,7 +443,6 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso) 
 
 	$scope.cursoID = function (id) {
 		curso.setID(id);
-		// $location.path('/inicioC/programa/infoCurso');
 	}
 
 	$scope.getInfoCurso = function () {
@@ -420,7 +460,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso) 
 				data: 'idCurso=' + $scope.idCurso
 			}).then(function successCallback(response) {
 				$scope.infoCurso = response.data;
-				console.log(response.data);
+				// console.log(response.data);
 			}, function errorCallback(response) {
 
 			});
@@ -432,23 +472,49 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso) 
 		window.history.back();
 	};
 
-	// $scope.reload();
-	$scope.getDocumentosCurso();
+	$scope.verDoc = function(idCurso,idDocumento){
+		curso.setID(idCurso);
+		curso.setIDdocumento(idDocumento);
+	};
+	
+	$scope.getDoc = function(){
+		$http({
+			method: 'GET',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getDocumentosCurso.php'
+		}).then(function successCallback(response) {
+			$scope.documentoCurso = response.data;
+			console.log(response.data);
+		}, function errorCallback(response) {
+			alert("No hay datos.")
+		});
+	}
+
+	// $scope.getDoc();
+	$scope.getListaDocumentosCurso();
 	$scope.getCursos();
 	$scope.getInfoCurso();
 });
 
-app.controller('constanciasCtrl', function ($scope, $http, $location, user) {
+app.controller('constanciasCtrl', function ($scope, $http, $location, user, periodoService) {
 
 
-	$http({
-		method: 'GET',
-		url: '/Residencia/Proyecto/files/constancias.js'
-	}).then(function successCallback(response) {
-		$scope.datos = response.data;
-		console.log(response.data);
-	}, function errorCallback(response) {
-		console.log(response);
+	$scope.getConstancias = function () {
+		$http({
+			method: 'GET',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getConstancias.php'
+		}).then(function successCallback(response) {
+			$scope.constancias = response.data;
+			console.log(response.data);
+		}, function errorCallback(response) {
+			alert("No hay datos.")
+		});
+	}
+
+	$scope.periodo = periodoService.getPeriodo()
+	.then(function (response) {
+		$scope.periodo = response;        
+	}, function (error) {
+		console.log(response);           
 	});
 
 	$scope.folio = "";
@@ -462,14 +528,16 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user) {
 
 	}
 
+	$scope.getConstancias();
+
 });
 
-app.controller('convocatoriaCtrl', function ($scope, $http, $location, user) {
+app.controller('convocatoriaCtrl', function ($scope, $http, $location, user, periodoService) {
 
 });
 
 /* CONTROLADORES PARA EL USUARIO INSTRUCTOR */
-app.controller('cursosICtrl', function ($scope, $http, $location, user) {
+app.controller('cursosICtrl', function ($scope, $http, $location, user, periodoService) {
 
 	$scope.periodo = "Agosto/Diciembre 2020";
 	$scope.curso = [{
@@ -498,17 +566,17 @@ app.controller('cursosICtrl', function ($scope, $http, $location, user) {
 
 });
 
-app.controller('asistenciaICtrl', function ($scope, $http, $location, user) {
+app.controller('asistenciaICtrl', function ($scope, $http, $location, user, periodoService) {
 
 });
 
-app.controller('participantesICtrl', function ($scope, $http, $location, user) {
+app.controller('participantesICtrl', function ($scope, $http, $location, user, periodoService) {
 
 });
 
 /* CONTROLADORES PARA EL USUARIO JEFE */
 
-app.controller('cursosJCtrl', function ($scope, $http, $location, user) {
+app.controller('cursosJCtrl', function ($scope, $http, $location, user, periodoService) {
 
 	$scope.getCursos = function () {
 		$http({
@@ -540,12 +608,12 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user) {
 	$scope.getDocumentos();
 });
 
-app.controller('encuestaJCtrl', function ($scope, $http, $location, user) {
+app.controller('encuestaJCtrl', function ($scope, $http, $location, user, periodoService) {
 
 });
 
 /*	CONTROLADORES PARA EL USUARIO DOCENTE */
-app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso) {
+app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, periodoService) {
 
 	$scope.getCursos = function () {
 		$http({
@@ -610,14 +678,14 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso) {
 	$scope.getInfoCurso();
 });
 
-app.controller('encuestaDCtrl', function ($scope, $http, $location, user) {
+app.controller('encuestaDCtrl', function ($scope, $http, $location, user, periodoService) {
 
 });
 
-app.controller('misCursosDCtrl', function ($scope, $http, $location, user) {
+app.controller('misCursosDCtrl', function ($scope, $http, $location, user, periodoService) {
 
 });
 
-app.controller('constanciasDCtrl', function ($scope, $http, $location, user) {
+app.controller('constanciasDCtrl', function ($scope, $http, $location, user, periodoService) {
 
 });
