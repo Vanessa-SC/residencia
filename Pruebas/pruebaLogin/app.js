@@ -231,6 +231,7 @@ app.service('user', function () {
 	var loggedin = false;
 	var id;
 	var rol;
+	var idUsuario;
 
 	this.setName = function (name) {
 		username = name;
@@ -252,16 +253,21 @@ app.service('user', function () {
 		id = idUsuario;
 	};
 
-	this.getIdUsuario = function () {
-		return idUsuario;
-	};
-
 	this.getRol = function () {
 		if (!!localStorage.getItem('login')) {
 			var data = JSON.parse(localStorage.getItem('login'));
 			rol = data.rol;
 		}
 		return rol;
+	};
+
+	this.getIdUsuario = function () {
+		if (!!localStorage.getItem('login')) {
+			var data = JSON.parse(localStorage.getItem('login'));
+			id = data.id;
+			console.log(id);
+		}
+		return id;
 	};
 
 	this.getPath = function () {
@@ -288,7 +294,7 @@ app.service('user', function () {
 	};
 
 	this.saveData = function (data, ruta) {
-		username = data.user;
+		username = data.nombreUsuario;
 		id = data.idUsuario;
 		rol = data.rol;
 		path = ruta;
@@ -322,11 +328,11 @@ app.service('curso', function () {
 		return id;
 	};
 
-	this.setIDdocumento = function(idDocumento){
+	this.setIDdocumento = function (idDocumento) {
 		idDoc = idDocumento;
 	};
 
-	this.getIDdocumento = function (){
+	this.getIDdocumento = function () {
 		return idDoc;
 	};
 
@@ -393,7 +399,7 @@ app.controller('loginCtrl', function ($scope, $http, $location, user) {
 	}
 });
 
-app.controller('inicioCtrl',function ($scope, $http, $location, user, periodoService) {
+app.controller('inicioCtrl', function ($scope, $http, $location, user, periodoService) {
 
 	$scope.user = user.getName();
 
@@ -406,11 +412,11 @@ app.controller('inicioCtrl',function ($scope, $http, $location, user, periodoSer
 	}
 
 	$scope.periodo = periodoService.getPeriodo()
-	.then(function (response) {
-		$scope.periodo = response;        
-	}, function (error) {
-		console.log(response);           
-	});
+		.then(function (response) {
+			$scope.periodo = response;
+		}, function (error) {
+			console.log(response);
+		});
 });
 
 /* CONTROLADORES PARA EL USUARIO COORDINADOR*/
@@ -430,11 +436,11 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 	}
 
 	$scope.periodo = periodoService.getPeriodo()
-	.then(function (response) {
-		$scope.periodo = response;        
-	}, function (error) {
-		console.log(response);           
-	});
+		.then(function (response) {
+			$scope.periodo = response;
+		}, function (error) {
+			console.log(response);
+		});
 
 	$scope.getListaDocumentosCurso = function () {
 		$http({
@@ -480,12 +486,12 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 		window.history.back();
 	};
 
-	$scope.verDoc = function(idCurso,idDocumento){
+	$scope.verDoc = function (idCurso, idDocumento) {
 		curso.setID(idCurso);
 		curso.setIDdocumento(idDocumento);
 	};
-	
-	$scope.getDoc = function(){
+
+	$scope.getDoc = function () {
 		$http({
 			method: 'GET',
 			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getDocumentosCurso.php'
@@ -519,11 +525,11 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 	}
 
 	$scope.periodo = periodoService.getPeriodo()
-	.then(function (response) {
-		$scope.periodo = response;        
-	}, function (error) {
-		console.log(response);           
-	});
+		.then(function (response) {
+			$scope.periodo = response;
+		}, function (error) {
+			console.log(response);
+		});
 
 	$scope.folio = "";
 	$scope.curso = "";
@@ -547,7 +553,13 @@ app.controller('convocatoriaCtrl', function ($scope, $http, $location, user, per
 /* CONTROLADORES PARA EL USUARIO INSTRUCTOR */
 app.controller('cursosICtrl', function ($scope, $http, $location, user, periodoService) {
 
-	$scope.periodo = "Agosto/Diciembre 2020";
+	$scope.periodo = periodoService.getPeriodo()
+		.then(function (response) {
+			$scope.periodo = response;
+		}, function (error) {
+			console.log(response);
+		});
+
 	$scope.curso = [{
 		val: "red",
 		curso: "Diplomado para la Formación y Desarrollo de Competencias Docentes",
@@ -635,39 +647,27 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, p
 		});
 	}
 
-	/*$scope.getDocumentosCurso = function() {
-		$http({
-			method: 'GET',
-			url: '/Residencia/Proyecto/files/docsCurso.js'
-		}).then(function successCallback(response) {
-			$scope.documentos = response.data;
-			// console.log(response.data);
-		}, function errorCallback(response) {
-			alert("No hay datos.")
-		});
-	}*/
-
-	$scope.cursoIdUsuario = function (idUsuario) {
-		user.setIdUsuario(idUsuario);
-	}
+	// $scope.cursoIdUsuario = function (idUsuario) {
+	// 	user.setIdUsuario(idUsuario);
+	// }
 
 	$scope.getMisCursos = function () {
 
-		$scope.idUsuario = curso.getIdUsuario();
+		$scope.id = user.getIdUsuario();
 
-		if ($scope.idUsuario != "") {
+		if ($scope.id != undefined ) {
 			$http({
-				url: '/Residencia/Pruebas/pruebaLogin/php/getCursos.php',
+				url: '/Residencia/Pruebas/pruebaLogin/php/getMisCursos.php',
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded'
 				},
-				data: 'idUsuario=' + $scope.idUsuario
+				data: 'idUsuario=' + $scope.id
 			}).then(function successCallback(response) {
-				$scope.infoCurso = response.data;
-
+				$scope.misCursos = response.data;
+				console.log(response.data);
 			}, function errorCallback(response) {
-
+				console.log(response.data);
 			});
 		}
 
@@ -675,7 +675,6 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, p
 
 	$scope.cursoID = function (id) {
 		curso.setID(id);
-		// $location.path('/inicioC/programa/infoCurso');
 	}
 
 	$scope.getInfoCurso = function () {
@@ -705,10 +704,20 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, p
 		window.history.back();
 	};
 
+	$scope.periodo = periodoService.getPeriodo()
+		.then(function (response) {
+			$scope.periodo = response;
+		}, function (error) {
+			console.log(response);
+		});
+
+
 	// $scope.reload();
 	//$scope.getDocumentosCurso();
 	$scope.getCursos();
-	$scope.getInfoCurso();
+	// $scope.getInfoCurso();
+	$scope.getMisCursos();
+	// $scope.periodo();
 });
 
 app.controller('encuestaDCtrl', function ($scope, $http, $location, user, periodoService) {
