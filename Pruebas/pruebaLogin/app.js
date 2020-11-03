@@ -204,7 +204,7 @@ app.config(function ($routeProvider, $locationProvider) {
 			controller: 'cursosJCtrl'
 
 		}).when('/inicioJ/cursos/generar', {
-			template: '<div class="text-center"><h1>Próximamente</h1></div>',
+			template: './vistasJ/generar-Curso.html',
 			controller: 'cursosJCtrl'
 
 		}).when('/inicioJ/cursos/subirDocumentos', {
@@ -246,6 +246,14 @@ app.service('user', function () {
 
 	this.getID = function () {
 		return id;
+	};
+
+	this.setIdUsuario = function (idUsuario) {
+		id = idUsuario;
+	};
+
+	this.getIdUsuario = function () {
+		return idUsuario;
 	};
 
 	this.getRol = function () {
@@ -639,6 +647,31 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, p
 		});
 	}*/
 
+	$scope.cursoIdUsuario = function (idUsuario) {
+		user.setIdUsuario(idUsuario);
+	}
+
+	$scope.getMisCursos = function () {
+
+		$scope.idUsuario = curso.getIdUsuario();
+
+		if ($scope.idUsuario != "") {
+			$http({
+				url: '/Residencia/Pruebas/pruebaLogin/php/getCursos.php',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idUsuario=' + $scope.idUsuario
+			}).then(function successCallback(response) {
+				$scope.infoCurso = response.data;
+
+			}, function errorCallback(response) {
+
+			});
+		}
+
+	}
 
 	$scope.cursoID = function (id) {
 		curso.setID(id);
