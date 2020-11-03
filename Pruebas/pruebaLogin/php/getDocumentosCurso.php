@@ -1,13 +1,21 @@
-<?php 
+<?php
 
 include_once 'conexion.php';
-/* falta pasar el id del Curso por POST  */
-$sql = "SELECT documento.idDocumento, 
-            documento.nombreDocumento,
-           curso_has_documento.rutaArchivo
-        FROM documento,curso_has_documento 
+
+if (!isset($_POST)) {
+    die();
+}
+
+$idCurso = $_POST['idCurso'];
+$idDocumento = $_POST['idDocumento'];
+
+$sql = "SELECT documento.idDocumento,
+        documento.nombreDocumento,
+        curso_has_documento.rutaArchivo
+        FROM documento,curso_has_documento
         WHERE documento.idDocumento = curso_has_documento.Documento_idDocumento
-         AND curso_has_documento.Curso_idCurso = 1";
+        AND curso_has_documento.Curso_idCurso = $idCurso
+        AND curso_has_documento.Documento_idDocumento = $idDocumento";
 
 $result = $conn->query($sql) or die($conn->error . __LINE__);
 

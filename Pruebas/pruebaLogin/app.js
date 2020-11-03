@@ -322,6 +322,7 @@ app.service('curso', function () {
 
 	this.setID = function (cursoID) {
 		id = cursoID;
+		console.log('idCurso: '+id);
 	};
 
 	this.getID = function () {
@@ -330,6 +331,7 @@ app.service('curso', function () {
 
 	this.setIDdocumento = function (idDocumento) {
 		idDoc = idDocumento;
+		console.log('idDoc: '+idDoc);
 	};
 
 	this.getIDdocumento = function () {
@@ -489,21 +491,28 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 	$scope.verDoc = function (idCurso, idDocumento) {
 		curso.setID(idCurso);
 		curso.setIDdocumento(idDocumento);
+		$scope.getDoc();
 	};
 
 	$scope.getDoc = function () {
+		var idCurso = curso.getID();
+		var idDoc = curso.getIDdocumento();
 		$http({
-			method: 'GET',
-			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getDocumentosCurso.php'
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getDocumentosCurso.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idCurso=' + idCurso + '&idDocumento=' + idDoc
 		}).then(function successCallback(response) {
 			$scope.documentoCurso = response.data;
 			console.log(response.data);
 		}, function errorCallback(response) {
-			alert("No hay datos.")
+			console.log("No hay datos.");
 		});
 	}
 
-	// $scope.getDoc();
+	$scope.getDoc();
 	$scope.getListaDocumentosCurso();
 	$scope.getCursos();
 	$scope.getInfoCurso();
