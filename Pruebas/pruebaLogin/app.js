@@ -122,7 +122,7 @@ app.config(function ($routeProvider, $locationProvider) {
 
 		}).when('/inicioD/misCursos', {
 			templateUrl: './vistasD/misCursos.html',
-			controller: 'misCursosDCtrl'
+			controller: 'cursosDCtrl'
 
 		}).when('/inicioD/constancias', {
 			templateUrl: './vistasD/constancias.html',
