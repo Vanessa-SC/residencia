@@ -14,8 +14,11 @@
         <div>
             <img src="/Residencia/Proyecto/images/Logo%20ITD.png" class="logoITD" alt="">
         </div>
-        <div class="embed-responsive embed-responsive-4by3 w-75 pl-5 ml-5">
-            <iframe class="embed-responsive-item" src="/Residencia/Proyecto/files/doc.pdf" allowfullscreen></iframe>
+        <div class="embed-responsive embed-responsive-16by9 w-75">
+            <object data="/residencia/proyecto/files/{{rutaArchivo}}" width="400" height="300" type="text/html">
+                El documento no pudo ser cargado, pero puede descargarlo con el siguiente botón <br>
+                <a class="btn text-white bg-dark" href="/Residencia/Proyecto/files/{{rutaArchivo}}" target="_blank">Descargar documento</a> 
+            </object>
         </div>
     </div>
 </div>

@@ -551,6 +551,8 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 
 	}
 
+	$scope.rutaArchivo = "doc.pdf";
+
 	$scope.getConstancias();
 
 });
