@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-10-2020 a las 01:00:02
+-- Tiempo de generación: 04-11-2020 a las 02:04:18
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.1.32
 
@@ -61,6 +61,13 @@ CREATE TABLE `constancia` (
   `Usuario_idUsuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `constancia`
+--
+
+INSERT INTO `constancia` (`idConstancia`, `folio`, `Curso_idCurso`, `Usuario_idUsuario`) VALUES
+(1, 'AB1234', 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -92,7 +99,7 @@ CREATE TABLE `curso` (
 --
 
 INSERT INTO `curso` (`idCurso`, `Folio`, `ClaveRegistro`, `nombreCurso`, `periodo`, `duracion`, `horario`, `fechaInicio`, `fechaFin`, `modalidad`, `lugar`, `destinatarios`, `objetivo`, `observaciones`, `validado`, `Instructor_idInstructor`, `Departamento_idDepartamento`) VALUES
-(1, 'AB18222020', 'DFF2020', 'Diplomado para la Formación y Desarrollo de Competencias Docentes - Módulo II: Planeación del proceso de Aprendizaje', 'Agosto - Diciembre 2019', 30, '9:00 - 15:00 Hrs.', '18-Junio-2019', '22-Junio-2019', 'Presencial', 'Centro de cómputo ITD', 'Docentes del ITD', 'Diseña la planeación por competencias del curso para facilitar el aprendizaje del estudiante a través de la organización y seguimiento de las actividades a desarrollar.', NULL, 'no', 1, 2),
+(1, 'AB18222020', 'DFF2020', 'Diplomado para la Formación y Desarrollo de Competencias Docentes - Módulo II: Planeación del proceso de Aprendizaje', 'Agosto - Diciembre 2019', 30, '9:00 - 15:00', '18-Junio-2019', '22-Junio-2019', 'Presencial', 'Centro de cómputo ITD', 'Docentes del ITD', 'Diseña la planeación por competencias del curso para facilitar el aprendizaje del estudiante a través de la organización y seguimiento de las actividades a desarrollar.', NULL, 'no', 1, 2),
 (2, 'AAAA2020', 'ABCD20', 'Curso de prueba', 'Enero - Junio 2021', 30, '8:00 - 14:00', '12 Enero 2021', '19 Enero 2021', 'Virtual', 'ITD', 'Personal docente', 'Probar algo', 'Ninguna observación', 'no', 1, 1);
 
 -- --------------------------------------------------------
@@ -107,6 +114,19 @@ CREATE TABLE `curso_has_documento` (
   `rutaArchivo` varchar(200) DEFAULT NULL,
   `estadoVerificado` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `curso_has_documento`
+--
+
+INSERT INTO `curso_has_documento` (`Curso_idCurso`, `Documento_idDocumento`, `rutaArchivo`, `estadoVerificado`) VALUES
+(1, 1, 'doc.pdf', 'no'),
+(1, 2, 'doc.pdf', NULL),
+(1, 3, 'doc.pdf', NULL),
+(1, 4, 'doc.pdf', NULL),
+(1, 5, 'doc.pdf', NULL),
+(1, 6, 'doc.pdf', NULL),
+(1, 7, 'doc.pdf', NULL);
 
 -- --------------------------------------------------------
 
@@ -138,6 +158,19 @@ CREATE TABLE `documento` (
   `idDocumento` int(11) NOT NULL,
   `nombreDocumento` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `documento`
+--
+
+INSERT INTO `documento` (`idDocumento`, `nombreDocumento`) VALUES
+(1, 'Diseño del curso (Ficha técnica)'),
+(2, 'Currículum'),
+(3, 'Tabla de cronograma'),
+(4, 'Evidencias'),
+(5, 'Oficio de comisión de participantes'),
+(6, 'Evaluación del instructor'),
+(7, 'Oficio de registro de curso');
 
 -- --------------------------------------------------------
 
@@ -232,6 +265,13 @@ CREATE TABLE `usuario_has_curso` (
   `Usuario_idUsuario` int(11) NOT NULL,
   `Curso_idCurso` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `usuario_has_curso`
+--
+
+INSERT INTO `usuario_has_curso` (`Usuario_idUsuario`, `Curso_idCurso`) VALUES
+(3, 1);
 
 --
 -- Índices para tablas volcadas
@@ -335,7 +375,7 @@ ALTER TABLE `calificacion`
 -- AUTO_INCREMENT de la tabla `constancia`
 --
 ALTER TABLE `constancia`
-  MODIFY `idConstancia` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idConstancia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `curso`
@@ -353,7 +393,7 @@ ALTER TABLE `departamento`
 -- AUTO_INCREMENT de la tabla `documento`
 --
 ALTER TABLE `documento`
-  MODIFY `idDocumento` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idDocumento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `evaluacion`
