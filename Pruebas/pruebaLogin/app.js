@@ -677,7 +677,7 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, periodoS
 			$scope.cursos = response.data;
 			// console.log(response.data);
 		}, function errorCallback(response) {
-			console.log(response);
+			//console.log(response);
 		});
 	}
 
@@ -714,7 +714,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, p
 			$scope.cursos = response.data;
 			// console.log(response.data);
 		}, function errorCallback(response) {
-			console.log(response);
+			//console.log(response);
 		});
 	}
 
@@ -736,9 +736,9 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, p
 				data: 'idUsuario=' + $scope.id
 			}).then(function successCallback(response) {
 				$scope.misCursos = response.data;
-				console.log(response.data);
+				//console.log(response.data);
 			}, function errorCallback(response) {
-				console.log(response.data);
+				//console.log(response.data);
 			});
 		}
 
@@ -751,7 +751,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, p
 	$scope.getInfoCurso = function () {
 
 		$scope.idCurso = curso.getID();
-		console.log($scope.idCurso);
+		//console.log($scope.idCurso);
 
 		if ($scope.idCurso != "") {
 			$http({
@@ -763,7 +763,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, p
 				data: 'idCurso=' + $scope.idCurso
 			}).then(function successCallback(response) {
 				$scope.infoCurso = response.data;
-				console.log(response.data);
+				//console.log(response.data);
 			}, function errorCallback(response) {
 
 			});
@@ -786,7 +786,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, p
 	// $scope.reload();
 	//$scope.getDocumentosCurso();
 	$scope.getCursos();
-	// $scope.getInfoCurso();
+	$scope.getInfoCurso();
 	$scope.getMisCursos();
 	// $scope.periodo();
 });
