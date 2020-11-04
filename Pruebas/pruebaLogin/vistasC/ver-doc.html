@@ -1,24 +1,24 @@
 <ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasC/nav.html'"></ng-include>
 
 <div class="container" ng-repeat="doc in documentoCurso">
-    <div class=" pt-4 text-center">
-        <div class="col-sm-8 font-weight-bold pb-4 mx-auto mb-4 border-bottom border-dark ">
-            Documento: {{doc.nombreDocumento}}
-            <!-- Documento: {{documentoCurso}} -->
+    <div class=" pt-4 text-center align-middle">
+        <div class="row align-items-center justify-content-center border-bottom border-dark">
+            <div class="col mx-auto ">
+                <img src="/Residencia/proyecto/images/Logo%20ITD.png" class="logoITD">
+                <h1>Documento: {{doc.nombreDocumento}}</h1>
+            </div>
         </div>
     </div>
-    <div class="d-flex">
-        <div>
-            <img src="/Residencia/proyecto/images/Logo%20ITD.png" class="logoITD" alt="">
-        </div>
+    <div class="d-flex mx-auto pt-4">
         <div>
             <embed ng-src="/Residencia/Proyecto/files/{{doc.rutaArchivo}}" type="application/pdf" width="100%"
                 height="600px" />
         </div>
-        <div class="embed-responsive embed-responsive-16by9 w-75">
+        <div class="embed-responsive embed-responsive-16by9">
             <object data="/residencia/proyecto/files/{{doc.rutaArchivo}}" width="400" height="300" type="text/html">
                 El documento no pudo ser cargado, pero puede descargarlo con el siguiente botón <br>
-                <a class="btn text-white bg-dark" href="/Residencia/Proyecto/files/{{doc.rutaArchivo}}" target="_blank">Descargar documento</a> 
+                <a class="btn text-white bg-dark" href="/Residencia/Proyecto/files/{{doc.rutaArchivo}}"
+                    target="_blank">Descargar documento</a>
             </object>
         </div>
     </div>

@@ -137,7 +137,7 @@ button.op {
 /* Programa_institucional */
 
 .logoITD {
-    width: 120px;
+    width: 5rem;
     padding: 0px;
     height: auto;
     display: inline-flex;
@@ -312,7 +312,7 @@ button.btn-back:hover {
 
 .editar_icon {
     background: url(/Residencia/proyecto/images/editar.png) no-repeat center;
-    padding: .875rem !important;
+    padding: .8em !important;
     background-size: cover;
     background-size: contain;
 }
@@ -411,14 +411,14 @@ button.btn-back:hover {
 
 .erase_icon {
     background: url(/Residencia/proyecto/images/erase.png) no-repeat center;
-    padding: 1.1rem !important;
+    padding: 1rem !important;
     background-size: cover;
     background-size: contain;
 }
 
 .borrar_icon {
     background: url(/Residencia/proyecto/images/borrar.png) no-repeat center;
-    padding: 1.1rem !important;
+    padding: .8em !important;
     background-size: cover;
     background-size: contain;
 }
