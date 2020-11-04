@@ -204,7 +204,7 @@ app.config(function ($routeProvider, $locationProvider) {
 			controller: 'cursosJCtrl'
 
 		}).when('/inicioJ/cursos/generar', {
-			template: './vistasJ/generar-Curso.html',
+			template: './vistasJ/generarCurso.html',
 			controller: 'cursosJCtrl'
 
 		}).when('/inicioJ/cursos/subirDocumentos', {
@@ -560,7 +560,7 @@ app.controller('convocatoriaCtrl', function ($scope, $http, $location, user, per
 });
 
 /* CONTROLADORES PARA EL USUARIO INSTRUCTOR */
-app.controller('cursosICtrl', function ($scope, $http, $location, user, periodoService) {
+app.controller('cursosICtrl', function ($scope, $http, $location, user, curso, periodoService) {
 
 	$scope.periodo = periodoService.getPeriodo()
 		.then(function (response) {
@@ -593,8 +593,40 @@ app.controller('cursosICtrl', function ($scope, $http, $location, user, periodoS
 		});
 	}
 
+	$scope.cursoID = function (id) {
+		curso.setID(id);
+	}
+
+	$scope.getInfoCurso = function () {
+
+		$scope.idCurso = curso.getID();
+		// console.log($scope.idCurso);
+
+		if ($scope.idCurso != "") {
+			$http({
+				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getInfoCurso.php',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idCurso=' + $scope.idCurso
+			}).then(function successCallback(response) {
+				$scope.infoCurso = response.data;
+				// console.log(response.data);
+			}, function errorCallback(response) {
+
+			});
+		}
+
+	}
+
+	$scope.back = function () {
+		window.history.back();
+	};
+
 	$scope.getDocumentos();
 	$scope.getCursos();
+	$scope.getInfoCurso();
 
 });
 
