@@ -11,13 +11,15 @@
         <div>
             <img src="/Residencia/proyecto/images/Logo%20ITD.png" class="logoITD" alt="">
         </div>
-        <!-- <div>
-            <embed ng-src="/Residencia/Proyecto/files/{{doc.rutaArchivo}}" type="application/pdf" width="100%" height="600px" />
-        </div> -->
-        <div class="embed-responsive embed-responsive-4by3 w-75 pl-5 ml-5">
-            
-            <iframe class="embed-responsive-item" ng-src="/Residencia/Proyecto/files/{{doc.rutaArchivo}}"
-                allowfullscreen></iframe>
+        <div>
+            <embed ng-src="/Residencia/Proyecto/files/{{doc.rutaArchivo}}" type="application/pdf" width="100%"
+                height="600px" />
+        </div>
+        <div class="embed-responsive embed-responsive-16by9 w-75">
+            <object data="/residencia/proyecto/files/{{doc.rutaArchivo}}" width="400" height="300" type="text/html">
+                El documento no pudo ser cargado, pero puede descargarlo con el siguiente botón <br>
+                <a class="btn text-white bg-dark" href="/Residencia/Proyecto/files/{{doc.rutaArchivo}}" target="_blank">Descargar documento</a> 
+            </object>
         </div>
     </div>
 </div>
