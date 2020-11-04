@@ -640,12 +640,12 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, periodoS
 	$scope.getCursos = function () {
 		$http({
 			method: 'GET',
-			url: '/Residencia/Proyecto/files/cursos.js'
+			url: '/Residencia/Pruebas/pruebaLogin/php/getCursos.php'
 		}).then(function successCallback(response) {
 			$scope.cursos = response.data;
-			console.log(response.data);
+			// console.log(response.data);
 		}, function errorCallback(response) {
-			alert("No hay datos.")
+			console.log(response);
 		});
 	}
 
