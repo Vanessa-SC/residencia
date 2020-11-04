@@ -13,7 +13,6 @@
         <thead>
             <tr>
                 <th></th>
-                <th scope="col">No.</th>
                 <th scope="col">Curso</th>
                 <th scope="col">Periodo de realizaci&oacute;n</th>
                 <th scope="col">Subir documentaci&oacute;n</th>
@@ -22,14 +21,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="x in curso">
+            <tr ng-repeat="x in cursos">
                 <th></th>
-                <th scope="row">1</th>
                 <td><a href="#!/inicioI/cursos/infoCurso" title="Ver más">{{x.curso}}</a></td>
-                <td>{{x.horario}}</td>
+                <td>{{x.fecha}} <br> {{x.horario}}</td>
                 <td><a href="#!/inicioI/cursos/subir-docscurso"><button class="btn bg-white documento_icon"></button></a></td>
                 <td><a href="#!/inicioI/cursos/asistencia"><button class="btn bg-white calendario_icon"></button></a></td>
-                <td><a href="#!/inicioI/cursos/participantes"><button class="btn bg-white grupo_icon"></button></a></td>
+                <td><a href="#!/inicioI/cursos/participantes" ng-click=cursoID(x.idCurso)><button class="btn bg-white grupo_icon" title="Participantes"></button></a></td>
             </tr>
         </tbody>
     </table>

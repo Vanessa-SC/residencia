@@ -15,19 +15,15 @@
                 <th></th>
                 <th scope="col">No.</th>
                 <th scope="col">Participante</th>
-                <th scope="col">Sexo</th>
-                <th scope="col">Puesto</th>
                 <th scope="col">Departamento</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr ng-repeat="x in participantes">
                 <th></th>
-                <th scope="row">1</th>
-                <td>Dora Luz Gonzales Bañales</td>
-                <td>Femenino</td>
-                <td>Docente</td>
-                <td>Sistemas y Computación</td>
+                <th scope="row"> {{x.idUsuario}} </th>
+                <td> {{x.nombre}} </td>
+                <td> {{x.nombreD}} </td>
             </tr>
         </tbody>
     </table>
