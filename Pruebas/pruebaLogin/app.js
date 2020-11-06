@@ -516,6 +516,24 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 		});
 	}
 
+	$scope.crearCurso = function(datos){
+		console.log(datos);
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/crearCursoC.php',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			data: JSON.stringify(datos)
+		}).then(function successCallback(response) {
+			console.log(response.data);
+		}, function errorCallback(response) {
+			console.log("No hay datos.");
+		});
+	}
+
+
+
 	$scope.getDoc();
 	$scope.getListaDocumentosCurso();
 	$scope.getCursos();
