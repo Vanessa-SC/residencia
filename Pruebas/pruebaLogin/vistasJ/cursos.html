@@ -14,7 +14,7 @@
 		<div class="mb-3 p-2 mt-4">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="nuevaConstancia">Generar Curso</label>
-				<a href="#!/inicioC/cursos/"><button id="nuevoCurso" class="btn bg-white border-dark plus_icon" type="button"></button></a>
+				<a href="#!/inicioJ/cursos/generar"><button id="nuevoCurso" class="btn bg-white border-dark plus_icon" type="button"></button></a>
 			</div>
 		</div>
     </div>
@@ -39,10 +39,10 @@
                 <td class=" align-middle "> {{x.maestro}} </td>
                 <td class=" align-middle "> {{x.curso}} </td>
                 <td class=" align-middle "> {{x.fecha}} <br> {{x.horario}} </td>
-                <td class=" align-middle "><a href="#!//inicioC/cursos/" ng-click=cursoID(x.idCurso)><button class="btn bg-white documento_icon"></button></a></td>
+                <td class=" align-middle "><a href="#!/inicioJ/cursos/subirDocumentos" ng-click=cursoID(x.idCurso)><button class="btn bg-white documento_icon"></button></a></td>
 
                 <!-- #!/inicioC/programa/infoCurso -->
-                <td class=" align-middle "><a href="#!//inicioC/cursos/" ng-click=cursoID(x.idCurso)><button class="btn btn-light moreinfo_icon" title="Ver más información"></button></a></td>
+                <td class=" align-middle "><a href="#!/inicioC/cursos/" ng-click=cursoID(x.idCurso)><button class="btn btn-light moreinfo_icon" title="Ver más información"></button></a></td>
                 <td class="align-middle">
                     <a href="">
                         <button class="btn btn-sm bg-white editar_icon mb-1" title="Editar"></button>

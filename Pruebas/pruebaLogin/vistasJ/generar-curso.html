@@ -1,0 +1,99 @@
+<ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasJ/nav.html'"></ng-include>
+<div class="container px-5" ng-controlelr="constanciasController">
+	<table class="table border-bottom border-dark">
+		<tr>
+			<td>
+                <div class="input-group mb-3 col-sm-10 mt-4">
+					<div class="input-group-prepend">
+						<label class="input-group-text" for="folio">Folio</label>
+					</div>
+					<input type="text" id="folio" class="form-control">
+                </div>
+                <div class="input-group mb-3 col-sm-10 mt-4">
+					<div class="input-group-prepend">
+						<label class="input-group-text" for="ClaveRegistro">Clave registro</label>
+					</div>
+					<input type="text" id="ClaveRegistro" class="form-control">
+                </div>
+                <div class="input-group mb-3 col-sm-10 mt-4">
+					<div class="input-group-prepend">
+						<label class="input-group-text" for="nombreCurso">Nombre</label>
+					</div>
+					<input type="text" id="nombreCurso" class="form-control">
+				</div>
+				<div class="input-group mb-3 col-sm-10 mt-4">
+					<div class="input-group-prepend">
+						<label class="input-group-text" for="periodo">Periodo</label>
+					</div>
+					<select class="custom-select" id="periodo">
+						<option selected>Seleccionar...</option>
+						<option value="1">Agosto - Diciembre</option>
+						<option value="2">Enero - Junio</option>
+					</select>
+                </div>
+                <div class="input-group mb-3 col-sm-10 mt-4">
+					<div class="input-group-prepend">
+						<label class="input-group-text" for="duracion">Duraci&oacute;n</label>
+					</div>
+					<input type="number" id="duracion" class="form-control">
+                </div>
+                <div class="input-group mb-3 col-sm-10 mt-4">
+					<div class="input-group-prepend">
+						<label class="input-group-text" for="horario">Horario</label>
+					</div>
+					<input type="time" id="horario" class="form-control">
+                </div>
+                <div class="input-group mb-3 col-sm-10 mt-4">
+					<div class="input-group-prepend">
+						<label class="input-group-text" for="fechaInicio">Fecha Inicio</label>
+					</div>
+                    <input type="date" id="fechaInicio" class="form-control">
+                    <div class="input-group-prepend">
+						<label class="input-group-text" for="fechaFin">Fecha Fin</label>
+					</div>
+					<input type="date" id="fechaFin" class="form-control">
+                </div>
+				<div class="input-group mb-3 col-sm-10 mt-4">
+					<div class="input-group-prepend">
+						<label class="input-group-text" for="modalidad">Modalidad</label>
+					</div>
+					<select class="custom-select" id="modalidad">
+						<option selected>Seleccionar...</option>
+						<option value="1">Presencial</option>
+						<option value="2">Virtual</option>
+					</select>
+				</div>
+				<div class="input-group mb-3 col-sm-10 mt-4">
+					<div class="input-group-prepend">
+						<label class="input-group-text" for="lugar">Lugar</label>
+					</div>
+					<input type="text" id="lugar" class="form-control">
+                </div>
+                <div class="input-group mb-3 col-sm-10 mt-4">
+					<div class="input-group-prepend">
+						<label class="input-group-text" for="destinatarios">Destinatarios</label>
+					</div>
+					<input type="text" id="destinatarios" class="form-control">
+                </div>
+                <div class="input-group mb-3 col-sm-10 mt-4">
+					<div class="input-group-prepend">
+						<label class="input-group-text" for="objetivo">Objetivo</label>
+					</div>
+					<textarea type="text" id="objetivo" class="form-control"></textarea>
+                </div>
+                <div class="input-group mb-3 col-sm-10 mt-4">
+					<div class="input-group-prepend">
+						<label class="input-group-text" for="observaciones">Observaciones</label>
+					</div>
+					<textarea type="text" id="observaciones" class="form-control"></textarea>
+				</div>
+			</td>
+			<td class="align-middle text-center">
+				<label for="btn_generar">Generar</label><br>
+				<button class="btn bg-white ok-blank_icon"></button>
+			</td>
+		</tr>
+	</table>
+	
+	<div class="card-footer text-muted text-center">Todos los derechos reservados. ITD 2020</div>
+</div>

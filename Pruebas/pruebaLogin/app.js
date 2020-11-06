@@ -204,7 +204,7 @@ app.config(function ($routeProvider, $locationProvider) {
 			controller: 'cursosJCtrl'
 
 		}).when('/inicioJ/cursos/generar', {
-			template: './vistasJ/generarCurso.html',
+			templateUrl: './vistasJ/generar-curso.html',
 			controller: 'cursosJCtrl'
 
 		}).when('/inicioJ/cursos/subirDocumentos', {
