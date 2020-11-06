@@ -683,6 +683,13 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, periodoS
 		});
 	}
 
+	$scope.periodo = periodoService.getPeriodo()
+		.then(function (response) {
+			$scope.periodo = response;
+		}, function (error) {
+			console.log(response);
+		});
+
 	$scope.getCursos();
 
 
