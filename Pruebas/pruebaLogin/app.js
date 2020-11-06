@@ -65,6 +65,10 @@ app.config(function ($routeProvider, $locationProvider) {
 			templateUrl: './vistasC/programa.html',
 			controller: 'programaCtrl'
 
+		}).when('/inicioC/programa/generar', {
+			templateUrl: './vistasC/generar-curso.html',
+			controller: 'programaCtrl'
+
 		}).when('/inicioC/programa/infoCurso', {
 			templateUrl: './vistasC/info-curso.html',
 			controller: 'programaCtrl'
