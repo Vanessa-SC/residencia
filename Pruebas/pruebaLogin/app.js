@@ -527,6 +527,10 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 			data: JSON.stringify(datos)
 		}).then(function successCallback(response) {
 			console.log(response.data);
+			if(response.data.status == "ok"){
+				alert("Curso creado correctamente.");
+				$location.path("/InicioC/programa");
+			}
 		}, function errorCallback(response) {
 			console.log("No hay datos.");
 		});
