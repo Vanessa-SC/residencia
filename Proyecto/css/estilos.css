@@ -110,13 +110,13 @@ button.op {
     font-weight: 500;
     color: #791425;
 }
-
+/* 
 .actdoc {
     color: #6F193F;
     font-weight: 600;
     padding: 10px;
     background: #CCCCCC;
-}
+} */
 
 .item {
     list-style: none;
@@ -563,6 +563,49 @@ button.btn-back:hover {
 button.btn.btn-inv.no-btn {
     cursor: default;
 }
+
+.subir{
+    padding: 5px 10px;
+    background: #6F193F;
+    color:#fff;
+    border:0px solid #fff;
+}
+ 
+.subir:hover{
+    color:#fff;
+    background: #cfaa54;
+}
+
+/* Upload button */
+.upload {
+    display: none;
+  }
+  .uploader {
+    border: 1px solid #ccc;
+    width: 300px;
+    position: relative;
+    height: 30px;
+    display: flex;
+  }
+  .uploader .input-value{
+    width: 250px;
+    padding: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 25px;
+    font-family: sans-serif;
+    font-size: 16px;
+  }
+  .uploader label {
+    cursor: pointer;
+    margin: 0;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 0;
+    background: #6F193F url('/Residencia/Proyecto/images/upload-sm.png') no-repeat center;
+    background-size: cover;
+  }
 
 @media (max-width: 800px) {
   .logoHeader {

@@ -211,6 +211,10 @@ app.config(function ($routeProvider, $locationProvider) {
 			templateUrl: './vistasJ/generar-curso.html',
 			controller: 'cursosJCtrl'
 
+		}).when('/inicioJ/cursos/infoCurso', {
+			templateUrl: './vistasJ/info-curso.html',
+			controller: 'cursosJCtrl'
+
 		}).when('/inicioJ/cursos/subirDocumentos', {
 			templateUrl: './vistasJ/subir-docscurso.html',
 			controller: 'cursosJCtrl'
@@ -326,7 +330,7 @@ app.service('curso', function () {
 
 	this.setID = function (cursoID) {
 		id = cursoID;
-		console.log('idCurso: '+id);
+		console.log('idCurso: ' + id);
 	};
 
 	this.getID = function () {
@@ -335,7 +339,7 @@ app.service('curso', function () {
 
 	this.setIDdocumento = function (idDocumento) {
 		idDoc = idDocumento;
-		console.log('idDoc: '+idDoc);
+		console.log('idDoc: ' + idDoc);
 	};
 
 	this.getIDdocumento = function () {
@@ -360,7 +364,19 @@ app.service('periodoService', function ($q, $http) {
 	}
 })
 
-
+/* PARA SUBIR ARCHIVOS */
+app.directive("fileInput", function ($parse) {
+	return {
+		link: function ($scope, element, attrs) {
+			element.on("change", function (event) {
+				var files = event.target.files;
+				// console.log(files[0].name);
+				$parse(attrs.fileInput).assign(element[0].files);
+				$scope.$apply();
+			});
+		}
+	}
+});
 
 app.controller('loginCtrl', function ($scope, $http, $location, user) {
 	$scope.gotoInicio = function () {
@@ -516,7 +532,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 		});
 	}
 
-	$scope.crearCurso = function(datos){
+	$scope.crearCurso = function (datos) {
 		console.log(datos);
 		$http({
 			method: 'POST',
@@ -527,13 +543,37 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 			data: JSON.stringify(datos)
 		}).then(function successCallback(response) {
 			console.log(response.data);
-			if(response.data.status == "ok"){
+			if (response.data.status == "ok") {
 				alert("Curso creado correctamente.");
 				$location.path("/InicioC/programa");
 			}
 		}, function errorCallback(response) {
 			console.log("No hay datos.");
 		});
+	}
+
+	$scope.deleteCurso = function (id, nombreCurso) {
+		if (confirm('¿Está seguro de que quiere eliminar el curso "' + nombreCurso + '"?')) {
+			$http({
+				method: 'POST',
+				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/deleteCurso.php',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idCurso=' + id
+			}).then(function successCallback(response) {
+				if (response.data.status == "ok") {
+					alert("Curso eliminado correctamente.");
+					$scope.getCursos();
+				} else {
+					alert("Error al eliminar el curso");
+				}
+			}, function errorCallback(response) {
+				return false;
+			});
+		} else {
+			return false;
+		}
 	}
 
 
@@ -695,145 +735,216 @@ app.controller('participantesICtrl', function ($scope, $http, $location, user, c
 
 /* CONTROLADORES PARA EL USUARIO JEFE */
 
-app.controller('cursosJCtrl', function ($scope, $http, $location, user, periodoService) {
+app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, periodoService) {
 
-	$scope.getCursos = function () {
-		$http({
-			method: 'GET',
-			url: '/Residencia/Pruebas/pruebaLogin/php/getCursos.php'
-		}).then(function successCallback(response) {
-			$scope.cursos = response.data;
-			// console.log(response.data);
-		}, function errorCallback(response) {
-			//console.log(response);
-		});
-	}
+			$scope.getCursos = function () {
+				$http({
+					method: 'GET',
+					url: '/Residencia/Pruebas/pruebaLogin/php/getCursos.php'
+				}).then(function successCallback(response) {
+					$scope.cursos = response.data;
+					// console.log(response.data);
+				}, function errorCallback(response) {
+					//console.log(response);
+				});
+			}
 
-	$scope.periodo = periodoService.getPeriodo()
-		.then(function (response) {
-			$scope.periodo = response;
-		}, function (error) {
-			console.log(response);
-		});
+			$scope.cursoID = function (id) {
+				curso.setID(id);
+			}
 
-	$scope.getCursos();
+			$scope.getInfoCurso = function () {
+
+				$scope.idCurso = curso.getID();
+				// console.log($scope.idCurso);
+
+				if ($scope.idCurso != "") {
+					$http({
+						url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getInfoCurso.php',
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/x-www-form-urlencoded'
+						},
+						data: 'idCurso=' + $scope.idCurso
+					}).then(function successCallback(response) {
+						$scope.infoCurso = response.data;
+						// console.log(response.data);
+					}, function errorCallback(response) {
+
+					});
+				}
+
+			}
+
+			$scope.periodo = periodoService.getPeriodo()
+				.then(function (response) {
+					$scope.periodo = response;
+				}, function (error) {
+					console.log(response);
+				});
+
+			$scope.getListaDocumentosCurso = function () {
+				$http({
+					method: 'GET',
+					url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getDocumentos.php'
+				}).then(function successCallback(response) {
+					$scope.documentos = response.data;
+					console.log(response.data);
+				}, function errorCallback(response) {
+					alert("No hay datos.")
+				});
+			}
+
+			$scope.back = function () {
+				window.history.back();
+			};
+
+			// $scope.uploadFile = function () {
+			// 	var form_data = new FormData();
+
+			// 	angular.foreach($scope.files, function (file) {
+			// 		form_data.append('file', file);
+			// 	});
+
+			// 	$http({
+			// 		url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/subirDocumentoCurso.php',
+			// 		method: 'POST',
+			// 		headers: {
+			// 			'Content-Type': undefined
+			// 		},
+			// 		data: form_data
+			// 	}).then(function successCallback(response) {
+			// 		$scope.response = response.data;;
+			// 	}, function errorCallback(response) {
+
+			// 	});
+			// }
+
+			// $scope.upload = function (value) {
+			// 	var fd = new FormData();
+			// 	angular.forEach($scope.uploadfiles, function (file) {
+			// 		fd.append('file', file);
+			// 	});
+
+			// 	$http({
+			// 		url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/subirDocumentoCurso.php',
+			// 		method: 'POST',
+			// 		headers: {
+			// 			'Content-Type': undefined
+			// 		},
+			// 		data: fd
+			// 	}).then(function successCallback(response) {
+			// 		$scope.response = response.data;;
+			// 	});
+			// }
 
 
-	$scope.getDocumentos = function () {
-		$http({
-			method: 'GET',
-			url: '/Residencia/Proyecto/files/docsCurso.js'
-		}).then(function successCallback(response) {
-			$scope.documentos = response.data;
-			console.log(response.data);
-		}, function errorCallback(response) {
-			alert("No hay datos.")
-		});
-	}
 
-	$scope.getDocumentos();
-});
-
-app.controller('encuestaJCtrl', function ($scope, $http, $location, user, periodoService) {
-
-});
-
-/*	CONTROLADORES PARA EL USUARIO DOCENTE */
-app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, periodoService) {
-
-	$scope.getCursos = function () {
-		$http({
-			method: 'GET',
-			url: '/Residencia/Pruebas/pruebaLogin/php/getCursos.php'
-		}).then(function successCallback(response) {
-			$scope.cursos = response.data;
-			// console.log(response.data);
-		}, function errorCallback(response) {
-			//console.log(response);
-		});
-	}
-
-	// $scope.cursoIdUsuario = function (idUsuario) {
-	// 	user.setIdUsuario(idUsuario);
-	// }
-
-	$scope.getMisCursos = function () {
-
-		$scope.id = user.getIdUsuario();
-
-		if ($scope.id != undefined ) {
-			$http({
-				url: '/Residencia/Pruebas/pruebaLogin/php/getMisCursos.php',
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded'
-				},
-				data: 'idUsuario=' + $scope.id
-			}).then(function successCallback(response) {
-				$scope.misCursos = response.data;
-				//console.log(response.data);
-			}, function errorCallback(response) {
-				//console.log(response.data);
+				$scope.getInfoCurso();
+				$scope.getCursos();
+				$scope.getListaDocumentosCurso();
 			});
-		}
 
-	}
-
-	$scope.cursoID = function (id) {
-		curso.setID(id);
-	}
-
-	$scope.getInfoCurso = function () {
-
-		$scope.idCurso = curso.getID();
-		//console.log($scope.idCurso);
-
-		if ($scope.idCurso != "") {
-			$http({
-				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getInfoCurso.php',
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded'
-				},
-				data: 'idCurso=' + $scope.idCurso
-			}).then(function successCallback(response) {
-				$scope.infoCurso = response.data;
-				//console.log(response.data);
-			}, function errorCallback(response) {
+			app.controller('encuestaJCtrl', function ($scope, $http, $location, user, periodoService) {
 
 			});
-		}
 
-	}
+			/*	CONTROLADORES PARA EL USUARIO DOCENTE */
+			app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, periodoService) {
 
-	$scope.back = function () {
-		window.history.back();
-	};
+				$scope.getCursos = function () {
+					$http({
+						method: 'GET',
+						url: '/Residencia/Pruebas/pruebaLogin/php/getCursos.php'
+					}).then(function successCallback(response) {
+						$scope.cursos = response.data;
+						// console.log(response.data);
+					}, function errorCallback(response) {
+						//console.log(response);
+					});
+				}
 
-	$scope.periodo = periodoService.getPeriodo()
-		.then(function (response) {
-			$scope.periodo = response;
-		}, function (error) {
-			console.log(response);
-		});
+				// $scope.cursoIdUsuario = function (idUsuario) {
+				// 	user.setIdUsuario(idUsuario);
+				// }
+
+				$scope.getMisCursos = function () {
+
+					$scope.id = user.getIdUsuario();
+
+					if ($scope.id != undefined) {
+						$http({
+							url: '/Residencia/Pruebas/pruebaLogin/php/getMisCursos.php',
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/x-www-form-urlencoded'
+							},
+							data: 'idUsuario=' + $scope.id
+						}).then(function successCallback(response) {
+							$scope.misCursos = response.data;
+							//console.log(response.data);
+						}, function errorCallback(response) {
+							//console.log(response.data);
+						});
+					}
+
+				}
+
+				$scope.cursoID = function (id) {
+					curso.setID(id);
+				}
+
+				$scope.getInfoCurso = function () {
+
+					$scope.idCurso = curso.getID();
+					//console.log($scope.idCurso);
+
+					if ($scope.idCurso != "") {
+						$http({
+							url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getInfoCurso.php',
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/x-www-form-urlencoded'
+							},
+							data: 'idCurso=' + $scope.idCurso
+						}).then(function successCallback(response) {
+							$scope.infoCurso = response.data;
+							//console.log(response.data);
+						}, function errorCallback(response) {
+
+						});
+					}
+
+				}
+
+				$scope.back = function () {
+					window.history.back();
+				};
+
+				$scope.periodo = periodoService.getPeriodo()
+					.then(function (response) {
+						$scope.periodo = response;
+					}, function (error) {
+						console.log(response);
+					});
 
 
-	// $scope.reload();
-	//$scope.getDocumentosCurso();
-	$scope.getCursos();
-	$scope.getInfoCurso();
-	$scope.getMisCursos();
-	// $scope.periodo();
-});
+				// $scope.reload();
+				//$scope.getDocumentosCurso();
+				$scope.getCursos();
+				$scope.getInfoCurso();
+				$scope.getMisCursos();
+				// $scope.periodo();
+			});
 
-app.controller('encuestaDCtrl', function ($scope, $http, $location, user, periodoService) {
+			app.controller('encuestaDCtrl', function ($scope, $http, $location, user, periodoService) {
 
-});
+			});
 
-app.controller('misCursosDCtrl', function ($scope, $http, $location, user, periodoService) {
+			app.controller('misCursosDCtrl', function ($scope, $http, $location, user, periodoService) {
 
-});
+			});
 
-app.controller('constanciasDCtrl', function ($scope, $http, $location, user, periodoService) {
+			app.controller('constanciasDCtrl', function ($scope, $http, $location, user, periodoService) {
 
-});
+			});
