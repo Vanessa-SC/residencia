@@ -3,24 +3,24 @@
 	<form>
 		<table class="table border-bottom border-dark">
 			<tr>
-				<td>
-					<div class="input-group mb-3 col-sm-10 mt-4">
+				<td class="col-sm-10">
+					<div class="input-group mb-3  mt-4">
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="folio">Folio</label>
 						</div>
-						<input required type="text" id="folio" class="form-control" value="{{actCurso.Folio}}">
+						<input required type="text" id="folio" class="form-control" ng-model="curso.Folio" ng-value="actCurso.Folio">
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="ClaveRegistro">Clave registro</label>
 						</div>						
-						<input required type="text" id="ClaveRegistro" class="form-control" value="{{actCurso.ClaveRegistro}}">
+						<input required type="text" id="ClaveRegistro" class="form-control" ng-model="curso.claveRegistro" ng-value="actCurso.ClaveRegistro">
 					</div>
-					<div class="input-group mb-3 col-sm-10 mt-4">
+					<div class="input-group mb-3  mt-4">
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="nombreCurso">Nombre</label>
 						</div>
-						<input required type="text" id="nombreCurso" class="form-control" value="{{actCurso.curso}}">
+						<input required type="text" id="nombreCurso" class="form-control" ng-model="curso.curso" ng-value="actCurso.curso">
 					</div>
-					<div class="input-group mb-3 col-sm-10 mt-4">
+					<div class="input-group mb-3  mt-4">
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="periodo">Periodo</label>
 						</div>
@@ -30,70 +30,69 @@
 							<option value="2">Enero / Junio</option>
 						</select>
 					</div>
-					<div class="input-group mb-3 col-sm-10 mt-4">
+					<div class="input-group mb-3  mt-4">
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="duracion">Duraci&oacute;n</label>
 						</div>
-						<input required type="number" id="duracion" class="form-control" value="{{actCurso.duracion}}">
+						<input required type="number" id="duracion" class="form-control" ng-model="curso.duracion" ng-value="actCurso.duracion">
 					</div>
-					<div class="input-group mb-3 col-sm-10 mt-4">
+					<div class="input-group mb-3  mt-4">
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="horaInicio">Hora de Inicio</label>
 						</div>
-						<input required type="time" id="horaInicio" class="form-control" value="{{actCurso.horaInicio}}">
+						<input required type="time" id="horaInicio" class="form-control" ng-model="curso.horaInicio" ng-value="actCurso.horaInicio">
 					</div>
-					<div class="input-group mb-3 col-sm-10 mt-4">
+					<div class="input-group mb-3  mt-4">
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="horaFin">Hora de Termino</label>
 						</div>
-						<input required type="time" id="horaFin" class="form-control" value="{{actCurso.horaFin}}">
+						<input required type="time" id="horaFin" class="form-control" ng-model="curso.horaFin" ng-value="actCurso.horaFin" >
 					</div>
-					<div class="input-group mb-3 col-sm-10 mt-4">
+					<div class="input-group mb-3  mt-4">
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="fechaInicio">Fecha Inicio</label>
 						</div>
-						<input required type="date" id="fechaInicio" class="form-control" value="{{actCurso.fechaInicio}}">
+						<input required type="date" id="fechaInicio" class="form-control" ng-model="curso.fechaInicio" ng-value="actCurso.fechaInicio">
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="fechaFin">Fecha Fin</label>
 						</div>
-						<input required type="date" id="fechaFin" class="form-control" value="{{actCurso.fechaFin}}">
+						<input required type="date" id="fechaFin" class="form-control" ng-model="curso.fechaFin" ng-value="actCurso.fechaFin">
 					</div>
-					<div class="input-group mb-3 col-sm-10 mt-4">
+					<div class="input-group mb-3  mt-4">
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="modalidad">Modalidad</label>
 						</div>
-						<select class="custom-select" id="modalidad">
-							<option selected>{{actCurso.modalidad}}</option>
-							<option value="1">Presencial</option>
-							<option value="2">Virtual</option>
+						<select class="custom-select" id="modalidad" ng-model="curso.modalidad">
+							<option value"1">Presencial</option>
+							<option value"2">Virtual</option>
 						</select>
 					</div>
-					<div class="input-group mb-3 col-sm-10 mt-4">
+					<div class="input-group mb-3  mt-4">
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="lugar">Lugar</label>
 						</div>
-						<input required type="text" id="lugar" class="form-control" value="{{actCurso.lugar}}">
+						<input required type="text" id="lugar" class="form-control" ng-model="curso.lugar" ng-value="actCurso.lugar">
 					</div>
-					<div class="input-group mb-3 col-sm-10 mt-4">
+					<div class="input-group mb-3  mt-4">
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="destinatarios">Destinatarios</label>
 						</div>
-						<input required type="text" id="destinatarios" class="form-control" value="{{actCurso.destinatarios}}">
+						<input required type="text" id="destinatarios" class="form-control" ng-model="curso.destinatarios" ng-value="actCurso.destinatarios">
 					</div>
-					<div class="input-group mb-3 col-sm-10 mt-4">
+					<div class="input-group mb-3  mt-4">
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="objetivo">Objetivo</label>
 						</div>
-						<textarea required type="text" id="objetivo" class="form-control">{{actCurso.objetivo}}</textarea>
+						<textarea required type="text" id="objetivo" class="form-control" ng-value="actCurso.objetivo" ng-model="curso.objetivo"></textarea>
 					</div>
-					<div class="input-group mb-3 col-sm-10 mt-4">
+					<div class="input-group mb-3  mt-4">
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="observaciones">Observaciones</label>
 						</div>
-						<textarea type="text" id="observaciones" class="form-control">{{actCurso.observaciones}}</textarea>
+						<textarea type="text" id="observaciones" class="form-control" ng-model="curso.observaciones" ng-value="actCurso.observaciones"></textarea>
 					</div>
 				</td>
-				<td class="align-middle text-center">
+				<td class="align-middle text-center col-sm-1">
 					<label for="btn_generar">Generar</label><br>
 					<button class="btn bg-white ok-blank_icon" ng-click="crearCurso(curso)"></button>
 				</td>

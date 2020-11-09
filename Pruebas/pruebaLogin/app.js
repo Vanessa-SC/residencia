@@ -500,7 +500,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 				data: 'idCurso=' + $scope.idCurso
 			}).then(function successCallback(response) {
 				$scope.infoCurso = response.data;
-				 console.log(response.data);
+				//  console.log(response.data);
 			}, function errorCallback(response) {
 
 			});
@@ -570,7 +570,9 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 			data: JSON.stringify(datos)
 		}).then(function successCallback(response) {
 			console.log(response.data);
-			if (response.data.status == "ok") {
+			if (response.data.status != "ok") {
+				alert("Ocurrió un error al crear el curso");
+			} else {
 				alert("Curso creado correctamente.");
 				$location.path("/inicioC/programa");
 			}
