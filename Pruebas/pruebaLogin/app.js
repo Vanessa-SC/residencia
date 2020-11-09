@@ -455,7 +455,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 			url: '/Residencia/Pruebas/pruebaLogin/php/getCursos.php'
 		}).then(function successCallback(response) {
 			$scope.cursos = response.data;
-			// console.log(response.data);
+			console.log(response.data);
 		}, function errorCallback(response) {
 			console.log(response);
 		});
@@ -523,6 +523,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 				data: 'idCurso=' + $scope.idCurso
 			}).then(function successCallback(response) {
 				$scope.actCurso = response.data;
+				$scope.curso = response.data;
 				 console.log(response.data);
 			}, function errorCallback(response) {
 
@@ -579,6 +580,29 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 		}, function errorCallback(response) {
 			console.log("No hay datos.");
 		});
+	}
+	$scope.curso = {};
+
+	$scope.actualizarCurso = function () {
+		console.log($scope.curso);
+		// $http({
+		// 	method: 'POST',
+		// 	url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/crearCursoC.php',
+		// 	headers: {
+		// 		'Content-Type': 'application/json'
+		// 	},
+		// 	data: JSON.stringify(datos)
+		// }).then(function successCallback(response) {
+		// 	console.log(response.data);
+		// 	if (response.data.status != "ok") {
+		// 		alert("Ocurrió un error al crear el curso");
+		// 	} else {
+		// 		alert("Curso creado correctamente.");
+		// 		$location.path("/inicioC/programa");
+		// 	}
+		// }, function errorCallback(response) {
+		// 	console.log("No hay datos.");
+		// });
 	}
 
 	$scope.deleteCurso = function (id, nombreCurso) {

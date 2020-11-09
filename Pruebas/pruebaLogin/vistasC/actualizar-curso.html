@@ -12,7 +12,7 @@
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="ClaveRegistro">Clave registro</label>
 						</div>						
-						<input required type="text" id="ClaveRegistro" class="form-control" ng-model="curso.claveRegistro" ng-value="actCurso.ClaveRegistro">
+						<input required type="text" id="ClaveRegistro" class="form-control" ng-model="curso.ClaveRegistro" ng-value="actCurso.ClaveRegistro">
 					</div>
 					<div class="input-group mb-3  mt-4">
 						<div class="input-group-prepend">
@@ -62,7 +62,7 @@
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="modalidad">Modalidad</label>
 						</div>
-						<select class="custom-select" id="modalidad" ng-model="curso.modalidad">
+						<select required class="custom-select" id="modalidad" ng-model="curso.modalidad">
 							<option value"1">Presencial</option>
 							<option value"2">Virtual</option>
 						</select>
@@ -94,7 +94,7 @@
 				</td>
 				<td class="align-middle text-center col-sm-1">
 					<label for="btn_generar">Generar</label><br>
-					<button class="btn bg-white ok-blank_icon" ng-click="crearCurso(curso)"></button>
+					<button class="btn bg-white ok-blank_icon" ng-click="actualizarCurso()"></button>
 				</td>
 			</tr>
 		</table>

@@ -2,11 +2,17 @@
 
 include_once 'conexion.php';
 
-$sql = "SELECT curso.idCurso, instructor.nombreInstructor as maestro, 
-curso.nombreCurso as curso, curso.objetivo, concat_ws(' al ',curso.fechaInicio,curso.fechaFin) as fecha, 
-concat_ws(' - ',curso.horaInicio,curso.horaFin) as horario, curso.lugar, curso.duracion,curso.destinatarios, curso.validado
-			FROM instructor Inner join curso
-			ON curso.Instructor_idInstructor=instructor.idInstructor ";
+$formatt = "SET lc_time_names = 'es_MX' ";
+mysqli_query($conn,$formatt);
+
+$sql = "SELECT curso.idCurso,
+            instructor.nombreInstructor as maestro,
+            curso.nombreCurso as curso,
+            curso.objetivo,
+            concat_ws(' - ', DATE_FORMAT(curso.fechaInicio, '%d de %M'), DATE_FORMAT(curso.fechaFin, '%d de %M, %Y')) as fecha,
+            concat_ws(' a ',curso.horaInicio,curso.horaFin) as horario
+    FROM instructor Inner join curso
+    ON curso.Instructor_idInstructor=instructor.idInstructor ";
 
 $result = $conn->query($sql) or die($conn->error . __LINE__);
 
