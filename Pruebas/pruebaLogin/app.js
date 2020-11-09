@@ -69,6 +69,10 @@ app.config(function ($routeProvider, $locationProvider) {
 			templateUrl: './vistasC/generar-curso.html',
 			controller: 'programaCtrl'
 
+		}).when('/inicioC/programa/actualizar', {
+			templateUrl: './vistasC/actualizar-curso.html',
+			controller: 'programaCtrl'
+		
 		}).when('/inicioC/programa/infoCurso', {
 			templateUrl: './vistasC/info-curso.html',
 			controller: 'programaCtrl'
@@ -496,7 +500,30 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 				data: 'idCurso=' + $scope.idCurso
 			}).then(function successCallback(response) {
 				$scope.infoCurso = response.data;
-				// console.log(response.data);
+				 console.log(response.data);
+			}, function errorCallback(response) {
+
+			});
+		}
+
+	}
+
+	$scope.getCursoAct = function () {
+
+		$scope.idCurso = curso.getID();
+		// console.log($scope.idCurso);
+
+		if ($scope.idCurso != "") {
+			$http({
+				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getCursoAct.php',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idCurso=' + $scope.idCurso
+			}).then(function successCallback(response) {
+				$scope.actCurso = response.data;
+				 console.log(response.data);
 			}, function errorCallback(response) {
 
 			});
@@ -545,7 +572,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 			console.log(response.data);
 			if (response.data.status == "ok") {
 				alert("Curso creado correctamente.");
-				$location.path("/InicioC/programa");
+				$location.path("/inicioC/programa");
 			}
 		}, function errorCallback(response) {
 			console.log("No hay datos.");
@@ -582,6 +609,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 	$scope.getListaDocumentosCurso();
 	$scope.getCursos();
 	$scope.getInfoCurso();
+	$scope.getCursoAct();
 });
 
 app.controller('constanciasCtrl', function ($scope, $http, $location, user, periodoService) {

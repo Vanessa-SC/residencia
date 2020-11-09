@@ -11,17 +11,15 @@ $horaFin = date('h:i', strtotime($curso->horaFin));
 
 setlocale(LC_TIME,'es_MX');
 
-$fechaInicio = strftime ('%d/%B/%Y', strtotime($curso->fechaInicio));
-$fechaFin = strftime ('%d/%B/%Y', strtotime($curso->fechaFin));
-
-$año = strftime('%Y', strtotime($curso->fechaInicio));
+$fechaInicio = strftime ('%Y-%m-%d', strtotime($curso->fechaInicio));
+$fechaFin = strftime ('%Y-%m-%d', strtotime($curso->fechaFin));
 
 
 /* Determinar periodo */
 if($curso->periodo == 1) {
-    $periodo = "Agosto / Diciembre ".$año;
+    $periodo = "Agosto / Diciembre ";
 } else {
-    $periodo = "Enero / Junio ".$año;
+    $periodo = "Enero / Junio ";
 }
 
 
@@ -47,7 +45,8 @@ $sql = "INSERT INTO curso
             '$curso->nombre',
             '$periodo',
             '$curso->duracion',
-            '$horario',
+            '$horaInicio',
+            '$horaFin',
             '$fechaInicio',
             '$fechaFin',
             '$modalidad',

@@ -1,0 +1,106 @@
+<ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasC/nav.html'"></ng-include>
+<div class="container px-5" ng-controlelr="constanciasController">
+	<form>
+		<table class="table border-bottom border-dark">
+			<tr>
+				<td>
+					<div class="input-group mb-3 col-sm-10 mt-4">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="folio">Folio</label>
+						</div>
+						<input required type="text" id="folio" class="form-control" value="{{actCurso.Folio}}">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="ClaveRegistro">Clave registro</label>
+						</div>						
+						<input required type="text" id="ClaveRegistro" class="form-control" value="{{actCurso.ClaveRegistro}}">
+					</div>
+					<div class="input-group mb-3 col-sm-10 mt-4">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="nombreCurso">Nombre</label>
+						</div>
+						<input required type="text" id="nombreCurso" class="form-control" value="{{actCurso.curso}}">
+					</div>
+					<div class="input-group mb-3 col-sm-10 mt-4">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="periodo">Periodo</label>
+						</div>
+						<select class="custom-select" id="periodo">
+							<option selected>{{actCurso.periodo}}</option>
+							<option value="1">Agosto / Diciembre</option>
+							<option value="2">Enero / Junio</option>
+						</select>
+					</div>
+					<div class="input-group mb-3 col-sm-10 mt-4">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="duracion">Duraci&oacute;n</label>
+						</div>
+						<input required type="number" id="duracion" class="form-control" value="{{actCurso.duracion}}">
+					</div>
+					<div class="input-group mb-3 col-sm-10 mt-4">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="horaInicio">Hora de Inicio</label>
+						</div>
+						<input required type="time" id="horaInicio" class="form-control" value="{{actCurso.horaInicio}}">
+					</div>
+					<div class="input-group mb-3 col-sm-10 mt-4">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="horaFin">Hora de Termino</label>
+						</div>
+						<input required type="time" id="horaFin" class="form-control" value="{{actCurso.horaFin}}">
+					</div>
+					<div class="input-group mb-3 col-sm-10 mt-4">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="fechaInicio">Fecha Inicio</label>
+						</div>
+						<input required type="date" id="fechaInicio" class="form-control" value="{{actCurso.fechaInicio}}">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="fechaFin">Fecha Fin</label>
+						</div>
+						<input required type="date" id="fechaFin" class="form-control" value="{{actCurso.fechaFin}}">
+					</div>
+					<div class="input-group mb-3 col-sm-10 mt-4">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="modalidad">Modalidad</label>
+						</div>
+						<select class="custom-select" id="modalidad">
+							<option selected>{{actCurso.modalidad}}</option>
+							<option value="1">Presencial</option>
+							<option value="2">Virtual</option>
+						</select>
+					</div>
+					<div class="input-group mb-3 col-sm-10 mt-4">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="lugar">Lugar</label>
+						</div>
+						<input required type="text" id="lugar" class="form-control" value="{{actCurso.lugar}}">
+					</div>
+					<div class="input-group mb-3 col-sm-10 mt-4">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="destinatarios">Destinatarios</label>
+						</div>
+						<input required type="text" id="destinatarios" class="form-control" value="{{actCurso.destinatarios}}">
+					</div>
+					<div class="input-group mb-3 col-sm-10 mt-4">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="objetivo">Objetivo</label>
+						</div>
+						<textarea required type="text" id="objetivo" class="form-control">{{actCurso.objetivo}}</textarea>
+					</div>
+					<div class="input-group mb-3 col-sm-10 mt-4">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="observaciones">Observaciones</label>
+						</div>
+						<textarea type="text" id="observaciones" class="form-control">{{actCurso.observaciones}}</textarea>
+					</div>
+				</td>
+				<td class="align-middle text-center">
+					<label for="btn_generar">Generar</label><br>
+					<button class="btn bg-white ok-blank_icon" ng-click="crearCurso(curso)"></button>
+				</td>
+			</tr>
+		</table>
+		
+	</form>
+	<pre>curso = {{curso | json}}</pre>
+	<div class="card-footer text-muted text-center">Todos los derechos reservados. ITD 2020</div>
+</div>

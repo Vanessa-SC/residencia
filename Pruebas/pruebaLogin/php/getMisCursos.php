@@ -9,7 +9,7 @@ if (!isset($_POST)) {
 $id = mysqli_real_escape_string($conn, $_POST['idUsuario']);
 
 $sql = "SELECT curso.idCurso, curso.nombreCurso as curso, 
-        curso.objetivo, concat_ws(' ',curso.fechaInicio,curso.fechaFin) as fecha, curso.horario, 
+        curso.objetivo, concat_ws(' ',curso.fechaInicio,curso.fechaFin) as fecha, concat_ws(' - ',curso.horaInicio,curso.horaFin) as horario, 
         curso.lugar,curso.duracion,curso.destinatarios, curso.validado
         FROM usuario_has_curso Inner join curso 
         ON curso.idCurso = usuario_has_curso.Curso_idCurso 
