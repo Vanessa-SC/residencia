@@ -841,13 +841,16 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 
 	$scope.getCursos = function () {
 		$http({
-			method: 'GET',
-			url: '/Residencia/Pruebas/pruebaLogin/php/getCursos.php'
+			method: 'POST',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getCursosDepartamento.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idDepartamento=' + user.getIdDepartamento()
 		}).then(function successCallback(response) {
 			$scope.cursos = response.data;
-			// console.log(response.data);
 		}, function errorCallback(response) {
-			//console.log(response);
+			
 		});
 	}
 
