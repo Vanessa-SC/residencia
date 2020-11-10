@@ -243,7 +243,7 @@ app.service('user', function () {
 	var loggedin = false;
 	var id;
 	var rol;
-	var idUsuario;
+	var idDepartamento;
 
 	this.setName = function (name) {
 		username = name;
@@ -260,6 +260,15 @@ app.service('user', function () {
 	this.getID = function () {
 		return id;
 	};
+
+	this.getIdDepartamento = function(){
+		if (!!localStorage.getItem('login')) {
+			var data = JSON.parse(localStorage.getItem('login'));
+			idDepartamento = data.idDepartamento;
+			console.log("idDepto: "+idDepartamento);
+		}
+		return idDepartamento;
+	}
 
 	this.setIdUsuario = function (idUsuario) {
 		id = idUsuario;
@@ -310,13 +319,15 @@ app.service('user', function () {
 		id = data.idUsuario;
 		rol = data.rol;
 		path = ruta;
+		idDepartamento = data.Departamento_idDepartamento;
 
 		loggedin = true;
 		localStorage.setItem('login', JSON.stringify({
 			username: username,
 			id: id,
 			rol: rol,
-			path: path
+			path: path,
+			idDepartamento: idDepartamento 
 		}));
 	};
 
@@ -324,6 +335,7 @@ app.service('user', function () {
 		localStorage.removeItem('login');
 		username = "";
 		id = "";
+		idDepartamento = "";
 		loggedin = false;
 	}
 });
@@ -398,7 +410,6 @@ app.directive('stringToNumber', function () {
 });
 
 /* FORMATO DE FECHA */
-
 app.directive('asDate', function () {
     return {
         require: '^ngModel',
@@ -436,6 +447,7 @@ app.controller('loginCtrl', function ($scope, $http, $location, user) {
 			},
 			data: 'username=' + username + '&password=' + password
 		}).then(function (response) {
+			console.log(response.data);
 			if (response.data.status == 'loggedin') {
 				// user.userLoggedIn();
 				// user.setName(response.data.user);
@@ -480,6 +492,7 @@ app.controller('inicioCtrl', function ($scope, $http, $location, user, periodoSe
 		}, function (error) {
 			console.log(response);
 		});
+
 });
 
 /* CONTROLADORES PARA EL USUARIO COORDINADOR*/
