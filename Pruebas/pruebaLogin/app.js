@@ -853,6 +853,34 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 				window.history.back();
 			};
 
+			$scope.cursoID = function (id) {
+		       curso.setID(id);
+	         }
+
+			$scope.deleteCurso = function (id, nombreCurso) {
+		if (confirm('¿Está seguro de que quiere eliminar el curso "' + nombreCurso + '"?')) {
+			$http({
+				method: 'POST',
+				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/deleteCurso.php',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idCurso=' + id
+			}).then(function successCallback(response) {
+				if (response.data.status == "ok") {
+					alert("Curso eliminado correctamente.");
+					$scope.getCursos();
+				} else {
+					alert("Error al eliminar el curso");
+				}
+			}, function errorCallback(response) {
+				return false;
+			});
+		} else {
+			return false;
+		}
+	}
+
 			// $scope.uploadFile = function () {
 			// 	var form_data = new FormData();
 
