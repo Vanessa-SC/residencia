@@ -22,16 +22,13 @@ if($curso->periodo == 1) {
     $periodo = "Enero / Junio ";
 }
 
-
-/* Concatenación de horario */
-$horario = $horaInicio . ' a ' . $horaFin;
-
 /* Modalidad */
 if($curso->modalidad == 1) {
     $modalidad = "Presencial";
 } else {
     $modalidad = "Virtual";
 }
+
 /* Asignación de instructor y departamento por defecto */
 $instructor = 1;
 $departamento = 1;

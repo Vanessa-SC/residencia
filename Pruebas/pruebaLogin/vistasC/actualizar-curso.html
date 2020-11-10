@@ -25,7 +25,6 @@
 							<label class="input-group-text" for="periodo">Periodo</label>
 						</div>
 						<select class="custom-select" id="periodo">
-							<option selected>{{actCurso.periodo}}</option>
 							<option value="1">Agosto / Diciembre</option>
 							<option value="2">Enero / Junio</option>
 						</select>
@@ -34,29 +33,29 @@
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="duracion">Duraci&oacute;n</label>
 						</div>
-						<input required type="number" id="duracion" class="form-control" ng-model="curso.duracion" ng-value="actCurso.duracion">
+						<input required type="number" id="duracion" class="form-control" min="30" string-to-number ng-model="curso.duracion" ng-value="actCurso.duracion">
 					</div>
 					<div class="input-group mb-3  mt-4">
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="horaInicio">Hora de Inicio</label>
 						</div>
-						<input required type="time" id="horaInicio" class="form-control" ng-model="curso.horaInicio" ng-value="actCurso.horaInicio">
+						<input required type="time" id="horaInicio" class="form-control" as-date ng-model="curso.horaInicio" ng-value="actCurso.horaInicio">
 					</div>
 					<div class="input-group mb-3  mt-4">
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="horaFin">Hora de Termino</label>
 						</div>
-						<input required type="time" id="horaFin" class="form-control" ng-model="curso.horaFin" ng-value="actCurso.horaFin" >
+						<input required type="time" id="horaFin" class="form-control" as-date ng-model="curso.horaFin" ng-value="actCurso.horaFin" >
 					</div>
 					<div class="input-group mb-3  mt-4">
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="fechaInicio">Fecha Inicio</label>
 						</div>
-						<input required type="date" id="fechaInicio" class="form-control" ng-model="curso.fechaInicio" ng-value="actCurso.fechaInicio">
+						<input required type="date" id="fechaInicio" class="form-control" as-date ng-model="curso.fechaInicio" ng-value="actCurso.fechaInicio">
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="fechaFin">Fecha Fin</label>
 						</div>
-						<input required type="date" id="fechaFin" class="form-control" ng-model="curso.fechaFin" ng-value="actCurso.fechaFin">
+						<input required type="date" id="fechaFin" class="form-control" as-date ng-model="curso.fechaFin" ng-value="actCurso.fechaFin">
 					</div>
 					<div class="input-group mb-3  mt-4">
 						<div class="input-group-prepend">
@@ -93,7 +92,7 @@
 					</div>
 				</td>
 				<td class="align-middle text-center col-sm-1">
-					<label for="btn_generar">Generar</label><br>
+					<label for="btn_generar">Actualizar</label><br>
 					<button class="btn bg-white ok-blank_icon" ng-click="actualizarCurso()"></button>
 				</td>
 			</tr>

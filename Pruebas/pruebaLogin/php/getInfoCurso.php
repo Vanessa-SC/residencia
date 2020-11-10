@@ -6,9 +6,20 @@ if (!isset($_POST)) {
     die();
 }
 
+$formatt = "SET lc_time_names = 'es_MX' ";
+mysqli_query($conn,$formatt);
+
 $id = mysqli_real_escape_string($conn, $_POST['idCurso']);
 
-$sql = "SELECT curso.idCurso, instructor.nombreInstructor as maestro, curso.nombreCurso as curso, curso.objetivo, concat_ws(' al ',curso.fechaInicio,curso.fechaFin) as fecha, concat_ws(' - ',curso.horaInicio,curso.horaFin) as horario, curso.lugar,curso.duracion,curso.destinatarios, curso.validado
+$sql = "SELECT curso.idCurso, instructor.nombreInstructor as maestro, 
+            curso.nombreCurso as curso, 
+            curso.objetivo, 
+            concat_ws(' - ', DATE_FORMAT(curso.fechaInicio, '%d de %M'), DATE_FORMAT(curso.fechaFin, '%d de %M, %Y')) as fecha,
+            concat_ws(' - ',curso.horaInicio,curso.horaFin) as horario, 
+            curso.lugar,
+            curso.duracion,
+            curso.destinatarios, 
+            curso.validado
     FROM instructor Inner join curso
     ON curso.Instructor_idInstructor=instructor.idInstructor
     AND curso.idCurso = $id ";
