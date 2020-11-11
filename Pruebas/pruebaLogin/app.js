@@ -68,7 +68,7 @@ app.config(function ($routeProvider, $locationProvider) {
 		}).when('/inicioC/programa/generarCurso', {
 			templateUrl: './vistasC/generar-curso.html',
 			controller: 'programaCtrl'
-		
+
 		}).when('/inicioC/programa/agregarInstructor', {
 			templateUrl: './vistasC/agregar-instructor.html',
 			controller: 'programaCtrl'
@@ -241,7 +241,6 @@ app.config(function ($routeProvider, $locationProvider) {
 
 });
 
-
 app.service('user', function () {
 	var username;
 	var loggedin = false;
@@ -265,11 +264,11 @@ app.service('user', function () {
 		return id;
 	};
 
-	this.getIdDepartamento = function(){
+	this.getIdDepartamento = function () {
 		if (!!localStorage.getItem('login')) {
 			var data = JSON.parse(localStorage.getItem('login'));
 			idDepartamento = data.idDepartamento;
-			console.log("idDepto: "+idDepartamento);
+			console.log("idDepto: " + idDepartamento);
 		}
 		return idDepartamento;
 	}
@@ -331,7 +330,7 @@ app.service('user', function () {
 			id: id,
 			rol: rol,
 			path: path,
-			idDepartamento: idDepartamento 
+			idDepartamento: idDepartamento
 		}));
 	};
 
@@ -415,66 +414,66 @@ app.directive('stringToNumber', function () {
 
 /* FORMATO DE FECHA */
 app.directive('asDate', function () {
-    return {
-        require: '^ngModel',
-        restrict: 'A',
-        link: function (scope, element, attrs, ctrl) {
-            ctrl.$formatters.splice(0, ctrl.$formatters.length);
-            ctrl.$parsers.splice(0, ctrl.$parsers.length);
-            ctrl.$formatters.push(function (modelValue) {
-                if (!modelValue) {
-                    return;
-                }
-                return new Date(modelValue);
-            });
-            ctrl.$parsers.push(function (modelValue) {
-                return modelValue;
-            });
-        }
-    };
+	return {
+		require: '^ngModel',
+		restrict: 'A',
+		link: function (scope, element, attrs, ctrl) {
+			ctrl.$formatters.splice(0, ctrl.$formatters.length);
+			ctrl.$parsers.splice(0, ctrl.$parsers.length);
+			ctrl.$formatters.push(function (modelValue) {
+				if (!modelValue) {
+					return;
+				}
+				return new Date(modelValue);
+			});
+			ctrl.$parsers.push(function (modelValue) {
+				return modelValue;
+			});
+		}
+	};
 });
 
 //Función para validar una CURP
 function curpValida(curp) {
-    var re = /^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/,
-        validado = curp.match(re);
-	
-    if (!validado)  //Coincide con el formato general?
-    	return false;
-    
-    //Validar que coincida el dígito verificador
-    function digitoVerificador(curp17) {
-        var diccionario  = "0123456789ABCDEFGHIJKLMNÑOPQRSTUVWXYZ",
-            lngSuma      = 0.0,
-            lngDigito    = 0.0;
-        for(var i=0; i<17; i++)
-            lngSuma = lngSuma + diccionario.indexOf(curp17.charAt(i)) * (18 - i);
-        lngDigito = 10 - lngSuma % 10;
-        if (lngDigito == 10) return 0;
-        return lngDigito;
-    }
-  
-    if (validado[2] != digitoVerificador(validado[1])) 
-    	return false;
-        
-    return true; //Validado
+	var re = /^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/,
+		validado = curp.match(re);
+
+	if (!validado) //Coincide con el formato general?
+		return false;
+
+	//Validar que coincida el dígito verificador
+	function digitoVerificador(curp17) {
+		var diccionario = "0123456789ABCDEFGHIJKLMNÑOPQRSTUVWXYZ",
+			lngSuma = 0.0,
+			lngDigito = 0.0;
+		for (var i = 0; i < 17; i++)
+			lngSuma = lngSuma + diccionario.indexOf(curp17.charAt(i)) * (18 - i);
+		lngDigito = 10 - lngSuma % 10;
+		if (lngDigito == 10) return 0;
+		return lngDigito;
+	}
+
+	if (validado[2] != digitoVerificador(validado[1]))
+		return false;
+
+	return true; //Validado
 }
 
 //Handler para el evento cuando cambia el input
 //Lleva la CURP a mayúsculas para validarlo
 function validarInputC(input) {
-    var curp = input.value.toUpperCase(),
-        resultadoC = document.getElementById("resultadoC"),
-        valido = "No válido";
-        
-    if (curpValida(curp)) { // Comprobación
-    	valido = "Válido";
-        resultadoC.classList.add("ok");
-    } else {
-    	resultadoC.classList.remove("ok");
-    }
-        
-    resultadoC.innerText = " " + valido;
+	var curp = input.value.toUpperCase(),
+		resultadoC = document.getElementById("resultadoC"),
+		valido = "No válido";
+
+	if (curpValida(curp)) { // Comprobación
+		valido = "Válido";
+		resultadoC.classList.add("ok");
+	} else {
+		resultadoC.classList.remove("ok");
+	}
+
+	resultadoC.innerText = " " + valido;
 }
 
 //Función para validar un RFC
@@ -482,40 +481,40 @@ function validarInputC(input) {
 // Devuelve false si es inválido
 // (debe estar en mayúsculas, guiones y espacios intermedios opcionales)
 function rfcValido(rfc, aceptarGenerico = true) {
-    const re       = /^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/;
-    var   validado = rfc.match(re);
+	const re = /^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/;
+	var validado = rfc.match(re);
 
-    if (!validado)  //Coincide con el formato general del regex?
-        return false;
+	if (!validado) //Coincide con el formato general del regex?
+		return false;
 
-    //Separar el dígito verificador del resto del RFC
-    const digitoVerificador = validado.pop(),
-          rfcSinDigito      = validado.slice(1).join(''),
-          len               = rfcSinDigito.length,
+	//Separar el dígito verificador del resto del RFC
+	const digitoVerificador = validado.pop(),
+		rfcSinDigito = validado.slice(1).join(''),
+		len = rfcSinDigito.length,
 
-    //Obtener el digito esperado
-          diccionario       = "0123456789ABCDEFGHIJKLMN&OPQRSTUVWXYZ Ñ",
-          indice            = len + 1;
-    var   suma,
-          digitoEsperado;
+		//Obtener el digito esperado
+		diccionario = "0123456789ABCDEFGHIJKLMN&OPQRSTUVWXYZ Ñ",
+		indice = len + 1;
+	var suma,
+		digitoEsperado;
 
-    if (len == 12) suma = 0
-    else suma = 481; //Ajuste para persona moral
+	if (len == 12) suma = 0
+	else suma = 481; //Ajuste para persona moral
 
-    for(var i=0; i<len; i++)
-        suma += diccionario.indexOf(rfcSinDigito.charAt(i)) * (indice - i);
-    digitoEsperado = 11 - suma % 11;
-    if (digitoEsperado == 11) digitoEsperado = 0;
-    else if (digitoEsperado == 10) digitoEsperado = "A";
+	for (var i = 0; i < len; i++)
+		suma += diccionario.indexOf(rfcSinDigito.charAt(i)) * (indice - i);
+	digitoEsperado = 11 - suma % 11;
+	if (digitoEsperado == 11) digitoEsperado = 0;
+	else if (digitoEsperado == 10) digitoEsperado = "A";
 
-    //El dígito verificador coincide con el esperado?
-    // o es un RFC Genérico (ventas a público general)?
-    if ((digitoVerificador != digitoEsperado)
-     && (!aceptarGenerico || rfcSinDigito + digitoVerificador != "XAXX010101000"))
-        return false;
-    else if (!aceptarGenerico && rfcSinDigito + digitoVerificador == "XEXX010101000")
-        return false;
-    return rfcSinDigito + digitoVerificador;
+	//El dígito verificador coincide con el esperado?
+	// o es un RFC Genérico (ventas a público general)?
+	if ((digitoVerificador != digitoEsperado) &&
+		(!aceptarGenerico || rfcSinDigito + digitoVerificador != "XAXX010101000"))
+		return false;
+	else if (!aceptarGenerico && rfcSinDigito + digitoVerificador == "XEXX010101000")
+		return false;
+	return rfcSinDigito + digitoVerificador;
 }
 
 
@@ -523,23 +522,22 @@ function rfcValido(rfc, aceptarGenerico = true) {
 // -Lleva la RFC a mayúsculas para validarlo
 // -Elimina los espacios que pueda tener antes o después
 function validarInputR(input) {
-    var rfc         = input.value.trim().toUpperCase(),
-        resultadoR   = document.getElementById("resultadoR"),
-        valido;
-        
-    var rfcCorrecto = rfcValido(rfc);   // Comprobación
-  
-    if (rfcCorrecto) {
-    	valido = "Válido";
-      resultadoR.classList.add("ok");
-    } else {
-    	valido = "No válido"
-    	resultadoR.classList.remove("ok");
-    }
-        
-    resultadoR.innerText = " " + valido;
-}
+	var rfc = input.value.trim().toUpperCase(),
+		resultadoR = document.getElementById("resultadoR"),
+		valido;
 
+	var rfcCorrecto = rfcValido(rfc); // Comprobación
+
+	if (rfcCorrecto) {
+		valido = "Válido";
+		resultadoR.classList.add("ok");
+	} else {
+		valido = "No válido"
+		resultadoR.classList.remove("ok");
+	}
+
+	resultadoR.innerText = " " + valido;
+}
 
 
 app.controller('loginCtrl', function ($scope, $http, $location, user) {
@@ -708,17 +706,11 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 				data: 'idCurso=' + $scope.idCurso
 			}).then(function successCallback(response) {
 				$scope.actCurso = response.data;
-				
-				if(response.data.modalidad.indexOf("Virtual") !== -1){
+
+				if (response.data.modalidad.indexOf("Virtual") !== -1) {
 					$scope.actCurso.modalidad = 2;
 				} else {
 					$scope.actCurso.modalidad = 1;
-				}
-
-				if(response.data.periodo.indexOf("Enero") !== -1){
-					$scope.actCurso.periodo = 2;
-				} else {
-					$scope.actCurso.periodo = 1;
 				}
 
 				$scope.curso = $scope.actCurso;
@@ -760,24 +752,26 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 
 	$scope.crearCurso = function (datos) {
 		console.log(datos);
-		$http({
-			method: 'POST',
-			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/crearCursoC.php',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			data: JSON.stringify(datos)
-		}).then(function successCallback(response) {
-			console.log(response.data);
-			if (response.data.status != "ok") {
-				alert("Ocurrió un error al crear el curso");
-			} else {
-				alert("Curso creado correctamente.");
-				$location.path("/inicioC/programa");
-			}
-		}, function errorCallback(response) {
-			console.log("No hay datos.");
-		});
+		if (datos.objetivo != "") {
+			$http({
+				method: 'POST',
+				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/crearCursoC.php',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				data: JSON.stringify(datos)
+			}).then(function successCallback(response) {
+				console.log(response.data);
+				if (response.data.status != "ok") {
+					alert("Ocurrió un error al crear el curso");
+				} else {
+					alert("Curso creado correctamente.");
+					$location.path("/inicioC/programa");
+				}
+			}, function errorCallback(response) {
+				console.log("No hay datos.");
+			});
+		}
 	}
 	$scope.curso = {};
 
@@ -861,14 +855,13 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 
 app.controller('constanciasCtrl', function ($scope, $http, $location, user, periodoService) {
 
-
 	$scope.getConstancias = function () {
 		$http({
 			method: 'GET',
 			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getConstancias.php'
 		}).then(function successCallback(response) {
 			$scope.constancias = response.data;
-			console.log(response.data);
+			// console.log(response.data);
 		}, function errorCallback(response) {
 			alert("No hay datos.")
 		});
@@ -881,21 +874,63 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 			console.log(response);
 		});
 
-	$scope.folio = "";
-	$scope.curso = "";
+	$scope.getPeriodos = function () {
+		$http({
+			method: 'GET',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getPeriodos.php'
+		}).then(function successCallback(response) {
+			$scope.periodos = response.data;
+			// console.log(response.data);
+		}, function errorCallback(response) {
+			console.log(response);
+		});
+	}
 
-	$scope.ver = function (folio, curso) {
+	$scope.getCursosDelPeriodo = function (periodo) {
+		$http({
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getCursosPorPeriodo.php',
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			data: periodo
+		}).then(function successCallback(response) {
+			$scope.cursosPeriodo = response.data;
+			console.log($scope.cursosPeriodo);
+		});
+		console.log(periodo);
+	}
 
-		$scope.folio = folio;
-		$scope.curso = curso;
-		console.log($scope.constancia);
+	$scope.getConstanciasPeriodoActual = function () {
+		$scope.periodoActual = periodoService.getPeriodo()
+			.then(function (response) {
+				$scope.periodoActual = response;
 
+				$http({
+					url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getConstanciasPeriodoActual.php',
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					data: JSON.stringify($scope.periodoActual)
+				}).then(function successCallback(response) {
+					$scope.constanciasPeriodoActual = response.data;
+					// console.log($scope.constanciasPeriodoActual);
+				});
+			}, function (error) {
+				console.log(response);
+			});
+	}
+
+	$scope.cursoSeleccionado = function (curso) {
+		console.log(curso);
 	}
 
 	$scope.rutaArchivo = "doc.pdf";
 
 	$scope.getConstancias();
-
+	$scope.getPeriodos();
+	$scope.getConstanciasPeriodoActual();
 });
 
 app.controller('convocatoriaCtrl', function ($scope, $http, $location, user, periodoService) {
@@ -1023,7 +1058,7 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 		}).then(function successCallback(response) {
 			$scope.cursos = response.data;
 		}, function errorCallback(response) {
-			
+
 		});
 	}
 

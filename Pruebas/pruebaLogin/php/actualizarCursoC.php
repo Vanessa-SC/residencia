@@ -7,13 +7,18 @@ include_once('conexion.php');
 
 $response = [];
 
+/* Obtención del año */
+$año =  date('Y', strtotime($curso->fechaInicio));
 
 /* Determinar periodo */
-if($curso->periodo == 1) {
-    $periodo = "Agosto / Diciembre ";
+$mes = date('m', strtotime($curso->fechaInicio));
+
+if ( $mes <= 6 ){
+   $periodo = 'Enero / Junio ' . $año;
 } else {
-    $periodo = "Enero / Junio ";
+    $periodo = 'Agosto / Diciembre ' . $año;
 }
+
 
 /* Modalidad */
 if($curso->modalidad == 1) {

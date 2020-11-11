@@ -8,6 +8,7 @@ include_once('conexion.php');
 /* Conversión de los formatos de fecha y hora, año */
 $horaInicio = date('h:i', strtotime($curso->horaInicio));
 $horaFin = date('h:i', strtotime($curso->horaFin));
+$año =  date('Y', strtotime($curso->fechaInicio));
 
 setlocale(LC_TIME,'es_MX');
 
@@ -16,11 +17,14 @@ $fechaFin = strftime ('%Y-%m-%d', strtotime($curso->fechaFin));
 
 
 /* Determinar periodo */
-if($curso->periodo == 1) {
-    $periodo = "Agosto / Diciembre ";
+$mes = date('m', strtotime($curso->fechaInicio));
+
+if ( $mes <= 6 ){
+   $periodo = 'Enero / Junio ' . $año;
 } else {
-    $periodo = "Enero / Junio ";
+    $periodo = 'Agosto / Diciembre ' . $año;
 }
+
 
 /* Modalidad */
 if($curso->modalidad == 1) {
