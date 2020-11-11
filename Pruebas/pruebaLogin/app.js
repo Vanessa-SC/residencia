@@ -769,6 +769,29 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 	}
 	$scope.curso = {};
 
+	$scope.agregarInstructor = function (datos) {
+		console.log(datos);
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/agregarInstructor.php',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			data: JSON.stringify(datos)
+		}).then(function successCallback(response) {
+			console.log(response.data);
+			if (response.data.status != "ok") {
+				alert("Ocurrió un error al agregar el Instructor");
+			} else {
+				alert("Instructor agregado correctamente.");
+				$location.path("/inicioC/programa");
+			}
+		}, function errorCallback(response) {
+			console.log("No hay datos.");
+		});
+	}
+	$scope.inst = {};
+
 	$scope.actualizarCurso = function () {
 		$http({
 			method: 'POST',

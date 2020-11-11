@@ -2,7 +2,7 @@
 
 include_once 'conexion.php';
 
-$sql = "SELECT * FROM instructor ORDER BY nombreInstructor ASC ";
+$sql = "SELECT idInstructor, concat_ws(' ',apellidoPaterno,apellidomaterno,nombreInstructor) as nombre FROM instructor ORDER BY apellidoPaterno ASC ";
 
 $result = $conn->query($sql) or die($conn->error . __LINE__);
 

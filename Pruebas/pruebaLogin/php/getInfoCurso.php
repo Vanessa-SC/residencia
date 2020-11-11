@@ -11,7 +11,8 @@ mysqli_query($conn,$formatt);
 
 $id = mysqli_real_escape_string($conn, $_POST['idCurso']);
 
-$sql = "SELECT curso.idCurso, instructor.nombreInstructor as maestro, 
+$sql = "SELECT curso.idCurso, 
+            concat_ws(' ',instructor.apellidoPaterno,instructor.apellidomaterno,instructor.nombreInstructor) as maestro, 
             curso.nombreCurso as curso, 
             curso.objetivo, 
             concat_ws(' - ', DATE_FORMAT(curso.fechaInicio, '%d de %M'), DATE_FORMAT(curso.fechaFin, '%d de %M, %Y')) as fecha,

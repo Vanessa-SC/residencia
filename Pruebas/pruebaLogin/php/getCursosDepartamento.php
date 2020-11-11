@@ -14,7 +14,7 @@ $formatt = "SET lc_time_names = 'es_MX' ";
 mysqli_query($conn,$formatt);
 
 $sql = "SELECT curso.idCurso,
-            instructor.nombreInstructor as maestro,
+            concat_ws(' ',instructor.apellidoPaterno,instructor.apellidomaterno,instructor.nombreInstructor) as maestro,
             curso.nombreCurso as curso,
             curso.objetivo,
             concat_ws(' - ', DATE_FORMAT(curso.fechaInicio, '%d de %M'), DATE_FORMAT(curso.fechaFin, '%d de %M, %Y')) as fecha,

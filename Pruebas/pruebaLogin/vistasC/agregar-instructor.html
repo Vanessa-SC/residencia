@@ -6,15 +6,25 @@
 				<td>					
 					<div class="input-group mb-3 col-sm-10 mt-4">
 						<div class="input-group-prepend">
-							<label class="input-group-text" for="nombreInstructor">Nombre</label>
+							<label class="input-group-text" for="apellidoPaterno">Apellido Paterno</label>
 						</div>
-						<input required type="text" id="nombreInstructor" class="form-control">
+						<input required type="text" id="apellidoPaterno" class="form-control" ng-model="inst.apellidoPaterno">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="apellidoMaterno">Apellido Materno</label>
+						</div>
+						<input required type="text" id="apellidoMaterno" class="form-control" ng-model="inst.apellidoMaterno">
+					</div>
+					<div class="input-group mb-3 col-sm-10 mt-4">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="nombreInstructor">Nombre(s)</label>
+						</div>
+						<input required type="text" id="nombreInstructor" class="form-control" ng-model="inst.nombreInstructor">
 					</div>
 					<div class="input-group mb-3 col-sm-10 mt-4">
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="RFC">RFC</label>
 						</div>
-						<input required type="text" id="rfc_input" oninput="validarInputR(this)" class="form-control">
+						<input required type="text" id="rfc_input" oninput="validarInputR(this)" class="form-control" ng-model="inst.RFC">
 						<div>							
 							<pre id="resultadoR"></pre>
 						</div>
@@ -23,7 +33,7 @@
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="CURP">CURP</label>
 						</div>
-						<input required type="text" id="curp_input" oninput="validarInputC(this)" name="curp" class="form-control">
+						<input required type="text" id="curp_input" oninput="validarInputC(this)" name="curp" class="form-control" ng-model="inst.CURP">
 						<div>							
 							<pre id="resultadoC"></pre>
 						</div>
@@ -32,28 +42,29 @@
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="fechaNacimiento">Fecha Nacimiento</label>
 						</div>
-						<input required type="date" id="fechaNacimiento" class="form-control" ng-model="curso.fechaInicio">
+						<input required type="date" id="fechaNacimiento" class="form-control" ng-model="curso.fechaInicio" ng-model="inst.fechaNacimiento">
 					</div>
 					<div class="input-group mb-3 col-sm-10 mt-4">
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="telefono">Teléfono</label>
 						</div>
-						<input required type="text" id="telefono" class="form-control">
+						<input required type="text" id="telefono" class="form-control" ng-model="inst.telefono">
 					</div>
 					<div class="input-group mb-3 col-sm-10 mt-4">
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="correo">Correo electrónico</label>
 						</div>
-						<input required type="email" id="correo" class="form-control">
+						<input required type="email" id="correo" class="form-control" ng-model="inst.correo">
 					</div>
 				</td>
 				<td class="align-middle text-center">
 					<label for="btn_generar">Generar</label><br>
-					<button class="btn bg-white ok-blank_icon" ng-click="crearCurso(curso)"></button>
+					<button class="btn bg-white ok-blank_icon" ng-click="agregarInstructor(inst)"></button>
 				</td>
 			</tr>
 		</table>
 		
 	</form>
+	<pre>inst = {{inst | json}}</pre>
 	<div class="card-footer text-muted text-center">Todos los derechos reservados. ITD 2020</div>
 </div>

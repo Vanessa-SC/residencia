@@ -90,7 +90,6 @@
 						</div>
 						<textarea type="text" id="observaciones" class="form-control" ng-model="curso.observaciones" ng-value="actCurso.observaciones"></textarea>
 					</div>
-					<h1>ASIGNAR</h1>
 					<div class="input-group mb-3  mt-4">
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="departamento">Departamento</label>
@@ -104,7 +103,7 @@
 							<label class="input-group-text" for="instructor">Instructor</label>
 						</div>
 						<select required class="custom-select" id="instructor" ng-model="curso.instructor">
-							<option ng-repeat="x in instructor" value="{{x.idInstructor}}"> {{x.nombreInstructor}} </option>
+							<option ng-repeat="x in instructor" value="{{x.idInstructor}}"> {{x.nombre}} </option>
 						</select>
 					</div>
 				</td>
