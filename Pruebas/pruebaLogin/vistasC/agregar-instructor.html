@@ -20,11 +20,11 @@
 						</div>
 						<input required type="text" id="nombreInstructor" class="form-control" ng-model="inst.nombreInstructor">
 					</div>
-					<div class="input-group mb-3 col-sm-10 mt-4">
+					<div class="input-group mb-3 col-sm-10 mt-4 text-">
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="RFC">RFC</label>
 						</div>
-						<input required type="text" id="rfc_input" oninput="validarInputR(this)" class="form-control" ng-model="inst.RFC">
+						<input style="text-transform:uppercase;"  required type="text" id="rfc_input" oninput="validarInputR(this)" class="form-control" ng-model="inst.RFC">
 						<div>							
 							<pre id="resultadoR"></pre>
 						</div>
@@ -33,7 +33,7 @@
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="CURP">CURP</label>
 						</div>
-						<input required type="text" id="curp_input" oninput="validarInputC(this)" name="curp" class="form-control" ng-model="inst.CURP">
+						<input style="text-transform:uppercase;" required type="text" id="curp_input" oninput="validarInputC(this)" name="curp" class="form-control" ng-model="inst.CURP">
 						<div>							
 							<pre id="resultadoC"></pre>
 						</div>
@@ -42,7 +42,7 @@
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="fechaNacimiento">Fecha Nacimiento</label>
 						</div>
-						<input required type="date" id="fechaNacimiento" class="form-control" ng-model="curso.fechaInicio" ng-model="inst.fechaNacimiento">
+						<input required type="date" id="fechaNacimiento" class="form-control" ng-model="inst.fechaNacimiento">
 					</div>
 					<div class="input-group mb-3 col-sm-10 mt-4">
 						<div class="input-group-prepend">

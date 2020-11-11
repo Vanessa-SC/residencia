@@ -24,7 +24,7 @@
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="periodo">Periodo</label>
 						</div>
-						<select class="custom-select" id="periodo">
+						<select class="custom-select" id="periodo" ng-model="curso.periodo" ng-value="curso.periodo">
 							<option value="1">Agosto / Diciembre</option>
 							<option value="2">Enero / Junio</option>
 						</select>
@@ -61,7 +61,7 @@
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="modalidad">Modalidad</label>
 						</div>
-						<select required class="custom-select" id="modalidad" ng-model="curso.modalidad">
+						<select required class="custom-select" id="modalidad" ng-model="curso.modalidad" ng-value="curso.modalidad">
 							<option value="1">Presencial</option>
 							<option value="2">Virtual</option>
 						</select>

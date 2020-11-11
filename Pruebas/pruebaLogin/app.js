@@ -666,7 +666,6 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 		});
 	}
 
-
 	$scope.cursoID = function (id) {
 		curso.setID(id);
 	}
@@ -709,8 +708,21 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 				data: 'idCurso=' + $scope.idCurso
 			}).then(function successCallback(response) {
 				$scope.actCurso = response.data;
-				$scope.curso = response.data;
-				console.log(response.data);
+				
+				if(response.data.modalidad.indexOf("Virtual") !== -1){
+					$scope.actCurso.modalidad = 2;
+				} else {
+					$scope.actCurso.modalidad = 1;
+				}
+
+				if(response.data.periodo.indexOf("Enero") !== -1){
+					$scope.actCurso.periodo = 2;
+				} else {
+					$scope.actCurso.periodo = 1;
+				}
+
+				$scope.curso = $scope.actCurso;
+				console.log($scope.curso);
 			}, function errorCallback(response) {
 
 			});
