@@ -511,6 +511,30 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 		});
 	}
 
+	$scope.getDepartamentos = function () {
+		$http({
+			method: 'GET',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getDepartamentos.php'
+		}).then(function successCallback(response) {
+			$scope.dptos = response.data;
+			// console.log(response.data);
+		}, function errorCallback(response) {
+			console.log(response);
+		});
+	}
+
+	$scope.getInstructores = function () {
+		$http({
+			method: 'GET',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getInstructores.php'
+		}).then(function successCallback(response) {
+			$scope.instructor = response.data;
+			// console.log(response.data);
+		}, function errorCallback(response) {
+			console.log(response);
+		});
+	}
+
 	$scope.periodo = periodoService.getPeriodo()
 		.then(function (response) {
 			$scope.periodo = response;
@@ -682,6 +706,8 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 	$scope.getDoc();
 	$scope.getListaDocumentosCurso();
 	$scope.getCursos();
+	$scope.getInstructores();
+	$scope.getDepartamentos();
 	$scope.getInfoCurso();
 	$scope.getCursoAct();
 });

@@ -62,8 +62,8 @@
 							<label class="input-group-text" for="modalidad">Modalidad</label>
 						</div>
 						<select required class="custom-select" id="modalidad" ng-model="curso.modalidad">
-							<option value"1">Presencial</option>
-							<option value"2">Virtual</option>
+							<option value="1">Presencial</option>
+							<option value="2">Virtual</option>
 						</select>
 					</div>
 					<div class="input-group mb-3  mt-4">
@@ -89,6 +89,23 @@
 							<label class="input-group-text" for="observaciones">Observaciones</label>
 						</div>
 						<textarea type="text" id="observaciones" class="form-control" ng-model="curso.observaciones" ng-value="actCurso.observaciones"></textarea>
+					</div>
+					<h1>ASIGNAR</h1>
+					<div class="input-group mb-3  mt-4">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="departamento">Departamento</label>
+						</div>
+						<select required class="custom-select" id="departamento" ng-model="curso.departamento">
+							<option ng-repeat="x in dptos" value="{{x.idDepartamento}}"> {{x.nombreDepartamento}} </option>
+						</select>
+					</div>
+					<div class="input-group mb-3  mt-4">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="instructor">Instructor</label>
+						</div>
+						<select required class="custom-select" id="instructor" ng-model="curso.instructor">
+							<option ng-repeat="x in instructor" value="{{x.idInstructor}}"> {{x.nombreInstructor}} </option>
+						</select>
 					</div>
 				</td>
 				<td class="align-middle text-center col-sm-1">

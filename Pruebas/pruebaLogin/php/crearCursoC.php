@@ -30,8 +30,8 @@ if($curso->modalidad == 1) {
 }
 
 /* Asignación de instructor y departamento por defecto */
-$instructor = 1;
-$departamento = 1;
+//$instructor = 1;
+//$departamento = 1;
 
 
 /* Query de insercion */
@@ -52,8 +52,8 @@ $sql = "INSERT INTO curso
             '$curso->Objetivo',
             '$curso->observaciones',
             'no',
-            $instructor,
-            $departamento)
+            '$curso->instructor',
+            '$curso->departamento')
         ";
 
 if (mysqli_query($conn, $sql)) {
