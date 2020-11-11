@@ -2,8 +2,8 @@
 <div class="container px-5" ng-controlelr="constanciasController">
 	<table class="table border-bottom border-dark">
 		<tr>
-			<td>
-				<div class="input-group mb-3 col-sm-5 mt-4">
+			<td class="col-sm-10">
+				<div class="input-group mb-3 mt-4">
 					<div class="input-group-prepend">
 						<label class="input-group-text" for="periodo">Periodo</label>
 					</div>
@@ -14,7 +14,7 @@
 						<option value="{{p.periodo}}"> {{p.periodo}} </option>
 					</select>
 				</div>
-				<div class="input-group mb-3 col-sm-9 mt-4">
+				<div class="input-group mb-3 mt-4">
 					<div class="input-group-prepend">
 						<label class="input-group-text" for="curso">Curso</label>
 					</div>
@@ -26,14 +26,14 @@
 						<option value="{{c.curso}}"> {{c.curso}} </option>
 					</select>
 				</div>
-				<div class="input-group mb-3 col-sm-5 mt-4">
+				<div class="input-group mb-3 mt-4">
 					<div class="input-group-prepend">
 						<label class="input-group-text" for="folio">Folio</label>
 					</div>
 					<input required type="text" id="folio" class="form-control">
 				</div>
 			</td>
-			<td class="align-middle text-center">
+			<td class="align-middle text-center col-sm-2">
 				<label for="btn_generar">Generar</label><br>
 				<button class="btn bg-white ok-blank_icon"></button>
 			</td>

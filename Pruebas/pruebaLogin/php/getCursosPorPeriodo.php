@@ -2,7 +2,12 @@
 
 include_once 'conexion.php';
 
-$periodo = json_decode(file_get_contents("php://input"));
+if (!isset($_POST)) {
+    die();
+}
+
+$periodo = mysqli_real_escape_string($conn, $_POST['periodo']);
+
 
 $formatt = "SET lc_time_names = 'es_MX' ";
 mysqli_query($conn,$formatt);

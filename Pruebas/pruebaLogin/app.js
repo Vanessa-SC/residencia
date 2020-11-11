@@ -891,14 +891,12 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getCursosPorPeriodo.php',
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/x-www-form-urlencoded'
 			},
-			data: periodo
+			data: 'periodo=' + periodo.periodo
 		}).then(function successCallback(response) {
 			$scope.cursosPeriodo = response.data;
-			console.log($scope.cursosPeriodo);
 		});
-		console.log(periodo);
 	}
 
 	$scope.getConstanciasPeriodoActual = function () {
