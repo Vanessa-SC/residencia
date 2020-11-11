@@ -1,0 +1,59 @@
+<ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasC/nav.html'"></ng-include>
+<div class="container px-5" ng-controlelr="constanciasController">
+	<form id="validar">
+		<table class="table border-bottom border-dark">
+			<tr>
+				<td>					
+					<div class="input-group mb-3 col-sm-10 mt-4">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="nombreInstructor">Nombre</label>
+						</div>
+						<input required type="text" id="nombreInstructor" class="form-control">
+					</div>
+					<div class="input-group mb-3 col-sm-10 mt-4">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="RFC">RFC</label>
+						</div>
+						<input required type="text" id="rfc_input" oninput="validarInputR(this)" class="form-control">
+						<div>							
+							<pre id="resultadoR"></pre>
+						</div>
+					</div>
+					<div class="input-group mb-3 col-sm-10 mt-4">						
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="CURP">CURP</label>
+						</div>
+						<input required type="text" id="curp_input" oninput="validarInputC(this)" name="curp" class="form-control">
+						<div>							
+							<pre id="resultadoC"></pre>
+						</div>
+					</div>			
+					<div class="input-group mb-3 col-sm-10 mt-4">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="fechaNacimiento">Fecha Nacimiento</label>
+						</div>
+						<input required type="date" id="fechaNacimiento" class="form-control" ng-model="curso.fechaInicio">
+					</div>
+					<div class="input-group mb-3 col-sm-10 mt-4">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="telefono">Teléfono</label>
+						</div>
+						<input required type="text" id="telefono" class="form-control">
+					</div>
+					<div class="input-group mb-3 col-sm-10 mt-4">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="correo">Correo electrónico</label>
+						</div>
+						<input required type="email" id="correo" class="form-control">
+					</div>
+				</td>
+				<td class="align-middle text-center">
+					<label for="btn_generar">Generar</label><br>
+					<button class="btn bg-white ok-blank_icon" ng-click="crearCurso(curso)"></button>
+				</td>
+			</tr>
+		</table>
+		
+	</form>
+	<div class="card-footer text-muted text-center">Todos los derechos reservados. ITD 2020</div>
+</div>
