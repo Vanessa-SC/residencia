@@ -318,7 +318,7 @@ app.service('user', function () {
 	};
 
 	this.saveData = function (data, ruta) {
-		username = data.nombreUsuario;
+		username = data.user;
 		id = data.idUsuario;
 		rol = data.rol;
 		path = ruta;
@@ -383,6 +383,25 @@ app.service('periodoService', function ($q, $http) {
 	}
 })
 
+app.service('uploadFile', function ($http) {
+	this.uploadFiletoServer = function (file, url) {
+		var fd = new FormData();
+		fd.append('file', file);
+		//$http.post('/someUrl', data, config).then(successCallback, errorCallback);
+		$http.post(url, fd, {
+			transformRequest: angular.identity,
+			header: {
+				'Content-Type': undefined,
+				'Process-Data': false
+			}
+		}).then(function successCallback(response) {
+				alert(response.data);
+			},
+			function errorCallback(response) {
+				alert(response.status);
+			});
+	}
+})
 /* PARA SUBIR ARCHIVOS */
 app.directive("fileInput", function ($parse) {
 	return {
@@ -1070,7 +1089,7 @@ app.controller('participantesICtrl', function ($scope, $http, $location, user, c
 
 /* CONTROLADORES PARA EL USUARIO JEFE */
 
-app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, periodoService) {
+app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, periodoService, uploadFile) {
 
 	$scope.getCursos = function () {
 		$http({
@@ -1141,6 +1160,32 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 		curso.setID(id);
 	}
 
+	$scope.crearCurso = function (datos) {
+		console.log(datos);
+		if (datos.objetivo != "") {
+			$http({
+				method: 'POST',
+				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/crearCursoC.php',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				data: JSON.stringify(datos)
+			}).then(function successCallback(response) {
+				console.log(response.data);
+				if (response.data.status != "ok") {
+					alert("Ocurrió un error al crear el curso");
+				} else {
+					alert("Curso creado correctamente.");
+					$location.path("/inicioJ/cursos");
+				}
+			}, function errorCallback(response) {
+				console.log("No hay datos.");
+			});
+		}
+	}
+	$scope.curso = {};
+
+
 	$scope.deleteCurso = function (id, nombreCurso) {
 		if (confirm('¿Está seguro de que quiere eliminar el curso "' + nombreCurso + '"?')) {
 			$http({
@@ -1165,49 +1210,112 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 		}
 	}
 
-	// $scope.uploadFile = function () {
-	// 	var form_data = new FormData();
 
-	// 	angular.foreach($scope.files, function (file) {
-	// 		form_data.append('file', file);
-	// 	});
+	$scope.getDepartamentos = function () {
+		$http({
+			method: 'GET',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getDepartamentos.php'
+		}).then(function successCallback(response) {
+			$scope.dptos = response.data;
+			// console.log(response.data);
+		}, function errorCallback(response) {
+			console.log(response);
+		});
+	}
 
+	$scope.getInstructores = function () {
+		$http({
+			method: 'GET',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getInstructores.php'
+		}).then(function successCallback(response) {
+			$scope.instructor = response.data;
+			// console.log(response.data);
+		}, function errorCallback(response) {
+			console.log(response);
+		});
+	}
+
+	$scope.upload = function(idDoc,idCurso){
+			
+		var fd = new FormData();
+		var files = document.getElementById('file').files[0];
+		fd.append('archivo',files);
+		fd.append('idCurso', idCurso);
+		fd.append('idDocumento', idDoc);
+		// AJAX request
+		$http({
+			method: 'post',
+			url: '/Residencia/Pruebas/pruebaLogin/php/subirArchivo.php',
+			data: fd,
+			headers: {'Content-Type': undefined},
+		}).then(function successCallback(response) {
+			// Store response data
+			$scope.response = response.data;
+			alert(response.data.status);
+		});
+
+
+	}
+
+	// $scope.files = [];
+	// $scope.form = [];
+
+	// $scope.insert = function(idDoc,idCurso){
+	// 	$scope.archivo = $scope.files[0];
+	// 	console.log($scope.archivo);
 	// 	$http({
-	// 		url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/subirDocumentoCurso.php',
 	// 		method: 'POST',
+	// 		url:"/Residencia/Pruebas/pruebaLogin/php/subirArchivo.php",
+	// 		processData: false,
+	// 		transformRequest: function(data){
+	// 			var formData = new FormData();
+	// 			formData.append('archivo', $scope.archivo);
+	// 			formData.append('idCurso', idCurso);
+	// 			formData.append('idDocumento', idDoc);
+
+	// 			return formData;
+	// 		}, 
+	// 		data: $scope.form,
 	// 		headers: {
-	// 			'Content-Type': undefined
-	// 		},
-	// 		data: form_data
+	// 			'Content-Type':undefined
+	// 		}
 	// 	}).then(function successCallback(response) {
-	// 		$scope.response = response.data;;
+	// 		console.log(response.data);
 	// 	}, function errorCallback(response) {
-
+	// 		console.log(response.status);
 	// 	});
 	// }
 
-	// $scope.upload = function (value) {
-	// 	var fd = new FormData();
-	// 	angular.forEach($scope.uploadfiles, function (file) {
-	// 		fd.append('file', file);
-	// 	});
-
-	// 	$http({
-	// 		url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/subirDocumentoCurso.php',
-	// 		method: 'POST',
-	// 		headers: {
-	// 			'Content-Type': undefined
-	// 		},
-	// 		data: fd
-	// 	}).then(function successCallback(response) {
-	// 		$scope.response = response.data;;
-	// 	});
+	
+	// $scope.uploadFile = function (info) {
+	// 	$scope.archivo = $scope.files[0];
+	// 	var file = $scope.archivo;
+	// 	var url = "/Residencia/Prueba/pruebaLogin/php/subirArchivo.php";
+	// 	uploadFile.uploadFiletoServer(file, url);
+	// 	getInfo();
 	// }
+
+
+	// $scope.uploadedFile = function (element) {
+	// 	var reader = new FileReader();
+	// 	reader.onload = function (event) {
+	// 		$scope.doc_source = event.target.result;
+	// 		$scope.$apply(function ($scope) {
+	// 			$scope.files = element.files;
+	// 			$scope.src = event.target.result;
+	// 		});
+	// 	}
+	// 	reader.readAsDataURL(element.files[0]);
+	// }
+
+	
 
 
 
 	$scope.getInfoCurso();
 	$scope.getCursos();
+	$scope.getDepartamentos();
+	$scope.getInstructores();
 	$scope.getListaDocumentosCurso();
 });
 

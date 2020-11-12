@@ -17,7 +17,7 @@ $password = mysqli_real_escape_string($con, $_POST['password']);
 
 
 
-$query = "SELECT idUsuario, Departamento_idDepartamento, rol, nombreUsuario, contrasena 
+$query = "SELECT idUsuario, Departamento_idDepartamento, rol, nombreUsuario, contrasena,  concat_ws(' ',nombreU,apellidoPaterno,apellidomaterno) as nombre
 FROM `usuario` WHERE `nombreUsuario`='$username' AND `contrasena`='$password'";
 
 $result = mysqli_query($con, $query);
@@ -26,7 +26,7 @@ $user = mysqli_fetch_all($result,MYSQLI_ASSOC);
 
 if(mysqli_num_rows($result) > 0) {
 	$response['status'] = 'loggedin';
-	$response['user'] = $username;
+	$response['user'] = $user[0]['nombre'];
 	$response['useruniqueid'] = md5(uniqid());
 	$_SESSION['useruniqueid'] = $response['useruniqueid'];
 } else {

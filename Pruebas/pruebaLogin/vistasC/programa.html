@@ -45,7 +45,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="x in cursos">
-                <th scope="row" class=" align-middle "> <img src="/Residencia/Proyecto/images/{{x.validado}}.png"></th>
+                <th scope="row" class=" align-middle "> <img ng-src="/Residencia/Proyecto/images/{{x.validado}}.png"></th>
                 <td class=" align-middle "> {{x.maestro}} </td>
                 <td class=" align-middle "> {{x.curso}} </td>
                 <td class=" align-middle "> {{x.fecha}} <br> {{x.horario}} </td>

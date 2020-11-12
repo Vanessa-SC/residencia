@@ -45,10 +45,18 @@
 				<th scope="row" class="align-middle">{{doc.idDocumento}}</th>
 				<td class="align-middle">{{doc.nombreDocumento}}</td>
 				<td class="align-middle">
-					<div class="d-flex justify-content-center">
+					<div class="d-flex justify-content-center mx-auto">
 						
-						<input type="file" file-input="files"/>
-						<button class="btn bg-white" title="Subir documento" ng-click="uploadFile()">
+						<input 
+							class="btn btn-sm btn-light"
+							type="file" 
+							ng-model="archivo"
+							id='file'
+							accept="application/pdf"
+						 />
+						 <!-- onchange="angular.element(this).scope().uploadedFile(this)" -->
+						<button class="btn bg-white" title="Subir documento" ng-click="upload(doc.idDocumento,infoCurso.idCurso)"
+						>
 							<span>
 								<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-up"
 								fill="currentColor" xmlns="http://www.w3.org/2000/svg">
