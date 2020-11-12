@@ -154,6 +154,25 @@ button.op {
     font-weight: 600;
 }
 
+/* RESULTADI CURP Y RFC */
+#resultadoR {
+    color: red;
+    font-weight: bold;
+}
+#resultadoR.ok {
+    color: green;
+    font-weight: bold;
+}
+
+#resultadoC {
+    color: red;
+    font-weight: bold;
+}
+#resultadoC.ok {
+    color: green;
+    font-weight: bold;
+}
+
 /*  LOGIN PAGE */
 
 div.main {
