@@ -268,7 +268,7 @@ app.service('user', function () {
 		if (!!localStorage.getItem('login')) {
 			var data = JSON.parse(localStorage.getItem('login'));
 			idDepartamento = data.idDepartamento;
-			console.log("idDepto: " + idDepartamento);
+			// console.log("idDepto: " + idDepartamento);
 		}
 		return idDepartamento;
 	}
@@ -289,7 +289,7 @@ app.service('user', function () {
 		if (!!localStorage.getItem('login')) {
 			var data = JSON.parse(localStorage.getItem('login'));
 			id = data.id;
-			console.log(id);
+			// console.log(id);
 		}
 		return id;
 	};
@@ -349,7 +349,7 @@ app.service('curso', function () {
 
 	this.setID = function (cursoID) {
 		id = cursoID;
-		console.log('idCurso: ' + id);
+		// console.log('idCurso: ' + id);
 	};
 
 	this.getID = function () {
@@ -358,7 +358,7 @@ app.service('curso', function () {
 
 	this.setIDdocumento = function (idDocumento) {
 		idDoc = idDocumento;
-		console.log('idDoc: ' + idDoc);
+		// console.log('idDoc: ' + idDoc);
 	};
 
 	this.getIDdocumento = function () {
@@ -576,7 +576,7 @@ app.controller('loginCtrl', function ($scope, $http, $location, user) {
 			},
 			data: 'username=' + username + '&password=' + password
 		}).then(function (response) {
-			console.log(response.data);
+			// console.log(response.data);
 			if (response.data.status == 'loggedin') {
 				// user.userLoggedIn();
 				// user.setName(response.data.user);
@@ -728,12 +728,14 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 
 				if (response.data.modalidad.indexOf("Virtual") !== -1) {
 					$scope.actCurso.modalidad = 2;
-				} else {
+				} 
+				else if(response.data.modalidad.indexOf("Presencial") !== -1) {
 					$scope.actCurso.modalidad = 1;
+				} else {
+					$scope.actCurso.modalidad = 3;
 				}
-
 				$scope.curso = $scope.actCurso;
-				console.log($scope.curso);
+				// console.log($scope.curso);
 			}, function errorCallback(response) {
 
 			});
@@ -781,11 +783,11 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 				data: JSON.stringify(datos)
 			}).then(function successCallback(response) {
 				console.log(response.data);
-				if (response.data.status != "ok") {
-					alert("Ocurrió un error al crear el curso");
-				} else {
+				if (response.data.status == "ok") {
 					alert("Curso creado correctamente.");
 					$location.path("/inicioC/programa");
+				} else {
+					alert("Ocurrió un error al crear el curso");
 				}
 			}, function errorCallback(response) {
 				console.log("No hay datos.");
