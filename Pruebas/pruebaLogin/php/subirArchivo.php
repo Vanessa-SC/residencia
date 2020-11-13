@@ -4,6 +4,10 @@ include 'conexion.php';
 
 $data = json_decode(file_get_contents("php://input"));
 
+if (!isset($_POST)) {
+    die();
+}
+
 $idCurso = ($_POST['idCurso']);
 $idDocumento = ($_POST['idDocumento']);
 
@@ -21,10 +25,21 @@ if (!empty($_FILES['archivo'])) {
             $location = 'c://xampp/htdocs/Residencia/proyecto/files/';
             move_uploaded_file($_FILES['archivo']['tmp_name'], $location . $archivo);
 
-            $sql = "UPDATE curso_has_documento
-                    SET rutaArchivo='$archivo', estadoVerificado='no'
-                    WHERE curso_has_documento.Curso_idCurso='$idCurso'
-                    AND curso_has_documento.Documento_idDocumento='$idDocumento'";
+            $query = "SELECT * FROM curso_has_documento
+                     WHERE curso_idCurso='$idCurso'
+                     AND documento_idDocumento='$idDocumento'";
+
+            $result = mysqli_query($conn, $query);
+
+            if ($rowcount = mysqli_num_rows($result) == 0 ) {
+                $sql = "INSERT INTO curso_has_documento
+                        VALUES('$idCurso','$idDocumento','$archivo','no')";
+            } else {
+                $sql = "UPDATE curso_has_documento
+                        SET rutaArchivo='$archivo', estadoVerificado='no'
+                        WHERE curso_has_documento.Curso_idCurso='$idCurso'
+                        AND curso_has_documento.Documento_idDocumento='$idDocumento'";
+            }
 
             if (mysqli_query($conn, $sql)) {
                 $response['status'] = 'Archivo subido correctamente';
@@ -32,7 +47,6 @@ if (!empty($_FILES['archivo'])) {
                 $response['status'] = 'error' . mysqli_error($conn);
             }
 
-            
         }
     }
 }

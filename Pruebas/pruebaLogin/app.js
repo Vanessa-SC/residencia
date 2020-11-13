@@ -381,7 +381,13 @@ app.service('periodoService', function ($q, $http) {
 			});
 		}
 	}
-})
+});
+
+app.filter('trustAsResourceUrl', ['$sce', function ($sce) {
+    return function (val) {
+        return $sce.trustAsResourceUrl(val);
+    };
+}]);
 
 app.service('uploadFile', function ($http) {
 	this.uploadFiletoServer = function (file, url) {
@@ -1240,7 +1246,7 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 	$scope.upload = function(idDoc,idCurso){
 			
 		var fd = new FormData();
-		var files = document.getElementById('file').files[0];
+		var files = document.getElementById('file'+idDoc).files[0];
 		fd.append('archivo',files);
 		fd.append('idCurso', idCurso);
 		fd.append('idDocumento', idDoc);
@@ -1255,62 +1261,7 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 			$scope.response = response.data;
 			alert(response.data.status);
 		});
-
-
 	}
-
-	// $scope.files = [];
-	// $scope.form = [];
-
-	// $scope.insert = function(idDoc,idCurso){
-	// 	$scope.archivo = $scope.files[0];
-	// 	console.log($scope.archivo);
-	// 	$http({
-	// 		method: 'POST',
-	// 		url:"/Residencia/Pruebas/pruebaLogin/php/subirArchivo.php",
-	// 		processData: false,
-	// 		transformRequest: function(data){
-	// 			var formData = new FormData();
-	// 			formData.append('archivo', $scope.archivo);
-	// 			formData.append('idCurso', idCurso);
-	// 			formData.append('idDocumento', idDoc);
-
-	// 			return formData;
-	// 		}, 
-	// 		data: $scope.form,
-	// 		headers: {
-	// 			'Content-Type':undefined
-	// 		}
-	// 	}).then(function successCallback(response) {
-	// 		console.log(response.data);
-	// 	}, function errorCallback(response) {
-	// 		console.log(response.status);
-	// 	});
-	// }
-
-	
-	// $scope.uploadFile = function (info) {
-	// 	$scope.archivo = $scope.files[0];
-	// 	var file = $scope.archivo;
-	// 	var url = "/Residencia/Prueba/pruebaLogin/php/subirArchivo.php";
-	// 	uploadFile.uploadFiletoServer(file, url);
-	// 	getInfo();
-	// }
-
-
-	// $scope.uploadedFile = function (element) {
-	// 	var reader = new FileReader();
-	// 	reader.onload = function (event) {
-	// 		$scope.doc_source = event.target.result;
-	// 		$scope.$apply(function ($scope) {
-	// 			$scope.files = element.files;
-	// 			$scope.src = event.target.result;
-	// 		});
-	// 	}
-	// 	reader.readAsDataURL(element.files[0]);
-	// }
-
-	
 
 
 
