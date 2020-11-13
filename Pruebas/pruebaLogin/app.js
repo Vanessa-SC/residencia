@@ -1235,7 +1235,7 @@ app.controller('participantesICtrl', function ($scope, $http, $location, user, c
 
 /* CONTROLADORES PARA EL USUARIO JEFE */
 
-app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, periodoService, uploadFile) {
+app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, periodoService) {
 
 	$scope.getCursos = function () {
 		$http({

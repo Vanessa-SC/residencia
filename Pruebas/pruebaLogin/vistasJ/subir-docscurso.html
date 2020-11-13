@@ -45,33 +45,13 @@
 				<th scope="row" class="align-middle">{{doc.idDocumento}}</th>
 				<td class="align-middle">{{doc.nombreDocumento}}</td>
 				<td class="align-middle">
-					<div class="d-flex justify-content-center mx-auto">
-
-						<!-- <input class="btn btn-sm btn-light" type="file" ng-model="archivo" id='file'
-							accept="application/pdf" />
-						<!-- onchange="angular.element(this).scope().uploadedFile(this)" -->
-						<!-- <button class="btn bg-white" title="Subir documento"
-							ng-click="upload(doc.idDocumento,infoCurso.idCurso)">
-							<span>
-								<svg width="1.5em" height="1.5em" viewBox="0 0 16 16"
-									class="bi bi-file-earmark-arrow-up" fill="currentColor"
-									xmlns="http://www.w3.org/2000/svg">
-									<path
-										d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z" />
-									<path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z" />
-									<path fill-rule="evenodd"
-										d="M8 12a.5.5 0 0 0 .5-.5V7.707l1.146 1.147a.5.5 0 0 0 .708-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L7.5 7.707V11.5a.5.5 0 0 0 .5.5z" />
-								</svg>
-							</span>Subir
-						</button> -->
-					</div> -->
 
 					<!-- Button trigger modal -->
-					<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal{{doc.idDocumento}}">
+					<button type="button" class="btn btn-light" data-toggle="modal"
+						data-target="#modal{{doc.idDocumento}}">
 						<span>
-							<svg width="1.5em" height="1.5em" viewBox="0 0 16 16"
-								class="bi bi-file-earmark-arrow-up" fill="currentColor"
-								xmlns="http://www.w3.org/2000/svg">
+							<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-up"
+								fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 								<path
 									d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z" />
 								<path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z" />
@@ -80,6 +60,7 @@
 							</svg>
 						</span>Subir
 					</button>
+					<span class="text-success" id="mensaje{{doc.idDocumento}}"></span>
 
 					<!-- Modal -->
 					<div class="modal fade" id="modal{{doc.idDocumento}}" tabindex="-1" role="dialog"
@@ -93,89 +74,19 @@
 									</button>
 								</div>
 								<div class="modal-body">
-									<input class="btn btn-sm btn-light" type="file" ng-model="archivo" id='file{{doc.idDocumento}}'
-							accept="application/pdf" />
+									<input class="btn btn-sm btn-light" type="file" ng-model="archivo"
+										id='file{{doc.idDocumento}}' accept="application/pdf" />
 								</div>
 								<div class="modal-footer">
 									<button class="btn btn-success" title="Subir documento"
-							ng-click="upload(doc.idDocumento,infoCurso.idCurso)">Subir</button>
-									<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>									
+										ng-click="upload(doc.idDocumento,infoCurso.idCurso)">Subir</button>
+									<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
 								</div>
 							</div>
 						</div>
 					</div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-					<!-- <label for="file-upload" class="subir">
-						<span>
-							<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-up"
-							fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-							<path
-								d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z" />
-							<path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z" />
-							<path fill-rule="evenodd"
-								d="M8 12a.5.5 0 0 0 .5-.5V7.707l1.146 1.147a.5.5 0 0 0 .708-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L7.5 7.707V11.5a.5.5 0 0 0 .5.5z" />
-						</svg>
-						</span> Subir archivo
-					</label>
-					<input id="file-upload" type="file"  />
-					<div id="info"></div>
-					<input type="submit" value="Enviar"> -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-					<!-- <button class="btn bg-white" type="input" ng-click="verDoc(doc.documento)">
-						<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-up"
-							fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-							<path
-								d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z" />
-							<path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z" />
-							<path fill-rule="evenodd"
-								d="M8 12a.5.5 0 0 0 .5-.5V7.707l1.146 1.147a.5.5 0 0 0 .708-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L7.5 7.707V11.5a.5.5 0 0 0 .5.5z" />
-						</svg>
-					</button> -->
 				</td>
 			</tr>
 		</tbody>
