@@ -17,8 +17,8 @@ $sql = "INSERT INTO instructor
             '$inst->apellidoPaterno',
             '$inst->apellidoMaterno',
             '$inst->nombreInstructor',
-            '$inst->RFC',
-           ' $inst->CURP',
+            upper('$inst->RFC'),
+            upper('$inst->CURP'),
             '$fechaNacimiento',
             '$inst->telefono',
             '$inst->correo')

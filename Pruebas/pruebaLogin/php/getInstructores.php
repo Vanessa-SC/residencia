@@ -2,9 +2,12 @@
 
 include_once 'conexion.php';
 
+$formatt = "SET lc_time_names = 'es_MX' ";
+mysqli_query($conn,$formatt);
+
 $sql = "SELECT idInstructor, apellidoPaterno, apellidomaterno, nombreInstructor, 
 concat_ws(' ',apellidoPaterno,apellidomaterno,nombreInstructor) as nombre,
-RFC, CURP, fechaNacimiento, telefono, Correo 
+RFC, CURP, DATE_FORMAT(fechaNacimiento, '%d-%M-%Y') as fechaNacimiento, telefono, Correo 
 FROM instructor ORDER BY apellidoPaterno ASC ";
 
 $result = $conn->query($sql) or die($conn->error . __LINE__);

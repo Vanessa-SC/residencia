@@ -1049,7 +1049,8 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 				data: 'idInstructor=' + $scope.idInstructor
 			}).then(function successCallback(response) {
 				$scope.actInstructor = response.data;
-				 console.log(response.data);
+				$scope.instructor = response.data;
+				//  console.log(response.data);
 			}, function errorCallback(response) {
 
 			});
