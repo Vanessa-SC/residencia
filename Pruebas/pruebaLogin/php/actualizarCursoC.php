@@ -21,10 +21,12 @@ if ( $mes <= 6 ){
 
 
 /* Modalidad */
-if($curso->modalidad == 1) {
+if ($curso->modalidad == 1) {
     $modalidad = "Presencial";
-} else {
+} elseif ($curso->modalidad == 2) {
     $modalidad = "Virtual";
+} else {
+    $modalidad = "Semipresencial";
 }
 
 /* Query de actualización */

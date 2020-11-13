@@ -1,0 +1,51 @@
+<ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasC/nav.html'"></ng-include>
+<div class="container">
+    <div class="programa_page d-flex justify-content-center">
+        <div class="p-2"><img src="/Residencia/Proyecto/images/Logo ITD.png" alt="logo ITD" class="logoITD"></div>
+        <div class="p-4">
+            <div class="text-center">
+                <h1>Periodo {{periodo}}</h1>
+                <h3>Formaci&oacute;n de Programa Institucional y Actualizaci&oacute;n docente y Profesional</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end"> 
+        <div class="mb-3 p-2 mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="nuevaConstancia">Agregar Instructor</label>
+				<a href="#!/inicioC/instructores/agregarInstructor"><button id="nuevoInstructor" class="btn bg-white border-dark plus_icon" type="button"></button></a>
+			</div>
+		</div>
+    </div>
+    
+    <table class="table text-center">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">RFC</th>
+                <th scope="col">CURP</th>
+                <th scope="col">Fecha de Nacimiento</th>
+                <th scope="col">Teléfono</th>
+                <th scope="col">Correo</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="x in instructores">
+                <th class=" align-middle "> {{x.nombre}} </th>
+                <td class=" align-middle "> {{x.RFC}} </td>
+                <td class=" align-middle "> {{x.CURP}} </td>
+                <td class=" align-middle "> {{x.fechaNacimiento}} </td>
+                <td class=" align-middle "> {{x.telefono}} </td>
+                <td class=" align-middle "> {{x.Correo}} </td>
+                <td class="align-middle">
+                    <a href="#!/inicioC/instructores/actualizarInstructor" ng-click=instructorID(x.idInstructor)>
+                        <button class="btn btn-sm bg-white editar_icon mb-1" title="Editar"></button>
+                    </a>
+                    <button class="btn btn-sm bg-white borrar_icon" title="Eliminar" ng-click="deleteInstructor(x.idInstructor, x.nombre)"></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

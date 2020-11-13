@@ -69,10 +69,6 @@ app.config(function ($routeProvider, $locationProvider) {
 			templateUrl: './vistasC/generar-curso.html',
 			controller: 'programaCtrl'
 
-		}).when('/inicioC/programa/agregarInstructor', {
-			templateUrl: './vistasC/agregar-instructor.html',
-			controller: 'programaCtrl'
-
 		}).when('/inicioC/programa/actualizar', {
 			templateUrl: './vistasC/actualizar-curso.html',
 			controller: 'programaCtrl'
@@ -108,6 +104,18 @@ app.config(function ($routeProvider, $locationProvider) {
 		}).when('/inicioC/convocatorias/generar', {
 			templateUrl: './vistasC/generar-convocatoria.html',
 			controller: 'convocatoriaCtrl'
+		
+		}).when('/inicioC/instructores', {
+			templateUrl: './vistasC/instructores.html',
+			controller: 'instructoresCtrl'
+
+		}).when('/inicioC/instructores/agregarInstructor', {
+			templateUrl: './vistasC/agregar-instructor.html',
+			controller: 'instructoresCtrl'
+
+		}).when('/inicioC/instructores/actualizarInstructor', {
+			templateUrl: './vistasC/actualizar-instructor.html',
+			controller: 'instructoresCtrl'
 		})
 
 		/*  RUTAS PARA EL USUARIO DOCENTE */
@@ -363,6 +371,20 @@ app.service('curso', function () {
 
 	this.getIDdocumento = function () {
 		return idDoc;
+	};
+
+});
+
+app.service('instructor', function () {
+	var id;
+
+	this.setID = function (instructorID) {
+		id = instructorID;
+		console.log('idInstructor: ' + id);
+	};
+
+	this.getID = function () {
+		return id;
 	};
 
 });
@@ -802,29 +824,6 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 	}
 	$scope.curso = {};
 
-	$scope.agregarInstructor = function (datos) {
-		console.log(datos);
-		$http({
-			method: 'POST',
-			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/agregarInstructor.php',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			data: JSON.stringify(datos)
-		}).then(function successCallback(response) {
-			console.log(response.data);
-			if (response.data.status != "ok") {
-				alert("Ocurrió un error al agregar el Instructor");
-			} else {
-				alert("Instructor agregado correctamente.");
-				$location.path("/inicioC/programa");
-			}
-		}, function errorCallback(response) {
-			console.log("No hay datos.");
-		});
-	}
-	$scope.inst = {};
-
 	$scope.actualizarCurso = function () {
 		$http({
 			method: 'POST',
@@ -960,6 +959,125 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 
 app.controller('convocatoriaCtrl', function ($scope, $http, $location, user, periodoService) {
 
+});
+
+app.controller('instructoresCtrl', function ($scope, $http, $location, user, periodoService, instructor) {
+	$scope.periodo = periodoService.getPeriodo()
+		.then(function (response) {
+			$scope.periodo = response;
+		}, function (error) {
+			console.log(response);
+		});
+
+	$scope.getInstructores = function () {
+		$http({
+			method: 'GET',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getInstructores.php'
+		}).then(function successCallback(response) {
+			$scope.instructores = response.data;
+			// console.log(response.data);
+		}, function errorCallback(response) {
+			console.log(response);
+		});
+	}
+
+	$scope.getInstructores();
+
+	$scope.agregarInstructor = function (datos) {
+		console.log(datos);
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/agregarInstructor.php',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			data: JSON.stringify(datos)
+		}).then(function successCallback(response) {
+			console.log(response.data);
+			if (response.data.status != "ok") {
+				alert("Ocurrió un error al agregar el Instructor");
+			} else {
+				alert("Instructor agregado correctamente.");
+				$location.path("/inicioC/instructores");
+			}
+		}, function errorCallback(response) {
+			console.log("No hay datos.");
+		});
+	}
+	$scope.inst = {};
+
+	$scope.deleteInstructor = function (id, nombreInstructor) {
+		if (confirm('¿Está seguro de que quiere eliminar el Instructor "' + nombreInstructor + '"?')) {
+			$http({
+				method: 'POST',
+				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/deleteInstructor.php',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idInstructor=' + id
+			}).then(function successCallback(response) {
+				if (response.data.status == "ok") {
+					alert("Instructor eliminado correctamente.");
+					$scope.getInstructores();
+				} else {
+					alert("Error al eliminar el Instructor");
+				}
+			}, function errorCallback(response) {
+				return false;
+			});
+		} else {
+			return false;
+		}
+	}
+
+	$scope.instructorID = function (id) {
+		instructor.setID(id);
+	}
+
+	$scope.getInstructorAct = function () {
+
+		$scope.idInstructor = instructor.getID();
+		 console.log($scope.idInstructor);
+
+		if ($scope.idInstructor != "") {
+			$http({
+				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getInstructorAct.php',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idInstructor=' + $scope.idInstructor
+			}).then(function successCallback(response) {
+				$scope.actInstructor = response.data;
+				 console.log(response.data);
+			}, function errorCallback(response) {
+
+			});
+		}
+
+	}
+
+	$scope.getInstructorAct();
+
+	$scope.actualizarInstructor = function () {
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/actualizarInstructor.php',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			data: JSON.stringify($scope.instructor)
+		}).then(function successCallback(response) {
+			if (response.data.status != "ok") {
+				alert("Ocurrió un error al modificar el Instructor");
+			} else {
+				alert("Instructor actualizado correctamente.");
+				$location.path("/inicioC/instructores");
+			}
+		}, function errorCallback(response) {
+			console.log("No hay datos.");
+		});
+	}
 });
 
 /* CONTROLADORES PARA EL USUARIO INSTRUCTOR */
@@ -1375,3 +1493,4 @@ app.controller('misCursosDCtrl', function ($scope, $http, $location, user, perio
 app.controller('constanciasDCtrl', function ($scope, $http, $location, user, periodoService) {
 
 });
+
