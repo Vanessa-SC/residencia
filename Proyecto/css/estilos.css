@@ -448,6 +448,20 @@ button.btn-back:hover {
     background-size: contain;
 }
 
+.subirDocumento_icon {
+    background: url(/Residencia/proyecto/images/documento-s.png) no-repeat center;
+    padding: 1.1rem !important;
+    background-size: cover;
+    background-size: contain;
+}
+
+.validarDocumento_icon {
+    background: url(/Residencia/proyecto/images/documento-v.png) no-repeat center;
+    padding: 1.1rem !important;
+    background-size: cover;
+    background-size: contain;
+}
+
 .documentos_icon {
     background: url(/Residencia/proyecto/images/documentos.png) no-repeat center;
     padding: 1.1rem !important;
