@@ -675,7 +675,22 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getDocumentos.php'
 		}).then(function successCallback(response) {
 			$scope.documentos = response.data;
-			// console.log(response.data);
+		}, function errorCallback(response) {
+
+		});
+	}
+
+	$scope.getListaDocumentosSubidos = function () {
+		var idCurso = curso.getID();
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getDocsCurso.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idCurso=' + idCurso 
+		}).then(function successCallback(response) {
+			$scope.documentosSubidos = response.data;
 		}, function errorCallback(response) {
 
 		});
@@ -875,6 +890,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 
 	$scope.getDoc();
 	$scope.getListaDocumentosCurso();
+	$scope.getListaDocumentosSubidos();
 	$scope.getCursos();
 	$scope.getInstructores();
 	$scope.getDepartamentos();
