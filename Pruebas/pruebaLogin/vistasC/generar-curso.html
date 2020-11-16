@@ -1,112 +1,108 @@
 <ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasC/nav.html'"></ng-include>
 <div class="container px-5" ng-controlelr="constanciasController">
 	<form>
-		<table class="table border-bottom border-dark">
-			<tr>
-				<td class="col-sm-10">
-					<div class="input-group mb-3  mt-4">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="folio">Folio</label>
-						</div>
-						<input required type="text" id="folio" class="form-control" ng-model="curso.folio">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="ClaveRegistro">Clave registro</label>
-						</div>
-						<input required type="text" id="ClaveRegistro" class="form-control" ng-model="curso.clave">
-					</div>
-					<div class="input-group mb-3  mt-4">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="nombreCurso">Nombre</label>
-						</div>
-						<input required type="text" id="nombreCurso" class="form-control" ng-model="curso.nombre">
-					</div>
-					
-					<div class="input-group mb-3  mt-4">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="duracion">Duraci&oacute;n</label>
-						</div>
-						<input required type="number" min="30" id="duracion" class="form-control" ng-model="curso.duracion">
-					</div>
-					<div class="input-group mb-3  mt-4">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="horaInicio">Hora de Inicio</label>
-						</div>
-						<input required type="time" id="horaInicio" class="form-control" ng-model="curso.horaInicio">
-					</div>
-					<div class="input-group mb-3  mt-4">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="horaFin">Hora de Termino</label>
-						</div>
-						<input required type="time" id="horaFin" class="form-control" ng-model="curso.horaFin">
-					</div>
-					<div class="input-group mb-3  mt-4">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="fechaInicio">Fecha Inicio</label>
-						</div>
-						<input required type="date" id="fechaInicio" class="form-control" ng-model="curso.fechaInicio">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="fechaFin">Fecha Fin</label>
-						</div>
-						<input required type="date" id="fechaFin" class="form-control" ng-model="curso.fechaFin">
-					</div>
-					<div class="input-group mb-3  mt-4">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="modalidad">Modalidad</label>
-						</div>
-						<select class="custom-select" id="modalidad" ng-model="curso.modalidad">
-							<option selected value="1">Presencial</option>
-							<option value="2">Virtual</option>
-							<option value="3">Semipresencial</option>
-						</select>
-					</div>
-					<div class="input-group mb-3  mt-4">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="lugar">Lugar</label>
-						</div>
-						<input required type="text" id="lugar" class="form-control" ng-model="curso.lugar">
-					</div>
-					<div class="input-group mb-3  mt-4">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="destinatarios">Destinatarios</label>
-						</div>
-						<input required type="text" id="destinatarios" class="form-control" ng-model="curso.destinatarios">
-					</div>
-					<div class="input-group mb-3  mt-4">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="objetivo">Objetivo</label>
-						</div>
-						<textarea required type="text" id="objetivo" class="form-control" ng-model="curso.Objetivo"></textarea>
-					</div>
-					<div class="input-group mb-3  mt-4">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="observaciones">Observaciones</label>
-						</div>
-						<textarea type="text" id="observaciones" class="form-control" ng-model="curso.observaciones" ng-value=" "></textarea>
-					</div>
-					<div class="input-group mb-3  mt-4">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="departamento">Departamento</label>
-						</div>
-						<select required class="custom-select" id="departamento" ng-model="curso.departamento">
-							<option ng-repeat="x in dptos" value="{{x.idDepartamento}}"> {{x.nombreDepartamento}} </option>
-						</select>
-					</div>
-					<div class="input-group mb-3  mt-4">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="instructor">Instructor</label>
-						</div>
-						<select required class="custom-select" id="instructor" ng-model="curso.instructor">
-							<option ng-repeat="x in instructor" value="{{x.idInstructor}}"> {{x.nombre}} </option>
-						</select>
-					</div>
-				</td>
-				<td class="align-middle text-center">
-					<label for="btn_generar">Generar</label><br>
-					<button class="btn bg-white ok-blank_icon" ng-click="crearCurso(curso)"></button>
-				</td>
-			</tr>
-		</table>
-		
+
+		<div class="input-group mb-5  mt-5 px-5">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="folio">Folio</label>
+			</div>
+			<input required type="text" id="folio" class="form-control" ng-model="curso.folio">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="ClaveRegistro">Clave registro</label>
+			</div>
+			<input required type="text" id="ClaveRegistro" class="form-control" ng-model="curso.clave">
+		</div>
+		<div class="dropdown-divider"></div>
+		<div class="input-group mb-3  mt-5">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="nombreCurso">Nombre</label>
+			</div>
+			<input required type="text" id="nombreCurso" class="form-control" ng-model="curso.nombre">
+		</div>
+
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="duracion">Duraci&oacute;n</label>
+			</div>
+			<input required type="number" min="30" id="duracion" class="form-control" ng-model="curso.duracion"
+				string-to-number>
+
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="horaInicio">Hora de Inicio</label>
+			</div>
+			<input required type="time" id="horaInicio" class="form-control" ng-model="curso.horaInicio">
+
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="horaFin">Hora de Termino</label>
+			</div>
+			<input required type="time" id="horaFin" class="form-control" ng-model="curso.horaFin">
+		</div>
+		<div class="input-group mb-5  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="fechaInicio">Fecha Inicio</label>
+			</div>
+			<input required type="date" id="fechaInicio" class="form-control" ng-model="curso.fechaInicio">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="fechaFin">Fecha Fin</label>
+			</div>
+			<input required type="date" id="fechaFin" class="form-control" ng-model="curso.fechaFin">
+		</div>
+
+		<div class="dropdown-divider"></div>
+
+		<div class="input-group mb-3  mt-5">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="modalidad">Modalidad</label>
+			</div>
+			<select required class="custom-select" id="modalidad" ng-model="curso.modalidad">
+				<option selected value="1">Presencial</option>
+				<option value="2">Virtual</option>
+				<option value="3">Semipresencial</option>
+			</select>
+
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="lugar">Lugar</label>
+			</div>
+			<input required type="text" id="lugar" class="form-control" ng-model="curso.lugar">
+
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="destinatarios">Destinatarios</label>
+			</div>
+			<input required type="text" id="destinatarios" class="form-control" ng-model="curso.destinatarios">
+		</div>
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="objetivo">Objetivo</label>
+			</div>
+			<textarea required type="text" id="objetivo" class="form-control" ng-model="curso.Objetivo"></textarea>
+		</div>
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="observaciones">Observaciones</label>
+			</div>
+			<textarea type="text" id="observaciones" class="form-control" ng-model="curso.observaciones"
+				value="Ninguna"></textarea>
+		</div>
+		<div class="dropdown-divider"></div>
+		<div class="input-group mb-5  mt-5">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="departamento">Departamento</label>
+			</div>
+			<select required class="custom-select" id="departamento" ng-model="curso.departamento">
+				<option ng-repeat="x in dptos" value="{{x.idDepartamento}}"> {{x.nombreDepartamento}} </option>
+			</select>
+
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="instructor">Instructor</label>
+			</div>
+			<select required class="custom-select" id="instructor" ng-model="curso.instructor">
+				<option ng-repeat="x in instructor" value="{{x.idInstructor}}"> {{x.nombre}} </option>
+			</select>
+		</div>
+
+		<div class="align-middle text-center">
+			<button class="btn bg-wine" ng-click="crearCurso(curso)"><span class="ok2_icon"></span> Crear curso</button>
+		</div>
 	</form>
 	<pre>curso = {{curso | json}}</pre>
 	<div class="card-footer text-muted text-center">Todos los derechos reservados. ITD 2020</div>

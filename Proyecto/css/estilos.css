@@ -340,6 +340,9 @@ button.btn-back:hover {
     background: url(/Residencia/proyecto/images/back_wine.png) no-repeat center;
     padding: .875rem !important;
     background-size: contain;
+    margin:auto;
+    width: 1em;
+    height: 1em;
 }
 
 .import_icon {
@@ -353,6 +356,15 @@ button.btn-back:hover {
     background: url(/Residencia/proyecto/images/ok.png) no-repeat center;
     padding: .875rem !important;
     background-size: cover;
+    background-size: contain;
+}
+
+.ok2_icon {
+    background: url(/Residencia/proyecto/images/ok2.png) no-repeat center;
+    padding: .875rem !important;
+    width: .8em;
+    height: .8em;
+    margin:2px;
     background-size: contain;
 }
 
@@ -558,6 +570,21 @@ button.btn-back:hover {
     background-size: cover;
     background-size: contain;
 }
+
+.user_icon {
+    background: url(/Residencia/proyecto/images/blank-user.png) no-repeat center;
+    padding: .8em !important;
+    background-size: cover;
+    background-size: contain;
+}
+
+.user2_icon {
+    background: url(/Residencia/proyecto/images/user-2.png) no-repeat center;
+    padding: .8em !important;
+    background-size: cover;
+    background-size: contain;
+}
+
 .red {
     background: url(/Residencia/proyecto/images/red.png) no-repeat center;
     background-size: cover;
@@ -651,3 +678,7 @@ button.btn.btn-inv.no-btn {
     display: none;
   }
 }
+
+
+/* Estilos del TOAST */
+

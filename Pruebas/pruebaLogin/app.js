@@ -59,8 +59,8 @@ app.config(function ($routeProvider, $locationProvider) {
 					}
 				},
 			},
-			templateUrl: './vistasC/inicio.html',
-			controller: 'inicioCtrl'
+			templateUrl: './vistasC/programa.html',
+			controller: 'programaCtrl'
 		}).when('/inicioC/programa', {
 			templateUrl: './vistasC/programa.html',
 			controller: 'programaCtrl'
@@ -265,6 +265,10 @@ app.service('user', function () {
 	};
 
 	this.getName = function () {
+		if (!!localStorage.getItem('login')) {
+			var data = JSON.parse(localStorage.getItem('login'));
+			username = data.username;
+		}
 		return username;
 	};
 
@@ -629,6 +633,9 @@ app.controller('inicioCtrl', function ($scope, $http, $location, user, periodoSe
 
 app.controller('programaCtrl', function ($scope, $http, $location, user, curso, periodoService) {
 
+	$scope.user = user.getName();
+
+	
 	$scope.getCursos = function () {
 		$http({
 			method: 'GET',
@@ -802,7 +809,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 			}).then(function successCallback(response) {
 				console.log(response.data);
 				if (response.data.status == "ok") {
-					alert("Curso creado correctamente.");
+					console.log("Curso creado correctamente.");
 					$location.path("/inicioC/programa");
 				} else {
 					alert("Ocurrió un error al crear el curso");
@@ -837,7 +844,6 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 
 
 	$scope.deleteCurso = function (id, nombreCurso) {
-		if (confirm('¿Está seguro de que quiere eliminar el curso "' + nombreCurso + '"?')) {
 			$http({
 				method: 'POST',
 				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/deleteCurso.php',
@@ -847,17 +853,31 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 				data: 'idCurso=' + id
 			}).then(function successCallback(response) {
 				if (response.data.status == "ok") {
-					alert("Curso eliminado correctamente.");
+					$('#modal' + id).modal('hide');
+					$('.modal-backdrop').remove();
+
+					$scope.alert = {
+						titulo:'Eliminado!',
+						tipo:'success',
+						mensaje:'Curso eliminado correctamente'
+					};
+					$(document).ready(function(){
+						$('#alerta').toast('show');
+					  });
 					$scope.getCursos();
 				} else {
-					alert("Error al eliminar el curso");
+					$scope.alert = {
+						titulo:'Error!',
+						tipo:'danger',
+						mensaje:'No se pudo eliminar el curso.'
+					};
+					$(document).ready(function(){
+						$('#alerta').toast('show');
+					  });
 				}
 			}, function errorCallback(response) {
 				return false;
 			});
-		} else {
-			return false;
-		}
 	}
 
 	$scope.upload = function (idDoc, idCurso) {
@@ -901,7 +921,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 });
 
 app.controller('constanciasCtrl', function ($scope, $http, $location, user, periodoService) {
-
+	$scope.user = user.getName();
 	$scope.getConstancias = function () {
 		$http({
 			method: 'GET',
@@ -979,10 +999,11 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 });
 
 app.controller('convocatoriaCtrl', function ($scope, $http, $location, user, periodoService) {
-
+	$scope.user = user.getName();
 });
 
 app.controller('instructoresCtrl', function ($scope, $http, $location, user, periodoService, instructor) {
+	$scope.user = user.getName();
 	$scope.periodo = periodoService.getPeriodo()
 		.then(function (response) {
 			$scope.periodo = response;
@@ -1104,7 +1125,7 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 
 /* CONTROLADORES PARA EL USUARIO INSTRUCTOR */
 app.controller('cursosICtrl', function ($scope, $http, $location, user, curso, periodoService) {
-
+	$scope.user = user.getName();
 	$scope.periodo = periodoService.getPeriodo()
 		.then(function (response) {
 			$scope.periodo = response;
@@ -1174,6 +1195,7 @@ app.controller('cursosICtrl', function ($scope, $http, $location, user, curso, p
 });
 
 app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curso, periodoService) {
+	$scope.user = user.getName();
 	$scope.cursoID = function (id) {
 		curso.setID(id);
 	}
@@ -1205,6 +1227,7 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 });
 
 app.controller('participantesICtrl', function ($scope, $http, $location, user, curso, periodoService) {
+	$scope.user = user.getName();
 	$scope.cursoID = function (id) {
 		curso.setID(id);
 	}
@@ -1238,7 +1261,7 @@ app.controller('participantesICtrl', function ($scope, $http, $location, user, c
 /* CONTROLADORES PARA EL USUARIO JEFE */
 
 app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, periodoService) {
-
+	$scope.user = user.getName();
 	$scope.getCursos = function () {
 		$http({
 			method: 'POST',
@@ -1416,12 +1439,12 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 });
 
 app.controller('encuestaJCtrl', function ($scope, $http, $location, user, periodoService) {
-
+	$scope.user = user.getName();
 });
 
 /*	CONTROLADORES PARA EL USUARIO DOCENTE */
 app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, periodoService) {
-
+	$scope.user = user.getName();
 	$scope.getCursos = function () {
 		$http({
 			method: 'GET',
@@ -1508,13 +1531,13 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, p
 });
 
 app.controller('encuestaDCtrl', function ($scope, $http, $location, user, periodoService) {
-
+	$scope.user = user.getName();
 });
 
 app.controller('misCursosDCtrl', function ($scope, $http, $location, user, periodoService) {
-
+	$scope.user = user.getName();
 });
 
 app.controller('constanciasDCtrl', function ($scope, $http, $location, user, periodoService) {
-
+$scope.user = user.getName();
 });
