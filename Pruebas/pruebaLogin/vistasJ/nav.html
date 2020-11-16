@@ -6,27 +6,15 @@
 <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item">
-            <a class="nav-link" href="#!/inicio">Información docente</a>
+            <a class="nav-link" href="#!/inicioJ/cursos">Cursos</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link">Materias</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link">Evaluación</a>
-        </li>
-        <li class="nav-item  dropdown">
-            <a class="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Actualización Docente
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#!/inicioJ/cursos">Cursos</a>
-                <a class="dropdown-item" href="#!/inicioJ/encuesta">Encuesta de calidad</a>
-            </div>
+            <a class="nav-link" href="#!/inicioJ/encuesta">Encuesta de calidad
         </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
+        <div class="text-light mx-auto pr-4">{{user}}  <span class="user2_icon ml-2"></span></div>
         <a href="#!/logout"><button type="button" class="btn btn-small btn-outline-light">Cerrar sesión</button></a>
-        
     </form>
 </div>
 </nav>

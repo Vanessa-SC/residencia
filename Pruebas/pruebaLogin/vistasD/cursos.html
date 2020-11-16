@@ -9,24 +9,32 @@
             </div>
         </div>
     </div>
-    <table class="table text-center">
-        <thead>
-            <tr>
-                <th scope="col">Curso</th>
-                <th scope="col">Periodo de realizaci&oacute;n</th>
-                <th scope="col">M&aacute;s informaci&oacute;n</th>
-                <th scope="col">Inscribirme</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="x in cursos">
-                <td> {{x.curso}} </td>
-                <td> {{x.fecha}} <br> {{x.horario}} </td>
-                <td><a href="#!/inicioD/cursos/informacion" ng-click=cursoID(x.idCurso)><button class="btn btn-light moreinfo_icon" title="Ver más información"></button></a></td>
-                <td><button class="btn bg-white editar_icon"></button></td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="text-center">
+        <h4>Cursos disponibles</h4>
+    </div>
+    <div class="card-borderless mb-3">
+        <div class="card-body">
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">Curso</th>
+                        <th scope="col">Periodo de realizaci&oacute;n</th>
+                        <th scope="col">M&aacute;s informaci&oacute;n</th>
+                        <th scope="col">Inscribirme</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in cursos">
+                        <td> {{x.curso}} </td>
+                        <td> {{x.fecha}} <br> {{x.horario}} </td>
+                        <td><a href="#!/inicioD/cursos/informacion" ng-click=cursoID(x.idCurso)><button
+                                    class="btn btn-light moreinfo_icon" title="Ver más información"></button></a></td>
+                        <td><button class="btn bg-white editar_icon"></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
     <div class="text-center">
         <h4>Cursos Inscritos</h4>
     </div>
@@ -50,7 +58,8 @@
                         <td>{{mc.curso}}</td>
                         <td>{{mc.fecha}} <br>{{mc.horario}} Hrs.</td>
                         <td><button class="btn bg-white logout_icon"></button></td>
-                        <td><a href="#!/inicioD/cursos/encuesta"><button class="btn bg-white encuesta_icon"></button></a></td>
+                        <td><a href="#!/inicioD/cursos/encuesta"><button
+                                    class="btn bg-white encuesta_icon"></button></a></td>
                     </tr>
                 </tbody>
             </table>

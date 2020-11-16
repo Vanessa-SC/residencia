@@ -134,8 +134,8 @@ app.config(function ($routeProvider, $locationProvider) {
 					}
 				},
 			},
-			templateUrl: './vistasD/inicio.html',
-			controller: 'inicioCtrl'
+			templateUrl: './vistasD/cursos.html',
+			controller: 'cursosDCtrl'
 		}).when('/inicioD/cursos', {
 			templateUrl: './vistasD/cursos.html',
 			controller: 'cursosDCtrl'
@@ -173,8 +173,8 @@ app.config(function ($routeProvider, $locationProvider) {
 					}
 				},
 			},
-			templateUrl: './vistasI/inicio.html',
-			controller: 'inicioCtrl'
+			templateUrl: './vistasI/cursos.html',
+			controller: 'cursosICtrl'
 
 		}).when('/inicioI/cursos', {
 			templateUrl: './vistasI/cursos.html',
@@ -220,8 +220,8 @@ app.config(function ($routeProvider, $locationProvider) {
 					}
 				},
 			},
-			templateUrl: './vistasJ/inicio.html',
-			controller: 'inicioCtrl'
+			templateUrl: './vistasJ/cursos.html',
+			controller: 'cursosJCtrl'
 
 		}).when('/inicioJ/cursos', {
 			templateUrl: './vistasJ/cursos.html',
@@ -635,7 +635,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 
 	$scope.user = user.getName();
 
-	
+
 	$scope.getCursos = function () {
 		$http({
 			method: 'GET',
@@ -695,7 +695,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},
-			data: 'idCurso=' + idCurso 
+			data: 'idCurso=' + idCurso
 		}).then(function successCallback(response) {
 			$scope.documentosSubidos = response.data;
 		}, function errorCallback(response) {
@@ -844,40 +844,40 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 
 
 	$scope.deleteCurso = function (id, nombreCurso) {
-			$http({
-				method: 'POST',
-				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/deleteCurso.php',
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded'
-				},
-				data: 'idCurso=' + id
-			}).then(function successCallback(response) {
-				if (response.data.status == "ok") {
-					$('#modal' + id).modal('hide');
-					$('.modal-backdrop').remove();
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/deleteCurso.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idCurso=' + id
+		}).then(function successCallback(response) {
+			if (response.data.status == "ok") {
+				$('#modal' + id).modal('hide');
+				$('.modal-backdrop').remove();
 
-					$scope.alert = {
-						titulo:'Eliminado!',
-						tipo:'success',
-						mensaje:'Curso eliminado correctamente'
-					};
-					$(document).ready(function(){
-						$('#alerta').toast('show');
-					  });
-					$scope.getCursos();
-				} else {
-					$scope.alert = {
-						titulo:'Error!',
-						tipo:'danger',
-						mensaje:'No se pudo eliminar el curso.'
-					};
-					$(document).ready(function(){
-						$('#alerta').toast('show');
-					  });
-				}
-			}, function errorCallback(response) {
-				return false;
-			});
+				$scope.alert = {
+					titulo: 'Eliminado!',
+					tipo: 'success',
+					mensaje: 'Curso eliminado correctamente'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$scope.getCursos();
+			} else {
+				$scope.alert = {
+					titulo: 'Error!',
+					tipo: 'danger',
+					mensaje: 'No se pudo eliminar el curso.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+			}
+		}, function errorCallback(response) {
+			return false;
+		});
 	}
 
 	$scope.upload = function (idDoc, idCurso) {
@@ -1539,5 +1539,5 @@ app.controller('misCursosDCtrl', function ($scope, $http, $location, user, perio
 });
 
 app.controller('constanciasDCtrl', function ($scope, $http, $location, user, periodoService) {
-$scope.user = user.getName();
+	$scope.user = user.getName();
 });

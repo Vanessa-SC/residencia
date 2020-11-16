@@ -9,28 +9,35 @@
             </div>
         </div>
     </div>
-    <table class="table text-center">
-        <thead>
-            <tr>
-                <th></th>
-                <th scope="col">No.</th>
-                <th scope="col">Curso</th>
-                <th scope="col">Periodo de realizaci&oacute;n</th>
-                <th scope="col">Registro de asistencia</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="mc in misCursos">
-                <th></th>
-                <th scope="row">{{mc.idCurso}}</th>
-                <td>{{mc.curso}}</td>
-                <td>{{mc.fecha}} <br>{{mc.horario}} Hrs.</td>
-                <td><a href=""><button class="btn bg-white calendario_icon"></button></a></td>
-            </tr>
-        </tbody>
-    </table>
     <div class="text-center">
-        <h4>Cursos Concluidos</h4>
+        <h4>Cursos en curso</h4>
+    </div>
+    <div class="card  border-dark mb-3">
+        <div class="card-body">
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th scope="col">No.</th>
+                        <th scope="col">Curso</th>
+                        <th scope="col">Periodo de realizaci&oacute;n</th>
+                        <th scope="col">Registro de asistencia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="mc in misCursos">
+                        <th></th>
+                        <th scope="row">{{mc.idCurso}}</th>
+                        <td>{{mc.curso}}</td>
+                        <td>{{mc.fecha}} <br>{{mc.horario}} Hrs.</td>
+                        <td><a href=""><button class="btn bg-white calendario_icon"></button></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="text-center">
+        <h4>Cursos concluidos</h4>
     </div>
     <div class="card  border-dark mb-3">
         <div class="card-body">
@@ -49,7 +56,8 @@
                     <tr>
                         <th></th>
                         <th scope="row">1</th>
-                        <td>Diplomado para la Formaci&oacute;n y Desarrollo de Competencias Docentes - M&oacute;dulo II: Planeaci&oacute;n del Proceso de Aprendizaje</td>
+                        <td>Diplomado para la Formaci&oacute;n y Desarrollo de Competencias Docentes - M&oacute;dulo II:
+                            Planeaci&oacute;n del Proceso de Aprendizaje</td>
                         <td>18 al 22 de junio del 2019 <br>9:00 - 15:00 Hrs.</td>
                         <td><button class="btn bg-white documento_icon"></button></td>
                     </tr>

@@ -23,7 +23,7 @@
         <tbody>
             <tr ng-repeat="x in cursos">
                 <th></th>
-                <td><a href="#!/inicioI/cursos/infoCurso" ng-click=cursoID(x.idCurso) title="Ver más">{{x.curso}}</a></td>
+                <td><a class="text-decoration-none " href="#!/inicioI/cursos/infoCurso" ng-click=cursoID(x.idCurso) title="Ver más">{{x.curso}}</a></td>
                 <td>{{x.fecha}} <br> {{x.horario}}</td>
                 <td><a href="#!/inicioI/cursos/subir-docscurso"><button class="btn bg-white documento_icon"></button></a></td>
                 <td><a href="#!/inicioI/cursos/asistencia" ng-click=cursoID(x.idCurso)><button class="btn bg-white calendario_icon"></button></a></td>
