@@ -834,6 +834,8 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 		});
 	}
 
+
+
 	$scope.deleteCurso = function (id, nombreCurso) {
 		if (confirm('¿Está seguro de que quiere eliminar el curso "' + nombreCurso + '"?')) {
 			$http({

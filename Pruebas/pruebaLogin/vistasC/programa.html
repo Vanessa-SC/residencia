@@ -1,7 +1,5 @@
 
 
-
-
 <ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasC/nav.html'"></ng-include>
 <div class="container">
     <div class="programa_page d-flex justify-content-center">
@@ -14,6 +12,8 @@
         </div>
     </div>
 
+</div>
+          
     <div class="d-flex justify-content-end">        
 		<div class="mb-3 p-2 mt-4">
 			<div class="input-group-prepend">
@@ -22,7 +22,8 @@
 			</div>
         </div>
     </div>
-    
+           
+                      
     <table class="table text-center">
         <thead>
             <tr>
@@ -46,16 +47,53 @@
                 <td class=" align-middle "> {{x.fecha}} <br> {{x.horario}} </td>
                 <td class=" align-middle "><a href="#!/inicioC/programa/subirDocumentos" ng-click=cursoID(x.idCurso)><button class="btn bg-white subirDocumento_icon"></button></a></td>
                 <td class=" align-middle "><a href="#!/inicioC/programa/documentosCurso" ng-click=cursoID(x.idCurso)><button class="btn bg-white validarDocumento_icon"></button></a></td>
-                
+
+                 
+  
+
+   
                 <!-- #!/inicioC/programa/infoCurso -->
                 <td class=" align-middle "><a href="#!/inicioC/programa/infoCurso" ng-click=cursoID(x.idCurso)><button class="btn btn-light moreinfo_icon" title="Ver más información"></button></a></td>
                 <td class="align-middle">
-                    <a href="#!/inicioC/programa/actualizar" ng-click=cursoID(x.idCurso)>
+
+                    <a href="#!/inicioC/programa/actualizar" ng-click="cursoID(x.idCurso)">
                         <button class="btn btn-sm bg-white editar_icon mb-1" title="Editar"></button>
                     </a>
-                    <button class="btn btn-sm bg-white borrar_icon" title="Eliminar" ng-click="deleteCurso(x.idCurso, x.curso)"></button>
+
+                     <!-- Button trigger modal -->
+                    
+                      <button class="btn btn-lg btn-sm bg-white borrar_icon" data-toggle="modal" data-target="#modal{{x.curso}}"></button> 
+                      <span class="text-success" id="mensaje{{x.curso}}"></span>
+
+
+                      <!-- Modal -->
+                    <div class="modal fade" id="modal{{x.curso}}" tabindex="-1" role="dialog"
+                        aria-labelledby="Title" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Eliminar: {{x.curso}}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <strong style="color: red;">
+                                        ¿Está seguro de que quiere eliminar este curso?
+                                    </strong>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-success" title="Aceptar"
+                                        ng-click="deleteCurso(x.idCurso, x.curso)">Aceptar</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+ 
                 </td>
             </tr>
         </tbody>
     </table>
-</div>
