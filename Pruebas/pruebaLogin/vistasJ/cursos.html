@@ -48,9 +48,50 @@
                         <button class="btn btn-sm bg-white editar_icon mb-1" title="Editar"></button>
                     </a>
                     
-                    <button class="btn btn-sm bg-white borrar_icon" title="Eliminar" ng-click="deleteCurso(x.idCurso, x.curso)"></button>
+                    <!-- Button trigger modal -->
+
+
+                    <button type="button" class="btn btn-light bg-white borrar_icon" data-toggle="modal"
+                        data-target="#modal{{x.idCurso}}"></button>
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="modal{{x.idCurso}}" tabindex="-1" role="dialog" aria-labelledby="Title"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    ¿Está seguro de que quiere eliminar el curso: <br> "<span
+                                        class="font-italic">{{x.curso}}</span>"?
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-success" title="Aceptar"
+                                        ng-click="deleteCurso(x.idCurso, x.curso)"
+                                        data-backdrop="false">Aceptar</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal"
+                                        data-backdrop="false">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </td>
             </tr>
         </tbody>
     </table>
+    <div class="toast" data-autohide="false" id="alerta" style="position: fixed; top: 50px; right: 50px; background-color: rgb(255, 255, 255); width:500px">
+        <div class="toast-header bg-{{alert.tipo}} text-white">
+            <strong class="mr-auto">{{alert.titulo}}</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
+                <span aria-hidden="true" style="font-size: 1.1em;">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            <div>{{alert.mensaje}}</div>
+        </div>
+    </div>
 </div>

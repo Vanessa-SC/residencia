@@ -1049,27 +1049,40 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 	$scope.inst = {};
 
 	$scope.deleteInstructor = function (id, nombreInstructor) {
-		if (confirm('¿Está seguro de que quiere eliminar el Instructor "' + nombreInstructor + '"?')) {
-			$http({
-				method: 'POST',
-				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/deleteInstructor.php',
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded'
-				},
-				data: 'idInstructor=' + id
-			}).then(function successCallback(response) {
-				if (response.data.status == "ok") {
-					alert("Instructor eliminado correctamente.");
-					$scope.getInstructores();
-				} else {
-					alert("Error al eliminar el Instructor");
-				}
-			}, function errorCallback(response) {
-				return false;
-			});
-		} else {
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/deleteInstructor.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idInstructor=' + id
+		}).then(function successCallback(response) {
+			if (response.data.status == "ok") {
+				$('#modal' + id).modal('hide');
+				$('.modal-backdrop').remove();
+
+				$scope.alert = {
+					titulo: 'Eliminado!',
+					tipo: 'success',
+					mensaje: 'Instructor eliminado correctamente'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$scope.getCursos();
+			} else {
+				$scope.alert = {
+					titulo: 'Error!',
+					tipo: 'danger',
+					mensaje: 'No se pudo eliminar al instructor.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+			}
+		}, function errorCallback(response) {
 			return false;
-		}
+		});
 	}
 
 	$scope.instructorID = function (id) {
@@ -1358,27 +1371,40 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 
 
 	$scope.deleteCurso = function (id, nombreCurso) {
-		if (confirm('¿Está seguro de que quiere eliminar el curso "' + nombreCurso + '"?')) {
-			$http({
-				method: 'POST',
-				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/deleteCurso.php',
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded'
-				},
-				data: 'idCurso=' + id
-			}).then(function successCallback(response) {
-				if (response.data.status == "ok") {
-					alert("Curso eliminado correctamente.");
-					$scope.getCursos();
-				} else {
-					alert("Error al eliminar el curso");
-				}
-			}, function errorCallback(response) {
-				return false;
-			});
-		} else {
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/deleteCurso.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idCurso=' + id
+		}).then(function successCallback(response) {
+			if (response.data.status == "ok") {
+				$('#modal' + id).modal('hide');
+				$('.modal-backdrop').remove();
+
+				$scope.alert = {
+					titulo: 'Eliminado!',
+					tipo: 'success',
+					mensaje: 'Curso eliminado correctamente'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$scope.getCursos();
+			} else {
+				$scope.alert = {
+					titulo: 'Error!',
+					tipo: 'danger',
+					mensaje: 'No se pudo eliminar el curso.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+			}
+		}, function errorCallback(response) {
 			return false;
-		}
+		});
 	}
 
 	$scope.getDepartamentos = function () {
