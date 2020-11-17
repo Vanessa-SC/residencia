@@ -13,7 +13,8 @@ $sql = "SELECT documento.idDocumento,
         curso_has_documento.rutaArchivo
         FROM documento,curso_has_documento
         WHERE documento.idDocumento = curso_has_documento.Documento_idDocumento
-        AND curso_has_documento.Curso_idCurso = $idCurso";
+        AND curso_has_documento.Curso_idCurso = $idCurso
+        ORDER BY documento.idDocumento";
 
 $result = $conn->query($sql) or die($conn->error . __LINE__);
 

@@ -61,63 +61,160 @@ app.config(function ($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistasC/programa.html',
 			controller: 'programaCtrl'
-		}).when('/inicioC/programa', {
-			templateUrl: './vistasC/programa.html',
-			controller: 'programaCtrl'
-
-		}).when('/inicioC/programa/generarCurso', {
+		}).when('/inicioC/generarCurso', {
+			resolve: {
+				/* Comprueba el rol del usuario para
+				que no pueda acceder secciones que no 
+				le corresponden */
+				check: function ($location, user) {
+					if (user.getRol() != 1) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasC/generar-curso.html',
 			controller: 'programaCtrl'
 
-		}).when('/inicioC/programa/actualizar', {
+		}).when('/inicioC/actualizarCurso', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 1) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasC/actualizar-curso.html',
 			controller: 'programaCtrl'
 
-		}).when('/inicioC/programa/infoCurso', {
+		}).when('/inicioC/infoCurso', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 1) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasC/info-curso.html',
 			controller: 'programaCtrl'
 
-		}).when('/inicioC/programa/documentosCurso', {
+		}).when('/inicioC/documentosCurso', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 1) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasC/docs-curso.html',
 			controller: 'programaCtrl'
 
-		}).when('/inicioC/programa/verDocumento', {
+		}).when('/inicioC/verDocumento', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 1) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasC/ver-doc.html',
 			controller: 'programaCtrl'
 
-		}).when('/inicioC/programa/subirDocumentos', {
+		}).when('/inicioC/subirDocumentos', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 1) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasC/subir-docscurso.html',
 			controller: 'programaCtrl'
 
 		}).when('/inicioC/constancias', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 1) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasC/constancias.html',
 			controller: 'constanciasCtrl'
 
 		}).when('/inicioC/constancias/ver', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 1) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasC/ver-constancia.html',
 			controller: 'constanciasCtrl'
 
 		}).when('/inicioC/constancias/generar', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 1) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasC/generar-constancia.html',
 			controller: 'constanciasCtrl'
 
 		}).when('/inicioC/convocatorias', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 1) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasC/convocatoria.html',
 			controller: 'convocatoriaCtrl'
 
 		}).when('/inicioC/convocatorias/generar', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 1) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasC/generar-convocatoria.html',
 			controller: 'convocatoriaCtrl'
 
 		}).when('/inicioC/instructores', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 1) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasC/instructores.html',
 			controller: 'instructoresCtrl'
 
 		}).when('/inicioC/instructores/agregarInstructor', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 1) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasC/agregar-instructor.html',
 			controller: 'instructoresCtrl'
 
 		}).when('/inicioC/instructores/actualizarInstructor', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 1) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasC/actualizar-instructor.html',
 			controller: 'instructoresCtrl'
 		})
@@ -136,27 +233,58 @@ app.config(function ($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistasD/cursos.html',
 			controller: 'cursosDCtrl'
-		}).when('/inicioD/cursos', {
-			templateUrl: './vistasD/cursos.html',
-			controller: 'cursosDCtrl'
-
-		}).when('/inicioD/cursos/encuesta', {
+		}).when('/inicioD/encuesta', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 3) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasD/encuesta.html',
 			controller: 'encuestaDCtrl'
 
 		}).when('/inicioD/misCursos', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 3) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasD/misCursos.html',
 			controller: 'cursosDCtrl'
 
 		}).when('/inicioD/constancias', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 3) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasD/constancias.html',
 			controller: 'constanciasDCtrl'
 
 		}).when('/inicioD/constancias/descargar', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 3) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasD/descargarConstancia.html',
 			controller: 'constanciasDCtrl'
 
 		}).when('/inicioD/cursos/informacion', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 3) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasD/info-curso.html',
 			controller: 'cursosDCtrl'
 
@@ -176,34 +304,47 @@ app.config(function ($routeProvider, $locationProvider) {
 			templateUrl: './vistasI/cursos.html',
 			controller: 'cursosICtrl'
 
-		}).when('/inicioI/cursos', {
-			templateUrl: './vistasI/cursos.html',
-			controller: 'cursosICtrl'
-
 		}).when('/inicioI/cursos/infoCurso', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 4) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasI/info-curso.html',
 			controller: 'cursosICtrl'
 
-		})
-		.when('/inicioI/cursos/subir-docscurso', {
+		}).when('/inicioI/subirDocumentos', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 4) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasI/subir-docscurso.html',
 			controller: 'cursosICtrl'
 
-		})
-		.when('/inicioI/cursos/infoCurso', {
-			templateUrl: './vistasI/info-curso.html',
-			controller: 'cursosICtrl'
-
-		})
-		.when('/inicioI/cursos/infoCurso', {
-			templateUrl: './vistasI/info-curso.html',
-			controller: 'cursosICtrl'
-
-		}).when('/inicioI/cursos/asistencia', {
+		}).when('/inicioI/asistencia', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 4) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasI/asistencia.html',
 			controller: 'asistenciaICtrl'
 
-		}).when('/inicioI/cursos/participantes', {
+		}).when('/inicioI/participantes', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 4) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasI/participantes.html',
 			controller: 'participantesICtrl'
 
@@ -224,26 +365,68 @@ app.config(function ($routeProvider, $locationProvider) {
 			controller: 'cursosJCtrl'
 
 		}).when('/inicioJ/cursos', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 2) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasJ/cursos.html',
 			controller: 'cursosJCtrl'
 
 		}).when('/inicioJ/cursos/generar', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 2) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasJ/generar-curso.html',
 			controller: 'cursosJCtrl'
 
 		}).when('/inicioJ/cursos/infoCurso', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 2) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasJ/info-curso.html',
 			controller: 'cursosJCtrl'
 
 		}).when('/inicioJ/cursos/subirDocumentos', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 2) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasJ/subir-docscurso.html',
 			controller: 'cursosJCtrl'
 
 		}).when('/inicioJ/cursos/validarDocumentos', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 2) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasJ/validarDoc.html',
 			controller: 'cursosJCtrl'
 
 		}).when('/inicioJ/encuesta', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 2) {
+						$location.path(user.getPath());
+					}
+				},
+			},
 			templateUrl: './vistasJ/encuesta.html',
 			controller: 'encuestaJCtrl'
 
@@ -1168,15 +1351,14 @@ app.controller('cursosICtrl', function ($scope, $http, $location, user, curso, p
 		});
 	}
 
-	$scope.getDocumentos = function () {
+	$scope.getListaDocumentosCurso = function () {
 		$http({
 			method: 'GET',
-			url: '/Residencia/Proyecto/files/docsCurso.js'
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getDocumentos.php'
 		}).then(function successCallback(response) {
 			$scope.documentos = response.data;
-			console.log(response.data);
 		}, function errorCallback(response) {
-			alert("No hay datos.")
+
 		});
 	}
 
@@ -1185,10 +1367,7 @@ app.controller('cursosICtrl', function ($scope, $http, $location, user, curso, p
 	}
 
 	$scope.getInfoCurso = function () {
-
 		$scope.idCurso = curso.getID();
-		// console.log($scope.idCurso);
-
 		if ($scope.idCurso != "") {
 			$http({
 				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getInfoCurso.php',
@@ -1200,18 +1379,46 @@ app.controller('cursosICtrl', function ($scope, $http, $location, user, curso, p
 			}).then(function successCallback(response) {
 				$scope.infoCurso = response.data;
 				// console.log(response.data);
-			}, function errorCallback(response) {
-
 			});
 		}
+	}
 
+	$scope.upload = function (idDoc, idCurso) {
+		var fd = new FormData();
+		var files = document.getElementById('file' + idDoc).files[0];
+		fd.append('archivo', files);
+		fd.append('idCurso', idCurso);
+		fd.append('idDocumento', idDoc);
+		$http({
+			method: 'post',
+			url: '/Residencia/Pruebas/pruebaLogin/php/subirArchivo.php',
+			data: fd,
+			headers: {
+				'Content-Type': undefined
+			},
+		}).then(function successCallback(response) {
+			$scope.response = response.data;
+
+			if (response.data.status != undefined) {
+				$scope.alert = {
+					titulo: 'Archivo subido!',
+					tipo: 'success',
+					mensaje: 'Archivo subido correctamente'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$('#modal' + idDoc).modal('hide');
+				document.getElementById('mensaje' + idDoc).innerHTML = 'Documento subido';
+			}
+		});
 	}
 
 	$scope.back = function () {
 		window.history.back();
 	};
 
-	$scope.getDocumentos();
+	$scope.getListaDocumentosCurso();
 	$scope.getCursos();
 	$scope.getInfoCurso();
 
@@ -1567,10 +1774,6 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, p
 });
 
 app.controller('encuestaDCtrl', function ($scope, $http, $location, user, periodoService) {
-	$scope.user = user.getName();
-});
-
-app.controller('misCursosDCtrl', function ($scope, $http, $location, user, periodoService) {
 	$scope.user = user.getName();
 });
 
