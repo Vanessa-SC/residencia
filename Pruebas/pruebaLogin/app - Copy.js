@@ -56,9 +56,6 @@ app.config(function($routeProvider, $locationProvider) {
 		},
 		templateUrl: './vistasC/inicio.html',
 		controller: 'inicioCtrl'
-	}).when('/inicioC/programa', {
-		templateUrl: './vistasC/programa.html',
-		controller: 'programaCtrl'
 	})
 	/*  RUTAS PARA EL USUARIO DOCENTE */
 	.when('/inicioD', {

@@ -991,7 +991,6 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 	};
 
 	$scope.crearCurso = function (datos) {
-		console.log(datos);
 		if (datos.objetivo != "") {
 			$http({
 				method: 'POST',
@@ -1004,9 +1003,9 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 				console.log(response.data);
 				if (response.data.status == "ok") {
 					console.log("Curso creado correctamente.");
-					$location.path("/inicioC/programa");
+					$location.path("/inicioC");
 				} else {
-					alert("Ocurrió un error al crear el curso");
+					console.log("Ocurrió un error al crear el curso");
 				}
 			}, function errorCallback(response) {
 				// console.log("No hay datos.");
@@ -1028,7 +1027,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 				alert("Ocurrió un error al modificar el curso");
 			} else {
 				alert("Curso actualizado correctamente.");
-				$location.path("/inicioC/programa");
+				$location.path("/inicioC/");
 			}
 		}, function errorCallback(response) {
 			// console.log("No hay datos.");
