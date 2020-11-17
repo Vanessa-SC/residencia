@@ -1,8 +1,10 @@
 <ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasC/nav.html'"></ng-include>
 <div class="container px-5" ng-controlelr="constanciasController">
 	<form>
-
-		<div class="input-group mb-5  mt-5 px-5">
+		<div class="text-center mt-3 border-bottom">
+			<h4>Agregar nuevo curso</h4>
+		</div>
+		<div class="input-group mt-5 px-5">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="folio">Folio</label>
 			</div>
@@ -12,8 +14,8 @@
 			</div>
 			<input required type="text" id="ClaveRegistro" class="form-control" ng-model="curso.clave">
 		</div>
-		<div class="dropdown-divider"></div>
-		<div class="input-group mb-3  mt-5">
+		<div class="dropdown-divider mb-4 mt-4"></div>
+		<div class="input-group mb-3">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="nombreCurso">Nombre</label>
 			</div>
@@ -37,7 +39,7 @@
 			</div>
 			<input required type="time" id="horaFin" class="form-control" ng-model="curso.horaFin">
 		</div>
-		<div class="input-group mb-5  mt-4">
+		<div class="input-group mt-4">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="fechaInicio">Fecha Inicio</label>
 			</div>
@@ -48,9 +50,9 @@
 			<input required type="date" id="fechaFin" class="form-control" ng-model="curso.fechaFin">
 		</div>
 
-		<div class="dropdown-divider"></div>
+		<div class="dropdown-divider mb-4 mt-4"></div>
 
-		<div class="input-group mb-3  mt-5">
+		<div class="input-group mb-3">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="modalidad">Modalidad</label>
 			</div>
@@ -76,15 +78,17 @@
 			</div>
 			<textarea required type="text" id="objetivo" class="form-control" ng-model="curso.Objetivo"></textarea>
 		</div>
-		<div class="input-group mb-3  mt-4">
+		<div class="input-group mt-4">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="observaciones">Observaciones</label>
 			</div>
 			<textarea type="text" id="observaciones" class="form-control" ng-model="curso.observaciones"
 				value="Ninguna"></textarea>
 		</div>
-		<div class="dropdown-divider"></div>
-		<div class="input-group mb-5  mt-5">
+		
+		<div class="dropdown-divider mb-4 mt-4"></div>
+
+		<div class="input-group mb-5">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="departamento">Departamento</label>
 			</div>
@@ -100,10 +104,9 @@
 			</select>
 		</div>
 
-		<div class="align-middle text-center">
+		<div class="align-middle text-center mb-5">
 			<button class="btn bg-wine" ng-click="crearCurso(curso)"><span class="ok2_icon"></span> Crear curso</button>
 		</div>
 	</form>
-	<pre>curso = {{curso | json}}</pre>
 	<div class="card-footer text-muted text-center">Todos los derechos reservados. ITD 2020</div>
 </div>

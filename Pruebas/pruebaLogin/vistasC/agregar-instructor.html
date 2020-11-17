@@ -1,70 +1,70 @@
 <ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasC/nav.html'"></ng-include>
 <div class="container px-5" ng-controlelr="constanciasController">
+	<div class="text-center mt-3 border-bottom">
+		<h4>Registrar instructor</h4>
+	</div>
 	<form id="validar">
-		<table class="table border-bottom border-dark">
-			<tr>
-				<td>					
-					<div class="input-group mb-3 col-sm-10 mt-4">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="apellidoPaterno">Apellido Paterno</label>
-						</div>
-						<input required type="text" id="apellidoPaterno" class="form-control" ng-model="inst.apellidoPaterno">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="apellidoMaterno">Apellido Materno</label>
-						</div>
-						<input required type="text" id="apellidoMaterno" class="form-control" ng-model="inst.apellidoMaterno">
-					</div>
-					<div class="input-group mb-3 col-sm-10 mt-4">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="nombreInstructor">Nombre(s)</label>
-						</div>
-						<input required type="text" id="nombreInstructor" class="form-control" ng-model="inst.nombreInstructor">
-					</div>
-					<div class="input-group mb-3 col-sm-10 mt-4 text-">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="RFC">RFC</label>
-						</div>
-						<input style="text-transform:uppercase;"  required type="text" id="rfc_input" oninput="validarInputR(this)" class="form-control" ng-model="inst.RFC">
-						<div>							
-							<pre id="resultadoR"></pre>
-						</div>
-					</div>
-					<div class="input-group mb-3 col-sm-10 mt-4">						
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="CURP">CURP</label>
-						</div>
-						<input style="text-transform:uppercase;" required type="text" id="curp_input" oninput="validarInputC(this)" name="curp" class="form-control" ng-model="inst.CURP">
-						<div>							
-							<pre id="resultadoC"></pre>
-						</div>
-					</div>			
-					<div class="input-group mb-3 col-sm-10 mt-4">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="fechaNacimiento">Fecha Nacimiento</label>
-						</div>
-						<input required type="date" id="fechaNacimiento" class="form-control" ng-model="inst.fechaNacimiento">
-					</div>
-					<div class="input-group mb-3 col-sm-10 mt-4">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="telefono">Teléfono</label>
-						</div>
-						<input required type="text" id="telefono" class="form-control" ng-model="inst.telefono">
-					</div>
-					<div class="input-group mb-3 col-sm-10 mt-4">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="correo">Correo electrónico</label>
-						</div>
-						<input required type="email" id="correo" class="form-control" ng-model="inst.correo">
-					</div>
-				</td>
-				<td class="align-middle text-center">
-					<label for="btn_generar">Generar</label><br>
-					<button class="btn bg-white ok-blank_icon" ng-click="agregarInstructor(inst)"></button>
-				</td>
-			</tr>
-		</table>
+		<div class="input-group mb-3 mt-5">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="apellidoPaterno">Apellido Paterno</label>
+			</div>
+			<input required type="text" id="apellidoPaterno" class="form-control" ng-model="inst.apellidoPaterno">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="apellidoMaterno">Apellido Materno</label>
+			</div>
+			<input required type="text" id="apellidoMaterno" class="form-control" ng-model="inst.apellidoMaterno">
+		</div>
+		<div class="input-group mb-3 mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="nombreInstructor">Nombre(s)</label>
+			</div>
+			<input required type="text" id="nombreInstructor" class="form-control" ng-model="inst.nombreInstructor">
+		</div>
+
+		<div class="dropdown-divider mt-4 mb-4"></div>
+
+		<div class="input-group mb-0 mt-4 text-">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="RFC">RFC</label>
+			</div>
+			<input style="text-transform:uppercase;" required type="text" id="rfc_input" oninput="validarInputR(this)" class="form-control" ng-model="inst.RFC">
+		</div>
+		<div>
+			<pre id="resultadoR"></pre>
+		</div>
+		<div class="input-group mb-0 mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="CURP">CURP</label>
+			</div>
+			<input style="text-transform:uppercase;" required type="text" id="curp_input" oninput="validarInputC(this)" name="curp" class="form-control" ng-model="inst.CURP">
+		</div>
+		<div>
+			<pre id="resultadoC"></pre>
+		</div>
 		
+		<div class="dropdown-divider mt-4 mb-4"></div>
+
+		<div class="input-group mb-3 mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="fechaNacimiento">Fecha Nacimiento</label>
+			</div>
+			<input required type="date" id="fechaNacimiento" class="form-control" ng-model="inst.fechaNacimiento">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="telefono">Teléfono</label>
+			</div>
+			<input required type="text" id="telefono" class="form-control" ng-model="inst.telefono">
+		</div>
+		<div class="input-group mb-3 mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="correo">Correo electrónico</label>
+			</div>
+			<input required type="email" id="correo" class="form-control" ng-model="inst.correo">
+		</div>
 	</form>
-	<pre>inst = {{inst | json}}</pre>
+	<div class="text-center mb-4">
+		<button class="btn bg-wine" ng-click="agregarInstructor(inst)">
+			<span class="adduser_icon"></span>Agregar
+		</button>
+	</div>
 	<div class="card-footer text-muted text-center">Todos los derechos reservados. ITD 2020</div>
 </div>

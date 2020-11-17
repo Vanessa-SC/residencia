@@ -10,6 +10,12 @@ h1 {
   color: #fff;
 }
 
+
+.btn.bg-wine:hover {
+  background-color: #4c011a;
+  color: #fff;
+}
+
 /* HEADER */
 
 .titulo {
@@ -410,6 +416,12 @@ button.btn-back:hover {
   background-size: contain;
 }
 
+.adduser_icon {
+  background: url(/Residencia/proyecto/images/adduser.png) no-repeat center;
+  padding: 0.875rem !important;
+  background-size: cover;
+  background-size: contain;
+}
 .ok-blank_icon {
   background: url(/Residencia/proyecto/images/ok-blank.png) no-repeat center;
   padding: 1.1rem !important;

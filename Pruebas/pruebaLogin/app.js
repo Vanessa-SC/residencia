@@ -670,16 +670,17 @@ function curpValida(curp) {
 function validarInputC(input) {
 	var curp = input.value.toUpperCase(),
 		resultadoC = document.getElementById("resultadoC"),
-		valido = "No válido";
+		valido = '<div class="alert alert-danger w-100" role="alert" id="curp_ok">CURP no válida</div>';
+		
 
 	if (curpValida(curp)) { // Comprobación
-		valido = "Válido";
+		valido = '<div class="alert alert-success w-100" role="alert" id="curp_ok"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>CURP válida</div>';
 		resultadoC.classList.add("ok");
 	} else {
 		resultadoC.classList.remove("ok");
 	}
 
-	resultadoC.innerText = " " + valido;
+	resultadoC.innerHTML = " " + valido;
 }
 
 //Función para validar un RFC
@@ -735,14 +736,14 @@ function validarInputR(input) {
 	var rfcCorrecto = rfcValido(rfc); // Comprobación
 
 	if (rfcCorrecto) {
-		valido = "Válido";
+		valido = '<div class="alert alert-success w-100" role="alert" id="rfc_ok"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>RFC válido</div>';
 		resultadoR.classList.add("ok");
 	} else {
-		valido = "No válido"
+		valido = '<div class="alert alert-danger w-100" role="alert" id="rfc">RFC no válido</div>';
 		resultadoR.classList.remove("ok");
 	}
 
-	resultadoR.innerText = " " + valido;
+	resultadoR.innerHTML= " " + valido;
 }
 
 
@@ -1092,7 +1093,15 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 			$scope.response = response.data;
 
 			if (response.data.status != undefined) {
-				alert(response.data.status);
+				$scope.alert = {
+					titulo: 'Archivo subido!',
+					tipo: 'success',
+					mensaje: 'Archivo subido correctamente'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				
 				$('#modal' + idDoc).modal('hide');
 				document.getElementById('mensaje' + idDoc).innerHTML = 'Documento subido';
 			}
@@ -1229,11 +1238,11 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 			data: JSON.stringify(datos)
 		}).then(function successCallback(response) {
 			console.log(response.data);
-			if (response.data.status != "ok") {
-				alert("Ocurrió un error al agregar el Instructor");
-			} else {
+			if (response.data.status == "ok") {
 				alert("Instructor agregado correctamente.");
 				$location.path("/inicioC/instructores");
+			} else {
+				alert("Ocurrió un error al agregar el Instructor");
 			}
 		}, function errorCallback(response) {
 			console.log("No hay datos.");
@@ -1262,7 +1271,7 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 				$(document).ready(function () {
 					$('#alerta').toast('show');
 				});
-				$scope.getCursos();
+				$scope.getInstructores();
 			} else {
 				$scope.alert = {
 					titulo: 'Error!',
