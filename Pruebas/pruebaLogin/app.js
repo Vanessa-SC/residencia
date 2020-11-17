@@ -601,9 +601,19 @@ app.controller('loginCtrl', function ($scope, $http, $location, user) {
 				}
 
 			} else {
-				alert('Verifique que sus datos sean correctos');
+				$scope.alert = {
+					titulo: 'Error!',
+					tipo: 'danger',
+					mensaje:'Verifique que sus datos sean correctos.'
+				};
+				$(document).ready(function(){
+					$('#alerta').toast('show');
+				});
+				
 			}
-		});
+		}),function errorCallback(response){
+			return false;
+		}
 	}
 });
 
