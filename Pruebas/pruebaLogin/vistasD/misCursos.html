@@ -53,12 +53,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr ng-repeat="mcC in misCursosC">
                         <th></th>
-                        <th scope="row">1</th>
-                        <td>Diplomado para la Formaci&oacute;n y Desarrollo de Competencias Docentes - M&oacute;dulo II:
-                            Planeaci&oacute;n del Proceso de Aprendizaje</td>
-                        <td>18 al 22 de junio del 2019 <br>9:00 - 15:00 Hrs.</td>
+                        <th scope="row">{{mcC.idCurso}}</th>
+                        <td>{{mcC.curso}}</td>
+                        <td>{{mcC.fecha}} <br>{{mc.horario}} Hrs.</td>
                         <td><button class="btn bg-white documento_icon"></button></td>
                     </tr>
                 </tbody>

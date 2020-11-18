@@ -1809,6 +1809,28 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, p
 
 	}
 
+	$scope.getMisCursosConcluidos = function () {
+
+		$scope.id = user.getIdUsuario();
+
+		if ($scope.id != undefined) {
+			$http({
+				url: '/Residencia/Pruebas/pruebaLogin/php/getMisCursosConcluidos.php',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idUsuario=' + $scope.id
+			}).then(function successCallback(response) {
+				$scope.misCursosC = response.data;
+				//console.log(response.data);
+			}, function errorCallback(response) {
+				//console.log(response.data);
+			});
+		}
+
+	}
+
 	$scope.cursoID = function (id) {
 		curso.setID(id);
 	}
@@ -1853,6 +1875,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, p
 	$scope.getCursos();
 	$scope.getInfoCurso();
 	$scope.getMisCursos();
+	$scope.getMisCursosConcluidos();
 	// $scope.periodo();
 });
 
