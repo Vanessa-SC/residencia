@@ -991,6 +991,8 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 	};
 
 	$scope.crearCurso = function (datos) {
+		datos.username = user.getName();
+		datos.departamento = user.getIdDepartamento();
 		if (datos.objetivo != "") {
 			$http({
 				method: 'POST',
@@ -1012,7 +1014,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 					});
 					$timeout(function(){
 						$location.path("/inicioC");
-					}, 3000);
+					}, 2000);
 				} else {
 					$scope.alert = {
 						titulo: 'Creado!',
@@ -1022,9 +1024,9 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 					$(document).ready(function(){
 						$('#alerta').toast('show');
 					});
-					$timeout(function(){
-						$location.path("/inicioC");
-					}, 2000);
+					// $timeout(function(){
+					// 	$location.path("/inicioC");
+					// }, 2000);
 				}
 			}, function errorCallback(response) {
 				// console.log("No hay datos.");
