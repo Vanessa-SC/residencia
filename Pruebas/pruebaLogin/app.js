@@ -1537,7 +1537,7 @@ app.controller('participantesICtrl', function ($scope, $http, $location, user, c
 
 /* CONTROLADORES PARA EL USUARIO JEFE */
 
-app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, periodoService) {
+app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, periodoService, $timeout) {
 	$scope.user = user.getName();
 	$scope.getCursos = function () {
 		$http({
@@ -1620,14 +1620,33 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 				data: JSON.stringify(datos)
 			}).then(function successCallback(response) {
 				console.log(response.data);
-				if (response.data.status != "ok") {
-					alert("Ocurrió un error al crear el curso");
+				if (response.data.status == "ok") {
+					$scope.alert = {
+						titulo: 'Creado!',
+						tipo: 'success',
+						mensaje:'Curso creado de forma exitosa.'
+					};
+					$(document).ready(function(){
+						$('#alerta').toast('show');
+					});
+					$timeout(function(){
+						$location.path("/inicioJ/cursos");
+					}, 3000);
 				} else {
-					alert("Curso creado correctamente.");
-					$location.path("/inicioJ/cursos");
+					$scope.alert = {
+						titulo: 'Creado!',
+						tipo: 'success',
+						mensaje:'Ocurrió un error al crear el curso'
+					};
+					$(document).ready(function(){
+						$('#alerta').toast('show');
+					});
+					$timeout(function(){
+						$location.path("/inicioJ/cursos");
+					}, 2000);
 				}
 			}, function errorCallback(response) {
-				console.log("No hay datos.");
+				// console.log("No hay datos.");
 			});
 		}
 	}
