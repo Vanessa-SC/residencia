@@ -85,7 +85,7 @@
 			<textarea type="text" id="observaciones" class="form-control" ng-model="curso.observaciones"
 				value="Ninguna"></textarea>
 		</div>
-		
+
 		<div class="dropdown-divider mb-4 mt-4"></div>
 
 		<div class="input-group mb-5">
@@ -109,4 +109,16 @@
 		</div>
 	</form>
 	<div class="card-footer text-muted text-center">Todos los derechos reservados. ITD 2020</div>
+</div>
+<div class="toast" data-autohide="false" id="alerta"
+	style="position: fixed; top: 50px; right: 50px; background-color: rgb(255, 255, 255); width:500px">
+	<div class="toast-header bg-{{alert.tipo}} text-white">
+		<strong class="mr-auto">{{alert.titulo}}</strong>
+		<button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
+			<span aria-hidden="true" style="font-size: 1.1em;">&times;</span>
+		</button>
+	</div>
+	<div class="toast-body">
+		<div class="text-dark">{{alert.mensaje}}</div>
+	</div>
 </div>

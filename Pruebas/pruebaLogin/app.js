@@ -825,7 +825,7 @@ app.controller('inicioCtrl', function ($scope, $http, $location, user, periodoSe
 /* CONTROLADORES PARA EL USUARIO COORDINADOR*/
 
 
-app.controller('programaCtrl', function ($scope, $http, $location, user, curso, periodoService) {
+app.controller('programaCtrl', function ($scope, $http, $location, user, curso, periodoService, $timeout) {
 
 	$scope.user = user.getName();
 
@@ -1002,10 +1002,29 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 			}).then(function successCallback(response) {
 				console.log(response.data);
 				if (response.data.status == "ok") {
-					console.log("Curso creado correctamente.");
-					$location.path("/inicioC");
+					$scope.alert = {
+						titulo: 'Creado!',
+						tipo: 'success',
+						mensaje:'Curso creado de forma exitosa.'
+					};
+					$(document).ready(function(){
+						$('#alerta').toast('show');
+					});
+					$timeout(function(){
+						$location.path("/inicioC");
+					}, 3000);
 				} else {
-					console.log("Ocurrió un error al crear el curso");
+					$scope.alert = {
+						titulo: 'Creado!',
+						tipo: 'success',
+						mensaje:'Ocurrió un error al crear el curso'
+					};
+					$(document).ready(function(){
+						$('#alerta').toast('show');
+					});
+					$timeout(function(){
+						$location.path("/inicioC");
+					}, 2000);
 				}
 			}, function errorCallback(response) {
 				// console.log("No hay datos.");
@@ -1203,7 +1222,7 @@ app.controller('convocatoriaCtrl', function ($scope, $http, $location, user, per
 	$scope.user = user.getName();
 });
 
-app.controller('instructoresCtrl', function ($scope, $http, $location, user, periodoService, instructor) {
+app.controller('instructoresCtrl', function ($scope, $http, $location, user, periodoService, instructor, $timeout) {
 	$scope.user = user.getName();
 	$scope.periodo = periodoService.getPeriodo()
 		.then(function (response) {
@@ -1237,16 +1256,36 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 			data: JSON.stringify(datos)
 		}).then(function successCallback(response) {
 			console.log(response.data);
-			if (response.data.status == "ok") {
-				alert("Instructor agregado correctamente.");
-				$location.path("/inicioC/instructores");
-			} else {
-				alert("Ocurrió un error al agregar el Instructor");
-			}
-		}, function errorCallback(response) {
-			console.log("No hay datos.");
-		});
-	}
+				if (response.data.status == "ok") {
+					$scope.alert = {
+						titulo: 'Creado!',
+						tipo: 'success',
+						mensaje:'Instructor agregado de forma exitosa.'
+					};
+					$(document).ready(function(){
+						$('#alerta').toast('show');
+					});
+					$timeout(function(){
+						$location.path("inicioC/instructores");
+					}, 3000);
+				} else {
+					$scope.alert = {
+						titulo: 'Creado!',
+						tipo: 'success',
+						mensaje:'Ocurrió un error al ingresar instructor'
+					};
+					$(document).ready(function(){
+						$('#alerta').toast('show');
+					});
+					$timeout(function(){
+						$location.path("inicioC/instructores");
+					}, 2000);
+				}
+			}, function errorCallback(response) {
+				// console.log("No hay datos.");
+			});
+		}
+	
 	$scope.inst = {};
 
 	$scope.deleteInstructor = function (id, nombreInstructor) {
