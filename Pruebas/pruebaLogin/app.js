@@ -1043,18 +1043,35 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 			data: JSON.stringify($scope.curso)
 		}).then(function successCallback(response) {
 			if (response.data.status != "ok") {
-				alert("Ocurrió un error al modificar el curso");
-			} else {
-				alert("Curso actualizado correctamente.");
-				$location.path("/inicioC/");
-			}
-		}, function errorCallback(response) {
-			// console.log("No hay datos.");
-		});
-	}
-
-
-
+				$scope.alert = {
+						titulo: 'Error!',
+						tipo: 'danger',
+						mensaje:'Ocurrió un error al crear el curso'
+					};
+					$(document).ready(function(){
+						$('#alerta').toast('show');
+					});
+					$timeout(function(){
+						$location.path("/inicioC");
+					}, 2000);
+				} else {
+					$scope.alert = {
+						titulo: 'Creado!',
+						tipo: 'success',
+						mensaje:'Actualización exitosa.'
+					};
+					$(document).ready(function(){
+						$('#alerta').toast('show');
+					});
+					$timeout(function(){
+						$location.path("/inicioC");
+					}, 3000);
+				}
+			}, function errorCallback(response) {
+				// console.log("No hay datos.");
+			});
+		}
+	
 	$scope.deleteCurso = function (id, nombreCurso) {
 		$http({
 			method: 'POST',
