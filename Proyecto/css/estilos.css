@@ -416,6 +416,27 @@ button.btn-back:hover {
   background-size: contain;
 }
 
+.comment_icon {
+  background: url(/Residencia/proyecto/images/coment.png) no-repeat center;
+  padding: 0.5rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.comment-black_icon {
+  background: url(/Residencia/Proyecto/images/comment-b.png) no-repeat center;
+  padding: 0.5rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.comment2_icon {
+  background: url(/Residencia/Proyecto/images/coment2.png) no-repeat center;
+  padding: 0.5rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
 .adduser_icon {
   background: url(/Residencia/proyecto/images/adduser.png) no-repeat center;
   padding: 0.875rem !important;

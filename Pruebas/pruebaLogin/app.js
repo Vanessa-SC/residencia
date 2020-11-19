@@ -671,7 +671,7 @@ function validarInputC(input) {
 	var curp = input.value.toUpperCase(),
 		resultadoC = document.getElementById("resultadoC"),
 		valido = '<div class="alert alert-danger w-100" role="alert" id="curp_ok">CURP no válida</div>';
-		
+
 
 	if (curpValida(curp)) { // Comprobación
 		valido = '<div class="alert alert-success w-100" role="alert" id="curp_ok"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>CURP válida</div>';
@@ -743,7 +743,7 @@ function validarInputR(input) {
 		resultadoR.classList.remove("ok");
 	}
 
-	resultadoR.innerHTML= " " + valido;
+	resultadoR.innerHTML = " " + valido;
 }
 
 
@@ -757,47 +757,48 @@ app.controller('loginCtrl', function ($scope, $http, $location, user) {
 		var password = $scope.password;
 
 		$http({
-			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/server.php',
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			data: 'username=' + username + '&password=' + password
-		}).then(function (response) {
-			// console.log(response.data);
-			if (response.data.status == 'loggedin') {
-				// user.userLoggedIn();
-				// user.setName(response.data.user);
-				// user.saveData(response.data, '');
+				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/server.php',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'username=' + username + '&password=' + password
+			}).then(function (response) {
+				// console.log(response.data);
+				if (response.data.status == 'loggedin') {
+					// user.userLoggedIn();
+					// user.setName(response.data.user);
+					// user.saveData(response.data, '');
 
-				if (response.data.rol == 1) {
-					user.saveData(response.data, '/inicioC');
-					$location.path('/inicioC');
-				} else if (response.data.rol == 2) {
-					user.saveData(response.data, '/inicioJ');
-					$location.path('/inicioJ');
-				} else if (response.data.rol == 3) {
-					user.saveData(response.data, '/inicioD');
-					$location.path('/inicioD');
-				} else if (response.data.rol == 4) {
-					user.saveData(response.data, '/inicioI');
-					$location.path('/inicioI');
+					if (response.data.rol == 1) {
+						user.saveData(response.data, '/inicioC');
+						$location.path('/inicioC');
+					} else if (response.data.rol == 2) {
+						user.saveData(response.data, '/inicioJ');
+						$location.path('/inicioJ');
+					} else if (response.data.rol == 3) {
+						user.saveData(response.data, '/inicioD');
+						$location.path('/inicioD');
+					} else if (response.data.rol == 4) {
+						user.saveData(response.data, '/inicioI');
+						$location.path('/inicioI');
+					}
+
+				} else {
+					$scope.alert = {
+						titulo: 'Error!',
+						tipo: 'danger',
+						mensaje: 'Verifique que sus datos sean correctos.'
+					};
+					$(document).ready(function () {
+						$('#alerta').toast('show');
+					});
+
 				}
-
-			} else {
-				$scope.alert = {
-					titulo: 'Error!',
-					tipo: 'danger',
-					mensaje:'Verifique que sus datos sean correctos.'
-				};
-				$(document).ready(function(){
-					$('#alerta').toast('show');
-				});
-				
+			}),
+			function errorCallback(response) {
+				return false;
 			}
-		}),function errorCallback(response){
-			return false;
-		}
 	}
 });
 
@@ -825,7 +826,7 @@ app.controller('inicioCtrl', function ($scope, $http, $location, user, periodoSe
 /* CONTROLADORES PARA EL USUARIO COORDINADOR*/
 
 
-app.controller('programaCtrl', function ($scope, $http, $location, user, curso, periodoService, $timeout) {
+app.controller('programaCtrl', function ($scope, $http, $location, $filter, user, curso, periodoService, $timeout) {
 
 	$scope.user = user.getName();
 
@@ -989,11 +990,28 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 	$scope.getDocumento = function (doc) {
 		return 'http://localhost/Residencia/proyecto/files/' + doc;
 	};
-
+	$scope.fecha = {
+		value: new Date()
+	  };
 	$scope.crearCurso = function (datos) {
 		datos.username = user.getName();
 		datos.departamento = user.getIdDepartamento();
-		if (datos.objetivo != "") {
+		if (
+			datos.folio != undefined &&
+			datos.clave != undefined &&
+			datos.nombre != undefined &&
+			datos.duracion != undefined &&
+			datos.horaInicio != undefined &&
+			datos.horaFin != undefined &&
+			datos.fechaInicio != undefined &&
+			datos.fechaFin != undefined &&
+			datos.modalidad != undefined &&
+			datos.lugar != undefined &&
+			datos.destinatarios != undefined &&
+			datos.objetivo != undefined &&
+			datos.departamento != undefined &&
+			datos.instructor != undefined
+		) {
 			$http({
 				method: 'POST',
 				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/crearCursoC.php',
@@ -1007,29 +1025,36 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 					$scope.alert = {
 						titulo: 'Creado!',
 						tipo: 'success',
-						mensaje:'Curso creado de forma exitosa.'
+						mensaje: 'Curso creado de forma exitosa.'
 					};
-					$(document).ready(function(){
+					$(document).ready(function () {
 						$('#alerta').toast('show');
 					});
-					$timeout(function(){
+					$timeout(function () {
 						$location.path("/inicioC");
 					}, 2000);
 				} else {
 					$scope.alert = {
 						titulo: 'Creado!',
 						tipo: 'success',
-						mensaje:'Ocurrió un error al crear el curso'
+						mensaje: 'Ocurrió un error al crear el curso'
 					};
-					$(document).ready(function(){
+					$(document).ready(function () {
 						$('#alerta').toast('show');
 					});
 					// $timeout(function(){
 					// 	$location.path("/inicioC");
 					// }, 2000);
 				}
-			}, function errorCallback(response) {
-				// console.log("No hay datos.");
+			});
+		}else {
+			$scope.alert = {
+				titulo: 'Hey!',
+				tipo: 'warning',
+				mensaje: 'Verifica que todos los campos estén llenos.'
+			};
+			$(document).ready(function () {
+				$('#alerta').toast('show');
 			});
 		}
 	}
@@ -1046,34 +1071,35 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 		}).then(function successCallback(response) {
 			if (response.data.status != "ok") {
 				$scope.alert = {
-						titulo: 'Error!',
-						tipo: 'danger',
-						mensaje:'Ocurrió un error al crear el curso'
-					};
-					$(document).ready(function(){
-						$('#alerta').toast('show');
-					});
-					$timeout(function(){
-						$location.path("/inicioC");
-					}, 2000);
-				} else {
-					$scope.alert = {
-						titulo: 'Creado!',
-						tipo: 'success',
-						mensaje:'Actualización exitosa.'
-					};
-					$(document).ready(function(){
-						$('#alerta').toast('show');
-					});
-					$timeout(function(){
-						$location.path("/inicioC");
-					}, 3000);
-				}
-			}, function errorCallback(response) {
-				// console.log("No hay datos.");
-			});
-		}
-	
+					titulo: 'Error!',
+					tipo: 'danger',
+					mensaje: 'Ocurrió un error al crear el curso'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$timeout(function () {
+					$location.path("/inicioC");
+				}, 2000);
+			}
+			if (response.data.status == "ok") {
+				$scope.alert = {
+					titulo: 'Actualizado!',
+					tipo: 'success',
+					mensaje: 'Actualización exitosa.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$timeout(function () {
+					$location.path("/inicioC");
+				}, 2000);
+			}
+		}, function errorCallback(response) {
+			// console.log("No hay datos.");
+		});
+	}
+
 	$scope.deleteCurso = function (id, nombreCurso) {
 		$http({
 			method: 'POST',
@@ -1138,13 +1164,25 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 				$(document).ready(function () {
 					$('#alerta').toast('show');
 				});
-				
+
 				$('#modal' + idDoc).modal('hide');
 				document.getElementById('mensaje' + idDoc).innerHTML = 'Documento subido';
 			}
 		}, function errorCallback(response) {
 			$scope.upload(idDoc, idCurso);
 		});
+	}
+
+	$scope.addComment = function(documento,id){
+		$scope.alert = {
+			titulo: 'Holi!',
+			tipo: 'info',
+			mensaje: 'Aún no hago nada, pero el comentario es: "'+documento.comentario+'" y el idDocumento es: '+id
+		};
+		$(document).ready(function () {
+			$('#alerta').toast('show');
+		});
+		documento.comentario = "";
 	}
 
 
@@ -1275,36 +1313,36 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 			data: JSON.stringify(datos)
 		}).then(function successCallback(response) {
 			console.log(response.data);
-				if (response.data.status == "ok") {
-					$scope.alert = {
-						titulo: 'Creado!',
-						tipo: 'success',
-						mensaje:'Instructor agregado de forma exitosa.'
-					};
-					$(document).ready(function(){
-						$('#alerta').toast('show');
-					});
-					$timeout(function(){
-						$location.path("inicioC/instructores");
-					}, 3000);
-				} else {
-					$scope.alert = {
-						titulo: 'Creado!',
-						tipo: 'success',
-						mensaje:'Ocurrió un error al ingresar instructor'
-					};
-					$(document).ready(function(){
-						$('#alerta').toast('show');
-					});
-					$timeout(function(){
-						$location.path("inicioC/instructores");
-					}, 2000);
-				}
-			}, function errorCallback(response) {
-				// console.log("No hay datos.");
-			});
-		}
-	
+			if (response.data.status == "ok") {
+				$scope.alert = {
+					titulo: 'Creado!',
+					tipo: 'success',
+					mensaje: 'Instructor agregado de forma exitosa.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$timeout(function () {
+					$location.path("inicioC/instructores");
+				}, 2000);
+			} else {
+				$scope.alert = {
+					titulo: 'Creado!',
+					tipo: 'success',
+					mensaje: 'Ocurrió un error al ingresar instructor'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$timeout(function () {
+					$location.path("inicioC/instructores");
+				}, 2000);
+			}
+		}, function errorCallback(response) {
+			// console.log("No hay datos.");
+		});
+	}
+
 	$scope.inst = {};
 
 	$scope.deleteInstructor = function (id, nombreInstructor) {
@@ -1385,28 +1423,28 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 		}).then(function successCallback(response) {
 			if (response.data.status != "ok") {
 				$scope.alert = {
-						titulo: 'Error!',
-						tipo: 'danger',
-						mensaje:'Ocurrió un error al crear el curso'
-					};
-					$(document).ready(function(){
-						$('#alerta').toast('show');
-					});
-					$timeout(function(){
-						$location.path("/inicioC/instructores");
-					}, 2000);
+					titulo: 'Error!',
+					tipo: 'danger',
+					mensaje: 'Ocurrió un error al crear el curso'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$timeout(function () {
+					$location.path("/inicioC/instructores");
+				}, 2000);
 			} else {
 				$scope.alert = {
-						titulo: 'Creado!',
-						tipo: 'success',
-						mensaje:'Actualización exitosa.'
-					};
-					$(document).ready(function(){
-						$('#alerta').toast('show');
-					});
-					$timeout(function(){
-						$location.path("/inicioC/instructores");
-					}, 3000);
+					titulo: 'Creado!',
+					tipo: 'success',
+					mensaje: 'Actualización exitosa.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$timeout(function () {
+					$location.path("/inicioC/instructores");
+				}, 2000);
 			}
 		}, function errorCallback(response) {
 			console.log("No hay datos.");
@@ -1662,24 +1700,24 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 					$scope.alert = {
 						titulo: 'Creado!',
 						tipo: 'success',
-						mensaje:'Curso creado de forma exitosa.'
+						mensaje: 'Curso creado de forma exitosa.'
 					};
-					$(document).ready(function(){
+					$(document).ready(function () {
 						$('#alerta').toast('show');
 					});
-					$timeout(function(){
+					$timeout(function () {
 						$location.path("/inicioJ/cursos");
-					}, 3000);
+					}, 2000);
 				} else {
 					$scope.alert = {
 						titulo: 'Creado!',
 						tipo: 'success',
-						mensaje:'Ocurrió un error al crear el curso'
+						mensaje: 'Ocurrió un error al crear el curso'
 					};
-					$(document).ready(function(){
+					$(document).ready(function () {
 						$('#alerta').toast('show');
 					});
-					$timeout(function(){
+					$timeout(function () {
 						$location.path("/inicioJ/cursos");
 					}, 2000);
 				}

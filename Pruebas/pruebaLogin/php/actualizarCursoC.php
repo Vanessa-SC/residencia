@@ -44,7 +44,9 @@ $sql = "UPDATE curso
             lugar = '$curso->lugar',
             destinatarios = '$curso->destinatarios',
             objetivo = '$curso->objetivo',
-            observaciones = '$curso->observaciones'
+            observaciones = '$curso->observaciones',
+            Instructor_idInstructor = '$curso->instructor',
+            Departamento_idDepartamento = '$curso->departamento'
         WHERE idCurso = '$curso->idCurso'
         ";
 

@@ -26,7 +26,7 @@
                 <div class="w-100"></div>
                 <br>
                 <div class="col text-center">
-                    <a href="#!/inicioC/verDocumento" ng-click="verDoc(infoCurso.idCurso,7)" style="color: #000;" >
+                    <a href="#!/inicioC/verDocumento" ng-click="verDoc(infoCurso.idCurso,7)" style="color: #000;">
                         <u>Oficio de registro de curso <button class="btn bg-white import_icon"></button></u>
                     </a>
                 </div>
@@ -41,15 +41,51 @@
                 <th scope="col">Documentos</th>
                 <th scope="col">Ver</th>
                 <th scope="col">Validar</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="doc in documentosSubidos | limitTo:6">
-                <th><button class=" btn bg-white"></button></th>
+            <tr ng-repeat="doc in documentosSubidos">
+
+                <th><button class=" btn bg-white"></button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="modalComentario{{doc.idDocumento}}" tabindex="-1" role="dialog"
+                        aria-labelledby="modalComentario" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header bg-wine text-white">
+                                    <h5 class="modal-title" id="modalComentarioTitulo">Agregar comentario al documento:
+                                        {{doc.nombreDocumento}}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="comment-black_icon"></i>
+                                            </span>
+                                        </div>
+                                        <textarea type="text" class="form-control" placeholder="Comentario..."
+                                            aria-label="Comentario" aria-describedby="basic-addon1"
+                                            ng-model="documento.comentario">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn bg-wine" data-dismiss="modal"
+                                        ng-click="addComment(documento,doc.idDocumento)">Agregar
+                                        comentario</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </th>
                 <th scope="row">{{doc.idDocumento}}</th>
                 <td>{{doc.nombreDocumento}}</td>
                 <td>
-                    
                     <a href="#!/inicioC/verDocumento" ng-click="verDoc(infoCurso.idCurso,doc.idDocumento)">
                         <button class="btn bg-white import_icon"></button>
                     </a>
@@ -58,7 +94,25 @@
                     <button class="btn bg-white ok_icon"></button>
                     <button class="btn bg-white no_icon"></button>
                 </td>
+                <td>
+                    <button class="btn btn-sm bg-wine text-white" data-toggle="modal"
+                        data-target="#modalComentario{{doc.idDocumento}}">
+                        <span class="comment_icon mr-2"></span>Agregar comentario
+                    </button>
+                </td>
             </tr>
         </tbody>
     </table>
+</div>
+<div class="toast" data-autohide="false" id="alerta"
+    style="position: fixed; top: 50px; right: 50px; background-color: rgb(255, 255, 255); width:500px">
+    <div class="toast-header bg-{{alert.tipo}} text-white">
+        <strong class="mr-auto">{{alert.titulo}}</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
+            <span aria-hidden="true" style="font-size: 1.1em;">&times;</span>
+        </button>
+    </div>
+    <div class="toast-body">
+        <div class="text-dark">{{alert.mensaje}}</div>
+    </div>
 </div>
