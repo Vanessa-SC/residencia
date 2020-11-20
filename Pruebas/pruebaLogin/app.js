@@ -1302,6 +1302,19 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 
 	$scope.getInstructores();
 
+	$scope.getDepartamentos = function () {
+		$http({
+			method: 'GET',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getDepartamentos.php'
+		}).then(function successCallback(response) {
+			$scope.dptos = response.data;
+		}, function errorCallback(response) {
+			console.log(response);
+		});
+	}
+
+	$scope.getDepartamentos();
+
 	$scope.agregarInstructor = function (datos) {
 		console.log(datos);
 		$http({

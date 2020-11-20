@@ -18,7 +18,7 @@ $password = mysqli_real_escape_string($con, $_POST['password']);
 
 
 
-$query = "SELECT idUsuario, Departamento_idDepartamento, rol, nombreUsuario, contrasena,  concat_ws(' ',nombreU,apellidoPaterno,apellidomaterno) as nombre
+$query = "SELECT idUsuario, Departamento_idDepartamento, rol, nombreUsuario, contrasena,  concat_ws(' ',nombre,apellidoPaterno,apellidomaterno) as nombre
 FROM `usuario` WHERE `nombreUsuario`='$username' AND `contrasena`='$password'";
 
 $result = mysqli_query($con, $query);

@@ -11,7 +11,11 @@ $response = [];
 
 $id = mysqli_real_escape_string($conn, $_POST['idInstructor']);
 
-$query = "DELETE FROM instructor WHERE idInstructor = '$id'";
+$query = "DELETE instructor, usuario
+            FROM instructor
+            JOIN usuario
+            ON instructor.idUsuario = usuario.idUsuario
+            WHERE instructor.idInstructor = '$id'";
 
 if(mysqli_query($conn, $query)){
    $response['status'] = 'ok';
