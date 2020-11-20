@@ -363,7 +363,7 @@ app.config(function ($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistasJ/cursos.html',
 			controller: 'cursosJCtrl'
-         
+
 		}).when('/inicioJ/cursos', {
 			resolve: {
 				check: function ($location, user) {
@@ -385,8 +385,8 @@ app.config(function ($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistasJ/generar-curso.html',
 			controller: 'cursosJCtrl'
-         
-          }).when('/inicioJ/actualizarCurso', {
+
+		}).when('/inicioJ/actualizarCurso', {
 			resolve: {
 				check: function ($location, user) {
 					if (user.getRol() != 2) {
@@ -579,6 +579,7 @@ app.service('curso', function () {
 
 app.service('constancia', function () {
 	var folio;
+	var ruta;
 
 	this.setFolio = function (folioCons) {
 		folio = folioCons;
@@ -586,6 +587,14 @@ app.service('constancia', function () {
 
 	this.getFolio = function () {
 		return folio;
+	};
+
+	this.setRuta = function (rutaCons) {
+		ruta = rutaCons;
+	};
+
+	this.getRuta = function () {
+		return ruta;
 	};
 });
 
@@ -789,9 +798,6 @@ app.controller('loginCtrl', function ($scope, $http, $location, user) {
 			}).then(function (response) {
 				// console.log(response.data);
 				if (response.data.status == 'loggedin') {
-					// user.userLoggedIn();
-					// user.setName(response.data.user);
-					// user.saveData(response.data, '');
 
 					if (response.data.rol == 1) {
 						user.saveData(response.data, '/inicioC');
@@ -816,7 +822,6 @@ app.controller('loginCtrl', function ($scope, $http, $location, user) {
 					$(document).ready(function () {
 						$('#alerta').toast('show');
 					});
-
 				}
 			}),
 			function errorCallback(response) {
@@ -825,7 +830,7 @@ app.controller('loginCtrl', function ($scope, $http, $location, user) {
 	}
 });
 
-app.controller('inicioCtrl', function ($scope, $http, $location, user, periodoService) {
+app.controller('inicioCtrl', function ($scope, $location, user, periodoService) {
 
 	$scope.user = user.getName();
 
@@ -848,11 +853,9 @@ app.controller('inicioCtrl', function ($scope, $http, $location, user, periodoSe
 
 /* CONTROLADORES PARA EL USUARIO COORDINADOR*/
 
-
 app.controller('programaCtrl', function ($scope, $http, $location, $filter, user, curso, periodoService, $timeout) {
 
 	$scope.user = user.getName();
-
 
 	$scope.getCursos = function () {
 		$http({
@@ -1013,23 +1016,24 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 	$scope.getDocumento = function (doc) {
 		return 'http://localhost/Residencia/proyecto/files/' + doc;
 	};
-	
+
 	$scope.crearCurso = function (datos) {
 		datos.username = user.getName();
 		datos.departamento = user.getIdDepartamento();
+		console.log(datos);
 		if (
 			datos.folio != undefined &&
 			datos.clave != undefined &&
 			datos.nombre != undefined &&
 			datos.duracion != undefined &&
-			datos.horaInicio != undefined &&
-			datos.horaFin != undefined &&
-			datos.fechaInicio != undefined &&
-			datos.fechaFin != undefined &&
+			datos.horaInicio != "" &&
+			datos.horaFin != "" &&
+			datos.fechaInicio != "" &&
+			datos.fechaFin != "" &&
 			datos.modalidad != undefined &&
 			datos.lugar != undefined &&
 			datos.destinatarios != undefined &&
-			datos.objetivo != undefined &&
+			datos.Objetivo != undefined &&
 			datos.departamento != undefined &&
 			datos.instructor != undefined
 		) {
@@ -1063,12 +1067,9 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 					$(document).ready(function () {
 						$('#alerta').toast('show');
 					});
-					// $timeout(function(){
-					// 	$location.path("/inicioC");
-					// }, 2000);
 				}
 			});
-		}else {
+		} else {
 			$scope.alert = {
 				titulo: 'Hey!',
 				tipo: 'warning',
@@ -1194,11 +1195,11 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 		});
 	}
 
-	$scope.addComment = function(documento,id){
+	$scope.addComment = function (documento, id) {
 		$scope.alert = {
 			titulo: 'Holi!',
 			tipo: 'info',
-			mensaje: 'Aún no hago nada, pero el comentario es: "'+documento.comentario+'" y el idDocumento es: '+id
+			mensaje: 'Aún no hago nada, pero el comentario es: "' + documento.comentario + '" y el idDocumento es: ' + id
 		};
 		$(document).ready(function () {
 			$('#alerta').toast('show');
@@ -1218,15 +1219,15 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 	$scope.getCursoAct();
 });
 
-app.controller('constanciasCtrl', function ($scope, $http, $location, user, periodoService,curso,constancia) {
+app.controller('constanciasCtrl', function ($scope, $http, $location, user, periodoService, curso, constancia) {
 	$scope.user = user.getName();
+
 	$scope.getConstancias = function () {
 		$http({
 			method: 'GET',
 			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getConstancias.php'
 		}).then(function successCallback(response) {
 			$scope.constancias = response.data;
-			// console.log(response.data);
 		}, function errorCallback(response) {
 			alert("No hay datos.")
 		});
@@ -1245,7 +1246,6 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 			url: '/Residencia/Pruebas/pruebaLogin/php/getPeriodos.php'
 		}).then(function successCallback(response) {
 			$scope.periodos = response.data;
-			// console.log(response.data);
 		}, function errorCallback(response) {
 			console.log(response);
 		});
@@ -1295,21 +1295,22 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 		$scope.getConstancia();
 	};
 
-	
 
-	$scope.getConstancia = function(){
+
+	$scope.getConstancia = function () {
 		var idCurso = curso.getID();
 		var folio = constancia.getFolio();
-		console.log(idCurso+' '+folio);
+		console.log(idCurso + ' ' + folio);
 		$http({
 			method: 'POST',
 			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getConstancia.php',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},
-			data: 'idCurso=' + idCurso +'&folio=' + folio
+			data: 'idCurso=' + idCurso + '&folio=' + folio
 		}).then(function successCallback(response) {
 			$scope.constancia = response.data;
+			console.log()
 		}, function errorCallback(response) {
 
 		});
@@ -1790,8 +1791,8 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 	}
 	$scope.curso = {};
 
-     $scope.actualizarCurso = function () {
-		
+	$scope.actualizarCurso = function () {
+
 
 		$http({
 			method: 'POST',
@@ -1803,33 +1804,33 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 		}).then(function successCallback(response) {
 			if (response.data.status != "ok") {
 				$scope.alert = {
-						titulo: 'Error!',
-						tipo: 'danger',
-						mensaje:'Ocurrió un error al crear el curso'
-					};
-					$(document).ready(function(){
-						$('#alerta').toast('show');
-					});
-					$timeout(function(){
-						$location.path("/inicioC");
-					}, 2000);
-				} else {
-					$scope.alert = {
-						titulo: 'Creado!',
-						tipo: 'success',
-						mensaje:'Actualización exitosa.'
-					};
-					$(document).ready(function(){
-						$('#alerta').toast('show');
-					});
-					$timeout(function(){
-						$location.path("/inicioC");
-					}, 3000);
-				}
-			}, function errorCallback(response) {
-				// console.log("No hay datos.");
-			});
-		}
+					titulo: 'Error!',
+					tipo: 'danger',
+					mensaje: 'Ocurrió un error al crear el curso'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$timeout(function () {
+					$location.path("/inicioC");
+				}, 2000);
+			} else {
+				$scope.alert = {
+					titulo: 'Creado!',
+					tipo: 'success',
+					mensaje: 'Actualización exitosa.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$timeout(function () {
+					$location.path("/inicioC");
+				}, 3000);
+			}
+		}, function errorCallback(response) {
+			// console.log("No hay datos.");
+		});
+	}
 
 
 	$scope.getCursoAct = function () {
@@ -1950,8 +1951,8 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 		});
 	}
 
-    $scope.getCursoAct();
-    
+	$scope.getCursoAct();
+
 	$scope.getInfoCurso();
 	$scope.getCursos();
 	$scope.getDepartamentos();
@@ -2110,7 +2111,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, p
 
 	}
 
-	
+
 	$scope.getInfoCurso = function () {
 
 		$scope.idCurso = curso.getID();
