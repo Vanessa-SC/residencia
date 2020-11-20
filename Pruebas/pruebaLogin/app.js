@@ -363,7 +363,7 @@ app.config(function ($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistasJ/cursos.html',
 			controller: 'cursosJCtrl'
-
+         
 		}).when('/inicioJ/cursos', {
 			resolve: {
 				check: function ($location, user) {
@@ -384,6 +384,17 @@ app.config(function ($routeProvider, $locationProvider) {
 				},
 			},
 			templateUrl: './vistasJ/generar-curso.html',
+			controller: 'cursosJCtrl'
+         
+          }).when('/inicioJ/actualizarCurso', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 2) {
+						$location.path(user.getPath());
+					}
+				},
+			},
+			templateUrl: './vistasJ/actualizar-cursoJ.html',
 			controller: 'cursosJCtrl'
 
 		}).when('/inicioJ/cursos/infoCurso', {
@@ -1341,6 +1352,19 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 
 	$scope.getInstructores();
 
+	$scope.getDepartamentos = function () {
+		$http({
+			method: 'GET',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getDepartamentos.php'
+		}).then(function successCallback(response) {
+			$scope.dptos = response.data;
+		}, function errorCallback(response) {
+			console.log(response);
+		});
+	}
+
+	$scope.getDepartamentos();
+
 	$scope.agregarInstructor = function (datos) {
 		console.log(datos);
 		$http({
@@ -1669,9 +1693,7 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 		});
 	}
 
-	$scope.cursoID = function (id) {
-		curso.setID(id);
-	}
+
 
 	$scope.getInfoCurso = function () {
 
@@ -1721,6 +1743,7 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 
 	$scope.cursoID = function (id) {
 		curso.setID(id);
+		console.log(curso.getID() + "hola");
 	}
 
 	$scope.crearCurso = function (datos) {
@@ -1766,6 +1789,80 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 		}
 	}
 	$scope.curso = {};
+
+     $scope.actualizarCurso = function () {
+		
+
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/actualizarCursoJ.php',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			data: JSON.stringify($scope.curso)
+		}).then(function successCallback(response) {
+			if (response.data.status != "ok") {
+				$scope.alert = {
+						titulo: 'Error!',
+						tipo: 'danger',
+						mensaje:'Ocurrió un error al crear el curso'
+					};
+					$(document).ready(function(){
+						$('#alerta').toast('show');
+					});
+					$timeout(function(){
+						$location.path("/inicioC");
+					}, 2000);
+				} else {
+					$scope.alert = {
+						titulo: 'Creado!',
+						tipo: 'success',
+						mensaje:'Actualización exitosa.'
+					};
+					$(document).ready(function(){
+						$('#alerta').toast('show');
+					});
+					$timeout(function(){
+						$location.path("/inicioC");
+					}, 3000);
+				}
+			}, function errorCallback(response) {
+				// console.log("No hay datos.");
+			});
+		}
+
+
+	$scope.getCursoAct = function () {
+
+		$scope.idCurso = curso.getID();
+		//console.log($scope.idCurso);
+
+		if ($scope.idCurso != "") {
+			$http({
+				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getCursoAct.php',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idCurso=' + $scope.idCurso
+			}).then(function successCallback(response) {
+				$scope.actCurso = response.data;
+
+				if (response.data.modalidad.indexOf("Virtual") !== -1) {
+					$scope.actCurso.modalidad = 2;
+				} else if (response.data.modalidad.indexOf("Presencial") !== -1) {
+					$scope.actCurso.modalidad = 1;
+				} else {
+					$scope.actCurso.modalidad = 3;
+				}
+				$scope.curso = $scope.actCurso;
+				console.log($scope.curso);
+			}, function errorCallback(response) {
+
+			});
+		}
+
+	}
 
 
 	$scope.deleteCurso = function (id, nombreCurso) {
@@ -1853,8 +1950,8 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 		});
 	}
 
-
-
+    $scope.getCursoAct();
+    
 	$scope.getInfoCurso();
 	$scope.getCursos();
 	$scope.getDepartamentos();
@@ -1884,6 +1981,90 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, p
 	// $scope.cursoIdUsuario = function (idUsuario) {
 	// 	user.setIdUsuario(idUsuario);
 	// }
+	$scope.cursoID = function (id) {
+		curso.setID(id);
+	}
+
+
+	$scope.salirCurso = function (id) {
+		$scope.idUsuario = user.getIdUsuario();
+
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/salirCurso.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idCurso=' + id + '&idUsuario=' + $scope.idUsuario
+		}).then(function successCallback(response) {
+			if (response.data.status == "ok") {
+				$('#modal' + id).modal('hide');
+				$('.modal-backdrop').remove();
+
+				$scope.alert = {
+					titulo: '¡Has salido!',
+					tipo: 'success',
+					mensaje: 'Has salido del curso correctamente'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$scope.getCursos();
+				$scope.getMisCursos();
+			} else {
+				$scope.alert = {
+					titulo: 'Error!',
+					tipo: 'danger',
+					mensaje: 'No se pudo salir del curso.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+			}
+		}, function errorCallback(response) {
+			return false;
+		});
+	}
+
+	$scope.inscribirCurso = function (id) {
+		$scope.idUsuario = user.getIdUsuario();
+
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/inscribirCurso.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idCurso=' + id + '&idUsuario=' + $scope.idUsuario
+		}).then(function successCallback(response) {
+			if (response.data.status == "ok") {
+				$('#modal' + id).modal('hide');
+				$('.modal-backdrop').remove();
+
+				$scope.alert = {
+					titulo: '¡Estás inscrito!',
+					tipo: 'success',
+					mensaje: 'Te has inscrito al curso correctamente'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$scope.getCursos();
+				$scope.getMisCursos();
+			} else {
+				$scope.alert = {
+					titulo: 'Error!',
+					tipo: 'danger',
+					mensaje: 'No se pudo inscribir del curso.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+			}
+		}, function errorCallback(response) {
+			return false;
+		});
+	}
 
 	$scope.getMisCursos = function () {
 
@@ -1929,10 +2110,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, p
 
 	}
 
-	$scope.cursoID = function (id) {
-		curso.setID(id);
-	}
-
+	
 	$scope.getInfoCurso = function () {
 
 		$scope.idCurso = curso.getID();

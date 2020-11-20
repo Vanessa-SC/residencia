@@ -18,11 +18,25 @@
 		</div>
 		<div class="input-group mb-3 mt-4">
 			<div class="input-group-prepend">
-				<label class="input-group-text" for="nombreInstructor">Nombre(s)</label>
+				<label class="input-group-text" for="nombre">Nombre(s)</label>
 			</div>
-			<input required type="text" id="nombreInstructor" class="form-control"
-				ng-model="instructor.nombreInstructor" ng-value="actInstructor.nombreInstructor">
+			<input required type="text" id="nombre" class="form-control"
+				ng-model="instructor.nombre" ng-value="actInstructor.nombre">
 		</div>
+
+		<div class="dropdown-divider mt-4 mb-4"></div>
+
+		<div class="input-group mb-3 mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="nombreUsuario">Nombre Usuario</label>
+			</div>
+			<input required type="text" id="nombreUsuario" class="form-control" ng-model="instructor.nombreUsuario" ng-value="actInstructor.nombreUsuario">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="contrasena">Contraseña</label>
+			</div>
+			<input required type="text" id="contrasena" class="form-control" ng-model="instructor.contrasena" ng-value="actInstructor.contrasena">
+		</div>
+
 		<div class="dropdown-divider mt-4 mb-4"></div>
 		<div class="input-group mt-4 text-">
 			<div class="input-group-prepend">
@@ -66,6 +80,17 @@
 			</div>
 			<input required type="email" id="correo" class="form-control" ng-model="instructor.Correo"
 				ng-value="actInstructor.Correo">
+		</div>
+
+		<div class="dropdown-divider mt-4 mb-4"></div>
+
+		<div class="input-group mb-3 mt-4">			
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="departamento">Departamento</label>
+			</div>
+			<select required class="custom-select" id="departamento" ng-model="instructor.departamento" ng-value="actInstructor.departamento">
+				<option ng-repeat="x in dptos" value="{{x.idDepartamento}}"> {{x.nombreDepartamento}} </option>
+			</select>
 		</div>
 	</form>
 	<div class="text-center mb-5">
