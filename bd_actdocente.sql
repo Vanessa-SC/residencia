@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-11-2020 a las 07:05:59
--- Versión del servidor: 10.1.38-MariaDB
--- Versión de PHP: 7.3.3
+-- Tiempo de generación: 20-11-2020 a las 21:12:42
+-- Versión del servidor: 10.4.6-MariaDB
+-- Versión de PHP: 7.1.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -29,10 +30,10 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `asistencia` (
   `idAsistencia` int(11) NOT NULL,
-  `fecha` varchar(45) NOT NULL,
+  `fecha` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `Usuario_idUsuario` int(11) NOT NULL,
   `Curso_idCurso` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -42,10 +43,10 @@ CREATE TABLE `asistencia` (
 
 CREATE TABLE `calificacion` (
   `idCalificacion` int(11) NOT NULL,
-  `calificacion` varchar(45) DEFAULT NULL,
+  `calificacion` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Usuario_idUsuario` int(11) NOT NULL,
   `Curso_idCurso` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -55,17 +56,20 @@ CREATE TABLE `calificacion` (
 
 CREATE TABLE `constancia` (
   `idConstancia` int(11) NOT NULL,
-  `folio` varchar(45) NOT NULL,
+  `folio` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `rutaConstancia` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `Curso_idCurso` int(11) NOT NULL,
   `Usuario_idUsuario` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `constancia`
 --
 
-INSERT INTO `constancia` (`idConstancia`, `folio`, `Curso_idCurso`, `Usuario_idUsuario`) VALUES
-(1, 'AB1234', 1, 1);
+INSERT INTO `constancia` (`idConstancia`, `folio`, `rutaConstancia`, `Curso_idCurso`, `Usuario_idUsuario`) VALUES
+(1, 'AB1234', 'doc.pdf', 1, 1),
+(2, 'DF1234', 'doc.pdf', 2, 3),
+(3, 'AB12345', 'doc.pdf', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -75,33 +79,42 @@ INSERT INTO `constancia` (`idConstancia`, `folio`, `Curso_idCurso`, `Usuario_idU
 
 CREATE TABLE `curso` (
   `idCurso` int(11) NOT NULL,
-  `Folio` varchar(45) NOT NULL,
-  `ClaveRegistro` varchar(45) NOT NULL,
-  `nombreCurso` varchar(250) NOT NULL,
-  `periodo` varchar(45) NOT NULL,
+  `Folio` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `ClaveRegistro` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `nombreCurso` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
+  `periodo` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `duracion` int(11) NOT NULL,
-  `horaInicio` varchar(50) NOT NULL,
-  `horaFin` varchar(50) NOT NULL,
-  `fechaInicio` varchar(45) NOT NULL,
-  `fechaFin` varchar(45) NOT NULL,
-  `modalidad` varchar(45) NOT NULL,
-  `lugar` varchar(150) NOT NULL,
-  `destinatarios` varchar(45) NOT NULL,
-  `objetivo` varchar(300) NOT NULL,
-  `observaciones` varchar(200) DEFAULT NULL,
-  `validado` varchar(45) NOT NULL,
+  `horaInicio` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `horaFin` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `fechaInicio` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `fechaFin` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `modalidad` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `lugar` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `destinatarios` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `objetivo` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `observaciones` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `validado` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `Instructor_idInstructor` int(11) NOT NULL,
   `Departamento_idDepartamento` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `curso`
 --
 
 INSERT INTO `curso` (`idCurso`, `Folio`, `ClaveRegistro`, `nombreCurso`, `periodo`, `duracion`, `horaInicio`, `horaFin`, `fechaInicio`, `fechaFin`, `modalidad`, `lugar`, `destinatarios`, `objetivo`, `observaciones`, `validado`, `Instructor_idInstructor`, `Departamento_idDepartamento`) VALUES
-(1, 'AB18222020', 'DFF2020', 'Diplomado para la Formación y Desarrollo de Competencias Docentes - Módulo II: Planeación del proceso de Aprendizaje', 'Agosto / Diciembre', 30, '13:00', '14:00', '2020-06-20', '2020-06-26', 'Presencial', 'Centro de cómputo ITD', 'Docentes del ITD', 'Diseña la planeación por competencias del curso para facilitar el aprendizaje del estudiante a través de la organización y seguimiento de las actividades a desarrollar.', 'no', 'no', 1, 2),
-(2, 'AAAA2020', 'ABCD20', 'Diplomado para la Formación de Tutores - Módulo II: Programa de Tutorias Presencial', 'Enero - Junio 2021', 30, '', '', '2020-07-20', '2020-07-26', 'Virtual', 'ITD', 'Personal docente', 'Probar algo', 'Ninguna observación', 'no', 3, 1),
-(3, 'AAAA', 'ADDD1', 'Diplomado para la Formación de Tutores - Módulo II: Programa de Tutorías en línea', 'Agosto / Diciembre 2020', 30, '09:00', '10:00', '2020-10-09', '2020-10-15', 'Presencial', 'Centro de Cómputo', ' Docentes', 'Objetivo', 'No', 'no', 1, 1);
+(1, 'AB18222020', 'DFF2020', 'Diplomado para la Formación y Desarrollo de Competencias Docentes - Módulo II: Planeación del proceso de Aprendizaje', 'Agosto / Diciembre 2020', 30, '09:00', '15:00', '2020-08-18', '2020-08-28', 'Semipresencial', 'Centro de cómputo ITD', 'Docentes del ITD', 'Diseña la planeación por competencias del curso para facilitar el aprendizaje del estudiante a través de la organización y seguimiento de las actividades a desarrollar.', '', 'no', 2, 1),
+(2, 'ADC132', 'ADX2020', 'Curso para el desarrollo de habilidades informáticas', 'Agosto / Diciembre 2020', 30, '03:30', '09:30', '2020-11-09', '2020-11-20', 'Virtual', 'meet.google.com/wedc-qwe-csf', ' Todos', 'Ninguno', 'Ninguna', 'no', 3, 2),
+(14, 'ADC132', '123456zx', 'Curso para desarrollo académico', 'Agosto / Diciembre 2020', 30, '06:21', '06:24', '2020-11-02', '2020-12-31', 'Virtual', 'meet.google.com/wedc-qwe-csf', ' Docentes del ITD', 'qerdyftgkh', 'rxc', 'no', 11, 2),
+(40, 'IT8817', 'TIF1025', 'Diplomado para la formación de Tutores - Módulo II: Programa de Tutorías.', 'Agosto / Diciembre 2020', 30, '04:00', '10:00', '2020-11-16', '2020-11-30', 'Semipresencial', 'Centro de cómputo ITD', ' Docentes del ITD', 'Mejorar el servicio de tutoría para el alumnado', 'Ninguna.', 'no', 8, 1),
+(53, 'IT8815', 'TIF1012', 'Diplomado para la formación de Tutores - Módulo II: Programa de Tutorías en línea', 'Agosto / Diciembre 2020', 30, '04:00', '10:00', '2020-11-20', '2020-11-30', 'Virtual', 'itd', ' itd', 'none', 'none', 'no', 3, 2),
+(54, 'IT8816', 'TIF1002', 'Diplomado para la formación de Tutores - Módulo II: Programa de Tutorías presencial', 'Agosto / Diciembre 2020', 30, '04:00', '10:00', '2020-11-09', '2020-11-27', 'Presencial', 'Centro de cómputo ITD', ' Docentes del ITD', 'Ninguno', 'Ninguna', 'no', 11, 2),
+(65, 'folioqwe', 'clave123', 'Curso para creacion de documento', 'Agosto / Diciembre 2020', 30, '06:00', '07:59', '2020-12-31', '2021-12-31', 'Presencial', 'Zoom', ' all', 'Probar :D', 'ninguna', 'no', 2, 1),
+(67, 'AAAA2020', 'ABCD20', 'Diplomado para la Formación y Desarrollo de Competencias Docentes - Módulo II: Planeación del proceso de Aprendizaje', 'Agosto / Diciembre 2020', 30, '04:00', '10:00', '2020-11-09', '2020-11-23', 'Virtual', 'Centro de cómputo ITD', ' Docentes del ITD', 'asda', 'asd', 'no', 1, 1),
+(68, 'qwe', 'srdtfgyh', 'srdcfgvhbj', 'Agosto / Diciembre 2019', 30, '09:40', '09:40', '2019-10-19', '2021-12-21', 'Presencial', 'zsxchjk', ' xgcvhb n', 'xcfvghbnjkm', '4rytugihop', 'no', 1, 1),
+(69, '1234asd', '12345asd', 'asd12', 'Agosto / Diciembre 2020', 30, '10:26', '12:28', '2020-10-19', '2020-12-20', 'Presencial', '12', ' 1', '23', '1223', 'no', 1, 1),
+(70, 'ASD2021', 'IT0180', 'Curso 2', 'Agosto / Diciembre 2020', 30, '12:00', '11:59', '2020-12-31', '2020-12-31', 'Presencial', 'Centro de cómputo ITD', ' Todos', '12', '12', 'no', 2, 1),
+(71, '11', '11', '11', 'Agosto / Diciembre 2019', 30, '12:14', '12:17', '2019-10-19', '2020-12-21', 'Presencial', 'Centro de cómputo ITD', ' Docentes del ITD', '12', '12', 'no', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -112,23 +125,46 @@ INSERT INTO `curso` (`idCurso`, `Folio`, `ClaveRegistro`, `nombreCurso`, `period
 CREATE TABLE `curso_has_documento` (
   `Curso_idCurso` int(11) NOT NULL,
   `Documento_idDocumento` int(11) NOT NULL,
-  `rutaArchivo` varchar(200) DEFAULT NULL,
-  `estadoVerificado` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `rutaArchivo` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `estadoVerificado` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `curso_has_documento`
 --
 
 INSERT INTO `curso_has_documento` (`Curso_idCurso`, `Documento_idDocumento`, `rutaArchivo`, `estadoVerificado`) VALUES
-(1, 1, 'doc.pdf', 'no'),
-(1, 2, 'doc.pdf', NULL),
-(1, 3, 'doc.pdf', NULL),
-(1, 4, 'doc.pdf', NULL),
-(1, 5, 'doc.pdf', NULL),
-(1, 6, 'doc.pdf', NULL),
-(1, 7, 'doc.pdf', NULL),
-(2, 1, 'doc1605235078.pdf', 'no');
+(1, 1, 'doc1605316652.pdf', 'no'),
+(1, 2, 'doc1605295096.pdf', 'no'),
+(1, 3, 'doc1605295106.pdf', 'no'),
+(1, 4, 'doc1605295118.pdf', 'no'),
+(1, 5, 'doc1605295126.pdf', 'no'),
+(1, 6, 'doc1605295133.pdf', 'no'),
+(1, 7, 'doc1605295140.pdf', 'no'),
+(2, 1, 'doc1605298261.pdf', 'no'),
+(14, 1, 'doc1605301958.pdf', 'no'),
+(14, 2, 'doc1605301979.pdf', 'no'),
+(14, 3, 'doc1605301988.pdf', 'no'),
+(14, 4, 'doc1605302003.pdf', 'no'),
+(14, 5, 'doc1605302009.pdf', 'no'),
+(14, 6, 'doc1605302015.pdf', 'no'),
+(14, 7, 'doc1605302022.pdf', 'no'),
+(9, 1, 'doc1605633414.pdf', 'no'),
+(9, 2, 'doc1605633019.pdf', 'no'),
+(9, 3, 'doc1605633067.pdf', 'no'),
+(9, 6, 'doc1605633377.pdf', 'no'),
+(9, 7, 'doc1605633393.pdf', 'no'),
+(9, 5, 'doc1605633403.pdf', 'no'),
+(9, 4, 'doc1605633461.pdf', 'no'),
+(63, 7, 'docaa10d8b8c9af4ff95dfb5d6999351b59.pdf', 'no'),
+(64, 7, 'doce6092a2105c90c2b2d7cd2f5067d265a.pdf', 'no'),
+(65, 7, 'doca47288fded0d0d1efdc1f3e75a6a21e2.pdf', 'no'),
+(66, 7, 'doc14d901fe938884e609159d1183422bf2.pdf', 'no'),
+(67, 7, 'doc3f56b066bfc1cdb28b32dc05c444147f.pdf', 'no'),
+(68, 7, 'docc45cc533549536f2de322b1d0f886c3f.pdf', 'no'),
+(69, 7, 'doc149d0e2b884180aac65c3b8dd9b0a57a.pdf', 'no'),
+(70, 7, 'doc5b78029eda720bafe0124ab6a2edd964.pdf', 'no'),
+(71, 7, 'doc8f701351f5801143661bb07ac4fc8561.pdf', 'no');
 
 -- --------------------------------------------------------
 
@@ -138,19 +174,19 @@ INSERT INTO `curso_has_documento` (`Curso_idCurso`, `Documento_idDocumento`, `ru
 
 CREATE TABLE `departamento` (
   `idDepartamento` int(11) NOT NULL,
-  `nombreDepartamento` varchar(200) NOT NULL,
-  `Jefe` varchar(150) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `nombreDepartamento` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `Jefe` varchar(150) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `departamento`
 --
 
 INSERT INTO `departamento` (`idDepartamento`, `nombreDepartamento`, `Jefe`) VALUES
-(1, 'Desarrollo Académico', 'Anapaula Rivas Barraza'),
-(2, 'Sistemas y Computación', 'Rocío Valadez'),
-(4, 'Ciencias Básicas', 'Héctor Flores Cabral'),
-(5, 'Ciencias de la Tierra', 'José de León Soto García');
+(1, 'No asignado', 'unknown'),
+(2, 'Sistemas y computación', 'Rocío Valadez'),
+(3, 'Desarrollo Académico', 'Anapaula Rivas Barraza'),
+(4, 'Actualización Docente', 'Mayela Calderon');
 
 -- --------------------------------------------------------
 
@@ -160,8 +196,8 @@ INSERT INTO `departamento` (`idDepartamento`, `nombreDepartamento`, `Jefe`) VALU
 
 CREATE TABLE `documento` (
   `idDocumento` int(11) NOT NULL,
-  `nombreDocumento` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `nombreDocumento` varchar(200) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `documento`
@@ -184,10 +220,10 @@ INSERT INTO `documento` (`idDocumento`, `nombreDocumento`) VALUES
 
 CREATE TABLE `evaluacion` (
   `idEvaluacion` int(11) NOT NULL,
-  `fecha` varchar(45) NOT NULL,
-  `sugerencias` varchar(200) DEFAULT NULL,
+  `fecha` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `sugerencias` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Usuario_idUsuario` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -199,7 +235,7 @@ CREATE TABLE `evaluacion_has_pregunta` (
   `Evaluacion_idEvaluacion` int(11) NOT NULL,
   `Pregunta_idPregunta` int(11) NOT NULL,
   `respuesta` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -209,27 +245,26 @@ CREATE TABLE `evaluacion_has_pregunta` (
 
 CREATE TABLE `instructor` (
   `idInstructor` int(11) NOT NULL,
-  `idUsuario` int(11) NOT NULL,
-  `apellidoPaterno` varchar(45) NOT NULL,
-  `apellidoMaterno` varchar(45) NOT NULL,
-  `nombre` varchar(45) NOT NULL,
-  `RFC` varchar(45) NOT NULL,
-  `CURP` varchar(45) NOT NULL,
-  `fechaNacimiento` varchar(45) NOT NULL,
-  `telefono` varchar(45) NOT NULL,
-  `Correo` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `apellidoPaterno` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `apellidoMaterno` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `nombre` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `RFC` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `CURP` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `fechaNacimiento` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `telefono` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `Correo` varchar(45) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `instructor`
 --
 
-INSERT INTO `instructor` (`idInstructor`, `idUsuario`, `apellidoPaterno`, `apellidoMaterno`, `nombre`, `RFC`, `CURP`, `fechaNacimiento`, `telefono`, `Correo`) VALUES
-(1, 0, 'Armstrong', 'Aramburo', 'Cristabel', 'ARACXXXXXX', 'ARACXXXXXXXXXXX', '1979-12-30', '6181242500', 'cristabel@correo.mx'),
-(3, 0, 'Avitia', 'Rocha', 'Brenda', 'GBDLxxxxxx', 'GBDLxxxxxxxxxxx', '1968-02-20', '6182957145', 'dora@gmail.com'),
-(4, 0, 'Bautista', 'Munguia', 'Ana Mayri', 'BAMA980114JG3', ' BAMA980114MDGTNN09', '1998-01-01', '6182958640', 'MayriBautista@gmail.com'),
-(5, 0, 'Munguía', 'de León', 'Marisela', 'MULM690817JG3', ' MULM690817MDGNNR05', '1969-08-17', '6181132560', 'marisela@gmail.com'),
-(9, 9, 'Bautista', 'Saénz', 'Ricardo', 'BASR740403G71', 'BASR740403HDGTNC06', '1974-04-03', '6181413245', 'ricardo@gmail.com');
+INSERT INTO `instructor` (`idInstructor`, `apellidoPaterno`, `apellidoMaterno`, `nombre`, `RFC`, `CURP`, `fechaNacimiento`, `telefono`, `Correo`) VALUES
+(1, ' ', ' ', 'no asignado', 'UNKNOWN', 'UNKNOWN', '2020-11-02', 'unknown', 'correo@sfac'),
+(2, 'Armstrong', 'Aramburo', 'Cristabel', 'AOAC201113UU6', 'AOAC201113MDGRRRA8', '1974-01-01', '6181234567', 'cristabel@correo.mx'),
+(3, 'Sifuentes', 'Cisneros', 'Vanessa', 'SICV201107EF1', 'SICV971107MDGFSN04', '1997-11-07', '6181172007', 'vanne.jgs@gmail.com'),
+(8, 'Armstrong', 'Aramburo', 'Crisóforo', 'AOAC791230UU6', 'SICV971107MDGFSN04', '1975-02-01', '13298896545', 'cris@email.com'),
+(11, 'Cisneros', 'Adame', 'Araceli', 'CIAA7608194Z3', 'CIAA760819MDGSDR09', '1976-08-19', '6182910880', 'cisneros_adame@hotmail.com');
 
 -- --------------------------------------------------------
 
@@ -239,8 +274,8 @@ INSERT INTO `instructor` (`idInstructor`, `idUsuario`, `apellidoPaterno`, `apell
 
 CREATE TABLE `pregunta` (
   `idPregunta` int(11) NOT NULL,
-  `descripcion` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `descripcion` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -251,25 +286,23 @@ CREATE TABLE `pregunta` (
 CREATE TABLE `usuario` (
   `idUsuario` int(11) NOT NULL,
   `Departamento_idDepartamento` int(11) NOT NULL,
-  `rol` varchar(45) NOT NULL,
-  `apellidoPaterno` varchar(45) NOT NULL,
-  `apellidoMaterno` varchar(45) NOT NULL,
-  `nombre` varchar(45) NOT NULL,
-  `nombreUsuario` varchar(45) NOT NULL,
-  `contrasena` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `rol` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `nombreUsuario` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `contrasena` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `apellidoPaterno` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `apellidoMaterno` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `nombre` varchar(45) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`idUsuario`, `Departamento_idDepartamento`, `rol`, `apellidoPaterno`, `apellidoMaterno`, `nombre`, `nombreUsuario`, `contrasena`) VALUES
-(1, 2, '2', 'Bautista', 'Munguía', 'Ana Mayri', 'Mayri', 'admin123'),
-(2, 2, '1', 'Sifuentes', 'Cisneros', 'Vanessa', 'Vanessa', 'a123'),
-(3, 2, '3', 'Flores', 'Patiño', 'Iriam Jazmín', 'Iriam', 'i123'),
-(4, 2, '4', 'Herrera', 'Hernández', 'Ana', 'Ana', 'a123'),
-(5, 1, '1', 'Rivas', 'Barraza', 'Anapaula', 'Anapaula', 'admin123'),
-(9, 4, '4', 'Bautista', 'Saénz', 'Ricardo', 'Ricardo', 'r123');
+INSERT INTO `usuario` (`idUsuario`, `Departamento_idDepartamento`, `rol`, `nombreUsuario`, `contrasena`, `apellidoPaterno`, `apellidoMaterno`, `nombre`) VALUES
+(1, 3, '2', 'Anapaula', 'da2020', 'Rivas', 'Barraza', 'Anapaula'),
+(2, 1, '1', 'admin', 'admin', '1', '2', 'Administrador'),
+(3, 2, '3', 'user docente', 'user', 'Bautista', 'Munguia', 'Ana Mayri'),
+(4, 1, '4', 'usuario instructor', 'user', 'Sifuentes', 'Cisneros', 'Vanessa');
 
 -- --------------------------------------------------------
 
@@ -281,16 +314,14 @@ CREATE TABLE `usuario_has_curso` (
   `Usuario_idUsuario` int(11) NOT NULL,
   `Curso_idCurso` int(11) NOT NULL,
   `estado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `usuario_has_curso`
 --
 
 INSERT INTO `usuario_has_curso` (`Usuario_idUsuario`, `Curso_idCurso`, `estado`) VALUES
-(3, 1, 1),
-(3, 2, 1),
-(3, 3, 1);
+(3, 1, 1);
 
 --
 -- Índices para tablas volcadas
@@ -319,12 +350,6 @@ ALTER TABLE `constancia`
 --
 ALTER TABLE `curso`
   ADD PRIMARY KEY (`idCurso`,`Instructor_idInstructor`,`Departamento_idDepartamento`);
-
---
--- Indices de la tabla `curso_has_documento`
---
-ALTER TABLE `curso_has_documento`
-  ADD PRIMARY KEY (`Curso_idCurso`,`Documento_idDocumento`);
 
 --
 -- Indices de la tabla `departamento`
@@ -394,19 +419,19 @@ ALTER TABLE `calificacion`
 -- AUTO_INCREMENT de la tabla `constancia`
 --
 ALTER TABLE `constancia`
-  MODIFY `idConstancia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idConstancia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `curso`
 --
 ALTER TABLE `curso`
-  MODIFY `idCurso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idCurso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT de la tabla `departamento`
 --
 ALTER TABLE `departamento`
-  MODIFY `idDepartamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idDepartamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `documento`
@@ -424,7 +449,7 @@ ALTER TABLE `evaluacion`
 -- AUTO_INCREMENT de la tabla `instructor`
 --
 ALTER TABLE `instructor`
-  MODIFY `idInstructor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idInstructor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `pregunta`
@@ -436,7 +461,7 @@ ALTER TABLE `pregunta`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
