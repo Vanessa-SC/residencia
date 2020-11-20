@@ -566,6 +566,18 @@ app.service('curso', function () {
 
 });
 
+app.service('constancia', function () {
+	var folio;
+
+	this.setFolio = function (folioCons) {
+		folio = folioCons;
+	};
+
+	this.getFolio = function () {
+		return folio;
+	};
+});
+
 app.service('instructor', function () {
 	var id;
 
@@ -990,9 +1002,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 	$scope.getDocumento = function (doc) {
 		return 'http://localhost/Residencia/proyecto/files/' + doc;
 	};
-	$scope.fecha = {
-		value: new Date()
-	  };
+	
 	$scope.crearCurso = function (datos) {
 		datos.username = user.getName();
 		datos.departamento = user.getIdDepartamento();
@@ -1197,7 +1207,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 	$scope.getCursoAct();
 });
 
-app.controller('constanciasCtrl', function ($scope, $http, $location, user, periodoService) {
+app.controller('constanciasCtrl', function ($scope, $http, $location, user, periodoService,curso,constancia) {
 	$scope.user = user.getName();
 	$scope.getConstancias = function () {
 		$http({
@@ -1268,8 +1278,37 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 		console.log(curso);
 	}
 
-	$scope.rutaArchivo = "doc.pdf";
+	$scope.verConstancia = function (folio, idCurso) {
+		constancia.setFolio(folio);
+		curso.setID(idCurso);
+		$scope.getConstancia();
+	};
 
+	
+
+	$scope.getConstancia = function(){
+		var idCurso = curso.getID();
+		var folio = constancia.getFolio();
+		console.log(idCurso+' '+folio);
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getConstancia.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idCurso=' + idCurso +'&folio=' + folio
+		}).then(function successCallback(response) {
+			$scope.constancia = response.data;
+		}, function errorCallback(response) {
+
+		});
+	}
+
+	$scope.getDocumento = function (doc) {
+		return 'http://localhost/Residencia/proyecto/files/' + doc;
+	};
+
+	$scope.getConstancia();
 	$scope.getConstancias();
 	$scope.getPeriodos();
 	$scope.getConstanciasPeriodoActual();
