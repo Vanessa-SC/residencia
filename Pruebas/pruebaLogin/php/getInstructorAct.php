@@ -8,7 +8,11 @@ if (!isset($_POST)) {
 
 $id = mysqli_real_escape_string($conn, $_POST['idInstructor']);
 
-$sql = "SELECT * FROM instructor WHERE idInstructor = $id ";
+$sql = "SELECT *
+            FROM instructor
+            INNER JOIN usuario
+            ON instructor.idUsuario = usuario.idUsuario
+            WHERE instructor.idInstructor = '$id'";
 
 $result = $conn->query($sql) or die($conn->error . __LINE__);
 

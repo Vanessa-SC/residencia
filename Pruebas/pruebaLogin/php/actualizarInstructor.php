@@ -7,16 +7,26 @@ include_once('conexion.php');
 
 $response = [];
 
+$fechaNacimiento = strftime ('%Y-%m-%d', strtotime($instructor->fechaNacimiento));
+
 /* Query de actualización */
 $sql = "UPDATE instructor
-        SET apellidoPaterno = '$instructor->apellidoPaterno',
-            apellidoMaterno = '$instructor->apellidoMaterno',
-            nombre = '$instructor->nombre',
-            RFC = upper('$instructor->RFC'),
-            CURP = upper('$instructor->CURP'),
-            fechaNacimiento = '$instructor->fechaNacimiento',
-            telefono = '$instructor->telefono',
-            Correo = '$instructor->Correo'
+        INNER JOIN usuario
+        ON instructor.idUsuario = usuario.idUsuario
+        SET instructor.apellidoPaterno = '$instructor->apellidoPaterno',
+            instructor.apellidoMaterno = '$instructor->apellidoMaterno',
+            instructor.nombre = '$instructor->nombre',
+            instructor.RFC = upper('$instructor->RFC'),
+            instructor.CURP = upper('$instructor->CURP'),
+            instructor.fechaNacimiento = '$fechaNacimiento',
+            instructor.telefono = '$instructor->telefono',
+            instructor.Correo = '$instructor->Correo',
+            usuario.departamento = '$instructor->departamento',
+            usuario.apellidoPaterno = '$instructor->apellidoPaterno',
+            usuario.apellidoMaterno = '$instructor->apellidoMaterno',
+            usuario.nombre = '$instructor->nombre',
+            usuario.nombreUsuario = '$instructor->nombreUsuario',
+            usuario.contrasena = '$instructor->contrasena'
         WHERE idInstructor = '$instructor->idInstructor'
         ";
 
