@@ -1890,6 +1890,46 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, p
 		});
 	}
 
+	$scope.inscribirCurso = function (id) {
+		$scope.idUsuario = user.getIdUsuario();
+
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/inscribirCurso.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idCurso=' + id + '&idUsuario=' + $scope.idUsuario
+		}).then(function successCallback(response) {
+			if (response.data.status == "ok") {
+				$('#modal' + id).modal('hide');
+				$('.modal-backdrop').remove();
+
+				$scope.alert = {
+					titulo: '¡Estás inscrito!',
+					tipo: 'success',
+					mensaje: 'Te has inscrito al curso correctamente'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$scope.getCursos();
+				$scope.getMisCursos();
+			} else {
+				$scope.alert = {
+					titulo: 'Error!',
+					tipo: 'danger',
+					mensaje: 'No se pudo inscribir del curso.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+			}
+		}, function errorCallback(response) {
+			return false;
+		});
+	}
+
 	$scope.getMisCursos = function () {
 
 		$scope.id = user.getIdUsuario();
