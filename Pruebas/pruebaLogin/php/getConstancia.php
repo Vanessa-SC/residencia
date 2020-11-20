@@ -20,4 +20,4 @@ $result = $conn->query($query) or die($conn->error . __LINE__);
 
 $constancia = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-print json_encode($constancia[0]);
+echo json_encode($constancia);

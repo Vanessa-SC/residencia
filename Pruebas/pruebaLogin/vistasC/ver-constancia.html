@@ -1,5 +1,3 @@
-
-
 <ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasC/nav.html'"></ng-include>
 <div class="container">
     <div class="text-center align-middle">
@@ -7,9 +5,8 @@
             <div class="pt-3 d-flex mx-auto">
                 <button title="Regresar a la página anterior" class="btn-back back_icon px-auto" ng-click="back()">
                 </button>
-                <img src="/Residencia/proyecto/images/Logo%20ITD.png" class="logoITD">
-
-                <h1 style="align-self: center;">folio: {{constancia.folio}}</h1>
+                
+                <h1 style="align-self: center;">folio: {{folioConstancia}}</h1>
 
             </div>
         </div>
@@ -19,12 +16,14 @@
         <div>
             <img src="/Residencia/Proyecto/images/Logo%20ITD.png" class="logoITD" alt="">
         </div>
-        <div class="d-flex mx-auto pt-4">
-            <div class="embed-responsive embed-responsive-16by9">
-                <object data="{{getDocumento(constancia.rutaConstancia)}}" width="400" height="300" type="text/html">
+        <div class="d-flex mx-auto pt-4" ng-repeat="x in constancia">
+            
+            <div class="embed embed-responsive-16by9">
+                <object data="/Residencia/Proyecto/files/{{x.rutaConstancia}}" width="900" height="400" type="text/html" class="embed-responsive-item">
                     El documento no pudo ser cargado, pero puede descargarlo con el siguiente botón <br>
-                    <a class="btn text-white btn-warning" href="/Residencia/Proyecto/files/{{constancia.rutaConstancia}}"
-                        target="_blank">Descargar documento</a>
+                    <a class="btn text-white btn-warning"
+                        href="/Residencia/Proyecto/files/{{x.rutaConstancia}}" target="_blank">Descargar
+                        documento</a>
                 </object>
             </div>
         </div>

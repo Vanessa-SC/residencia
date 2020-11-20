@@ -598,10 +598,10 @@ app.service('constancia', function () {
 	};
 
 	this.getRuta = function () {
-		if (!!localStorage.getItem('constancia')) {
-			var data = JSON.parse(localStorage.getItem('constancia'));
-			ruta = data.ruta;
-		}
+		// if (!!localStorage.getItem('constancia')) {
+		// 	var data = JSON.parse(localStorage.getItem('constancia'));
+		// 	ruta = data.ruta;
+		// }
 		return ruta;
 	};
 
@@ -1328,15 +1328,17 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 			},
 			data: 'idCurso=' + idCurso + '&folio=' + folio
 		}).then(function successCallback(response) {
-			// $scope.constancia = response.data;
-			console.log(response.data);
-			constancia.saveData(response.data);
-			// constancia.setRuta(response.data.rutaConstancia);
+			$scope.constancia = response.data;
+			console.log($scope.constancia);
 		});
 	}
 
 	$scope.getDocumento = function () {
 		return 'http://localhost/Residencia/proyecto/files/' + constancia.getRuta();
+	};
+
+	$scope.back = function () {
+		window.history.back();
 	};
 
 	$scope.folioConstancia = constancia.getFolio();
