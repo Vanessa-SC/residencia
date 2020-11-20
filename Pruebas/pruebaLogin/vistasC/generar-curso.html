@@ -26,28 +26,27 @@
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="duracion">Duraci&oacute;n</label>
 			</div>
-			<input required type="number" min="30" id="duracion" class="form-control" ng-model="curso.duracion" value="{{curso.duraccion || 30}}"
+			<input required type="number" min="30" id="duracion" class="form-control" ng-model="curso.duracion"
 				string-to-number>
-
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="horaInicio">Hora de Inicio</label>
 			</div>
-			<input required type="time" id="horaInicio" class="form-control" ng-model="curso.horaInicio">
+			<input required type="time" id="horaInicio" class="form-control" ng-model="curso.horaInicio" as-date>
 
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="horaFin">Hora de Termino</label>
 			</div>
-			<input required type="time" id="horaFin" class="form-control" ng-model="curso.horaFin">
+			<input required type="time" id="horaFin" class="form-control" ng-model="curso.horaFin" as-date>
 		</div>
 		<div class="input-group mt-4">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="fechaInicio">Fecha Inicio</label>
 			</div>
-			<input required type="date" id="fechaInicio" class="form-control" ng-model="curso.fechaInicio">
+			<input required type="date" id="fechaInicio" class="form-control" ng-model="curso.fechaInicio" as-date>
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="fechaFin">Fecha Fin</label>
 			</div>
-			<input required type="date" id="fechaFin" class="form-control" ng-model="curso.fechaFin">
+			<input required type="date" id="fechaFin" class="form-control" ng-model="curso.fechaFin" as-date>
 		</div>
 
 		<div class="dropdown-divider mb-4 mt-4"></div>

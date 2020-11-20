@@ -586,6 +586,10 @@ app.service('constancia', function () {
 	};
 
 	this.getFolio = function () {
+		// if (!!localStorage.getItem('constancia')) {
+		// 	var data = JSON.parse(localStorage.getItem('constancia'));
+		// 	folio = data.folio;
+		// }
 		return folio;
 	};
 
@@ -594,7 +598,22 @@ app.service('constancia', function () {
 	};
 
 	this.getRuta = function () {
+		if (!!localStorage.getItem('constancia')) {
+			var data = JSON.parse(localStorage.getItem('constancia'));
+			ruta = data.ruta;
+		}
 		return ruta;
+	};
+
+	this.saveData = function (data) {
+		ruta = data.rutaConstancia;
+		folio = data.folio;
+
+		loggedin = true;
+		localStorage.setItem('constancia', JSON.stringify({
+			ruta: ruta,
+			folio: folio
+		}));
 	};
 });
 
@@ -1309,16 +1328,19 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 			},
 			data: 'idCurso=' + idCurso + '&folio=' + folio
 		}).then(function successCallback(response) {
-			$scope.constancia = response.data;
-			console.log()
-		}, function errorCallback(response) {
-
+			// $scope.constancia = response.data;
+			console.log(response.data);
+			constancia.saveData(response.data);
+			// constancia.setRuta(response.data.rutaConstancia);
 		});
 	}
 
-	$scope.getDocumento = function (doc) {
-		return 'http://localhost/Residencia/proyecto/files/' + doc;
+	$scope.getDocumento = function () {
+		return 'http://localhost/Residencia/proyecto/files/' + constancia.getRuta();
 	};
+
+	$scope.folioConstancia = constancia.getFolio();
+	$scope.rutaConstancia = constancia.getRuta();
 
 	$scope.getConstancia();
 	$scope.getConstancias();
