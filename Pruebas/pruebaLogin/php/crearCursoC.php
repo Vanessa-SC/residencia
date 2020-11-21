@@ -71,6 +71,11 @@ $sqlGetJefe= "SELECT Jefe
 $res2 = mysqli_query($conn, $sqlGetJefe);
 $jefe= mysqli_fetch_array ($res2);
 
+
+/* Validar si hay observaciones */
+if($curso->observaciones == ""){
+    $curso->observaciones== "Ninguna";
+}
 /* Query de insercion */
 $sql = "INSERT INTO curso
         VALUES ('',
