@@ -1247,8 +1247,6 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getConstancias.php'
 		}).then(function successCallback(response) {
 			$scope.constancias = response.data;
-		}, function errorCallback(response) {
-			alert("No hay datos.")
 		});
 	}
 
@@ -1265,21 +1263,6 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 			url: '/Residencia/Pruebas/pruebaLogin/php/getPeriodos.php'
 		}).then(function successCallback(response) {
 			$scope.periodos = response.data;
-		}, function errorCallback(response) {
-			console.log(response);
-		});
-	}
-
-	$scope.getCursosDelPeriodo = function (periodo) {
-		$http({
-			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getCursosPorPeriodo.php',
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			data: 'periodo=' + periodo.periodo
-		}).then(function successCallback(response) {
-			$scope.cursosPeriodo = response.data;
 		});
 	}
 
@@ -1304,8 +1287,33 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 			});
 	}
 
+	$scope.getCursosDelPeriodo = function (periodo) {
+		$http({
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getCursosPorPeriodo.php',
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'periodo=' + periodo.periodo
+		}).then(function successCallback(response) {
+			$scope.cursosPeriodo = response.data;
+		});
+	}
+
 	$scope.cursoSeleccionado = function (curso) {
-		console.log(curso);
+		$http({
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getParticipantes.php',
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idCurso=' + curso.idCurso
+		}).then(function successCallback(response) {
+			$scope.participantesCurso = response.data;
+		});
+
+		
+		
 	}
 
 	$scope.verConstancia = function (folio, idCurso) {
@@ -1319,7 +1327,6 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 	$scope.getConstancia = function () {
 		var idCurso = curso.getID();
 		var folio = constancia.getFolio();
-		console.log(idCurso + ' ' + folio);
 		$http({
 			method: 'POST',
 			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getConstancia.php',
@@ -1329,7 +1336,6 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 			data: 'idCurso=' + idCurso + '&folio=' + folio
 		}).then(function successCallback(response) {
 			$scope.constancia = response.data;
-			console.log($scope.constancia);
 		});
 	}
 
@@ -1340,6 +1346,10 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 	$scope.back = function () {
 		window.history.back();
 	};
+
+	$scope.crearConstancia = function (){
+		
+	}
 
 	$scope.folioConstancia = constancia.getFolio();
 	$scope.rutaConstancia = constancia.getRuta();

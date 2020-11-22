@@ -9,7 +9,7 @@ if (!isset($_POST)) {
 $id = mysqli_real_escape_string($conn, $_POST['idCurso']);
 
 $sql = "SELECT usuario.idUsuario, departamento.nombreDepartamento as nombreD, usuario.rol, 
-        concat_ws(' ',usuario.apellidoPaterno,usuario.apellidoMaterno,usuario.nombreU) as nombre
+        concat_ws(' ',usuario.apellidoPaterno,usuario.apellidoMaterno,usuario.nombre) as nombre
         FROM usuario_has_curso 
         Inner join usuario        
         ON usuario.idUsuario = usuario_has_curso.Usuario_idUsuario
