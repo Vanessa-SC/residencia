@@ -1079,8 +1079,8 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 					}, 2000);
 				} else {
 					$scope.alert = {
-						titulo: 'Creado!',
-						tipo: 'success',
+						titulo: 'Error!',
+						tipo: 'danger',
 						mensaje: 'Ocurrió un error al crear el curso'
 					};
 					$(document).ready(function () {
@@ -1114,7 +1114,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 				$scope.alert = {
 					titulo: 'Error!',
 					tipo: 'danger',
-					mensaje: 'Ocurrió un error al crear el curso'
+					mensaje: 'Ocurrió un error al actualizar el curso'
 				};
 				$(document).ready(function () {
 					$('#alerta').toast('show');
@@ -1348,7 +1348,48 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 	};
 
 	$scope.crearConstancia = function (){
-		
+
+		var datos = {
+			'folio':$scope.constancia.folio,
+			'participante' : $scope.constancia.participante.nombre,
+			'idUsuario' : $scope.constancia.participante.idUsuario,
+			'rol' : $scope.constancia.participante.rol,
+			'curso' : $scope.constancia.curso.curso,
+			'idCurso' : $scope.constancia.curso.idCurso,
+			'fecha' : $scope.constancia.curso.fecha,
+			'duracion' : $scope.constancia.curso.duracion
+		}
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/generarConstancia.php',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			data: JSON.stringify(datos)
+		}).then(function successCallback(response) {
+			console.log(response.data);
+			if (response.data.status == "ok") {
+				$scope.alert = {
+					titulo: 'Listo!',
+					tipo: 'success',
+					mensaje: 'Constancia generada con éxito.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$scope.getConstanciasPeriodoActual();
+				$scope.constancia = {};
+			} else {
+				$scope.alert = {
+					titulo: 'Oops!',
+					tipo: 'danger',
+					mensaje: 'Ocurrió un error al generar la constancia.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+			}
+		});
 	}
 
 	$scope.folioConstancia = constancia.getFolio();
