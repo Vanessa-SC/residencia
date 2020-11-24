@@ -2033,10 +2033,10 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, p
 			data: 'idCurso=' + id + '&idUsuario=' + $scope.idUsuario
 		}).then(function successCallback(response) {
 			if (response.data.status == "ok") {
-				$('#modal' + id).modal('hide');
+				$('#modal1' + id).modal('hide');
 				$('.modal-backdrop').remove();
 
-				$scope.alert = {
+				$scope.alerta = {
 					titulo: '¡Has salido!',
 					tipo: 'success',
 					mensaje: 'Has salido del curso correctamente'
@@ -2047,7 +2047,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, p
 				$scope.getCursos();
 				$scope.getMisCursos();
 			} else {
-				$scope.alert = {
+				$scope.alerta = {
 					titulo: 'Error!',
 					tipo: 'danger',
 					mensaje: 'No se pudo salir del curso.'
