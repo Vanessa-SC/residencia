@@ -58,14 +58,26 @@
 			<tbody>
 				<tr ng-repeat="x in constanciasPeriodoActual">
 					<th scope="row">{{x.folio}}</th>
-					<td>{{x.docente}}</td>
+					<td>{{x.nombre}}</td>
 					<td>{{x.curso}}</td>
 					<td>{{x.fecha}}</td>
-					<td><a href=""><button class="btn bg-white download_icon"></button></a></td>
+					<td><a href="/Residencia/Proyecto/files/{{x.rutaConstancia}}" target="_blank"><button class="btn bg-white download_icon"></button></a></td>
 				</tr>
 
 			</tbody>
 		</table>
 	</div>
 	<div class="card-footer text-muted text-center">Todos los derechos reservados. ITD 2020</div>
+</div>
+<div class="toast" data-autohide="false" id="alerta"
+	style="position: fixed; top: 50px; right: 50px; background-color: rgb(255, 255, 255); width:500px">
+	<div class="toast-header bg-{{alert.tipo}} text-white">
+		<strong class="mr-auto">{{alert.titulo}}</strong>
+		<button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
+			<span aria-hidden="true" style="font-size: 1.1em;">&times;</span>
+		</button>
+	</div>
+	<div class="toast-body">
+		<div class="text-dark">{{alert.mensaje}}</div>
+	</div>
 </div>

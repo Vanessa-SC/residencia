@@ -1,14 +1,28 @@
 <?php
 
 require '../FPDF/fpdf.php';
+include_once 'conexion.php';
 
+$datos = json_decode(file_get_contents("php://input"));
 
-$participante = "Vanessa Sifuentes Cisneros";
-$curso = "AngularJS";
-$fecha = "01 de noviembre al 15 de noviembre del 2020";
-$duracion = "30";
-$expedicion = "23 de noviembre del 2020";
-$directora = "M.C. Isela Flores Montenegro";
+/* Obtener fecha actual en español */
+$bMeses = array("void", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+$bDias = array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
+$fecha = getdate();
+
+$dias = $bDias[$fecha["wday"]];
+$meses = $bMeses[$fecha["mon"]];
+
+$actual = $fecha["mday"] . " de " . $meses . " de " . $fecha["year"];
+
+/* Asignar rol */
+if ($datos->rol == 3) {
+    $rol = 'alumno';
+}
+if ($datos->rol == 4) {
+    $rol = 'instructor';
+}
+
 
 class PDF extends FPDF
 {
@@ -16,38 +30,41 @@ class PDF extends FPDF
     {
         $this->Image('C:\xampp\htdocs\Residencia\Pruebas\pruebaLogin\FPDF\logosConstancia.png', 75, 10, 130);
     }
+
+    public function Footer()
+    {
+        /* Firma */
+        $this->SetY(-15);
+        $this->SetFont('Helvetica', 'B', 12);
+        $this->Image('C:\xampp\htdocs\Residencia\Pruebas\pruebaLogin\FPDF\firma.png', 88, 185, 100);
+        $this->Cell(260, 0, "M.C. Isela Flores Montenegro", 0, 0, 'C');
+    }
 }
 
 $pdf = new PDF('L', 'mm', 'letter');
 $pdf->SetAutoPageBreak(false);
 $pdf->AddPage();
 $pdf->Image('C:\xampp\htdocs\Residencia\Pruebas\pruebaLogin\FPDF\bg-constancia.jpg', 5, 5, 270);
-$pdf->Ln(55);
+$pdf->Ln(50);
 $pdf->SetFont('Times', 'I', 26);
 /* Nombre del participante */
-$pdf->Cell(260, 75, $participante, 0, 0, 'C');
+$pdf->Cell(260, 75, $datos->participante, 0, 0, 'C');
 $pdf->Ln(20);
 $pdf->SetFont('Helvetica', '', 12);
-$pdf->Cell(260, 75, 'Por su valiosa participación como alumno en el curso', 0, 0, 'C');
-$pdf->Ln(10);
+$pdf->Cell(260, 75, 'Por su valiosa participación como ' . $rol . ' en el curso', 0, 0, 'C');
+$pdf->Ln(50);
 /* Nombre del curso */
 $pdf->SetFont('Times', 'I', 20);
-$pdf->Cell(260, 75, '"'.$curso.'"', 0, 0, 'C');
-$pdf->Ln(10);
+$pdf->MultiCell(0, 8, '"' . $datos->curso . '"', 0, 'C', false);
 /* Fecha del curso */
 $pdf->SetFont('Helvetica', '', 12);
-$pdf->Cell(260, 75, 'Realizado del '.$fecha, 0, 0, 'C');
+$pdf->Cell(260, 25, 'Realizado del ' . $datos->fecha, 0, 0, 'C');
 $pdf->Ln(10);
 /* Duración */
-$pdf->Cell(260, 75, 'Con una duración de '.$duracion.' horas', 0, 0, 'C');
+$pdf->Cell(260, 25, 'Con una duración de ' . $datos->duracion . ' horas', 0, 0, 'C');
 $pdf->Ln(10);
 /* Fecha de emisión */
-$pdf->Cell(260, 75, 'Victoria de Durango, Dgo. a '.$expedicion, 0, 0, 'C');
-$pdf->Ln(35);
-/* Firma */
-$pdf->Image('C:\xampp\htdocs\Residencia\Pruebas\pruebaLogin\FPDF\firma.png', 88, 180, 100);
-$pdf->Cell(260, 75, $directora, 0, 0, 'C');
-
+$pdf->Cell(260, 25, 'Victoria de Durango, Dgo. a ' . $actual, 0, 0, 'C');
 
 /*
 Cell(width, height, texto, borde(0,1), linea(0derecha,1comienzo,2sigLinea,
@@ -60,4 +77,20 @@ Destino:
 'F' guarda el fichero en un archivo local,
 'S' devuelve el documento como una cadena.
  */
-$pdf->Output('constancia.pdf', 'I');
+
+// // Nombre del PDF
+$archivo = 'C_' . time() . '.pdf';
+$pdf->Output("C:/xampp/htdocs/Residencia/Proyecto/files/" . $archivo, 'F');
+
+// echo $archivo;
+
+$sql = "INSERT INTO constancia
+        VALUES('','$datos->folio','$archivo',$datos->idCurso,$datos->idUsuario)";
+
+if (mysqli_query($conn, $sql)) {
+    $response['status'] = 'ok';
+} else {
+    $response['status'] = 'error';
+}
+
+echo json_encode($response, JSON_FORCE_OBJECT);

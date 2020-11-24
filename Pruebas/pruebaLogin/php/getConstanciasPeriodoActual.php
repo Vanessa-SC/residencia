@@ -8,7 +8,9 @@ $formatt = "SET lc_time_names = 'es_MX' ";
 mysqli_query($conn,$formatt);
 
 $sql = "SELECT constancia.folio,
-           usuario.nombreUsuario as docente,
+            constancia.rutaConstancia,
+            concat_ws(' ',apellidoPaterno,apellidomaterno,nombre) as nombre,
+            usuario.nombreUsuario as docente,
             curso.nombreCurso as curso,
             curso.objetivo,
             concat_ws(' - ', DATE_FORMAT(curso.fechaInicio, '%d de %M'), DATE_FORMAT(curso.fechaFin, '%d de %M, %Y')) as fecha
