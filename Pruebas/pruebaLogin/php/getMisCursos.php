@@ -19,7 +19,9 @@ $sql = "SELECT curso.idCurso, curso.nombreCurso as curso,
         FROM usuario_has_curso Inner join curso 
         ON curso.idCurso = usuario_has_curso.Curso_idCurso 
         AND usuario_has_curso.estado = 1
-        AND usuario_has_curso.Usuario_idUsuario = $id";
+        AND usuario_has_curso.Usuario_idUsuario = $id
+        ORDER BY fechaInicio ASC
+        ";
 
 /* ESTA ERA LA ALTERNATIVA, NO HAGAN CASO */
 // $username = mysqli_real_escape_string($conn, $_POST['username']);
