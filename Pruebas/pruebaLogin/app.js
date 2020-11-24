@@ -1041,7 +1041,6 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 		datos.departamento = user.getIdDepartamento();
 		console.log(datos);
 		if (
-			datos.folio != undefined &&
 			datos.clave != undefined &&
 			datos.nombre != undefined &&
 			datos.duracion != undefined &&
@@ -1769,8 +1768,6 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 		});
 	}
 
-
-
 	$scope.getInfoCurso = function () {
 
 		$scope.idCurso = curso.getID();
@@ -1791,7 +1788,6 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 
 			});
 		}
-
 	}
 
 	$scope.periodo = periodoService.getPeriodo()
@@ -1811,6 +1807,34 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 		}, function errorCallback(response) {
 			alert("No hay datos.")
 		});
+	}
+
+	$scope.getListaDocumentosSubidos = function () {
+		var idCurso = curso.getID();
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getDocsCurso.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idCurso=' + idCurso
+		}).then(function successCallback(response) {
+			$scope.documentosSubidos = response.data;
+		}, function errorCallback(response) {
+
+		});
+	}
+
+	$scope.addComment = function (documento, id) {
+		$scope.alert = {
+			titulo: 'Hey!',
+			tipo: 'info',
+			mensaje: 'Aún no hago nada, pero el comentario es: "' + documento.comentario + '" y el idDocumento es: ' + id
+		};
+		$(document).ready(function () {
+			$('#alerta').toast('show');
+		});
+		documento.comentario = "";
 	}
 
 	$scope.back = function () {
@@ -1867,8 +1891,6 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 	$scope.curso = {};
 
 	$scope.actualizarCurso = function () {
-
-
 		$http({
 			method: 'POST',
 			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/actualizarCursoJ.php',
@@ -1907,12 +1929,10 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 		});
 	}
 
-
 	$scope.getCursoAct = function () {
 
 		$scope.idCurso = curso.getID();
 		//console.log($scope.idCurso);
-
 		if ($scope.idCurso != "") {
 			$http({
 				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getCursoAct.php',
@@ -1939,7 +1959,6 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 		}
 
 	}
-
 
 	$scope.deleteCurso = function (id, nombreCurso) {
 		$http({
@@ -2033,6 +2052,7 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 	$scope.getDepartamentos();
 	$scope.getInstructores();
 	$scope.getListaDocumentosCurso();
+	$scope.getListaDocumentosSubidos();
 });
 
 app.controller('encuestaJCtrl', function ($scope, $http, $location, user, periodoService) {
