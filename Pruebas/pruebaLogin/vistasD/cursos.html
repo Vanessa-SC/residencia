@@ -46,12 +46,12 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        ¿Está seguro de que quiere salir del curso: <br> "<span
+                                        ¿Está seguro de que quiere inscribirse al curso: <br> "<span
                                             class="font-italic">{{x.curso}}</span>"?
                                     </div>
                                     <div class="modal-footer">
                                         <button class="btn btn-success" title="Aceptar"
-                                            ng-click="inscribirCurso(x.idCurso)"
+                                            ng-click="inscribirCurso(x.idCurso)" data-dismiss="modal"
                                             data-backdrop="false">Aceptar</button>
                                         <button type="button" class="btn btn-danger" data-dismiss="modal"
                                             data-backdrop="false">Cancelar</button>
@@ -90,11 +90,11 @@
                         <td>
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-light bg-white logout_icon" data-toggle="modal"
-                            data-target="#modal{{mc.idCurso}}"></button>
+                            data-target="#modalS{{mc.idCurso}}"></button>
 
 
                         <!-- Modal -->
-                        <div class="modal fade" id="modal{{mc.idCurso}}" tabindex="-1" role="dialog" aria-labelledby="Title"
+                        <div class="modal fade" id="modalS{{mc.idCurso}}" tabindex="-1" role="dialog" aria-labelledby="Title"
                             aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="dialog">
                                 <div class="modal-content">

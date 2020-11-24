@@ -1312,8 +1312,8 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 			$scope.participantesCurso = response.data;
 		});
 
-		
-		
+
+
 	}
 
 	$scope.verConstancia = function (folio, idCurso) {
@@ -1347,17 +1347,17 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 		window.history.back();
 	};
 
-	$scope.crearConstancia = function (){
+	$scope.crearConstancia = function () {
 
 		var datos = {
-			'folio':$scope.constancia.folio,
-			'participante' : $scope.constancia.participante.nombre,
-			'idUsuario' : $scope.constancia.participante.idUsuario,
-			'rol' : $scope.constancia.participante.rol,
-			'curso' : $scope.constancia.curso.curso,
-			'idCurso' : $scope.constancia.curso.idCurso,
-			'fecha' : $scope.constancia.curso.fecha,
-			'duracion' : $scope.constancia.curso.duracion
+			'folio': $scope.constancia.folio,
+			'participante': $scope.constancia.participante.nombre,
+			'idUsuario': $scope.constancia.participante.idUsuario,
+			'rol': $scope.constancia.participante.rol,
+			'curso': $scope.constancia.curso.curso,
+			'idCurso': $scope.constancia.curso.idCurso,
+			'fecha': $scope.constancia.curso.fecha,
+			'duracion': $scope.constancia.curso.duracion
 		}
 		$http({
 			method: 'POST',
@@ -2113,33 +2113,43 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, p
 			},
 			data: 'idCurso=' + id + '&idUsuario=' + $scope.idUsuario
 		}).then(function successCallback(response) {
-			if (response.data.status == "ok") {
-				$('#modal' + id).modal('hide');
-				$('.modal-backdrop').remove();
+				if (response.data.status == "ok") {
+					$('#modal' + id).modal('hide');
+					$('.modal-backdrop').remove();
 
-				$scope.alert = {
-					titulo: '¡Estás inscrito!',
-					tipo: 'success',
-					mensaje: 'Te has inscrito al curso correctamente'
-				};
-				$(document).ready(function () {
-					$('#alerta').toast('show');
-				});
-				$scope.getCursos();
-				$scope.getMisCursos();
-			} else {
-				$scope.alert = {
-					titulo: 'Error!',
-					tipo: 'danger',
-					mensaje: 'No se pudo inscribir del curso.'
-				};
-				$(document).ready(function () {
-					$('#alerta').toast('show');
-				});
-			}
-		}, function errorCallback(response) {
-			return false;
-		});
+					$scope.alert = {
+						titulo: '¡Estás inscrito!',
+						tipo: 'success',
+						mensaje: 'Te has inscrito al curso correctamente'
+					};
+					$(document).ready(function () {
+						$('#alerta').toast('show');
+					});
+					$scope.getCursos();
+					$scope.getMisCursos();
+				} else if (response.data.status == "Ya existe") {
+					$scope.alert = {
+						titulo: '¡Ya estás inscrito!',
+						tipo: 'warning',
+						mensaje: 'Intenta inscribirte a otro curso, en este ya estás.'
+					};
+					$(document).ready(function () {
+						$('#alerta').toast('show');
+					});
+				} else {
+					$scope.alert = {
+						titulo: 'Error!',
+						tipo: 'danger',
+						mensaje: 'No se pudo inscribir del curso.'
+					};
+					$(document).ready(function () {
+						$('#alerta').toast('show');
+					});
+				}
+			},
+			function errorCallback(response) {
+				return false;
+			});
 	}
 
 	$scope.getMisCursos = function () {

@@ -628,7 +628,14 @@ function Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link
 			$dx = $w-$this->cMargin-$this->GetStringWidth($txt);
 		elseif($align=='C')
 			$dx = ($w-$this->GetStringWidth($txt))/2;
-		else
+			elseif($align=='FJ')
+			{
+				//Set word spacing
+				$wmax=($w-2*$this->cMargin);
+				$this->ws=($wmax-$this->GetStringWidth($txt))/substr_count($txt,' ');
+				$this->_out(sprintf('%.3F Tw',$this->ws*$this->k));
+				$dx=$this->cMargin;
+			} else
 			$dx = $this->cMargin;
 		if($this->ColorFlag)
 			$s .= 'q '.$this->TextColor.' ';
