@@ -933,18 +933,34 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 
 	$scope.getListaDocumentosSubidos = function () {
 		var idCurso = curso.getID();
-		$http({
-			method: 'POST',
-			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getDocsCurso.php',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			data: 'idCurso=' + idCurso
-		}).then(function successCallback(response) {
-			$scope.documentosSubidos = response.data;
-		}, function errorCallback(response) {
+		$timeout(function () {
 
-		});
+			if (idCurso != undefined) {
+				$http({
+					method: 'POST',
+					url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getDocsCurso.php',
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					},
+					data: 'idCurso=' + idCurso
+				}).then(function successCallback(response) {
+					$scope.documentosSubidos = response.data;
+					$timeout(function(){
+						if ($scope.documentosSubidos != null) {
+							angular.forEach($scope.documentosSubidos, function (value) {
+								if (value.comentario == null) {
+									$("#btn" + value.idDocumento).show();
+									$("#coment" + value.idDocumento).hide();
+								} else {
+									$("#btn" + value.idDocumento).hide();
+									$("#coment" + value.idDocumento).show();
+								}
+							});
+						}
+					}, 100);
+				});
+			}
+		}, 500);
 	}
 
 	$scope.cursoID = function (id) {
@@ -1208,18 +1224,28 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 				});
 
 				$('#modal' + idDoc).modal('hide');
-				document.getElementById('mensaje' + idDoc).innerHTML = 'Documento subido';
+				document.getElementById('mensaje' + idDoc).innerHTML = 'Documento guardado';
 			}
 		}, function errorCallback(response) {
 			$scope.upload(idDoc, idCurso);
 		});
 	}
 
-	$scope.addComment = function (documento, id) {
+	$scope.addComment = function (documento, idDoc, idCurso) {
 
 		if (documento.comentario != undefined) {
-			$("#btn" + id).hide();
-			$("#coment" + id).show();
+			$http({
+				method: 'POST',
+				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/addComentario.php',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idCurso=' + idCurso + '&idDocumento=' + idDoc + '&comentario=' + documento.comentario
+			}).then(function successCallback(response) {
+				$("#btn" + idDoc).hide();
+				$("#coment" + idDoc).show();
+
+			});
 		}
 	}
 
