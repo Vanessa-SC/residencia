@@ -1604,15 +1604,25 @@ app.controller('cursosICtrl', function ($scope, $http, $location, user, curso, p
 		});
 
 	$scope.getCursos = function () {
-		$http({
-			method: 'GET',
-			url: '/Residencia/Pruebas/pruebaLogin/php/getCursos.php'
-		}).then(function successCallback(response) {
-			$scope.cursos = response.data;
-			// console.log(response.data);
-		}, function errorCallback(response) {
-			console.log(response);
-		});
+
+		$scope.id = user.getIdUsuario();
+
+		if ($scope.id != undefined) {
+			$http({
+				url: '/Residencia/Pruebas/pruebaLogin/php/getCursosInstructor.php',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idUsuario=' + $scope.id
+			}).then(function successCallback(response) {
+				$scope.cursos = response.data;
+				//console.log(response.data);
+			}, function errorCallback(response) {
+				//console.log(response.data);
+			});
+		}
+
 	}
 
 	$scope.getListaDocumentosCurso = function () {
