@@ -21,6 +21,9 @@ app.config(function ($routeProvider, $locationProvider) {
 					$location.path('/');
 				}
 			}
+		}).when('/prueba',{
+			templateUrl: 'prueba.html',
+			controller: 'pruebaCtrl'
 		}).when('/login', {
 			/* Evita que el usuario vaya al login si está loggeado */
 			resolve: {
@@ -61,6 +64,7 @@ app.config(function ($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistasC/programa.html',
 			controller: 'programaCtrl'
+			
 		}).when('/inicioC/generarCurso', {
 			resolve: {
 				/* Comprueba el rol del usuario para
@@ -943,8 +947,6 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 		});
 	}
 
-
-
 	$scope.cursoID = function (id) {
 		curso.setID(id);
 	}
@@ -1222,9 +1224,10 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 		$(document).ready(function () {
 			$('#alerta').toast('show');
 		});
-		documento.comentario = "";
+		$scope.addComentario = false;
 	}
 
+	$scope.addComentario = true;
 
 
 	$scope.getDoc();
@@ -2266,5 +2269,18 @@ app.controller('encuestaDCtrl', function ($scope, $http, $location, user, period
 });
 
 app.controller('constanciasDCtrl', function ($scope, $http, $location, user, periodoService) {
+
 	$scope.user = user.getName();
+});
+
+app.controller('pruebaCtrl', function($scope, $http){
+
+	$scope.lista = [
+		{doc:'Doc1',id:1},
+		{doc:'Doc2',id:2},
+		{doc:'Doc3',id:3},
+		{doc:'Doc4',id:4}
+	];
+
+	$scope.addComentario = true;
 });
