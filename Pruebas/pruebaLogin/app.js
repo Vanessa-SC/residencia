@@ -21,7 +21,7 @@ app.config(function ($routeProvider, $locationProvider) {
 					$location.path('/');
 				}
 			}
-		}).when('/prueba',{
+		}).when('/prueba', {
 			templateUrl: 'prueba.html',
 			controller: 'pruebaCtrl'
 		}).when('/login', {
@@ -64,7 +64,7 @@ app.config(function ($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistasC/programa.html',
 			controller: 'programaCtrl'
-			
+
 		}).when('/inicioC/generarCurso', {
 			resolve: {
 				/* Comprueba el rol del usuario para
@@ -1216,19 +1216,14 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 	}
 
 	$scope.addComment = function (documento, id) {
-		$scope.alert = {
-			titulo: 'Holi!',
-			tipo: 'info',
-			mensaje: 'Aún no hago nada, pero el comentario es: "' + documento.comentario + '" y el idDocumento es: ' + id
-		};
-		$(document).ready(function () {
-			$('#alerta').toast('show');
-		});
-		$scope.addComentario = false;
+
+		if (documento.comentario != undefined) {
+			$("#btn" + id).hide();
+			$("#coment" + id).show();
+		}
 	}
 
 	$scope.addComentario = true;
-
 
 	$scope.getDoc();
 	$scope.getListaDocumentosCurso();
@@ -2283,14 +2278,30 @@ app.controller('constanciasDCtrl', function ($scope, $http, $location, user, per
 	$scope.user = user.getName();
 });
 
-app.controller('pruebaCtrl', function($scope, $http){
+app.controller('pruebaCtrl', function ($scope, $http) {
 
-	$scope.lista = [
-		{doc:'Doc1',id:1},
-		{doc:'Doc2',id:2},
-		{doc:'Doc3',id:3},
-		{doc:'Doc4',id:4}
+	$scope.lista = [{
+			doc: 'Doc1',
+			id: 1
+		},
+		{
+			doc: 'Doc2',
+			id: 2
+		},
+		{
+			doc: 'Doc3',
+			id: 3
+		},
+		{
+			doc: 'Doc4',
+			id: 4
+		}
 	];
 
-	$scope.addComentario = true;
+	$scope.addComentario = true
+
+	$scope.add = function (id) {
+		$("#txta" + id).show();
+		$("#btn" + id).hide();
+	}
 });

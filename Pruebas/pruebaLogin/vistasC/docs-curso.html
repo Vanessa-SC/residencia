@@ -96,9 +96,26 @@
                 </td>
                 <td>
                     <button class="btn btn-sm bg-wine text-white" data-toggle="modal"
-                        data-target="#modalComentario{{doc.idDocumento}}">
+                        data-target="#modalComentario{{doc.idDocumento}}"
+                       id="btn{{doc.idDocumento}}">
                         <span class="comment_icon mr-2"></span>Agregar comentario
                     </button>
+                    <div id="coment{{doc.idDocumento}}" style="display: none;">
+                        <div class="input-group mb-3" >
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="comment-black_icon"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" 
+                                aria-label="Comentario" readonly aria-describedby="basic-addon1"
+                                ng-model="documento.comentario"></textarea>
+                        </div>
+                        <div>
+                            <button class=" btn btn-light editar_icon" title="Editar comentario" data-toggle="modal"
+                            data-target="#modalComentario{{doc.idDocumento}}"></button>
+                        </div>
+                    </div>
                 </td>
             </tr>
         </tbody>
