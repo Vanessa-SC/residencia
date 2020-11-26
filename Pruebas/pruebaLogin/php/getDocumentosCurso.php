@@ -11,6 +11,7 @@ $idDocumento = $_POST['idDocumento'];
 
 $sql = "SELECT documento.idDocumento,
         documento.nombreDocumento,
+        curso_has_documento.comentario,
         curso_has_documento.rutaArchivo
         FROM documento,curso_has_documento
         WHERE documento.idDocumento = curso_has_documento.Documento_idDocumento

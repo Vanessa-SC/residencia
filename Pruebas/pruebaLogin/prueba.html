@@ -1,0 +1,47 @@
+<div class="container">
+    <h2>Pruebas</h2>
+    <ul ng-repeat="item in lista">
+        <div>
+            <span ng-bind="item.doc"></span>
+            <button id="btn{{item.id}}"
+            data-toggle="modal"
+            data-target="#modalComentario{{item.id}}">Add</button>
+            <textarea style="display: none;" id="txta{{item.id}}" cols="30" rows="1" ng-model="comentario">{{documento.comentario}}</textarea>
+
+            <!-- Modal -->
+            <div class="modal fade" id="modalComentario{{item.id}}" tabindex="-1" role="dialog"
+            aria-labelledby="modalComentario" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-wine text-white">
+                        <h5 class="modal-title" id="modalComentarioTitulo">Agregar comentario al documento:
+                            {{item.doc}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="comment-black_icon"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Comentario..."
+                                aria-label="Comentario" aria-describedby="basic-addon1"
+                                ng-model="documento.comentario">
+                        </textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn bg-wine" data-dismiss="modal"
+                        ng-click="add(item.id)">Agregar
+                            comentario</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </ul>
+</div>

@@ -1,16 +1,16 @@
 <ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasJ/nav.html'"></ng-include>
-<div class="container px-5" ng-controlelr="constanciasController">
+<div class="container px-5" ng-controlelr="constanciasController" ng-init="getNuevoFolio()">
 	<form>
 
-		<div class="input-group mb-5  mt-5 px-5">
+		<div class="input-group mb-5  mt-5">
 			<div class="input-group-prepend">
-				<label class="input-group-text" for="folio">Folio</label>
+				<label class="input-group-text" for="folio">Folio TecNM</label>
 			</div>
-			<input required type="text" id="folio" class="form-control" ng-model="curso.folio">
+			<input type="text" id="folio" class="form-control" ng-model="curso.folio">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="ClaveRegistro">Clave registro</label>
 			</div>
-			<input required type="text" id="ClaveRegistro" class="form-control" ng-model="curso.clave">
+			<input readonly type="text" id="ClaveRegistro" class="form-control" ng-model="curso.clave">
 		</div>
 		<div class="dropdown-divider"></div>
 		<div class="input-group mb-3  mt-5">
@@ -88,7 +88,7 @@
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="departamento">Departamento</label>
 			</div>
-			<select required class="custom-select" id="departamento" ng-model="curso.departamento">
+			<select required class="custom-select" id="departamento" ng-model="curso.departamento" ng-change="getNuevoFolio()">
 				<option ng-repeat="x in dptos" value="{{x.idDepartamento}}"> {{x.nombreDepartamento}} </option>
 			</select>
 

@@ -21,6 +21,9 @@ app.config(function ($routeProvider, $locationProvider) {
 					$location.path('/');
 				}
 			}
+		}).when('/prueba', {
+			templateUrl: 'prueba.html',
+			controller: 'pruebaCtrl'
 		}).when('/login', {
 			/* Evita que el usuario vaya al login si está loggeado */
 			resolve: {
@@ -61,6 +64,7 @@ app.config(function ($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistasC/programa.html',
 			controller: 'programaCtrl'
+
 		}).when('/inicioC/generarCurso', {
 			resolve: {
 				/* Comprueba el rol del usuario para
@@ -945,21 +949,35 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 
 	$scope.getListaDocumentosSubidos = function () {
 		var idCurso = curso.getID();
-		$http({
-			method: 'POST',
-			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getDocsCurso.php',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			data: 'idCurso=' + idCurso
-		}).then(function successCallback(response) {
-			$scope.documentosSubidos = response.data;
-		}, function errorCallback(response) {
+		$timeout(function () {
 
-		});
+			if (idCurso != undefined) {
+				$http({
+					method: 'POST',
+					url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getDocsCurso.php',
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					},
+					data: 'idCurso=' + idCurso
+				}).then(function successCallback(response) {
+					$scope.documentosSubidos = response.data;
+					$timeout(function () {
+						if ($scope.documentosSubidos != null) {
+							angular.forEach($scope.documentosSubidos, function (value) {
+								if (value.comentario == null) {
+									$("#btn" + value.idDocumento).show();
+									$("#coment" + value.idDocumento).hide();
+								} else {
+									$("#btn" + value.idDocumento).hide();
+									$("#coment" + value.idDocumento).show();
+								}
+							});
+						}
+					}, 100);
+				});
+			}
+		}, 500);
 	}
-
-
 
 	$scope.cursoID = function (id) {
 		curso.setID(id);
@@ -1222,26 +1240,48 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 				});
 
 				$('#modal' + idDoc).modal('hide');
-				document.getElementById('mensaje' + idDoc).innerHTML = 'Documento subido';
+				document.getElementById('mensaje' + idDoc).innerHTML = 'Documento guardado';
 			}
 		}, function errorCallback(response) {
 			$scope.upload(idDoc, idCurso);
 		});
 	}
 
-	$scope.addComment = function (documento, id) {
-		$scope.alert = {
-			titulo: 'Holi!',
-			tipo: 'info',
-			mensaje: 'Aún no hago nada, pero el comentario es: "' + documento.comentario + '" y el idDocumento es: ' + id
-		};
-		$(document).ready(function () {
-			$('#alerta').toast('show');
-		});
-		documento.comentario = "";
+	$scope.addComment = function (documento, idDoc, idCurso) {
+
+		if (documento.comentario != undefined) {
+			$http({
+				method: 'POST',
+				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/addComentario.php',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idCurso=' + idCurso + '&idDocumento=' + idDoc + '&comentario=' + documento.comentario
+			}).then(function successCallback(response) {
+				$("#btn" + idDoc).hide();
+				$("#coment" + idDoc).show();
+
+			});
+		}
 	}
 
-
+	$scope.getNuevoFolio = function () {
+		if ($scope.curso.departamento == undefined) {
+			id = user.getIdDepartamento();
+		} else {
+			id = $scope.curso.departamento;
+		}
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getNuevoFolio.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idDepartamento=' + id
+		}).then(function successCallback(response) {
+			$scope.curso.clave = response.data;
+		});
+	}
 
 	$scope.getDoc();
 	$scope.getListaDocumentosCurso();
@@ -2094,6 +2134,25 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 		});
 	}
 
+	$scope.getNuevoFolio = function () {
+		if ($scope.curso.departamento == undefined) {
+			id = user.getIdDepartamento();
+		} else {
+			id = $scope.curso.departamento;
+		}
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getNuevoFolio.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idDepartamento=' + id
+		}).then(function successCallback(response) {
+			$scope.curso.clave = response.data;
+		});
+	}
+
+
 	$scope.getCursoAct();
 
 	$scope.getInfoCurso();
@@ -2315,5 +2374,34 @@ app.controller('encuestaDCtrl', function ($scope, $http, $location, user, period
 });
 
 app.controller('constanciasDCtrl', function ($scope, $http, $location, user, periodoService) {
+
 	$scope.user = user.getName();
+});
+
+app.controller('pruebaCtrl', function ($scope, $http) {
+
+	$scope.lista = [{
+			doc: 'Doc1',
+			id: 1
+		},
+		{
+			doc: 'Doc2',
+			id: 2
+		},
+		{
+			doc: 'Doc3',
+			id: 3
+		},
+		{
+			doc: 'Doc4',
+			id: 4
+		}
+	];
+
+	$scope.addComentario = true
+
+	$scope.add = function (id) {
+		$("#txta" + id).show();
+		$("#btn" + id).hide();
+	}
 });
