@@ -647,6 +647,22 @@ app.service('periodoService', function ($q, $http) {
 	}
 });
 
+app.service('fechaService', function ($q, $http) {
+
+	return {
+		getFecha: function () {
+			return $http({
+				method: 'GET',
+				url: '/Residencia/Pruebas/pruebaLogin/php/fecha.php'
+			}).then(function successCallback(response) {
+				return response.data.fecha;
+			}, function errorCallback(response) {
+				return $q.reject(response.data);
+			});
+		}
+	}
+});
+
 app.filter('trustAsResourceUrl', ['$sce', function ($sce) {
 	return function (val) {
 		return $sce.trustAsResourceUrl(val);
@@ -1695,11 +1711,33 @@ app.controller('cursosICtrl', function ($scope, $http, $location, user, curso, p
 
 });
 
-app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curso, periodoService) {
+app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curso, periodoService, fechaService) {
 	$scope.user = user.getName();
 	$scope.cursoID = function (id) {
 		curso.setID(id);
 	}
+
+	$scope.getCursos = function () {
+		$http({
+			method: 'POST',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getCursosDepartamento.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idDepartamento=' + user.getIdDepartamento()
+		}).then(function successCallback(response) {
+			$scope.cursos = response.data;
+		}, function errorCallback(response) {
+
+		});
+	}
+
+	$scope.fecha = fechaService.getFecha()
+		.then(function (response) {
+			$scope.fecha = response;
+		}, function (error) {
+			console.log(response);
+		});
 
 	$scope.getParticipantes = function () {
 
@@ -1725,6 +1763,7 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 	}
 
 	$scope.getParticipantes();
+	$scope.getCursos();
 });
 
 app.controller('participantesICtrl', function ($scope, $http, $location, user, curso, periodoService) {
