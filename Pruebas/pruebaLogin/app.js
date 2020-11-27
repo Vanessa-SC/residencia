@@ -2206,15 +2206,19 @@ app.controller('encuestaJCtrl', function ($scope, $http, $location, user, period
 /*	CONTROLADORES PARA EL USUARIO DOCENTE */
 app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, periodoService) {
 	$scope.user = user.getName();
+
 	$scope.getCursos = function () {
 		$http({
-			method: 'GET',
-			url: '/Residencia/Pruebas/pruebaLogin/php/getCursos.php'
+			method: 'POST',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getCursosDocenteDpto.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idDepartamento=' + user.getIdDepartamento()
 		}).then(function successCallback(response) {
 			$scope.cursos = response.data;
-			// console.log(response.data);
 		}, function errorCallback(response) {
-			//console.log(response);
+
 		});
 	}
 
