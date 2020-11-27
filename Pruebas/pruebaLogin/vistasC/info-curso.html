@@ -10,9 +10,6 @@
             {{infoCurso.curso}}
         </p>
     </div>
-
-
-
     <table class="table-striped w-100 align-middle ">
         <thead>
             <tr>
@@ -27,6 +24,7 @@
                 <td class="font-weight-bold align-middle">No. de horas por curso</td>
                 <td class="font-weight-bold align-middle">Instructor (a)</td>
                 <td class="font-weight-bold align-middle">Dirigido a:</td>
+                <td class="font-weight-bold align-middle">Modalidad</td>
             </tr>
             <tr>
                 <td class=" align-middle ">{{infoCurso.fecha}} <br>
@@ -35,6 +33,7 @@
                 <td class=" align-middle ">{{infoCurso.duracion}}</td>
                 <td class=" align-middle ">{{infoCurso.maestro}}</td>
                 <td class=" align-middle ">{{infoCurso.destinatarios}}</td>
+                <td class=" align-middle ">{{infoCurso.modalidad}}</td>
             </tr>
         </tbody>
     </table>
@@ -44,9 +43,15 @@
                 title="Editar"></button>
         </a>
     </div>
+    <div class="text-center">
+        <button class="btn bg-wine text-white" ng-click="printOficio()">
+            <span class="print_icon mr-2"></span>Imprimir oficio del curso
+        </button>
+    </div>
+
     <!-- Modal -->
-    <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog"
-        aria-labelledby="modalEditar" aria-hidden="true">
+    <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="modalEditar"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-wine text-white">
@@ -171,21 +176,22 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn bg-wine" data-dismiss="modal" ng-click="actualizarCurso()">Guardar cambios</button>
+                    <button type="button" class="btn bg-wine" data-dismiss="modal" ng-click="actualizarCurso()">Guardar
+                        cambios</button>
                 </div>
             </div>
         </div>
     </div>
     <div class="toast" data-autohide="false" id="alerta"
-	style="position: fixed; top: 50px; right: 50px; background-color: rgb(255, 255, 255); width:500px">
-	<div class="toast-header bg-{{alert.tipo}} text-white">
-		<strong class="mr-auto">{{alert.titulo}}</strong>
-		<button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
-			<span aria-hidden="true" style="font-size: 1.1em;">&times;</span>
-		</button>
-	</div>
-	<div class="toast-body">
-		<div class="text-dark">{{alert.mensaje}}</div>
-	</div>
-</div>
+        style="position: fixed; top: 50px; right: 50px; background-color: rgb(255, 255, 255); width:500px">
+        <div class="toast-header bg-{{alert.tipo}} text-white">
+            <strong class="mr-auto">{{alert.titulo}}</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
+                <span aria-hidden="true" style="font-size: 1.1em;">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            <div class="text-dark">{{alert.mensaje}}</div>
+        </div>
+    </div>
 </div>

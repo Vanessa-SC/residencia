@@ -475,6 +475,10 @@ app.service('user', function () {
 	};
 
 	this.getID = function () {
+		if (!!localStorage.getItem('login')) {
+			var data = JSON.parse(localStorage.getItem('login'));
+			id = data.id;
+		}
 		return id;
 	};
 
@@ -974,11 +978,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 					data: 'idCurso=' + idCurso
 				}).then(function successCallback(response) {
 					$scope.documentosSubidos = response.data;
-<<<<<<< HEAD
 					$timeout(function(){
-=======
-					$timeout(function () {
->>>>>>> 3a05ba65cd804c6a541ecb63a1864393b79abc24
 						if ($scope.documentosSubidos != null) {
 							angular.forEach($scope.documentosSubidos, function (value) {
 								if (value.comentario == null) {
@@ -1015,7 +1015,6 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 				data: 'idCurso=' + $scope.idCurso
 			}).then(function successCallback(response) {
 				$scope.infoCurso = response.data;
-				//  console.log(response.data);
 			}, function errorCallback(response) {
 
 			});
@@ -1277,14 +1276,6 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 			}).then(function successCallback(response) {
 				$("#btn" + idDoc).hide();
 				$("#coment" + idDoc).show();
-<<<<<<< HEAD
-
-			});
-		}
-	}
-
-	$scope.addComentario = true;
-=======
 
 			});
 		}
@@ -1307,7 +1298,11 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 			$scope.curso.clave = response.data;
 		});
 	}
->>>>>>> 3a05ba65cd804c6a541ecb63a1864393b79abc24
+
+	$scope.printOficio = function(){
+		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getOficioCurso.php?idd='+user.getIdDepartamento()+
+		'&idc='+$scope.infoCurso.idCurso+'&idu='+user.getID(), '_blank');
+	}
 
 	$scope.getDoc();
 	$scope.getListaDocumentosCurso();
@@ -1683,13 +1678,9 @@ app.controller('cursosICtrl', function ($scope, $http, $location, user, curso, p
 		});
 
 	$scope.getCursos = function () {
-<<<<<<< HEAD
 
 		$scope.id = user.getIdUsuario();
 
-=======
-		$scope.id = user.getIdUsuario();
->>>>>>> 3a05ba65cd804c6a541ecb63a1864393b79abc24
 		if ($scope.id != undefined) {
 			$http({
 				url: '/Residencia/Pruebas/pruebaLogin/php/getCursosInstructor.php',
@@ -2462,14 +2453,6 @@ app.controller('constanciasDCtrl', function ($scope, $http, $location, user, per
 	$scope.user = user.getName();
 });
 
-<<<<<<< HEAD
-=======
-app.controller('constanciasDCtrl', function ($scope, $http, $location, user, periodoService) {
-
-	$scope.user = user.getName();
-});
-
->>>>>>> 3a05ba65cd804c6a541ecb63a1864393b79abc24
 app.controller('pruebaCtrl', function ($scope, $http) {
 
 	$scope.lista = [{
