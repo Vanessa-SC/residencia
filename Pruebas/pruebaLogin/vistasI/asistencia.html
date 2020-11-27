@@ -1,6 +1,6 @@
 <ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasI/nav.html'"></ng-include>
 
-<div class="container">
+<div class="container" ng-init="getParticipantes()">
     <div class="d-flex">
         <div class="p-2">
             <img src="\Residencia\Proyecto\images\Logo ITD.png" class="logoITD" alt="">
@@ -15,19 +15,28 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="x in participantes">
-                        <th scope="row" class="fontT"> {{x.nombre}} </th>
-                        <td>
-                            <div class="custom-control text-center custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                <label class="custom-control-label" for="customCheck2"></label>
+                        <th scope="row" class="fontT align-middle"> {{x.nombre}} </th>
+                        <td class="align-middle">
+                            <div class="custom-control custom-checkbox text-center align-middle">
+                                <input type="checkbox" 
+                                class="custom-control-input" 
+                                id="check{{x.idUsuario}}"
+                                name="{{x.idUsuario}}"
+                                ng-model="x.asistencia" 
+                                ng-true-value="1" ng-false-value="0"
+                                ng-change="registrarAsistencia(x.asistencia)"
+                                >
+                                <label class="custom-control-label" for="check{{x.idUsuario}}"></label>
                             </div>
                         </td>
                     </tr>
                     <tr>
-                        <td class="p-4"><button class="btn bg-light"><i class="erase_icon"></i>Borrar</button></td>
-                        <td class="p-4"><button class="btn bg-light"><i class="send_icon"></i>Enviar</button></td>
+                        <td class="p-4"><button class="btn btn-secondary" ng-click="uncheck()"><i class="erase_icon"></i>Borrar</button></td>
+                        <td class="p-4"><button class="btn bg-wine text-white" ng-click="registrarAsistencia()"><i class="send_icon"></i>Enviar</button></td>
                     </tr>
+                   
                 </tbody>
+                <!-- <input type="button" value="Get" ng-click="GetValue()" /> -->
             </table>
         </div>
     </div>

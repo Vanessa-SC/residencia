@@ -1073,7 +1073,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 	$scope.crearCurso = function (datos) {
 		datos.username = user.getName();
 		datos.departamento = user.getIdDepartamento();
-		console.log(datos);
+		// console.log(datos);
 		if (
 			datos.clave != undefined &&
 			datos.nombre != undefined &&
@@ -1657,9 +1657,7 @@ app.controller('cursosICtrl', function ($scope, $http, $location, user, curso, p
 		});
 
 	$scope.getCursos = function () {
-
 		$scope.id = user.getIdUsuario();
-
 		if ($scope.id != undefined) {
 			$http({
 				url: '/Residencia/Pruebas/pruebaLogin/php/getCursosInstructor.php',
@@ -1695,7 +1693,7 @@ app.controller('cursosICtrl', function ($scope, $http, $location, user, curso, p
 
 	$scope.getInfoCurso = function () {
 		$scope.idCurso = curso.getID();
-		if ($scope.idCurso != "") {
+		if ($scope.idCurso != undefined) {
 			$http({
 				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getInfoCurso.php',
 				method: 'POST',
@@ -1745,7 +1743,7 @@ app.controller('cursosICtrl', function ($scope, $http, $location, user, curso, p
 		window.history.back();
 	};
 
-	$scope.getListaDocumentosCurso();
+	// $scope.getListaDocumentosCurso();
 	$scope.getCursos();
 	$scope.getInfoCurso();
 
@@ -1767,8 +1765,6 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 			data: 'idDepartamento=' + user.getIdDepartamento()
 		}).then(function successCallback(response) {
 			$scope.cursos = response.data;
-		}, function errorCallback(response) {
-
 		});
 	}
 
@@ -1778,6 +1774,25 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 		}, function (error) {
 			console.log(response);
 		});
+
+	$scope.getListaAsistencia = function () {
+
+		$scope.idCurso = curso.getID();
+		// console.log($scope.idCurso);
+		if ($scope.idCurso != "") {
+			$http({
+				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getListaAsistencia.php',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idCurso=' + $scope.idCurso
+			}).then(function successCallback(response) {
+				$scope.participantes = response.data;
+				console.log(response.data);
+			});
+		}
+	}
 
 	$scope.getParticipantes = function () {
 
@@ -1794,15 +1809,36 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 				data: 'idCurso=' + $scope.idCurso
 			}).then(function successCallback(response) {
 				$scope.participantes = response.data;
-				// console.log(response.data);
-			}, function errorCallback(response) {
-
+				console.log(response.data);
 			});
 		}
 
 	}
 
-	$scope.getParticipantes();
+	$scope.uncheck = function(){
+		$( ":checkbox" ).prop( "checked", false );
+	}
+
+	$scope.registrarAsistencia = function(a){
+		console.log(a);
+	}
+
+	/* ignora esto, aún no hace nada. 
+	estaba tratando de seguir algo que encontré en un blog */
+	$scope.GetValue = function () {
+		var message = "";
+		for (var i = 0; i < $scope.pasticipantes.length; i++) {
+			if ($scope.participantes[i].asistencia = 1) {
+				var id = $scope.participantes[i].idUsuario;
+				var user = $scope.participantes[i].nombre;
+				message += "ID: " + id + " Docente: " + user + "\n";
+			}
+		}
+
+		alert(message);
+	}
+
+	// $scope.getParticipantes();
 	$scope.getCursos();
 });
 

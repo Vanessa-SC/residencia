@@ -19,7 +19,7 @@ $sql = "SELECT curso.idCurso, curso.nombreCurso as curso,
         FROM instructor Inner join curso 
         ON curso.Instructor_idInstructor = instructor.idInstructor
         Inner join usuario
-        ON usuario.idUsuario = instructor.idInstructor
+        ON usuario.idUsuario = instructor.idUsuario
         AND usuario.idUsuario = $id
         ORDER BY fechaInicio ASC
         ";
