@@ -1,1 +1,4 @@
 Proyecto/files/
+log.txt
+
+/* comando: git --no-pager log > log.txt */
