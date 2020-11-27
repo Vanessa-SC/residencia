@@ -12,7 +12,8 @@ $sql            = "SELECT curso.idCurso,
                     DATE_FORMAT(curso.fechaInicio, '%d de %M %Y') as fechaExpedicion,
                     curso.duracion,
                     constancia.folio, 
-                    usuario.nombreUsuario
+                    usuario.nombreUsuario,
+                    concat_ws(' ',usuario.apellidoPaterno,usuario.apellidomaterno,usuario.nombre) as nombre
                     FROM usuario, curso, constancia
                     WHERE constancia.Curso_idCurso = curso.idCurso
                     AND constancia.Usuario_idUsuario = usuario.idUsuario";

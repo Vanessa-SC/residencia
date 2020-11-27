@@ -28,37 +28,47 @@
                         <td> {{x.curso}} </td>
                         <td> {{x.fecha}} <br> {{x.horario}} </td>
                         <td><a href="#!/inicioD/cursos/informacion" ng-click=cursoID(x.idCurso)><button
-                                    class="btn btn-light moreinfo_icon" title="Ver más información"></button></a></td>
+                        class="btn btn-light moreinfo_icon" title="Ver más información"></button></a></td>
                         <td>
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-light bg-white editar_icon" data-toggle="modal"
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-light bg-white editar_icon" data-toggle="modal"
                             data-target="#modal{{x.idCurso}}"></button>
-
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="modal{{x.idCurso}}" tabindex="-1" role="dialog" aria-labelledby="Title"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <!-- Modal -->
+                            <div class="modal fade" id="modal{{x.idCurso}}" tabindex="-1" role="dialog" aria-labelledby="Title"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        ¿Está seguro de que quiere salir del curso: <br> "<span
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ¿Está seguro de que quiere inscribirse al curso: <br> "<span
                                             class="font-italic">{{x.curso}}</span>"?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button class="btn btn-success" title="Aceptar"
-                                            ng-click="inscribirCurso(x.idCurso)"
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-success" title="Aceptar"
+                                            ng-click="inscribirCurso(x.idCurso)" data-dismiss="modal"
                                             data-backdrop="false">Aceptar</button>
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal"
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal"
                                             data-backdrop="false">Cancelar</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="toast" data-autohide="false" id="alerta"
+                                style="position: fixed; top: 50px; right: 50px; background-color: rgb(255, 255, 255); width:500px">
+                                <div class="toast-header bg-{{alert.tipo}} text-white">
+                                    <strong class="mr-auto">{{alert.titulo}}</strong>
+                                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
+                                    <span aria-hidden="true" style="font-size: 1.1em;">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="toast-body">
+                                    <div>{{alert.mensaje}}</div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
@@ -74,7 +84,6 @@
                 <thead>
                     <tr>
                         <th></th>
-                        <th scope="col">No.</th>
                         <th scope="col">Curso</th>
                         <th scope="col">Periodo de realizaci&oacute;n</th>
                         <th scope="col">Salir del curso</th>
@@ -84,57 +93,56 @@
                 <tbody>
                     <tr ng-repeat="mc in misCursos">
                         <th></th>
-                        <th scope="row">{{mc.idCurso}}</th>
                         <td>{{mc.curso}}</td>
                         <td>{{mc.fecha}} <br>{{mc.horario}} Hrs.</td>
                         <td>
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-light bg-white logout_icon" data-toggle="modal"
-                            data-target="#modal{{mc.idCurso}}"></button>
-
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="modal{{mc.idCurso}}" tabindex="-1" role="dialog" aria-labelledby="Title"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-light bg-white logout_icon" data-toggle="modal"
+                            data-target="#modalS{{mc.idCurso}}"></button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="modalS{{mc.idCurso}}" tabindex="-1" role="dialog" aria-labelledby="Title"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        ¿Está seguro de que quiere salir del curso: <br> "<span
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ¿Está seguro de que quiere salir del curso: <br> "<span
                                             class="font-italic">{{mc.curso}}</span>"?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button class="btn btn-success" title="Aceptar"
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-success" title="Aceptar"
                                             ng-click="salirCurso(mc.idCurso)"
                                             data-backdrop="false">Aceptar</button>
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal"
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal"
                                             data-backdrop="false">Cancelar</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="toast" data-autohide="false" id="alerta"
+                                style="position: fixed; top: 50px; right: 50px; background-color: rgb(255, 255, 255); width:500px">
+                                <div class="toast-header bg-{{alerta.tipo}} text-white">
+                                    <strong class="mr-auto">{{alerta.titulo}}</strong>
+                                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
+                                    <span aria-hidden="true" style="font-size: 1.1em;">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="toast-body">
+                                    <div>{{alerta.mensaje}}</div>
+                                </div>
+                            </div>
                         </td>
-                        <td><a href="#!/inicioD/encuesta"><button
-                                    class="btn bg-white encuesta_icon"></button></a></td>
+                        <td>
+                            <a href="#!/inicioD/encuesta" ng-click="getEncuesta(1)">
+                                <button class="btn bg-white encuesta_icon"></button>
+                            </a>
+                        </td>
                     </tr>
                 </tbody>
-            </table>
-            <div class="toast" data-autohide="false" id="alerta"
-                style="position: fixed; top: 50px; right: 50px; background-color: rgb(255, 255, 255); width:500px">
-                <div class="toast-header bg-{{alert.tipo}} text-white">
-                    <strong class="mr-auto">{{alert.titulo}}</strong>
-                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
-                        <span aria-hidden="true" style="font-size: 1.1em;">&times;</span>
-                    </button>
-                </div>
-                <div class="toast-body">
-                    <div>{{alert.mensaje}}</div>
-                </div>
             </div>
         </div>
     </div>
-</div>
