@@ -66,7 +66,6 @@ $curso = mysqli_fetch_array ($res4);
 /* Creación el oficio */
 
 $pdf = new FPDF('P', 'mm', 'letter');
-$pdf->SetAutoPageBreak(false);
 $pdf->AddPage();
 $pdf->SetFillColor(255,255,255);
 $pdf->SetLeftMargin(30);
@@ -104,12 +103,12 @@ $pdf->MultiCell(153, 7, utf8_decode('Agradeciendo de antemano su atención, me e
 $pdf->Ln(15);
 $pdf->SetFont('', 'B', 12);
 $pdf->Cell(105, 0, 'ATENTAMENTE', 0, 0,'L');
-$pdf->Ln(30);
+$pdf->Ln(35);
 
 
 $pdf->Cell(strlen($curso['usuario'])*2.3, 0, utf8_decode($curso['usuario']), 0, 0,'L');
 $pdf->Ln(5);
-$pdf->Cell(105, 0, 'DEPARTAMENTO DE '.utf8_decode($departamento[0]), 0, 0,'L');
+$pdf->Cell(105, 0, 'DEPARTAMENTO '.utf8_decode(strtoupper($departamento[0])), 0, 0,'L');
 // // // Nombre del PDF
 $archivo = 'doc_' . time() . '.pdf';
 $pdf->Output($archivo, 'I');
