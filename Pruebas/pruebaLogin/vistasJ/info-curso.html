@@ -3,20 +3,19 @@
     <div class="d-flex align-middle">
         <div class=" pt-4">
             <button title="Regresar a la página anterior" class="btn-back back_icon" ng-click="back()">
-            </button>            
+            </button>
         </div>
         <p class="w-100 text-center p-4 mt-2 border-bottom border-dark">
             <strong>Curso:</strong><br>
             {{infoCurso.curso}}
         </p>
     </div>
-    
-    
-    
     <table class="table-striped w-100 align-middle ">
         <thead>
             <tr>
-                <td colspan="5" style="padding-bottom: 15px;" ><strong>Objetivo: </strong>{{infoCurso.objetivo}} <br></td>
+                <td colspan="5" style="padding-bottom: 15px;">
+                    <strong>Objetivo: </strong>{{infoCurso.objetivo}} <br>
+                </td>
             </tr>
         </thead>
         <tbody class="bg-white text-center table table-bordered mt-2 pt-2">
@@ -26,21 +25,174 @@
                 <td class="font-weight-bold align-middle">No. de horas por curso</td>
                 <td class="font-weight-bold align-middle">Instructor (a)</td>
                 <td class="font-weight-bold align-middle">Dirigido a:</td>
+                <td class="font-weight-bold align-middle">Modalidad</td>
             </tr>
             <tr>
                 <td class=" align-middle ">{{infoCurso.fecha}} <br>
-                {{infoCurso.horario}}</td>
+                    {{infoCurso.horario}}</td>
                 <td class=" align-middle ">{{infoCurso.lugar}}</td>
                 <td class=" align-middle ">{{infoCurso.duracion}}</td>
                 <td class=" align-middle ">{{infoCurso.maestro}}</td>
                 <td class=" align-middle ">{{infoCurso.destinatarios}}</td>
+                <td class=" align-middle ">{{infoCurso.modalidad}}</td>
             </tr>
         </tbody>
     </table>
+    <div class="text-center mt-3">
+        <a ng-click="cursoID(infoCurso.idCurso)">
+            <button class="btn btn-lg bg-white editar_icon mb-1" data-toggle="modal" data-target="#modalEditar"
+                title="Editar"></button>
+        </a>
+    </div>
     <div class="text-center">
-        <!-- <button class="btn m-2 bg-white atras_icon"></button> -->
-        <!-- <button class="btn m-2 bg-white reload_icon"></button> -->
-        <button class="btn m-2 bg-white editar_icon"></button>
-        <!-- <button class="btn m-2 bg-white adelante_icon"></button> -->
+        <button class="btn bg-wine text-white" ng-click="printOficio()">
+            <span class="print_icon mr-2"></span>Imprimir oficio del curso
+        </button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="modalEditar"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-wine text-white">
+                    <h5 class="modal-title" id="modalEditarTitulo">Editar curso</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="input-group mb-4">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="folio">Folio</label>
+                            </div>
+                            <input required type="text" id="folio" class="form-control" ng-model="curso.Folio"
+                                ng-value="actCurso.Folio">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="ClaveRegistro">Clave registro</label>
+                            </div>
+                            <input required type="text" id="ClaveRegistro" class="form-control"
+                                ng-model="curso.ClaveRegistro" ng-value="actCurso.ClaveRegistro">
+                        </div>
+                        <div class="input-group mb-2  mt-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="nombreCurso">Nombre</label>
+                            </div>
+                            <textarea required type="text" id="nombreCurso" class="form-control" ng-model="curso.curso"
+                                ng-value="actCurso.curso"></textarea>
+                        </div>
+
+                        <div class="input-group mb-4  mt-5">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="duracion">Duraci&oacute;n</label>
+                            </div>
+
+                            <input required type="number" id="duracion" class="form-control" min="30" string-to-number
+                                ng-model="curso.duracion" ng-value="actCurso.duracion">
+                        </div>
+                        <div class="input-group mb-2  mt-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="horaInicio">Hora de Inicio</label>
+                            </div>
+                            <input required type="time" id="horaInicio" class="form-control" as-date
+                                ng-model="curso.horaInicio" ng-value="actCurso.horaInicio">
+
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="horaFin">Hora de Termino</label>
+                            </div>
+                            <input required type="time" id="horaFin" class="form-control" as-date
+                                ng-model="curso.horaFin" ng-value="actCurso.horaFin">
+                        </div>
+                        <div class="input-group mb-2  mt-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="fechaInicio">Fecha Inicio</label>
+                            </div>
+                            <input required type="date" id="fechaInicio" class="form-control" as-date
+                                ng-model="curso.fechaInicio" ng-value="actCurso.fechaInicio">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="fechaFin">Fecha Fin</label>
+                            </div>
+                            <input required type="date" id="fechaFin" class="form-control" as-date
+                                ng-model="curso.fechaFin" ng-value="actCurso.fechaFin">
+                        </div>
+
+                        <div class="input-group mb-4  mt-5">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="modalidad">Modalidad</label>
+                            </div>
+
+                            <select required class="custom-select" id="modalidad" ng-model="curso.modalidad"
+                                ng-value="curso.modalidad">
+                                <option value="1">Presencial</option>
+                                <option value="2">Virtual</option>
+                                <option value="3">Semipresencial</option>
+                            </select>
+                        </div>
+                        <div class="input-group mb-2  mt-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="lugar">Lugar</label>
+                            </div>
+                            <input required type="text" id="lugar" class="form-control" ng-model="curso.lugar"
+                                ng-value="actCurso.lugar">
+                        </div>
+                        <div class="input-group mb-2  mt-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="destinatarios">Destinatarios</label>
+                            </div>
+                            <input required type="text" id="destinatarios" class="form-control"
+                                ng-model="curso.destinatarios" ng-value="actCurso.destinatarios">
+                        </div>
+                        <div class="input-group mb-3  mt-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="objetivo">Objetivo</label>
+                            </div>
+                            <textarea required type="text" id="objetivo" class="form-control"
+                                ng-value="actCurso.objetivo" ng-model="curso.objetivo"></textarea>
+                        </div>
+                        <div class="input-group mb-2  mt-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="observaciones">Observaciones</label>
+                            </div>
+                            <textarea type="text" id="observaciones" class="form-control" ng-model="curso.observaciones"
+                                ng-value="actCurso.observaciones"></textarea>
+                        </div>
+
+                        <div class="input-group mb-3  mt-5">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="departamento">Departamento</label>
+                            </div>
+                            <select required class="custom-select" id="departamento" ng-model="curso.departamento">
+                                <option ng-repeat="x in dptos" value="{{x.idDepartamento}}"> {{x.nombreDepartamento}}
+                                </option>
+                            </select>
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="instructor">Instructor</label>
+                            </div>
+                            <select required class="custom-select" id="instructor" ng-model="curso.instructor">
+                                <option ng-repeat="x in instructor" value="{{x.idInstructor}}"> {{x.nombre}} </option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn bg-wine" data-dismiss="modal" ng-click="actualizarCurso()">Guardar
+                        cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="toast" data-autohide="false" id="alerta"
+        style="position: fixed; top: 50px; right: 50px; background-color: rgb(255, 255, 255); width:500px">
+        <div class="toast-header bg-{{alert.tipo}} text-white">
+            <strong class="mr-auto">{{alert.titulo}}</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
+                <span aria-hidden="true" style="font-size: 1.1em;">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            <div class="text-dark">{{alert.mensaje}}</div>
+        </div>
     </div>
 </div>

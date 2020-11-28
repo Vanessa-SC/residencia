@@ -1995,11 +1995,27 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 	}
 
 	$scope.crearCurso = function (datos) {
-		console.log(datos);
-		if (datos.objetivo != "") {
+		datos.username = user.getName();
+		datos.departamento = user.getIdDepartamento();
+		// console.log(datos);
+		if (
+			datos.clave != undefined &&
+			datos.nombre != undefined &&
+			datos.duracion != undefined &&
+			datos.horaInicio != "" &&
+			datos.horaFin != "" &&
+			datos.fechaInicio != "" &&
+			datos.fechaFin != "" &&
+			datos.modalidad != undefined &&
+			datos.lugar != undefined &&
+			datos.destinatarios != undefined &&
+			datos.Objetivo != undefined &&
+			datos.departamento != undefined &&
+			datos.instructor != undefined
+		) {
 			$http({
 				method: 'POST',
-				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/crearCursoC.php',
+				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/crearCursoJ.php',
 				headers: {
 					'Content-Type': 'application/json'
 				},
@@ -2016,23 +2032,27 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 						$('#alerta').toast('show');
 					});
 					$timeout(function () {
-						$location.path("/inicioJ/cursos");
+						$location.path("/inicioC");
 					}, 2000);
 				} else {
 					$scope.alert = {
-						titulo: 'Creado!',
-						tipo: 'success',
+						titulo: 'Error!',
+						tipo: 'danger',
 						mensaje: 'Ocurrió un error al crear el curso'
 					};
 					$(document).ready(function () {
 						$('#alerta').toast('show');
 					});
-					$timeout(function () {
-						$location.path("/inicioJ/cursos");
-					}, 2000);
 				}
-			}, function errorCallback(response) {
-				// console.log("No hay datos.");
+			});
+		} else {
+			$scope.alert = {
+				titulo: 'Hey!',
+				tipo: 'warning',
+				mensaje: 'Verifica que todos los campos estén llenos.'
+			};
+			$(document).ready(function () {
+				$('#alerta').toast('show');
 			});
 		}
 	}
@@ -2211,9 +2231,14 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 		});
 	}
 
+	$scope.printOficio = function(){
+		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getOficioCurso.php?idd='+user.getIdDepartamento()+
+		'&idc='+$scope.infoCurso.idCurso+'&idu='+user.getID(), '_blank');
+	}
+
+
 
 	$scope.getCursoAct();
-
 	$scope.getInfoCurso();
 	$scope.getCursos();
 	$scope.getDepartamentos();
