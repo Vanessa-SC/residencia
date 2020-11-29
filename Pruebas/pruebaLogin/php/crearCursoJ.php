@@ -9,15 +9,8 @@ $horaInicio = date('h:i', strtotime($curso->horaInicio));
 $horaFin = date('h:i', strtotime($curso->horaFin));
 $año = date('Y', strtotime($curso->fechaInicio));
 
-setlocale(LC_TIME, 'es_MX');
-
-$fechaInicio = strftime('%Y-%m-%d', strtotime($curso->fechaInicio));
-$fechaFin = strftime('%Y-%m-%d', strtotime($curso->fechaFin));
-
-/* fecha del curso para el oficio de registro */
-$inicio = strftime('%d de %B', strtotime($curso->fechaInicio));
-$fin = strftime('%d de %B, %Y', strtotime($curso->fechaFin));
-$fechaCurso = $inicio . ' al ' . $fin;
+$fechaInicio = date('Y-m-d', strtotime($curso->fechaInicio));
+$fechaFin = date('Y-m-d', strtotime($curso->fechaFin));
 
 /* Fecha actual en español */
 $bMeses = array("void", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
@@ -47,33 +40,72 @@ if ($curso->modalidad == 1) {
     $modalidad = "Semipresencial";
 }
 
-/* Validar si hay observaciones */
-if($curso->observaciones == ""){
-    $curso->observaciones== "Ninguna";
+/* Determinar si va dirigido a cualquier departamento */
+    /* Obtener id del departamento */
+    $sqlGetDepto = "SELECT idDepartamento
+                    FROM departamento
+                    WHERE nombreDepartamento='Todos los Departamentos'";
+
+    $res = mysqli_query($conn,$sqlGetDepto);
+    $idDepartamento = mysqli_fetch_array ($res);
+
+if($curso->departamento == 0){
+    $departamento = $idDepartamento[0];
+} else {
+    $departamento = $curso->departamento;
 }
-/* Query de insercion */
-$sql = "INSERT INTO curso
-        VALUES ('',
-            '$curso->folio',
-            '$curso->clave',
-            '$curso->nombre',
-            '$periodo',
-            '$curso->duracion',
-            '$horaInicio',
-            '$horaFin',
-            '$fechaInicio',
-            '$fechaFin',
-            '$modalidad',
-            '$curso->lugar',
-           ' $curso->destinatarios',
-            '$curso->Objetivo',
-            '$curso->observaciones',
-            'no',
-            null,
-            '$curso->username',
-            '$curso->instructor',
-            '$curso->departamento')
-        ";
+
+
+/* Validar si hay observaciones */
+if(array_key_exists('observaciones', get_object_vars($curso))){
+    /* Query de insercion */
+    $sql = "INSERT INTO curso
+    VALUES ('',
+        '$curso->folio',
+        '$curso->clave',
+        '$curso->nombre',
+        '$periodo',
+        '$curso->duracion',
+        '$horaInicio',
+        '$horaFin',
+        '$fechaInicio',
+        '$fechaFin',
+        '$modalidad',
+        '$curso->lugar',
+        '$curso->destinatarios',
+        '$curso->Objetivo',
+        '$curso->observaciones',
+        'no',
+        null,
+        '$curso->username',
+        '$curso->instructor',
+        '$departamento')
+    ";
+} else {
+    /* Query de insercion */
+    $sql = "INSERT INTO curso
+    VALUES ('',
+        '$curso->folio',
+        '$curso->clave',
+        '$curso->nombre',
+        '$periodo',
+        '$curso->duracion',
+        '$curso->horaInicio',
+        '$curso->horaFin',
+        '$fechaInicio',
+        '$fechaFin',
+        '$modalidad',
+        '$curso->lugar',
+        '$curso->destinatarios',
+        '$curso->Objetivo',
+        'Ninguna',
+        'no',
+        null,
+        '$curso->username',
+        '$curso->instructor',
+        '$departamento')
+    ";
+}
 
 if (mysqli_query($conn, $sql)) {
     $response['status'] = 'ok';

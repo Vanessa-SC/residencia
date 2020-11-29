@@ -88,8 +88,9 @@
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="departamento">Departamento</label>
 			</div>
-			<select required class="custom-select" id="departamento" ng-model="curso.departamento" ng-change="getNuevoFolio()">
-				<option ng-repeat="x in dptos" value="{{x.idDepartamento}}"> {{x.nombreDepartamento}} </option>
+			<select required class="custom-select" id="departamento" ng-model="curso.departamento" ng-change="getNuevoFolio()" >
+				<option value="0"> Cualquier departamento </option>
+				<option ng-value="dpto.idDepartamento"> {{dpto.nombreDepartamento}} </option>
 			</select>
 
 			<div class="input-group-prepend">

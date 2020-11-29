@@ -51,7 +51,7 @@ $datosCurso = "SELECT
                     idCurso,
                     nombreCurso,
                     duracion,
-                    concat_ws(' al ', DATE_FORMAT(fechaInicio, '%d de %M'), DATE_FORMAT(fechaFin, '%d de %M del %Y')) as fecha,
+                    concat_ws(' al ', DATE_FORMAT(fechaInicio, '%d de %M %Y'), DATE_FORMAT(fechaFin, '%d de %M %Y')) as fecha,
                     modalidad,
                     objetivo,
                     DATE_FORMAT(created_at, '%d de %M, %Y') as creacion,

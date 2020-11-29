@@ -568,9 +568,16 @@ app.service('curso', function () {
 	this.setID = function (cursoID) {
 		id = cursoID;
 		// console.log('idCurso: ' + id);
+		localStorage.setItem('idCurso', JSON.stringify({
+			id: id
+		}));
 	};
 
 	this.getID = function () {
+		if (!!localStorage.getItem('idCurso')) {
+			var data = JSON.parse(localStorage.getItem('idCurso'));
+			id = data.id;
+		}
 		return id;
 	};
 
@@ -630,7 +637,7 @@ app.service('instructor', function () {
 
 	this.setID = function (instructorID) {
 		id = instructorID;
-		console.log('idInstructor: ' + id);
+		// console.log('idInstructor: ' + id);
 	};
 
 	this.getID = function () {
@@ -639,7 +646,7 @@ app.service('instructor', function () {
 
 });
 
-app.service('encuesta', function (){
+app.service('encuesta', function () {
 	var id;
 
 	this.setID = function (idE) {
@@ -901,8 +908,6 @@ app.controller('inicioCtrl', function ($scope, $location, user, periodoService) 
 	$scope.periodo = periodoService.getPeriodo()
 		.then(function (response) {
 			$scope.periodo = response;
-		}, function (error) {
-			console.log(response);
 		});
 
 });
@@ -919,8 +924,6 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 			url: '/Residencia/Pruebas/pruebaLogin/php/getCursos.php'
 		}).then(function successCallback(response) {
 			$scope.cursos = response.data;
-		}, function errorCallback(response) {
-			console.log(response);
 		});
 	}
 
@@ -930,8 +933,6 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 			url: '/Residencia/Pruebas/pruebaLogin/php/getDepartamentos.php'
 		}).then(function successCallback(response) {
 			$scope.dptos = response.data;
-		}, function errorCallback(response) {
-			console.log(response);
 		});
 	}
 
@@ -941,16 +942,12 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 			url: '/Residencia/Pruebas/pruebaLogin/php/getInstructores.php'
 		}).then(function successCallback(response) {
 			$scope.instructor = response.data;
-		}, function errorCallback(response) {
-			console.log(response);
 		});
 	}
 
 	$scope.periodo = periodoService.getPeriodo()
 		.then(function (response) {
 			$scope.periodo = response;
-		}, function (error) {
-			console.log(response);
 		});
 
 	$scope.getListaDocumentosCurso = function () {
@@ -978,7 +975,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 					data: 'idCurso=' + idCurso
 				}).then(function successCallback(response) {
 					$scope.documentosSubidos = response.data;
-					$timeout(function(){
+					$timeout(function () {
 						if ($scope.documentosSubidos != null) {
 							angular.forEach($scope.documentosSubidos, function (value) {
 								if (value.comentario == null) {
@@ -1113,7 +1110,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 				},
 				data: JSON.stringify(datos)
 			}).then(function successCallback(response) {
-				console.log(response.data);
+				// console.log(response.data);
 				if (response.data.status == "ok") {
 					$scope.alert = {
 						titulo: 'Creado!',
@@ -1299,9 +1296,9 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 		});
 	}
 
-	$scope.printOficio = function(){
-		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getOficioCurso.php?idd='+user.getIdDepartamento()+
-		'&idc='+$scope.infoCurso.idCurso+'&idu='+user.getID(), '_blank');
+	$scope.printOficio = function () {
+		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getOficioCurso.php?idd=' + user.getIdDepartamento() +
+			'&idc=' + $scope.infoCurso.idCurso + '&idu=' + user.getID(), '_blank');
 	}
 
 	$scope.getDoc();
@@ -1329,8 +1326,6 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 	$scope.periodo = periodoService.getPeriodo()
 		.then(function (response) {
 			$scope.periodo = response;
-		}, function (error) {
-			console.log(response);
 		});
 
 	$scope.getPeriodos = function () {
@@ -1358,8 +1353,6 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 					$scope.constanciasPeriodoActual = response.data;
 					// console.log($scope.constanciasPeriodoActual);
 				});
-			}, function (error) {
-				console.log(response);
 			});
 	}
 
@@ -1443,7 +1436,7 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 			},
 			data: JSON.stringify(datos)
 		}).then(function successCallback(response) {
-			console.log(response.data);
+			// console.log(response.data);
 			if (response.data.status == "ok") {
 				$scope.alert = {
 					titulo: 'Listo!',
@@ -1486,8 +1479,6 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 	$scope.periodo = periodoService.getPeriodo()
 		.then(function (response) {
 			$scope.periodo = response;
-		}, function (error) {
-			console.log(response);
 		});
 
 	$scope.getInstructores = function () {
@@ -1497,8 +1488,6 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 		}).then(function successCallback(response) {
 			$scope.instructores = response.data;
 			// console.log(response.data);
-		}, function errorCallback(response) {
-			console.log(response);
 		});
 	}
 
@@ -1510,15 +1499,13 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 			url: '/Residencia/Pruebas/pruebaLogin/php/getDepartamentos.php'
 		}).then(function successCallback(response) {
 			$scope.dptos = response.data;
-		}, function errorCallback(response) {
-			console.log(response);
 		});
 	}
 
 	$scope.getDepartamentos();
 
 	$scope.agregarInstructor = function (datos) {
-		console.log(datos);
+		// console.log(datos);
 		$http({
 			method: 'POST',
 			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/agregarInstructor.php',
@@ -1527,7 +1514,7 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 			},
 			data: JSON.stringify(datos)
 		}).then(function successCallback(response) {
-			console.log(response.data);
+			// console.log(response.data);
 			if (response.data.status == "ok") {
 				$scope.alert = {
 					titulo: 'Creado!',
@@ -1604,7 +1591,7 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 	$scope.getInstructorAct = function () {
 
 		$scope.idInstructor = instructor.getID();
-		console.log($scope.idInstructor);
+		// console.log($scope.idInstructor);
 
 		if ($scope.idInstructor != "") {
 			$http({
@@ -1661,8 +1648,6 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 					$location.path("/inicioC/instructores");
 				}, 2000);
 			}
-		}, function errorCallback(response) {
-			console.log("No hay datos.");
 		});
 	}
 });
@@ -1673,8 +1658,6 @@ app.controller('cursosICtrl', function ($scope, $http, $location, user, curso, p
 	$scope.periodo = periodoService.getPeriodo()
 		.then(function (response) {
 			$scope.periodo = response;
-		}, function (error) {
-			console.log(response);
 		});
 
 	$scope.getCursos = function () {
@@ -1794,8 +1777,6 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 	$scope.fecha = fechaService.getFecha()
 		.then(function (response) {
 			$scope.fecha = response;
-		}, function (error) {
-			console.log(response);
 		});
 
 	$scope.getListaAsistencia = function () {
@@ -1812,7 +1793,7 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 				data: 'idCurso=' + $scope.idCurso
 			}).then(function successCallback(response) {
 				$scope.participantes = response.data;
-				console.log(response.data);
+				// console.log(response.data);
 			});
 		}
 	}
@@ -1832,17 +1813,17 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 				data: 'idCurso=' + $scope.idCurso
 			}).then(function successCallback(response) {
 				$scope.participantes = response.data;
-				console.log(response.data);
+				// console.log(response.data);
 			});
 		}
 
 	}
 
-	$scope.uncheck = function(){
-		$( ":checkbox" ).prop( "checked", false );
+	$scope.uncheck = function () {
+		$(":checkbox").prop("checked", false);
 	}
 
-	$scope.registrarAsistencia = function(a){
+	$scope.registrarAsistencia = function (a) {
 		console.log(a);
 	}
 
@@ -1941,8 +1922,6 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 	$scope.periodo = periodoService.getPeriodo()
 		.then(function (response) {
 			$scope.periodo = response;
-		}, function (error) {
-			console.log(response);
 		});
 
 	$scope.getListaDocumentosCurso = function () {
@@ -1991,15 +1970,13 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 
 	$scope.cursoID = function (id) {
 		curso.setID(id);
-		console.log(curso.getID() + "hola");
+		// console.log(curso.getID() + "hola");
 	}
 
 	$scope.crearCurso = function (datos) {
 		datos.username = user.getName();
-		datos.departamento = user.getIdDepartamento();
 		// console.log(datos);
 		if (
-			datos.clave != undefined &&
 			datos.nombre != undefined &&
 			datos.duracion != undefined &&
 			datos.horaInicio != "" &&
@@ -2058,14 +2035,14 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 	}
 	$scope.curso = {};
 
-	$scope.actualizarCurso = function () {
+	$scope.actualizarCurso = function (datos) {
 		$http({
 			method: 'POST',
 			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/actualizarCursoJ.php',
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			data: JSON.stringify($scope.curso)
+			data: JSON.stringify(datos)
 		}).then(function successCallback(response) {
 			if (response.data.status != "ok") {
 				$scope.alert = {
@@ -2076,12 +2053,9 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 				$(document).ready(function () {
 					$('#alerta').toast('show');
 				});
-				$timeout(function () {
-					$location.path("/inicioC");
-				}, 2000);
 			} else {
 				$scope.alert = {
-					titulo: 'Creado!',
+					titulo: 'Actualizado!',
 					tipo: 'success',
 					mensaje: 'Actualización exitosa.'
 				};
@@ -2089,11 +2063,9 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 					$('#alerta').toast('show');
 				});
 				$timeout(function () {
-					$location.path("/inicioC");
-				}, 3000);
+					$location.path("/inicioJ");
+				}, 2000);
 			}
-		}, function errorCallback(response) {
-			// console.log("No hay datos.");
 		});
 	}
 
@@ -2111,6 +2083,11 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 				data: 'idCurso=' + $scope.idCurso
 			}).then(function successCallback(response) {
 				$scope.actCurso = response.data;
+				
+				// 5 -> corresponde al id del departamento "Todos los departamentos"
+				if (response.data.departamento == 5) {
+					$scope.actCurso.departamento = "0";
+				}
 
 				if (response.data.modalidad.indexOf("Virtual") !== -1) {
 					$scope.actCurso.modalidad = 2;
@@ -2119,8 +2096,6 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 				} else {
 					$scope.actCurso.modalidad = 3;
 				}
-				$scope.curso = $scope.actCurso;
-				console.log($scope.curso);
 			}, function errorCallback(response) {
 
 			});
@@ -2165,15 +2140,17 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 		});
 	}
 
-	$scope.getDepartamentos = function () {
+	$scope.getDepartamento = function () {
 		$http({
-			method: 'GET',
-			url: '/Residencia/Pruebas/pruebaLogin/php/getDepartamentos.php'
+			method: 'POST',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getDepartamento.php',
+			headers: {
+				'Content-type': 'application/x-www-form-urlencoded'
+			},
+			data: 'departamento=' + user.getIdDepartamento()
 		}).then(function successCallback(response) {
-			$scope.dptos = response.data;
-			// console.log(response.data);
-		}, function errorCallback(response) {
-			console.log(response);
+			$scope.dpto = response.data;
+			$scope.curso.departamento = $scope.dpto.idDepartamento;
 		});
 	}
 
@@ -2184,8 +2161,6 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 		}).then(function successCallback(response) {
 			$scope.instructor = response.data;
 			// console.log(response.data);
-		}, function errorCallback(response) {
-			console.log(response);
 		});
 	}
 
@@ -2221,19 +2196,20 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 		}
 		$http({
 			method: 'POST',
-			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getNuevoFolio.php',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getNuevoFolioJ.php',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},
 			data: 'idDepartamento=' + id
 		}).then(function successCallback(response) {
 			$scope.curso.clave = response.data;
+			// $scope.actCurso.clave = response.data;
 		});
 	}
 
-	$scope.printOficio = function(){
-		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getOficioCurso.php?idd='+user.getIdDepartamento()+
-		'&idc='+$scope.infoCurso.idCurso+'&idu='+user.getID(), '_blank');
+	$scope.printOficio = function () {
+		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getOficioCurso.php?idd=' + user.getIdDepartamento() +
+			'&idc=' + $scope.infoCurso.idCurso + '&idu=' + user.getID(), '_blank');
 	}
 
 
@@ -2241,7 +2217,7 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 	$scope.getCursoAct();
 	$scope.getInfoCurso();
 	$scope.getCursos();
-	$scope.getDepartamentos();
+	$scope.getDepartamento();
 	$scope.getInstructores();
 	$scope.getListaDocumentosCurso();
 	$scope.getListaDocumentosSubidos();
@@ -2276,7 +2252,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 	$scope.cursoID = function (id) {
 		curso.setID(id);
 	}
-     
+
 	$scope.salirCurso = function (id) {
 		$scope.idUsuario = user.getIdUsuario();
 
@@ -2444,10 +2420,10 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 		});
 
 	$scope.getEncuesta = function (id) {
-		encuesta.setID(id);	
+		encuesta.setID(id);
 	}
 
-	$scope.getPreguntasEncuesta = function (){
+	$scope.getPreguntasEncuesta = function () {
 
 		$http({
 			method: 'POST',
@@ -2458,7 +2434,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 			data: 'idEvaluacion=' + encuesta.getID()
 		}).then(function successCallback(response) {
 			$scope.evaluacion = response.data;
-			 console.log(response.data);
+			console.log(response.data);
 		});
 	}
 

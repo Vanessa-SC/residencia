@@ -21,10 +21,15 @@ $sql = "SELECT curso.idCurso,
             curso.lugar,
             curso.duracion,
             curso.destinatarios, 
-            curso.validado
-    FROM instructor Inner join curso
-    ON curso.Instructor_idInstructor=instructor.idInstructor
-    AND curso.idCurso = $id ";
+            curso.validado,
+            departamento.nombreDepartamento,
+            curso.Departamento_idDepartamento as departamento
+        FROM instructor 
+        INNER JOIN curso
+        ON curso.Instructor_idInstructor=instructor.idInstructor
+        INNER JOIN departamento
+        ON curso.Departamento_idDepartamento = departamento.idDepartamento
+        AND curso.idCurso = $id ";
 
 $result = $conn->query($sql) or die($conn->error . __LINE__);
 
