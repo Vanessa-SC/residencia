@@ -1827,13 +1827,17 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 	// 	});
 	// }
 	$scope.registrarAsistencia = function () {
+		var datos = {
+			lista: $scope.listaAlumnos,
+			participantes: $scope.participantes
+		}
 		$http({
 			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/addAsistencia.php',
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			data: JSON.stringify($scope.listaAlumnos)
+			data: JSON.stringify(datos)
 		}).then(function successCallback(response) {
 			console.log(response.data);
 			$(":checkbox").attr('disabled',true);
