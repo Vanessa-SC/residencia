@@ -1827,7 +1827,20 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 	// 	});
 	// }
 	$scope.registrarAsistencia = function () {
-		console.log($scope.listaAlumnos);
+		$http({
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/addAsistencia.php',
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			data: JSON.stringify($scope.listaAlumnos)
+		}).then(function successCallback(response) {
+			console.log(response.data);
+			$(":checkbox").attr('disabled',true);
+			$("#btn_enviar").attr('disabled',true);
+			$("#btn_borrar").attr('disabled',true);
+			$('#modal').modal('hide');
+		});
 	};
 
 
