@@ -7,7 +7,7 @@
         </div>
         <p class="w-100 text-center p-4 mt-2 border-bottom border-dark">
             <strong>Curso:</strong><br>
-            {{infoCurso.curso}}
+            {{infoactCurso}}
         </p>
     </div>
     <table class="table-striped w-100 align-middle ">
@@ -26,6 +26,7 @@
                 <td class="font-weight-bold align-middle">Instructor (a)</td>
                 <td class="font-weight-bold align-middle">Dirigido a:</td>
                 <td class="font-weight-bold align-middle">Modalidad</td>
+                <td class="font-weight-bold align-middle">Departamento</td>
             </tr>
             <tr>
                 <td class=" align-middle ">{{infoCurso.fecha}} <br>
@@ -35,6 +36,7 @@
                 <td class=" align-middle ">{{infoCurso.maestro}}</td>
                 <td class=" align-middle ">{{infoCurso.destinatarios}}</td>
                 <td class=" align-middle ">{{infoCurso.modalidad}}</td>
+                <td class=" align-middle ">{{infoCurso.nombreDepartamento}}</td>
             </tr>
         </tbody>
     </table>
@@ -67,12 +69,12 @@
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="folio">Folio</label>
                             </div>
-                            <input required type="text" id="folio" class="form-control" ng-model="curso.Folio"
+                            <input type="text" id="folio" class="form-control" ng-model="curso.Folio"
                                 ng-value="actCurso.Folio">
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="ClaveRegistro">Clave registro</label>
                             </div>
-                            <input required type="text" id="ClaveRegistro" class="form-control"
+                            <input readonly type="text" id="ClaveRegistro" class="form-control"
                                 ng-model="curso.ClaveRegistro" ng-value="actCurso.ClaveRegistro">
                         </div>
                         <div class="input-group mb-2  mt-3">
@@ -123,7 +125,7 @@
                             </div>
 
                             <select required class="custom-select" id="modalidad" ng-model="curso.modalidad"
-                                ng-value="curso.modalidad">
+                                ng-value="actCurso.modalidad">
                                 <option value="1">Presencial</option>
                                 <option value="2">Virtual</option>
                                 <option value="3">Semipresencial</option>
@@ -148,7 +150,7 @@
                                 <label class="input-group-text" for="objetivo">Objetivo</label>
                             </div>
                             <textarea required type="text" id="objetivo" class="form-control"
-                                ng-value="actCurso.objetivo" ng-model="curso.objetivo"></textarea>
+                                ng-value="actCurso.objetivo" ng-model="actCurso.objetivo"></textarea>
                         </div>
                         <div class="input-group mb-2  mt-3">
                             <div class="input-group-prepend">
@@ -162,14 +164,14 @@
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="departamento">Departamento</label>
                             </div>
-                            <select required class="custom-select" id="departamento" ng-model="curso.departamento">
+                            <select required class="custom-select" id="departamento" ng-model="actCurso.departamento">
                                 <option ng-repeat="x in dptos" value="{{x.idDepartamento}}"> {{x.nombreDepartamento}}
                                 </option>
                             </select>
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="instructor">Instructor</label>
                             </div>
-                            <select required class="custom-select" id="instructor" ng-model="curso.instructor">
+                            <select required class="custom-select" id="instructor" ng-model="actCurso.instructor">
                                 <option ng-repeat="x in instructor" value="{{x.idInstructor}}"> {{x.nombre}} </option>
                             </select>
                         </div>
@@ -177,7 +179,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn bg-wine" data-dismiss="modal" ng-click="actualizarCurso()">Guardar
+                    <button type="button" class="btn bg-wine" data-dismiss="modal" ng-click="actualizarCurso(actCurso)">Guardar
                         cambios</button>
                 </div>
             </div>

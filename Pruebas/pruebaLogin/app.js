@@ -1042,7 +1042,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 				} else {
 					$scope.actCurso.modalidad = 3;
 				}
-				$scope.curso = $scope.actCurso;
+				// $scope.curso = $scope.actCurso;
 				// console.log($scope.curso);
 			}, function errorCallback(response) {
 
@@ -1147,16 +1147,16 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 	}
 	$scope.curso = {};
 
-	$scope.actualizarCurso = function () {
+	$scope.actualizarCurso = function (datos) {
 		$http({
 			method: 'POST',
 			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/actualizarCursoC.php',
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			data: JSON.stringify($scope.curso)
+			data: JSON.stringify(datos)
 		}).then(function successCallback(response) {
-			if (response.data.status != "ok") {
+			if (response.data.status != "error") {
 				$scope.alert = {
 					titulo: 'Error!',
 					tipo: 'danger',
@@ -1165,9 +1165,6 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 				$(document).ready(function () {
 					$('#alerta').toast('show');
 				});
-				$timeout(function () {
-					$location.path("/inicioC");
-				}, 2000);
 			}
 			if (response.data.status == "ok") {
 				$scope.alert = {
@@ -1182,8 +1179,6 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 					$location.path("/inicioC");
 				}, 2000);
 			}
-		}, function errorCallback(response) {
-			// console.log("No hay datos.");
 		});
 	}
 

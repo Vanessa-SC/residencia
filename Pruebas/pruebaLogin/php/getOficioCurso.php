@@ -55,9 +55,13 @@ $datosCurso = "SELECT
                     modalidad,
                     objetivo,
                     DATE_FORMAT(created_at, '%d de %M, %Y') as creacion,
-                    created_by as usuario
-                FROM curso
-                WHERE idCurso='$idCurso'";
+                    created_by as usuario,
+                    nombreDepartamento
+                    FROM usuario 
+                    INNER join departamento 
+                    ON usuario.Departamento_idDepartamento=departamento.idDepartamento
+                    INNER join curso 
+                    ON curso.created_by = concat_ws(' ',usuario.nombre,usuario.apellidoPaterno,usuario.apellidoMaterno)";
 
 $res4 = mysqli_query($conn, $datosCurso);
 $curso = mysqli_fetch_array ($res4);
@@ -108,7 +112,7 @@ $pdf->Ln(35);
 
 $pdf->Cell(strlen($curso['usuario'])*2.3, 0, utf8_decode($curso['usuario']), 0, 0,'L');
 $pdf->Ln(5);
-$pdf->Cell(105, 0, 'DEPARTAMENTO '.utf8_decode(strtoupper($departamento[0])), 0, 0,'L');
+$pdf->Cell(105, 0, 'DEPARTAMENTO '.utf8_decode(strtoupper($curso['nombreDepartamento'])), 0, 0,'L');
 // // // Nombre del PDF
 $archivo = 'doc_' . time() . '.pdf';
 $pdf->Output($archivo, 'I');
