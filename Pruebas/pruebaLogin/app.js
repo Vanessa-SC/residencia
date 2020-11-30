@@ -1818,9 +1818,18 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 		$(":checkbox").prop("checked", false);
 	}
 
-	$scope.registrarAsistencia = function (a) {
-		console.log(a);
-	}
+	$scope.listaAlumnos = {};
+	// $scope.registrarAsistencia = function () {
+	// 	angular.forEach($scope.listaAlumnos, function (selected, x) {
+	// 		if (selected) {
+	// 			console.log(x);
+	// 		}
+	// 	});
+	// }
+	$scope.registrarAsistencia = function () {
+		console.log($scope.listaAlumnos);
+	};
+
 
 	/* ignora esto, aún no hace nada. 
 	estaba tratando de seguir algo que encontré en un blog */
@@ -2078,7 +2087,7 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 				data: 'idCurso=' + $scope.idCurso
 			}).then(function successCallback(response) {
 				$scope.actCurso = response.data;
-				
+
 				// 5 -> corresponde al id del departamento "Todos los departamentos"
 				if (response.data.departamento == 5) {
 					$scope.actCurso.departamento = "0";

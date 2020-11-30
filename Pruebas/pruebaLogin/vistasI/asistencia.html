@@ -18,26 +18,23 @@
                         <th scope="row" class="fontT align-middle"> {{x.nombre}} </th>
                         <td class="align-middle">
                             <div class="custom-control custom-checkbox text-center align-middle">
-                                <input type="checkbox" 
-                                class="custom-control-input" 
-                                id="check{{x.idUsuario}}"
-                                name="{{x.idUsuario}}"
-                                ng-model="x.asistencia" 
-                                ng-true-value="1" ng-false-value="0"
-                                ng-change="registrarAsistencia(x.asistencia)"
-                                >
-                                <label class="custom-control-label" for="check{{x.idUsuario}}"></label>
+                                <input type="checkbox" class="custom-control-input" id="c{{x.idUsuario}}" ng-model="listaAlumnos[x.idUsuario]"/>
+                                <label class="custom-control-label" for="c{{x.idUsuario}}"></label>
                             </div>
                         </td>
-                    </tr>
+                    </tr> 
                     <tr>
                         <td class="p-4"><button class="btn btn-secondary" ng-click="uncheck()"><i class="erase_icon"></i>Borrar</button></td>
-                        <td class="p-4"><button class="btn bg-wine text-white" ng-click="registrarAsistencia()"><i class="send_icon"></i>Enviar</button></td>
+                        <td class="p-4">
+                            <button class="btn bg-wine text-white" ng-click="registrarAsistencia()"><i class="send_icon"></i>Enviar</button>
+                        </td>
                     </tr>
-                   
+
                 </tbody>
                 <!-- <input type="button" value="Get" ng-click="GetValue()" /> -->
             </table>
+            <h2>Selected</h2>
+            <p>{{listaAlumnos|json}}</p>
         </div>
     </div>
 </div>
