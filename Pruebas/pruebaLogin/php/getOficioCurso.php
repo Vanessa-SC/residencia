@@ -79,7 +79,7 @@ $pdf->Ln(20);
 
 $pdf->Cell(155, 0, 'Durango, Dgo. a ' . $curso['creacion'], 0, 1, 'R');
 $pdf->Ln(5);
-$pdf->Cell(155, 0, 'OFICIO No. '.$curso['idCurso'], 0, 1, 'R');
+$pdf->Cell(155, 0, 'OFICIO No. '.$idCurso, 0, 1, 'R');
 $pdf->Ln(20);
 
 $pdf->SetFont('', 'B', 12);

@@ -1251,7 +1251,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 
 				$('#modal' + idDoc).modal('hide');
 				document.getElementById('mensaje' + idDoc).innerHTML = 'Documento guardado';
-				$('#linkDocumento' + idDoc).append('<a href="/Residencia/Proyecto/files/'+response.data.doc+'" target="_blank">Ver documento</a>');
+				$('#linkDocumento' + idDoc).replaceWith('<span id="linkDocumento'+idDoc+'"><a href="/Residencia/Proyecto/files/'+response.data.doc+'" target="_blank">Ver documento</a></span>');
 			}
 		}, function errorCallback(response) {
 			$scope.upload(idDoc, idCurso);
@@ -1757,7 +1757,7 @@ app.controller('cursosICtrl', function ($scope, $http, $timeout, user, curso, pe
 				});
 				$('#modal' + idDoc).modal('hide');
 				document.getElementById('mensaje' + idDoc).innerHTML = 'Documento guardado';
-				$('#linkDocumento' + idDoc).append('<a href="/Residencia/Proyecto/files/'+response.data.doc+'" target="_blank">Ver documento</a>');
+				$('#linkDocumento' + idDoc).replaceWith('<span id="linkDocumento'+idDoc+'"><a href="/Residencia/Proyecto/files/'+response.data.doc+'" target="_blank">Ver documento</a></span>');
 			}
 		});
 	}
@@ -2252,11 +2252,10 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 				'Content-Type': undefined
 			},
 		}).then(function successCallback(response) {
-			if (response.data.status != undefined) {
-				alert(response.data.status);
+			if (response.data.status == 'ok') {
 				$('#modal' + idDoc).modal('hide');
 				document.getElementById('mensaje' + idDoc).innerHTML = 'Documento guardado';
-				$('#linkDocumento' + idDoc).append('<a href="/Residencia/Proyecto/files/'+response.data.doc+'" target="_blank">Ver documento</a>');
+				$('#linkDocumento' + idDoc).replaceWith('<span id="linkDocumento'+idDoc+'"><a href="/Residencia/Proyecto/files/'+response.data.doc+'" target="_blank">Ver documento</a></span>');
 			}
 		});
 	}
@@ -2301,7 +2300,7 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 
 	$scope.printOficio = function () {
 		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getOficioCurso.php?idd=' + user.getIdDepartamento() +
-			'&idc=' + $scope.infoCurso.idCurso + '&idu=' + user.getID(), '_blank');
+			'&idc=' + curso.getID() + '&idu=' + user.getID(), '_blank');
 	}
 
 
