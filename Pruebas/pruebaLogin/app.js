@@ -1669,7 +1669,7 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 });
 
 /* CONTROLADORES PARA EL USUARIO INSTRUCTOR */
-app.controller('cursosICtrl', function ($scope, $http, $location, user, curso, periodoService) {
+app.controller('cursosICtrl', function ($scope, $http, $timeout, user, curso, periodoService) {
 	$scope.user = user.getName();
 	$scope.periodo = periodoService.getPeriodo()
 		.then(function (response) {
@@ -1746,7 +1746,7 @@ app.controller('cursosICtrl', function ($scope, $http, $location, user, curso, p
 		}).then(function successCallback(response) {
 			$scope.response = response.data;
 
-			if (response.data.status != undefined) {
+			if (response.data.status == 'ok') {
 				$scope.alert = {
 					titulo: 'Archivo subido!',
 					tipo: 'success',
@@ -1756,9 +1756,35 @@ app.controller('cursosICtrl', function ($scope, $http, $location, user, curso, p
 					$('#alerta').toast('show');
 				});
 				$('#modal' + idDoc).modal('hide');
-				document.getElementById('mensaje' + idDoc).innerHTML = 'Documento subido';
+				document.getElementById('mensaje' + idDoc).innerHTML = 'Documento guardado';
+				$('#linkDocumento' + idDoc).append('<a href="/Residencia/Proyecto/files/'+response.data.doc+'" target="_blank">Ver documento</a>');
 			}
 		});
+	}
+
+	$scope.existeDocumento = function () {
+		$timeout(function(){
+			$http({
+				method: 'post',
+				url: '/Residencia/Pruebas/pruebaLogin/php/documentosExistentesCurso.php',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idc=' + curso.getID()
+			}).then(function successCallback(response) {
+				if (response.data.status = "existe") {
+					angular.forEach(response.data.documentos, function (value, key) {
+						$('#linkDocumento'+key).append('<a target="_blank" href="/Residencia/Proyecto/files/'+value+'">Ver documento</a>');
+					});
+				}
+			});
+		}, 500);
+	}
+
+	
+	$scope.printOficio = function () {
+		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getOficioCurso.php?idd=' + user.getIdDepartamento() +
+			'&idc=' + $scope.infoCurso.idCurso + '&idu=' + user.getID(), '_blank');
 	}
 
 	$scope.back = function () {
@@ -2229,9 +2255,29 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 			if (response.data.status != undefined) {
 				alert(response.data.status);
 				$('#modal' + idDoc).modal('hide');
-				document.getElementById('mensaje' + idDoc).innerHTML = 'Documento subido';
+				document.getElementById('mensaje' + idDoc).innerHTML = 'Documento guardado';
+				$('#linkDocumento' + idDoc).append('<a href="/Residencia/Proyecto/files/'+response.data.doc+'" target="_blank">Ver documento</a>');
 			}
 		});
+	}
+
+	$scope.existeDocumento = function () {
+		$timeout(function(){
+			$http({
+				method: 'post',
+				url: '/Residencia/Pruebas/pruebaLogin/php/documentosExistentesCurso.php',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idc=' + curso.getID()
+			}).then(function successCallback(response) {
+				if (response.data.status = "existe") {
+					angular.forEach(response.data.documentos, function (value, key) {
+						$('#linkDocumento'+key).append('<a target="_blank" href="/Residencia/Proyecto/files/'+value+'">Ver documento</a>');
+					});
+				}
+			});
+		}, 500);
 	}
 
 	$scope.getNuevoFolio = function () {

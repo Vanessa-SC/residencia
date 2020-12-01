@@ -1,6 +1,6 @@
 <ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasJ/nav.html'"></ng-include>
 
-<div class="container pt-4">
+<div class="container pt-4" ng-init="existeDocumento()">
 	<div class="programa_page d-flex justify-content-center">
 		<div class="pt-5">
 			<button title="Regresar a la página anterior" class="btn-back back_icon" ng-click="back()">
@@ -43,7 +43,10 @@
 			<tr ng-repeat="doc in documentos">
 				<th><button class=" btn bg-white"></button></th>
 				<th scope="row" class="align-middle">{{doc.idDocumento}}</th>
-				<td class="align-middle">{{doc.nombreDocumento}}</td>
+				<td class="align-middle">
+					{{doc.nombreDocumento}}
+					<span id="linkDocumento{{doc.idDocumento}}"></span>
+				</td>
 				<td class="align-middle">
 
 					<!-- Button trigger modal -->

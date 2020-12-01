@@ -9,6 +9,8 @@ include_once 'conexion.php';
 // $idCurso = $_POST['idc'];
 $idCurso = mysqli_real_escape_string($conn, $_POST['idc']);
 
+$response = [];
+
 $sql = "SELECT documento.idDocumento,
             documento.nombreDocumento,
             curso_has_documento.comentario,
@@ -32,4 +34,4 @@ if ($result->num_rows > 0) {
     }
 }
 
-echo json_encode($response);
+echo json_encode($response, true);
