@@ -1827,24 +1827,28 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 	// 	});
 	// }
 	$scope.registrarAsistencia = function () {
-		var datos = {
-			lista: $scope.listaAlumnos,
-			participantes: $scope.participantes
+		// console.log(curso.getID());
+		if(curso.getID() != undefined){
+			var datos = {
+				lista: $scope.listaAlumnos,
+				participantes: $scope.participantes,
+				idCurso: curso.getID()
+			}
+			$http({
+				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/addAsistencia.php',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				data: JSON.stringify(datos)
+			}).then(function successCallback(response) {
+				console.log(response.data);
+				// $(":checkbox").attr('disabled',true);
+				// $("#btn_enviar").attr('disabled',true);
+				// $("#btn_borrar").attr('disabled',true);
+				$('#modal').modal('hide');
+			});
 		}
-		$http({
-			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/addAsistencia.php',
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			data: JSON.stringify(datos)
-		}).then(function successCallback(response) {
-			console.log(response.data);
-			$(":checkbox").attr('disabled',true);
-			$("#btn_enviar").attr('disabled',true);
-			$("#btn_borrar").attr('disabled',true);
-			$('#modal').modal('hide');
-		});
 	};
 
 

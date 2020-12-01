@@ -5,6 +5,9 @@ $datos = json_decode(file_get_contents('php://input'), true);
 /* Separar el arreglo */
 $participantes = $datos['participantes'];
 $lista = $datos['lista'];
+$idCurso = $datos['idCurso'];
+
+$fecha = date('Y-m-d');
 
 /*  Obtener las llaves de cada objeto para determinar la 
     que tiene el valor máximo y usarse en el ciclo for */
@@ -20,7 +23,9 @@ for ($i = 0; $i < max($keyLista); $i++) {
 
         /* Extracción del id y asistencia */
         $id = $participantes[$i]['idUsuario'];
-        $asist = $lista[$id];
+        if (!empty($lista[$id])) {
+            $asist = $lista[$id];
+        }
 
         /* Validando si la asistencia no existe (inasistencia) */
         if (empty($asist)) {
@@ -39,3 +44,5 @@ for ($i = 0; $i < max($keyLista); $i++) {
     }
 
 }
+
+print 'idCurso: '.$idCurso.' fecha: '.$fecha;
