@@ -1,5 +1,5 @@
 <ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasC/nav.html'"></ng-include>
-<div class="container">
+<div class="container" ng-init="getListaDocumentosSubidos();getInfoCurso()">
     <div class="programa_page d-flex justify-content-center">
         <div class="pt-5">
             <button title="Regresar a la página anterior" class="btn-back back_icon" ng-click="back()">
@@ -25,11 +25,6 @@
                 <div class="col-sm-3 text-center">{{infoCurso.fecha}} <br> {{infoCurso.horario}} </div>
                 <div class="w-100"></div>
                 <br>
-                <div class="col text-center">
-                    <a href="#!/inicioC/verDocumento" ng-click="verDoc(infoCurso.idCurso,7)" style="color: #000;">
-                        <u>Oficio de registro de curso <button class="btn bg-white import_icon"></button></u>
-                    </a>
-                </div>
             </div>
         </div>
     </div>

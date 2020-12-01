@@ -33,18 +33,19 @@ if (!empty($_FILES['archivo'])) {
 
             if ($rowcount = mysqli_num_rows($result) == 0 ) {
                 $sql = "INSERT INTO curso_has_documento
-                        VALUES('$idCurso','$idDocumento','$archivo','no')";
+                        VALUES('$idCurso','$idDocumento','$archivo','no',null)";
             } else {
                 $sql = "UPDATE curso_has_documento
-                        SET rutaArchivo='$archivo', estadoVerificado='no'
+                        SET rutaArchivo='$archivo', estadoVerificado='no', comentario=null
                         WHERE curso_has_documento.Curso_idCurso='$idCurso'
                         AND curso_has_documento.Documento_idDocumento='$idDocumento'";
             }
 
             if (mysqli_query($conn, $sql)) {
-                $response['status'] = 'Archivo subido correctamente';
+                $response['status'] = 'ok';
+                $response['doc'] = $archivo;
             } else {
-                $response['status'] = 'error' . mysqli_error($conn);
+                $response['status'] = 'error: ' . mysqli_error($conn);
             }
 
         }

@@ -55,10 +55,19 @@ if($curso->departamento == 0){
     $departamento = $curso->departamento;
 }
 
-
 /* Validar si hay observaciones */
-if(array_key_exists('observaciones', get_object_vars($curso))){
-    /* Query de insercion */
+if(empty($curso->observaciones)){
+    $curso->observaciones== "Ninguna";
+}
+
+/* validar si hay folio  */
+if(empty($curso->folio)){
+    $curso->folio = "";
+}
+
+
+// if(array_key_exists('observaciones', get_object_vars($curso))){
+//     /* Query de insercion */
     $sql = "INSERT INTO curso
     VALUES ('',
         '$curso->folio',
@@ -81,31 +90,31 @@ if(array_key_exists('observaciones', get_object_vars($curso))){
         '$curso->instructor',
         '$departamento')
     ";
-} else {
-    /* Query de insercion */
-    $sql = "INSERT INTO curso
-    VALUES ('',
-        '$curso->folio',
-        '$curso->clave',
-        '$curso->nombre',
-        '$periodo',
-        '$curso->duracion',
-        '$curso->horaInicio',
-        '$curso->horaFin',
-        '$fechaInicio',
-        '$fechaFin',
-        '$modalidad',
-        '$curso->lugar',
-        '$curso->destinatarios',
-        '$curso->Objetivo',
-        'Ninguna',
-        'no',
-        null,
-        '$curso->username',
-        '$curso->instructor',
-        '$departamento')
-    ";
-}
+// } else {
+//     /* Query de insercion */
+//     $sql = "INSERT INTO curso
+//     VALUES ('',
+//         '$curso->folio',
+//         '$curso->clave',
+//         '$curso->nombre',
+//         '$periodo',
+//         '$curso->duracion',
+//         '$curso->horaInicio',
+//         '$curso->horaFin',
+//         '$fechaInicio',
+//         '$fechaFin',
+//         '$modalidad',
+//         '$curso->lugar',
+//         '$curso->destinatarios',
+//         '$curso->Objetivo',
+//         'Ninguna',
+//         'no',
+//         null,
+//         '$curso->username',
+//         '$curso->instructor',
+//         '$departamento')
+//     ";
+// }
 
 if (mysqli_query($conn, $sql)) {
     $response['status'] = 'ok';

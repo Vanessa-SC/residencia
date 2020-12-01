@@ -567,7 +567,6 @@ app.service('curso', function () {
 
 	this.setID = function (cursoID) {
 		id = cursoID;
-		// console.log('idCurso: ' + id);
 		localStorage.setItem('idCurso', JSON.stringify({
 			id: id
 		}));
@@ -583,10 +582,16 @@ app.service('curso', function () {
 
 	this.setIDdocumento = function (idDocumento) {
 		idDoc = idDocumento;
-		// console.log('idDoc: ' + idDoc);
+		localStorage.setItem('idDocumento', JSON.stringify({
+			id: idDoc
+		}));
 	};
 
 	this.getIDdocumento = function () {
+		if (!!localStorage.getItem('idDocumento')) {
+			var data = JSON.parse(localStorage.getItem('idDocumento'));
+			idDoc = data.id;
+		}
 		return idDoc;
 	};
 
@@ -964,7 +969,6 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 	$scope.getListaDocumentosSubidos = function () {
 		var idCurso = curso.getID();
 		$timeout(function () {
-
 			if (idCurso != undefined) {
 				$http({
 					method: 'POST',
@@ -975,6 +979,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 					data: 'idCurso=' + idCurso
 				}).then(function successCallback(response) {
 					$scope.documentosSubidos = response.data;
+					console.log($scope.documentosSubidos);
 					$timeout(function () {
 						if ($scope.documentosSubidos != null) {
 							angular.forEach($scope.documentosSubidos, function (value) {
@@ -990,7 +995,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 					}, 100);
 				});
 			}
-		}, 500);
+		}, 250);
 	}
 
 	$scope.cursoID = function (id) {
@@ -1022,7 +1027,6 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 	$scope.getCursoAct = function () {
 
 		$scope.idCurso = curso.getID();
-		// console.log($scope.idCurso);
 
 		if ($scope.idCurso != "") {
 			$http({
@@ -1044,8 +1048,6 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 				}
 				// $scope.curso = $scope.actCurso;
 				// console.log($scope.curso);
-			}, function errorCallback(response) {
-
 			});
 		}
 
@@ -1237,7 +1239,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 		}).then(function successCallback(response) {
 			$scope.response = response.data;
 
-			if (response.data.status != undefined) {
+			if (response.data.status == 'ok') {
 				$scope.alert = {
 					titulo: 'Archivo subido!',
 					tipo: 'success',
@@ -1249,10 +1251,30 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 
 				$('#modal' + idDoc).modal('hide');
 				document.getElementById('mensaje' + idDoc).innerHTML = 'Documento guardado';
+				$('#linkDocumento' + idDoc).append('<a href="/Residencia/Proyecto/files/'+response.data.doc+'" target="_blank">Ver documento</a>');
 			}
 		}, function errorCallback(response) {
 			$scope.upload(idDoc, idCurso);
 		});
+	}
+
+	$scope.existeDocumento = function () {
+		$timeout(function(){
+			$http({
+				method: 'post',
+				url: '/Residencia/Pruebas/pruebaLogin/php/documentosExistentesCurso.php',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idc=' + curso.getID()
+			}).then(function successCallback(response) {
+				if (response.data.status = "existe") {
+					angular.forEach(response.data.documentos, function (value, key) {
+						$('#linkDocumento'+key).append('<a target="_blank" href="/Residencia/Proyecto/files/'+value+'">Ver documento</a>');
+					});
+				}
+			});
+		}, 500);
 	}
 
 	$scope.addComment = function (documento, idDoc, idCurso) {
@@ -1296,14 +1318,13 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 			'&idc=' + $scope.infoCurso.idCurso + '&idu=' + user.getID(), '_blank');
 	}
 
-	$scope.getDoc();
-	$scope.getListaDocumentosCurso();
-	$scope.getListaDocumentosSubidos();
-	$scope.getCursos();
-	$scope.getInstructores();
-	$scope.getDepartamentos();
-	$scope.getInfoCurso();
-	$scope.getCursoAct();
+	// $scope.getDoc();
+	// $scope.getListaDocumentosCurso();
+	// $scope.getCursos();
+	// $scope.getInstructores();
+	// $scope.getDepartamentos();
+	// $scope.getInfoCurso();
+	// $scope.getCursoAct();
 });
 
 app.controller('constanciasCtrl', function ($scope, $http, $location, user, periodoService, curso, constancia) {
@@ -1828,7 +1849,7 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 	// }
 	$scope.registrarAsistencia = function () {
 		// console.log(curso.getID());
-		if(curso.getID() != undefined){
+		if (curso.getID() != undefined) {
 			var datos = {
 				lista: $scope.listaAlumnos,
 				participantes: $scope.participantes,

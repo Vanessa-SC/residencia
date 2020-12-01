@@ -48,9 +48,15 @@ if ($curso->modalidad == 1) {
 }
 
 /* Validar si hay observaciones */
-if($curso->observaciones == ""){
+if(empty($curso->observaciones)){
     $curso->observaciones== "Ninguna";
 }
+
+/* validar si hay folio  */
+if(empty($curso->folio)){
+    $curso->folio = "";
+}
+
 /* Query de insercion */
 $sql = "INSERT INTO curso
         VALUES ('',
