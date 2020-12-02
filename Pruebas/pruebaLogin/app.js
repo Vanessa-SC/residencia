@@ -1789,6 +1789,20 @@ app.controller('cursosICtrl', function ($scope, $http, $timeout, user, curso, pe
 		}, 500);
 	}
 
+	$scope.faltaDocumentacion = function () {
+		$timeout(function(){
+			$http({
+				method: 'GET',
+				url: '/Residencia/Pruebas/pruebaLogin/php/numDocsCursos.php',
+			}).then(function successCallback(response) {
+				angular.forEach(response.data.numDocsCurso, function (value, key) {
+					if( value.num_docs < 7 ){
+						$("#documentacion"+value.idCurso).append('<button class="btn bg-white info_icon" title="Falta documentación"></button>');
+					}
+				});
+			});
+		}, 500);
+	}
 	
 	$scope.printOficio = function () {
 		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getOficioCurso.php?idd=' + user.getIdDepartamento() +
@@ -2309,6 +2323,21 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 	$scope.printOficio = function () {
 		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getOficioCurso.php?idd=' + user.getIdDepartamento() +
 			'&idc=' + curso.getID() + '&idu=' + user.getID(), '_blank');
+	}
+
+	$scope.faltaDocumentacion = function () {
+		$timeout(function(){
+			$http({
+				method: 'GET',
+				url: '/Residencia/Pruebas/pruebaLogin/php/numDocsCursos.php',
+			}).then(function successCallback(response) {
+				angular.forEach(response.data.numDocsCurso, function (value, key) {
+					if( value.num_docs < 7 ){
+						$("#documentacion"+value.idCurso).append('<button class="btn bg-white info_icon" title="Falta documentación"></button>');
+					}
+				});
+			});
+		}, 500);
 	}
 
 

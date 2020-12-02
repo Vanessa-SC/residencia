@@ -1,5 +1,5 @@
 <ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasI/nav.html'"></ng-include>
-<div class="container">
+<div class="container" ng-init="faltaDocumentacion()">
     <div class="programa_page d-flex justify-content-center">
         <div class="p-2"><img src="/Residencia/Proyecto/images/Logo ITD.png" alt="logo ITD" class="logoITD"></div>
         <div class="p-4">
@@ -22,7 +22,9 @@
         </thead>
         <tbody>
             <tr ng-repeat="x in cursos">
-                <th></th>
+                <th scope="row" class=" align-middle "> 
+                    <span id="documentacion{{x.idCurso}}"></span>
+                </th>
                 <td><a class="text-decoration-none " href="#!/inicioI/cursos/infoCurso" ng-click=cursoID(x.idCurso) title="Ver más">{{x.curso}}</a></td>
                 <td>{{x.fecha}} <br> {{x.horario}}</td>
                 <td class=" align-middle "><a href="#!/inicioI/subirDocumentos"
