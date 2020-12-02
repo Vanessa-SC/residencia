@@ -308,6 +308,17 @@ app.config(function ($routeProvider, $locationProvider) {
 			templateUrl: './vistasI/cursos.html',
 			controller: 'cursosICtrl'
 
+		}).when('/inicioI/reconocimientos', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 4) {
+						$location.path(user.getPath());
+					}
+				},
+			},
+			templateUrl: './vistasI/reconocimientos.html',
+			controller: 'reconocimientosICtrl'
+
 		}).when('/inicioI/cursos/infoCurso', {
 			resolve: {
 				check: function ($location, user) {
@@ -452,16 +463,14 @@ app.config(function ($routeProvider, $locationProvider) {
 });
 
 app.service('user', function () {
+	/*Declaracion de variables para el inicio de sesion */
 	var username;
 	var loggedin = false;
 	var id;
 	var rol;
 	var idDepartamento;
 
-	this.setName = function (name) {
-		username = name;
-	};
-
+	/* Obtiene el nombre del usuario que se guardó en el inicio de sesion */
 	this.getName = function () {
 		if (!!localStorage.getItem('login')) {
 			var data = JSON.parse(localStorage.getItem('login'));
@@ -470,39 +479,7 @@ app.service('user', function () {
 		return username;
 	};
 
-	this.setID = function (userID) {
-		id = userID;
-	};
-
-	this.getID = function () {
-		if (!!localStorage.getItem('login')) {
-			var data = JSON.parse(localStorage.getItem('login'));
-			id = data.id;
-		}
-		return id;
-	};
-
-	this.getIdDepartamento = function () {
-		if (!!localStorage.getItem('login')) {
-			var data = JSON.parse(localStorage.getItem('login'));
-			idDepartamento = data.idDepartamento;
-			// console.log("idDepto: " + idDepartamento);
-		}
-		return idDepartamento;
-	}
-
-	this.setIdUsuario = function (idUsuario) {
-		id = idUsuario;
-	};
-
-	this.getRol = function () {
-		if (!!localStorage.getItem('login')) {
-			var data = JSON.parse(localStorage.getItem('login'));
-			rol = data.rol;
-		}
-		return rol;
-	};
-
+	/* Obtiene el ID del usuario que se guardó en el inicio de sesion */
 	this.getIdUsuario = function () {
 		if (!!localStorage.getItem('login')) {
 			var data = JSON.parse(localStorage.getItem('login'));
@@ -512,6 +489,26 @@ app.service('user', function () {
 		return id;
 	};
 
+	/* Obtiene el nombre del departamento del usuario que se guardó en el inicio de sesion */
+	this.getIdDepartamento = function () {
+		if (!!localStorage.getItem('login')) {
+			var data = JSON.parse(localStorage.getItem('login'));
+			idDepartamento = data.idDepartamento;
+			// console.log("idDepto: " + idDepartamento);
+		}
+		return idDepartamento;
+	}
+	
+	/* Obtiene el rol del usuario que se guardó en el inicio de sesion */
+	this.getRol = function () {
+		if (!!localStorage.getItem('login')) {
+			var data = JSON.parse(localStorage.getItem('login'));
+			rol = data.rol;
+		}
+		return rol;
+	};
+
+	/* Obtiene la ruta de inicio para el usuario, que se guardó en el inicio de sesion */
 	this.getPath = function () {
 		if (!!localStorage.getItem('login')) {
 			var data = JSON.parse(localStorage.getItem('login'));
@@ -520,6 +517,7 @@ app.service('user', function () {
 		return path;
 	};
 
+	/* Determina si el usuario inicio sesión */
 	this.isUserLoggedIn = function () {
 		if (!!localStorage.getItem('login')) {
 			loggedin = true;
@@ -535,6 +533,7 @@ app.service('user', function () {
 		loggedin = true;
 	};
 
+	/* Guarda los datos de inicio de sesion */
 	this.saveData = function (data, ruta) {
 		username = data.user;
 		id = data.idUsuario;
@@ -552,6 +551,7 @@ app.service('user', function () {
 		}));
 	};
 
+	/* Elimina los datos de inicio de sesión */
 	this.clearData = function () {
 		localStorage.removeItem('login');
 		username = "";
@@ -565,6 +565,7 @@ app.service('curso', function () {
 	var id;
 	var idDoc;
 
+	/* guarda el ID del curso */
 	this.setID = function (cursoID) {
 		id = cursoID;
 		localStorage.setItem('idCurso', JSON.stringify({
@@ -572,6 +573,7 @@ app.service('curso', function () {
 		}));
 	};
 
+	/* obtiene el ID del curso */
 	this.getID = function () {
 		if (!!localStorage.getItem('idCurso')) {
 			var data = JSON.parse(localStorage.getItem('idCurso'));
@@ -580,6 +582,7 @@ app.service('curso', function () {
 		return id;
 	};
 
+	/* guarda el ID del documento del curso */
 	this.setIDdocumento = function (idDocumento) {
 		idDoc = idDocumento;
 		localStorage.setItem('idDocumento', JSON.stringify({
@@ -587,6 +590,7 @@ app.service('curso', function () {
 		}));
 	};
 
+	/* obtiene el ID del documento del curso */
 	this.getIDdocumento = function () {
 		if (!!localStorage.getItem('idDocumento')) {
 			var data = JSON.parse(localStorage.getItem('idDocumento'));
@@ -1330,7 +1334,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 
 	$scope.printOficio = function () {
 		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getOficioCurso.php?idd=' + user.getIdDepartamento() +
-			'&idc=' + $scope.infoCurso.idCurso + '&idu=' + user.getID(), '_blank');
+			'&idc=' + $scope.infoCurso.idCurso + '&idu=' + user.getIdUsuario(), '_blank');
 	}
 
 	$scope.faltaDocumentacion = function () {
@@ -1821,7 +1825,7 @@ app.controller('cursosICtrl', function ($scope, $http, $timeout, user, curso, pe
 
 	$scope.printOficio = function () {
 		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getOficioCurso.php?idd=' + user.getIdDepartamento() +
-			'&idc=' + $scope.infoCurso.idCurso + '&idu=' + user.getID(), '_blank');
+			'&idc=' + $scope.infoCurso.idCurso + '&idu=' + user.getIdUsuario(), '_blank');
 	}
 
 	$scope.back = function () {
@@ -2003,6 +2007,15 @@ app.controller('participantesICtrl', function ($scope, $http, $location, user, c
 	$scope.getParticipantes();
 });
 
+app.controller('reconocimientosICtrl', function($scope, $http,user,curso, periodoService){
+
+	user.getName();
+
+	$scope.periodo = periodoService.getPeriodo()
+		.then(function (response) {
+			$scope.periodo = response;
+		});
+});
 /* CONTROLADORES PARA EL USUARIO JEFE */
 
 app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, periodoService, $timeout) {
@@ -2353,7 +2366,7 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 
 	$scope.printOficio = function () {
 		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getOficioCurso.php?idd=' + user.getIdDepartamento() +
-			'&idc=' + curso.getID() + '&idu=' + user.getID(), '_blank');
+			'&idc=' + curso.getID() + '&idu=' + user.getIdUsuario(), '_blank');
 	}
 
 	$scope.faltaDocumentacion = function () {
@@ -2404,9 +2417,6 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 		});
 	}
 
-	// $scope.cursoIdUsuario = function (idUsuario) {
-	// 	user.setIdUsuario(idUsuario);
-	// }
 	$scope.cursoID = function (id) {
 		curso.setID(id);
 	}
@@ -2549,7 +2559,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 		$scope.idCurso = curso.getID();
 		//console.log($scope.idCurso);
 
-		if ($scope.idCurso != "") {
+		if ($scope.idCurso != undefined) {
 			$http({
 				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getInfoCurso.php',
 				method: 'POST',
