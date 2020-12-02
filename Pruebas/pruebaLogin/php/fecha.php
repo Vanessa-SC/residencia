@@ -2,7 +2,8 @@
 
 include_once 'conexion.php';
 
-setlocale(LC_TIME, 'es_MX');
+date_default_timezone_set('America/Mexico_City');
+
 $res = [];
 
 $fecha = date('d/m/Y');

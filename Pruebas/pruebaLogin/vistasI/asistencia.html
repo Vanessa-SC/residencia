@@ -1,11 +1,11 @@
 <ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasI/nav.html'"></ng-include>
 
-<div class="container" ng-init="getParticipantes()">
-    <div class="d-flex">
-        <div class="p-2">
+<div class="container" ng-init="getParticipantes();YaSeRegistroAsistencia()">
+    <div class="d-flex justify-content-center mt-3">
+        <div class="p-4">
             <img src="\Residencia\Proyecto\images\Logo ITD.png" class="logoITD" alt="">
         </div>
-        <div class="p-5">
+        <div class="pt-3" >
             <table class="table table-sm">
                 <thead>
                     <tr>
@@ -28,18 +28,21 @@
                         <td class="p-4"><button class="btn btn-secondary" id="btn_borrar" ng-click="uncheck()"><i
                                     class="erase_icon"></i>Borrar</button></td>
                         <td class="p-4">
-                            <button class="btn bg-wine text-white" id="btn_enviar" data-toggle="modal" data-target="#modal"><i
-                                    class="send_icon"></i>Enviar</button>
+                            <button class="btn bg-wine text-white" id="btn_enviar" data-toggle="modal"
+                                data-target="#modal"><i class="send_icon"></i>Enviar</button>
                         </td>
                     </tr>
 
                 </tbody>
                 <!-- <input type="button" value="Get" ng-click="GetValue()" /> -->
             </table>
-            <h2>Selected</h2>
-            <p>{{listaAlumnos|json}}</p>
         </div>
     </div>
+
+    <div class="text-center">
+        <span id="mensaje" class="font-italic" style="font-size: 2rem !important;"></span>
+    </div>
+
     <!-- Modal -->
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="Title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="dialog">

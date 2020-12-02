@@ -696,6 +696,52 @@ app.service('fechaService', function ($q, $http) {
 	}
 });
 
+app.service('asistencia', function () {
+
+	/* Obtener fecha actual */
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth() + 1;
+	var yyyy = today.getFullYear();
+	if (dd < 10) {
+		dd = '0' + dd;
+	}
+	if (mm < 10) {
+		mm = '0' + mm;
+	}
+
+	today = dd + '/' + mm + '/' + yyyy;
+
+	var fecha;
+	var asistenciaTomada = false;
+
+	this.yaHayAsistencia = function () {
+
+		if (!!localStorage.getItem('asistencia')) {
+
+			var data = JSON.parse(localStorage.getItem('asistencia'));
+			if (data.fecha == today) {
+				asistenciaTomada = true;
+			} else {
+				asistenciaTomada = false;
+			}
+		}
+		return asistenciaTomada;
+	};
+
+	this.tomarAsistencia = function (fechaAsistencia) {
+		fecha = fechaAsistencia;
+		asistenciaTomada = true;
+		localStorage.setItem('asistencia', JSON.stringify({
+			fecha: fecha
+		}));
+	}
+
+
+
+
+});
+
 app.filter('trustAsResourceUrl', ['$sce', function ($sce) {
 	return function (val) {
 		return $sce.trustAsResourceUrl(val);
@@ -1251,7 +1297,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 
 				$('#modal' + idDoc).modal('hide');
 				document.getElementById('mensaje' + idDoc).innerHTML = 'Documento guardado';
-				$('#linkDocumento' + idDoc).replaceWith('<span id="linkDocumento'+idDoc+'"><a href="/Residencia/Proyecto/files/'+response.data.doc+'" target="_blank">Ver documento</a></span>');
+				$('#linkDocumento' + idDoc).replaceWith('<span id="linkDocumento' + idDoc + '"><a href="/Residencia/Proyecto/files/' + response.data.doc + '" target="_blank">Ver documento</a></span>');
 			}
 		}, function errorCallback(response) {
 			$scope.upload(idDoc, idCurso);
@@ -1259,7 +1305,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 	}
 
 	$scope.existeDocumento = function () {
-		$timeout(function(){
+		$timeout(function () {
 			$http({
 				method: 'post',
 				url: '/Residencia/Pruebas/pruebaLogin/php/documentosExistentesCurso.php',
@@ -1270,7 +1316,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 			}).then(function successCallback(response) {
 				if (response.data.status = "existe") {
 					angular.forEach(response.data.documentos, function (value, key) {
-						$('#linkDocumento'+key).append('<a target="_blank" href="/Residencia/Proyecto/files/'+value+'">Ver documento</a>');
+						$('#linkDocumento' + key).append('<a target="_blank" href="/Residencia/Proyecto/files/' + value + '">Ver documento</a>');
 					});
 				}
 			});
@@ -1319,14 +1365,14 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 	}
 
 	$scope.faltaDocumentacion = function () {
-		$timeout(function(){
+		$timeout(function () {
 			$http({
 				method: 'GET',
 				url: '/Residencia/Pruebas/pruebaLogin/php/numDocsCursos.php',
 			}).then(function successCallback(response) {
 				angular.forEach(response.data.numDocsCurso, function (value, key) {
-					if( value.num_docs < 7 ){
-						$("#documentacion"+value.idCurso).append('<button class="btn bg-white info_icon" title="Falta documentación"></button>');
+					if (value.num_docs < 7) {
+						$("#documentacion" + value.idCurso).append('<button class="btn bg-white info_icon" title="Falta documentación"></button>');
 					}
 				});
 			});
@@ -1765,13 +1811,13 @@ app.controller('cursosICtrl', function ($scope, $http, $timeout, user, curso, pe
 				});
 				$('#modal' + idDoc).modal('hide');
 				document.getElementById('mensaje' + idDoc).innerHTML = 'Documento guardado';
-				$('#linkDocumento' + idDoc).replaceWith('<span id="linkDocumento'+idDoc+'"><a href="/Residencia/Proyecto/files/'+response.data.doc+'" target="_blank">Ver documento</a></span>');
+				$('#linkDocumento' + idDoc).replaceWith('<span id="linkDocumento' + idDoc + '"><a href="/Residencia/Proyecto/files/' + response.data.doc + '" target="_blank">Ver documento</a></span>');
 			}
 		});
 	}
 
 	$scope.existeDocumento = function () {
-		$timeout(function(){
+		$timeout(function () {
 			$http({
 				method: 'post',
 				url: '/Residencia/Pruebas/pruebaLogin/php/documentosExistentesCurso.php',
@@ -1782,7 +1828,7 @@ app.controller('cursosICtrl', function ($scope, $http, $timeout, user, curso, pe
 			}).then(function successCallback(response) {
 				if (response.data.status = "existe") {
 					angular.forEach(response.data.documentos, function (value, key) {
-						$('#linkDocumento'+key).append('<a target="_blank" href="/Residencia/Proyecto/files/'+value+'">Ver documento</a>');
+						$('#linkDocumento' + key).append('<a target="_blank" href="/Residencia/Proyecto/files/' + value + '">Ver documento</a>');
 					});
 				}
 			});
@@ -1790,20 +1836,20 @@ app.controller('cursosICtrl', function ($scope, $http, $timeout, user, curso, pe
 	}
 
 	$scope.faltaDocumentacion = function () {
-		$timeout(function(){
+		$timeout(function () {
 			$http({
 				method: 'GET',
 				url: '/Residencia/Pruebas/pruebaLogin/php/numDocsCursos.php',
 			}).then(function successCallback(response) {
 				angular.forEach(response.data.numDocsCurso, function (value, key) {
-					if( value.num_docs < 7 ){
-						$("#documentacion"+value.idCurso).append('<button class="btn bg-white info_icon" title="Falta documentación"></button>');
+					if (value.num_docs < 7) {
+						$("#documentacion" + value.idCurso).append('<button class="btn bg-white info_icon" title="Falta documentación"></button>');
 					}
 				});
 			});
 		}, 500);
 	}
-	
+
 	$scope.printOficio = function () {
 		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getOficioCurso.php?idd=' + user.getIdDepartamento() +
 			'&idc=' + $scope.infoCurso.idCurso + '&idu=' + user.getID(), '_blank');
@@ -1819,7 +1865,7 @@ app.controller('cursosICtrl', function ($scope, $http, $timeout, user, curso, pe
 
 });
 
-app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curso, periodoService, fechaService) {
+app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curso, periodoService, fechaService, asistencia) {
 	$scope.user = user.getName();
 	$scope.cursoID = function (id) {
 		curso.setID(id);
@@ -1888,15 +1934,8 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 	}
 
 	$scope.listaAlumnos = {};
-	// $scope.registrarAsistencia = function () {
-	// 	angular.forEach($scope.listaAlumnos, function (selected, x) {
-	// 		if (selected) {
-	// 			console.log(x);
-	// 		}
-	// 	});
-	// }
+
 	$scope.registrarAsistencia = function () {
-		// console.log(curso.getID());
 		if (curso.getID() != undefined) {
 			var datos = {
 				lista: $scope.listaAlumnos,
@@ -1911,15 +1950,26 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 				},
 				data: JSON.stringify(datos)
 			}).then(function successCallback(response) {
-				console.log(response.data);
-				// $(":checkbox").attr('disabled',true);
-				// $("#btn_enviar").attr('disabled',true);
-				// $("#btn_borrar").attr('disabled',true);
-				$('#modal').modal('hide');
+				if (response.data.status == 'ok') {
+					asistencia.tomarAsistencia($scope.fecha);
+					$(":checkbox").attr('disabled', true);
+					$("#btn_enviar").attr('disabled', true);
+					$("#btn_borrar").attr('disabled', true);
+					$('#modal').modal('hide');
+					$location.path('/inicioI');
+				}
 			});
 		}
 	};
 
+	$scope.YaSeRegistroAsistencia = function () {
+		if (asistencia.yaHayAsistencia()) {
+			$(":checkbox").attr('disabled', true);
+			$("#btn_enviar").attr('disabled', true);
+			$("#btn_borrar").attr('disabled', true);
+			$("#mensaje").append('Ya tomó asistencia hoy, vuelva mañana.');
+		}
+	}
 
 	/* ignora esto, aún no hace nada. 
 	estaba tratando de seguir algo que encontré en un blog */
@@ -2277,13 +2327,13 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 			if (response.data.status == 'ok') {
 				$('#modal' + idDoc).modal('hide');
 				document.getElementById('mensaje' + idDoc).innerHTML = 'Documento guardado';
-				$('#linkDocumento' + idDoc).replaceWith('<span id="linkDocumento'+idDoc+'"><a href="/Residencia/Proyecto/files/'+response.data.doc+'" target="_blank">Ver documento</a></span>');
+				$('#linkDocumento' + idDoc).replaceWith('<span id="linkDocumento' + idDoc + '"><a href="/Residencia/Proyecto/files/' + response.data.doc + '" target="_blank">Ver documento</a></span>');
 			}
 		});
 	}
 
 	$scope.existeDocumento = function () {
-		$timeout(function(){
+		$timeout(function () {
 			$http({
 				method: 'post',
 				url: '/Residencia/Pruebas/pruebaLogin/php/documentosExistentesCurso.php',
@@ -2294,7 +2344,7 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 			}).then(function successCallback(response) {
 				if (response.data.status = "existe") {
 					angular.forEach(response.data.documentos, function (value, key) {
-						$('#linkDocumento'+key).append('<a target="_blank" href="/Residencia/Proyecto/files/'+value+'">Ver documento</a>');
+						$('#linkDocumento' + key).append('<a target="_blank" href="/Residencia/Proyecto/files/' + value + '">Ver documento</a>');
 					});
 				}
 			});
@@ -2326,14 +2376,14 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 	}
 
 	$scope.faltaDocumentacion = function () {
-		$timeout(function(){
+		$timeout(function () {
 			$http({
 				method: 'GET',
 				url: '/Residencia/Pruebas/pruebaLogin/php/numDocsCursos.php',
 			}).then(function successCallback(response) {
 				angular.forEach(response.data.numDocsCurso, function (value, key) {
-					if( value.num_docs < 7 ){
-						$("#documentacion"+value.idCurso).append('<button class="btn bg-white info_icon" title="Falta documentación"></button>');
+					if (value.num_docs < 7) {
+						$("#documentacion" + value.idCurso).append('<button class="btn bg-white info_icon" title="Falta documentación"></button>');
 					}
 				});
 			});

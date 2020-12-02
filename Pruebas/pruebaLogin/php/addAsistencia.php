@@ -1,5 +1,7 @@
 <?php
 
+include_once 'conexion.php';
+
 $datos = json_decode(file_get_contents('php://input'), true);
 
 /* Separar el arreglo */
@@ -7,7 +9,9 @@ $participantes = $datos['participantes'];
 $lista = $datos['lista'];
 $idCurso = $datos['idCurso'];
 
-$fecha = date('Y-m-d');
+$response = [];
+$contador = 0;
+
 
 /*  Obtener las llaves de cada objeto para determinar la 
     que tiene el valor máximo y usarse en el ciclo for */
@@ -32,17 +36,21 @@ for ($i = 0; $i < max($keyLista); $i++) {
             $asist = 0;
         }
 
-        /* Imprime los valores */
-        print('id: ' . $id . ', asistencia: ' . $asist . ' | ');
-
         /*  Aquí se agregará la inserción de cada asistencia 
             de forma individual */
 
             $sql = "INSERT INTO asistencia 
-                    VALUES... ";
+                    VALUES('', null,$asist,$id,$idCurso) ";
 
+            $contador = $contador + 1;
+            mysqli_query($conn,$sql);
     }
-
 }
 
-print 'idCurso: '.$idCurso.' fecha: '.$fecha;
+if( $contador == count($keyParticipantes)){
+    $response['status'] = 'ok';
+} else {
+    $response['status'] = 'error';
+}
+
+echo json_encode($response,true);
