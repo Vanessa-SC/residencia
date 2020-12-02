@@ -1318,13 +1318,21 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 			'&idc=' + $scope.infoCurso.idCurso + '&idu=' + user.getID(), '_blank');
 	}
 
-	// $scope.getDoc();
-	// $scope.getListaDocumentosCurso();
-	// $scope.getCursos();
-	// $scope.getInstructores();
-	// $scope.getDepartamentos();
-	// $scope.getInfoCurso();
-	// $scope.getCursoAct();
+	$scope.faltaDocumentacion = function () {
+		$timeout(function(){
+			$http({
+				method: 'GET',
+				url: '/Residencia/Pruebas/pruebaLogin/php/numDocsCursos.php',
+			}).then(function successCallback(response) {
+				angular.forEach(response.data.numDocsCurso, function (value, key) {
+					if( value.num_docs < 7 ){
+						$("#documentacion"+value.idCurso).append('<button class="btn bg-white info_icon" title="Falta documentación"></button>');
+					}
+				});
+			});
+		}, 500);
+	}
+
 });
 
 app.controller('constanciasCtrl', function ($scope, $http, $location, user, periodoService, curso, constancia) {
@@ -2302,7 +2310,6 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getOficioCurso.php?idd=' + user.getIdDepartamento() +
 			'&idc=' + curso.getID() + '&idu=' + user.getID(), '_blank');
 	}
-
 
 
 	$scope.getCursoAct();
