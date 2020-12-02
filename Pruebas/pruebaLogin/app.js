@@ -696,50 +696,23 @@ app.service('fechaService', function ($q, $http) {
 	}
 });
 
-app.service('asistencia', function () {
-
-	/* Obtener fecha actual */
-	var today = new Date();
-	var dd = today.getDate();
-	var mm = today.getMonth() + 1;
-	var yyyy = today.getFullYear();
-	if (dd < 10) {
-		dd = '0' + dd;
-	}
-	if (mm < 10) {
-		mm = '0' + mm;
-	}
-
-	today = dd + '/' + mm + '/' + yyyy;
-
-	var fecha;
-	var asistenciaTomada = false;
-
-	this.yaHayAsistencia = function () {
-
-		if (!!localStorage.getItem('asistencia')) {
-
-			var data = JSON.parse(localStorage.getItem('asistencia'));
-			if (data.fecha == today) {
-				asistenciaTomada = true;
-			} else {
-				asistenciaTomada = false;
-			}
+app.service('asistenciaService', function($http,$q){
+	return {
+		existe: function (idc) {
+			return $http({
+					method: 'POST',
+					url: '/Residencia/Pruebas/pruebaLogin/php/getRegistroAsistenciaCurso.php',
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					},
+					data: 'idc=' + idc
+				}).then(function successCallback(response) {
+				return response.data.status;
+			}, function errorCallback(response) {
+				return $q.reject(response.data);
+			});
 		}
-		return asistenciaTomada;
-	};
-
-	this.tomarAsistencia = function (fechaAsistencia) {
-		fecha = fechaAsistencia;
-		asistenciaTomada = true;
-		localStorage.setItem('asistencia', JSON.stringify({
-			fecha: fecha
-		}));
 	}
-
-
-
-
 });
 
 app.filter('trustAsResourceUrl', ['$sce', function ($sce) {
@@ -1025,7 +998,6 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 					data: 'idCurso=' + idCurso
 				}).then(function successCallback(response) {
 					$scope.documentosSubidos = response.data;
-					console.log($scope.documentosSubidos);
 					$timeout(function () {
 						if ($scope.documentosSubidos != null) {
 							angular.forEach($scope.documentosSubidos, function (value) {
@@ -1121,9 +1093,6 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 			data: 'idCurso=' + idCurso + '&idDocumento=' + idDoc
 		}).then(function successCallback(response) {
 			$scope.documentoCurso = response.data;
-			// console.log(response.data);
-		}, function errorCallback(response) {
-			// console.log("No hay datos.");
 		});
 	}
 
@@ -1865,7 +1834,7 @@ app.controller('cursosICtrl', function ($scope, $http, $timeout, user, curso, pe
 
 });
 
-app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curso, periodoService, fechaService, asistencia) {
+app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curso, periodoService, fechaService, asistenciaService, $timeout) {
 	$scope.user = user.getName();
 	$scope.cursoID = function (id) {
 		curso.setID(id);
@@ -1883,6 +1852,11 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 			$scope.cursos = response.data;
 		});
 	}
+
+	$scope.periodo = periodoService.getPeriodo()
+		.then(function (response) {
+			$scope.periodo = response;
+		});
 
 	$scope.fecha = fechaService.getFecha()
 		.then(function (response) {
@@ -1962,13 +1936,20 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 		}
 	};
 
+	$scope.existeAsistencia = asistenciaService.existe(curso.getID())
+		.then(function (response) {
+			$scope.asistencia = response;
+		});
+
 	$scope.YaSeRegistroAsistencia = function () {
-		if (asistencia.yaHayAsistencia()) {
-			$(":checkbox").attr('disabled', true);
-			$("#btn_enviar").attr('disabled', true);
-			$("#btn_borrar").attr('disabled', true);
-			$("#mensaje").append('Ya tomó asistencia hoy, vuelva mañana.');
-		}
+		$timeout(function(){
+			if ($scope.asistencia == 'existe') {
+				$(":checkbox").attr('disabled', true);
+				$("#btn_enviar").attr('disabled', true);
+				$("#btn_borrar").attr('disabled', true);
+				$("#mensaje").append('Ya tomó asistencia hoy, vuelva mañana.');
+			}
+		},1000);
 	}
 
 	/* ignora esto, aún no hace nada. 

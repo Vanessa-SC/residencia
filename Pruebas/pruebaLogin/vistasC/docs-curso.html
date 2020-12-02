@@ -9,7 +9,7 @@
         <div class="p-4">
             <div class="text-center">
                 <h1>Periodo {{periodo}}</h1>
-                <h3>Formaci&oacute;n de Programa Institucional y Actualizaci&oacute;n docente y Profesional</h3>
+                <h3>Programa Institucional de Formaci&oacute;n y Actualizaci&oacute;n Docente y Profesional</h3>
             </div>
         </div>
     </div>
@@ -81,7 +81,7 @@
                 <th scope="row">{{doc.idDocumento}}</th>
                 <td>{{doc.nombreDocumento}}</td>
                 <td>
-                    <a href="#!/inicioC/verDocumento" ng-click="verDoc(infoCurso.idCurso,doc.idDocumento)">
+                    <a target="_blank" href="http://localhost/Residencia/Proyecto/files/{{doc.rutaArchivo}}" ng-click="verDoc(infoCurso.idCurso,doc.idDocumento)">
                         <button class="btn bg-white import_icon"></button>
                     </a>
                 </td>
