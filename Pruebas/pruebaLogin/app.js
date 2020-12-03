@@ -728,6 +728,26 @@ app.service('asistenciaService', function ($http, $q) {
 	}
 });
 
+app.service('encuestaService', function ($http, $q) {
+	return {
+		existe: function (idc,idu) {
+			return $http({
+				method: 'POST',
+				url: '/Residencia/Pruebas/pruebaLogin/php/getRegistroEncuestaUsuarioCurso.php',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idc=' + idc + '&idu='+idu
+			}).then(function successCallback(response) {
+				return response.data.status;
+			}, function errorCallback(response) {
+				return $q.reject(response.data);
+			});
+		}
+	}
+});
+
+
 app.filter('trustAsResourceUrl', ['$sce', function ($sce) {
 	return function (val) {
 		return $sce.trustAsResourceUrl(val);
@@ -1965,22 +1985,6 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 		}, 1000);
 	}
 
-	/* ignora esto, aún no hace nada. 
-	estaba tratando de seguir algo que encontré en un blog */
-	$scope.GetValue = function () {
-		var message = "";
-		for (var i = 0; i < $scope.pasticipantes.length; i++) {
-			if ($scope.participantes[i].asistencia = 1) {
-				var id = $scope.participantes[i].idUsuario;
-				var user = $scope.participantes[i].nombre;
-				message += "ID: " + id + " Docente: " + user + "\n";
-			}
-		}
-
-		alert(message);
-	}
-
-	// $scope.getParticipantes();
 	$scope.getCursos();
 });
 
@@ -2408,7 +2412,7 @@ app.controller('encuestaJCtrl', function ($scope, $http, $location, user, period
 });
 
 /*	CONTROLADORES PARA EL USUARIO DOCENTE */
-app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, encuesta, periodoService, $timeout) {
+app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, encuesta, periodoService, $timeout, encuestaService) {
 	$scope.user = user.getName();
 
 	$scope.getCursos = function () {
@@ -2595,6 +2599,23 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 		}, function (error) {
 			console.log(response);
 		});
+
+	$scope.encuestaRespondida = encuestaService.existe(curso.getID(),user.getIdUsuario())
+		.then(function (response) {
+			$scope.encuesta = response;
+		});
+
+	$scope.YaRespondioEncuesta = function () {
+		$timeout(function () {
+			if ($scope.encuesta == 'contestada') {
+				$("input").attr('disabled', true);
+				$("textarea").attr('disabled', true);
+				$("#btn_enviar").attr('disabled', true);
+				$('#encuestaForm').replaceWith('<div class="text-center align-middle mt-5"><span class="font-italic" style="font-size: 2rem !important;">Ya ha respondido esta encuesta.</span></div>');
+				
+			}
+		}, 1000);
+	}
 
 	$scope.getEncuesta = function (ide,idc) {
 		encuesta.setID(ide);
