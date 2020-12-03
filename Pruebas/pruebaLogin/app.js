@@ -2408,7 +2408,7 @@ app.controller('encuestaJCtrl', function ($scope, $http, $location, user, period
 });
 
 /*	CONTROLADORES PARA EL USUARIO DOCENTE */
-app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, encuesta, periodoService) {
+app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, encuesta, periodoService, $timeout) {
 	$scope.user = user.getName();
 
 	$scope.getCursos = function () {
@@ -2596,8 +2596,9 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 			console.log(response);
 		});
 
-	$scope.getEncuesta = function (id) {
-		encuesta.setID(id);
+	$scope.getEncuesta = function (ide,idc) {
+		encuesta.setID(ide);
+		curso.setID(idc)
 	}
 
 	$scope.getPreguntasEncuesta = function () {
@@ -2611,14 +2612,55 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 				data: 'ide=' + encuesta.getID()
 			}).then(function successCallback(response) {
 				$scope.preguntas = response.data;
-				console.log(response.data);
 			});
 		}
 	}
-	$scope.listaRespuestas = {}
+	$scope.listaRespuestas = {};
 
 	$scope.enviar = function (){
-		console.log($scope.listaRespuestas);
+
+		var datos = {
+			respuestas: $scope.listaRespuestas,
+			sugerencias: $scope.sugerencias,
+			idCurso: curso.getID(),
+			idUsuario: user.getIdUsuario(),
+			idEncuesta: encuesta.getID()
+		};
+		
+		if( Object.keys($scope.listaRespuestas).length == ($scope.preguntas).length){
+			$http({
+				method: 'POST',
+				url: '/Residencia/Pruebas/pruebaLogin/php/registrarRespuestasEncuesta.php',
+				headers: {
+					'Content-type':'json/application'
+				},
+				data: JSON.stringify(datos)
+			}).then(function successCallback(response){
+				console.log(response.data);
+				if(response.data.status == 'ok'){
+					$scope.alerta = {
+						titulo: 'Listo!',
+						tipo: 'success',
+						mensaje: 'Sus respuestas fueron registradas con éxito. En breve será redireccionado...'
+					};
+					$(document).ready(function () {
+						$('#alerta').toast('show');
+					});
+					$timeout(function () {
+						$location.path(user.getPath());
+					}, 1250);
+				}
+			});
+		} else {
+			$scope.alerta = {
+				titulo: 'Atención!',
+				tipo: 'warning',
+				mensaje: 'No ha respondido todas las preguntas.'
+			};
+			$(document).ready(function () {
+				$('#alerta').toast('show');
+			});
+		}
 	}
 
 	$scope.getPreguntasEncuesta();

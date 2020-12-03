@@ -1,14 +1,15 @@
 <ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasD/nav.html'"></ng-include>
 <div class="container">
-    <div class="programa_page d-flex justify-content-center">
-        <div class="p-2"><img src="/Residencia/Proyecto/images/Logo ITD.png" alt="logo ITD" class="logoITD"></div>
-        <div class="p-5">
-            <div class="text-left">
-                <h1>Encuesta de Opinión</h1>
-            </div>
+    <div class="d-flex justify-content-center">
+        <div class="mt-2">
+            <img src="\Residencia\Proyecto\images\Logo ITD.png" class="logoITD" alt="">
+        </div>
+        <div class="p-2 mt-2 align-self-center align-middle text-center">
+            <h1>Periodo {{periodo}} </h1>
+            <p class="font-weight-bold">Encuesta de opinion</p>
         </div>
     </div>
-    <div class="p-5">
+    <div class="p-2">
         <form>
             <table class="table table-sm">
                 <thead>
@@ -23,7 +24,7 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="p in preguntas">
-                        <th scope="row">{{p.id}}.- {{p.pregunta}}</th>
+                        <th scope="row">{{ $index + 1 }}.- {{p.pregunta}}</th>
                         <td>
                             <div class="custom-control custom-radio">
                                 <input name="p{{p.id}}" required class="custom-control-input" type="radio"
@@ -60,6 +61,14 @@
                             </div>
                         </td>
                     </tr>
+                    <tr>
+                        <td colspan="6"> 
+                            <div class="form-group">
+                                <label for="sugerencias" class="font-weight-bold ml-3">Sugerencias:</label>
+                                <textarea class="form-control" id="sugerencias"  rows="2" ng-model="sugerencias"></textarea>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="text-center">
@@ -69,6 +78,7 @@
         </form>
         <div>
             <tt>respuesta = {{listaRespuestas | json}}</tt><br />
+            <tt>sugerencias = {{sugerencias | json}}</tt><br />
         </div>
 
     </div>
