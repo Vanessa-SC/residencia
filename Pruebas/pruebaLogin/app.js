@@ -2606,7 +2606,9 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 		});
 
 	$scope.YaRespondioEncuesta = function () {
+		
 		$timeout(function () {
+			console.log($scope.encuesta);
 			if ($scope.encuesta == 'contestada') {
 				$("input").attr('disabled', true);
 				$("textarea").attr('disabled', true);

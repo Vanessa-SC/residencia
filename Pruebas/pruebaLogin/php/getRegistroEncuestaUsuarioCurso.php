@@ -10,10 +10,9 @@ $idUsuario = mysqli_real_escape_string($conn,$_POST['idu']);
 $response = [];
 
 $query = "SELECT * 
-        FROM usuario_responde_encuesta, curso_has_encuesta
-        WHERE usuario_responde_encuesta.Encuesta_idEncuesta = curso_has_encuesta.Encuesta_idEncuesta 
-        AND usuario_responde_encuesta.Usuario_idUsuario = $idUsuario 
-        AND curso_has_encuesta.Curso_idCurso = $idCurso";
+        FROM usuario_responde_encuesta
+        WHERE usuario_responde_encuesta.Usuario_idUsuario = $idUsuario
+        AND usuario_responde_encuesta.Curso_idCurso = $idCurso";
 
 $result = $conn->query($query) or die($conn->error . __LINE__);
 
