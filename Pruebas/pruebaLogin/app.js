@@ -498,7 +498,7 @@ app.service('user', function () {
 		}
 		return idDepartamento;
 	}
-	
+
 	/* Obtiene el rol del usuario que se guardó en el inicio de sesion */
 	this.getRol = function () {
 		if (!!localStorage.getItem('login')) {
@@ -658,11 +658,20 @@ app.service('instructor', function () {
 app.service('encuesta', function () {
 	var id;
 
-	this.setID = function (idE) {
-		id = idE;
+	/* guarda el ID de la encuesta */
+	this.setID = function (ide) {
+		id = ide;
+		localStorage.setItem('idEncuesta', JSON.stringify({
+			id: id
+		}));
 	};
 
+	/* obtiene el ID de la encuesta */
 	this.getID = function () {
+		if (!!localStorage.getItem('idEncuesta')) {
+			var data = JSON.parse(localStorage.getItem('idEncuesta'));
+			id = data.id;
+		}
 		return id;
 	};
 
@@ -700,17 +709,17 @@ app.service('fechaService', function ($q, $http) {
 	}
 });
 
-app.service('asistenciaService', function($http,$q){
+app.service('asistenciaService', function ($http, $q) {
 	return {
 		existe: function (idc) {
 			return $http({
-					method: 'POST',
-					url: '/Residencia/Pruebas/pruebaLogin/php/getRegistroAsistenciaCurso.php',
-					headers: {
-						'Content-Type': 'application/x-www-form-urlencoded'
-					},
-					data: 'idc=' + idc
-				}).then(function successCallback(response) {
+				method: 'POST',
+				url: '/Residencia/Pruebas/pruebaLogin/php/getRegistroAsistenciaCurso.php',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idc=' + idc
+			}).then(function successCallback(response) {
 				return response.data.status;
 			}, function errorCallback(response) {
 				return $q.reject(response.data);
@@ -1946,14 +1955,14 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 		});
 
 	$scope.YaSeRegistroAsistencia = function () {
-		$timeout(function(){
+		$timeout(function () {
 			if ($scope.asistencia == 'existe') {
 				$(":checkbox").attr('disabled', true);
 				$("#btn_enviar").attr('disabled', true);
 				$("#btn_borrar").attr('disabled', true);
 				$("#mensaje").append('Ya tomó asistencia hoy, vuelva mañana.');
 			}
-		},1000);
+		}, 1000);
 	}
 
 	/* ignora esto, aún no hace nada. 
@@ -2007,7 +2016,7 @@ app.controller('participantesICtrl', function ($scope, $http, $location, user, c
 	$scope.getParticipantes();
 });
 
-app.controller('reconocimientosICtrl', function($scope, $http,user,curso, periodoService){
+app.controller('reconocimientosICtrl', function ($scope, $http, user, curso, periodoService) {
 
 	user.getName();
 
@@ -2592,18 +2601,24 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 	}
 
 	$scope.getPreguntasEncuesta = function () {
+		if (encuesta.getID() != undefined) {
+			$http({
+				method: 'POST',
+				url: '/Residencia/Pruebas/pruebaLogin/php/getPreguntasEncuesta.php',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'ide=' + encuesta.getID()
+			}).then(function successCallback(response) {
+				$scope.preguntas = response.data;
+				console.log(response.data);
+			});
+		}
+	}
+	$scope.listaRespuestas = {}
 
-		$http({
-			method: 'POST',
-			url: '/Residencia/Pruebas/pruebaLogin/php/encuesta.php',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			data: 'idEvaluacion=' + encuesta.getID()
-		}).then(function successCallback(response) {
-			$scope.evaluacion = response.data;
-			console.log(response.data);
-		});
+	$scope.enviar = function (){
+		console.log($scope.listaRespuestas);
 	}
 
 	$scope.getPreguntasEncuesta();
