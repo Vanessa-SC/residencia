@@ -7,6 +7,7 @@ include_once 'conexion.php';
 $idCurso = mysqli_real_escape_string($conn,$_POST['idc']);
 
 
+date_default_timezone_set('America/Mexico_City');
 $fecha = date('Y-m-d');
 
 $response = [];
