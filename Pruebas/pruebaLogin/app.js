@@ -1404,12 +1404,12 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 			});
 		}, 500);
 	}
-
 });
 
 app.controller('constanciasCtrl', function ($scope, $http, $location, user, periodoService, curso, constancia) {
 	$scope.user = user.getName();
 
+	/* Obtener todas las constancias */
 	$scope.getConstancias = function () {
 		$http({
 			method: 'GET',
@@ -1419,11 +1419,13 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 		});
 	}
 
+	/* consultar el periodo */
 	$scope.periodo = periodoService.getPeriodo()
 		.then(function (response) {
 			$scope.periodo = response;
 		});
 
+	/* Obtener listado de todos los periodos registrados */
 	$scope.getPeriodos = function () {
 		$http({
 			method: 'GET',
@@ -1433,11 +1435,12 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 		});
 	}
 
+	/* Obtener las constancias del periodo actual pasandolo
+	   como parámetro en la consulta*/
 	$scope.getConstanciasPeriodoActual = function () {
 		$scope.periodoActual = periodoService.getPeriodo()
 			.then(function (response) {
 				$scope.periodoActual = response;
-
 				$http({
 					url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getConstanciasPeriodoActual.php',
 					method: 'POST',
@@ -1447,11 +1450,11 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 					data: JSON.stringify($scope.periodoActual)
 				}).then(function successCallback(response) {
 					$scope.constanciasPeriodoActual = response.data;
-					// console.log($scope.constanciasPeriodoActual);
 				});
 			});
 	}
 
+	/** Obtener listado de los cursos del periodo seleccionado */
 	$scope.getCursosDelPeriodo = function (periodo) {
 		$http({
 			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getCursosPorPeriodo.php',
@@ -1465,6 +1468,7 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 		});
 	}
 
+	/** Obtener listado de los participantes del curso seleccionado */
 	$scope.cursoSeleccionado = function (curso) {
 		$http({
 			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getParticipantes.php',
@@ -1476,20 +1480,18 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 		}).then(function successCallback(response) {
 			$scope.participantesCurso = response.data;
 		});
-
-
-
 	}
 
+	/** Establecer el ID del curso y folio de la constancia */
 	$scope.verConstancia = function (folio, idCurso) {
 		constancia.setFolio(folio);
 		curso.setID(idCurso);
 		$scope.getConstancia();
 	};
 
-
-
+	/* Obtener datos de una constancia */
 	$scope.getConstancia = function () {
+		/** Recurperar folio y ID  */
 		var idCurso = curso.getID();
 		var folio = constancia.getFolio();
 		$http({
@@ -1504,6 +1506,7 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 		});
 	}
 
+	/* Retorna la URL del documento */
 	$scope.getDocumento = function () {
 		return 'http://localhost/Residencia/proyecto/files/' + constancia.getRuta();
 	};
@@ -1512,8 +1515,9 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 		window.history.back();
 	};
 
+	/* Creación de una constancia */
 	$scope.crearConstancia = function () {
-
+	/* se guardan los datos en un json */
 		var datos = {
 			'folio': $scope.constancia.folio,
 			'participante': $scope.constancia.participante.nombre,
@@ -1524,6 +1528,7 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 			'fecha': $scope.constancia.curso.fecha,
 			'duracion': $scope.constancia.curso.duracion
 		}
+		/* Manda el json  */
 		$http({
 			method: 'POST',
 			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/generarConstancia.php',
@@ -1532,7 +1537,9 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 			},
 			data: JSON.stringify(datos)
 		}).then(function successCallback(response) {
-			// console.log(response.data);
+			/* Valida el éxito de la inserción
+			-Insertado: muestra alerta, vacía formulario y recarga listado de constancias
+			-No insertado: muestra alerta */
 			if (response.data.status == "ok") {
 				$scope.alert = {
 					titulo: 'Listo!',
@@ -1557,9 +1564,11 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 		});
 	}
 
+	/* Datos que serán usados en la vista */
 	$scope.folioConstancia = constancia.getFolio();
 	$scope.rutaConstancia = constancia.getRuta();
 
+	/* Llamado a las funciones */
 	$scope.getConstancia();
 	$scope.getConstancias();
 	$scope.getPeriodos();
@@ -1571,24 +1580,27 @@ app.controller('convocatoriaCtrl', function ($scope, $http, $location, user, per
 });
 
 app.controller('instructoresCtrl', function ($scope, $http, $location, user, periodoService, instructor, $timeout) {
+
 	$scope.user = user.getName();
+
 	$scope.periodo = periodoService.getPeriodo()
 		.then(function (response) {
 			$scope.periodo = response;
 		});
 
+	/* Obtiene a los instructores */
 	$scope.getInstructores = function () {
 		$http({
 			method: 'GET',
 			url: '/Residencia/Pruebas/pruebaLogin/php/getInstructores.php'
 		}).then(function successCallback(response) {
 			$scope.instructores = response.data;
-			// console.log(response.data);
 		});
 	}
-
+	/* Llamado a la funcion */
 	$scope.getInstructores();
 
+	/* Obtiene listado de departamentos */
 	$scope.getDepartamentos = function () {
 		$http({
 			method: 'GET',
@@ -1597,11 +1609,11 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 			$scope.dptos = response.data;
 		});
 	}
-
+	/* Llamado a la funcion */
 	$scope.getDepartamentos();
 
+	/* Insertar un instructor */
 	$scope.agregarInstructor = function (datos) {
-		// console.log(datos);
 		$http({
 			method: 'POST',
 			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/agregarInstructor.php',
@@ -1610,7 +1622,6 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 			},
 			data: JSON.stringify(datos)
 		}).then(function successCallback(response) {
-			// console.log(response.data);
 			if (response.data.status == "ok") {
 				$scope.alert = {
 					titulo: 'Creado!',
@@ -1625,8 +1636,8 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 				}, 2000);
 			} else {
 				$scope.alert = {
-					titulo: 'Creado!',
-					tipo: 'success',
+					titulo: 'Error!',
+					tipo: 'danger',
 					mensaje: 'Ocurrió un error al ingresar instructor'
 				};
 				$(document).ready(function () {
@@ -1636,13 +1647,13 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 					$location.path("inicioC/instructores");
 				}, 2000);
 			}
-		}, function errorCallback(response) {
-			// console.log("No hay datos.");
 		});
 	}
 
+	/* variable json para instructor */
 	$scope.inst = {};
 
+	/* Eliminación de un instructor */
 	$scope.deleteInstructor = function (id, nombreInstructor) {
 		$http({
 			method: 'POST',
@@ -1680,15 +1691,15 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 		});
 	}
 
+	/* Establecer ID del instructor */
 	$scope.instructorID = function (id) {
 		instructor.setID(id);
 	}
 
+	/* Obtener datos del instructor para su actualización */
 	$scope.getInstructorAct = function () {
-
 		$scope.idInstructor = instructor.getID();
-		// console.log($scope.idInstructor);
-
+		/* Valida que el ID no esté vacío */
 		if ($scope.idInstructor != "") {
 			$http({
 				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getInstructorAct.php',
@@ -1700,16 +1711,13 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 			}).then(function successCallback(response) {
 				$scope.actInstructor = response.data;
 				$scope.instructor = response.data;
-				//  console.log(response.data);
-			}, function errorCallback(response) {
-
 			});
 		}
-
 	}
-
+	/* llamado a la funcion */
 	$scope.getInstructorAct();
 
+	/* Realizar la modificación de los datos del instructor */
 	$scope.actualizarInstructor = function () {
 		$http({
 			method: 'POST',
@@ -1750,16 +1758,18 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 
 /* CONTROLADORES PARA EL USUARIO INSTRUCTOR */
 app.controller('cursosICtrl', function ($scope, $http, $timeout, user, curso, periodoService) {
+
 	$scope.user = user.getName();
+
 	$scope.periodo = periodoService.getPeriodo()
 		.then(function (response) {
 			$scope.periodo = response;
 		});
 
+	/* Obtiene el listado de los cursos asignados al instructor */
 	$scope.getCursos = function () {
-
 		$scope.id = user.getIdUsuario();
-
+		/* valida que el id no esté vacío */
 		if ($scope.id != undefined) {
 			$http({
 				url: '/Residencia/Pruebas/pruebaLogin/php/getCursosInstructor.php',
@@ -1770,14 +1780,11 @@ app.controller('cursosICtrl', function ($scope, $http, $timeout, user, curso, pe
 				data: 'idUsuario=' + $scope.id
 			}).then(function successCallback(response) {
 				$scope.cursos = response.data;
-				//console.log(response.data);
-			}, function errorCallback(response) {
-				//console.log(response.data);
 			});
 		}
-
 	}
 
+	/* Obtiene el listado de documentos del curso */
 	$scope.getListaDocumentosCurso = function () {
 		$http({
 			method: 'GET',
@@ -1788,11 +1795,11 @@ app.controller('cursosICtrl', function ($scope, $http, $timeout, user, curso, pe
 
 		});
 	}
-
+	/* Establece el id del curso */
 	$scope.cursoID = function (id) {
 		curso.setID(id);
 	}
-
+	/* Obtiene la información del curso siempre y cuando el id no esté vacío */
 	$scope.getInfoCurso = function () {
 		$scope.idCurso = curso.getID();
 		if ($scope.idCurso != undefined) {
@@ -1805,11 +1812,11 @@ app.controller('cursosICtrl', function ($scope, $http, $timeout, user, curso, pe
 				data: 'idCurso=' + $scope.idCurso
 			}).then(function successCallback(response) {
 				$scope.infoCurso = response.data;
-				// console.log(response.data);
 			});
 		}
 	}
 
+	/* Funcion para subir un documento, igual a la del usuario Coordinador */
 	$scope.upload = function (idDoc, idCurso) {
 		var fd = new FormData();
 		var files = document.getElementById('file' + idDoc).files[0];
@@ -1824,7 +1831,6 @@ app.controller('cursosICtrl', function ($scope, $http, $timeout, user, curso, pe
 				'Content-Type': undefined
 			},
 		}).then(function successCallback(response) {
-
 			if (response.data.status == 'ok') {
 				$scope.alert = {
 					titulo: 'Archivo subido!',
@@ -1841,6 +1847,7 @@ app.controller('cursosICtrl', function ($scope, $http, $timeout, user, curso, pe
 		});
 	}
 
+	/* valida si ya se ha subido un documento antes */
 	$scope.existeDocumento = function () {
 		$timeout(function () {
 			$http({
@@ -1859,7 +1866,7 @@ app.controller('cursosICtrl', function ($scope, $http, $timeout, user, curso, pe
 			});
 		}, 500);
 	}
-
+	/* Consulta si falta documentación de cada curso */
 	$scope.faltaDocumentacion = function () {
 		$timeout(function () {
 			$http({
@@ -1875,27 +1882,32 @@ app.controller('cursosICtrl', function ($scope, $http, $timeout, user, curso, pe
 		}, 500);
 	}
 
+	/* Pasa parametros GET para llenado del Oficio del curso y lo abre
+	en otra pestaña */
 	$scope.printOficio = function () {
 		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getOficioCurso.php?idd=' + user.getIdDepartamento() +
 			'&idc=' + $scope.infoCurso.idCurso + '&idu=' + user.getIdUsuario(), '_blank');
 	}
 
+	/* regresa atrás en el navegador */
 	$scope.back = function () {
 		window.history.back();
 	};
 
-	// $scope.getListaDocumentosCurso();
+	/* llamado a las funciones */
 	$scope.getCursos();
 	$scope.getInfoCurso();
-
 });
 
 app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curso, periodoService, fechaService, asistenciaService, $timeout) {
+
 	$scope.user = user.getName();
+
 	$scope.cursoID = function (id) {
 		curso.setID(id);
 	}
 
+	/* Obtener cursos dirigidos al departamento que pertenece el usuario */
 	$scope.getCursos = function () {
 		$http({
 			method: 'POST',
@@ -1919,10 +1931,9 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 			$scope.fecha = response;
 		});
 
+	/* Obtiene la lista de los docentes inscritos a X curso */
 	$scope.getListaAsistencia = function () {
-
 		$scope.idCurso = curso.getID();
-		// console.log($scope.idCurso);
 		if ($scope.idCurso != "") {
 			$http({
 				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getListaAsistencia.php',
@@ -1933,16 +1944,12 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 				data: 'idCurso=' + $scope.idCurso
 			}).then(function successCallback(response) {
 				$scope.participantes = response.data;
-				// console.log(response.data);
 			});
 		}
 	}
 
 	$scope.getParticipantes = function () {
-
 		$scope.idCurso = curso.getID();
-		// console.log($scope.idCurso);
-
 		if ($scope.idCurso != "") {
 			$http({
 				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getParticipantes.php',
@@ -1953,20 +1960,23 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 				data: 'idCurso=' + $scope.idCurso
 			}).then(function successCallback(response) {
 				$scope.participantes = response.data;
-				// console.log(response.data);
 			});
 		}
-
 	}
 
+	/* limpia los checkbox de asistencia */
 	$scope.uncheck = function () {
 		$(":checkbox").prop("checked", false);
 	}
 
+	/* Declaración del array que almacenará la asistencia de cada participante */
 	$scope.listaAlumnos = {};
-
+	/* Function que realiza el registro de la asistencia de un curso */
 	$scope.registrarAsistencia = function () {
+		/* valida que el id del curso esté establecido */
 		if (curso.getID() != undefined) {
+			/* Guarda en un json la lista de asistencia, la lista de participantes
+			del curso y el id del curso */
 			var datos = {
 				lista: $scope.listaAlumnos,
 				participantes: $scope.participantes,
@@ -1980,6 +1990,9 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 				},
 				data: JSON.stringify(datos)
 			}).then(function successCallback(response) {
+				/* Si la inserción fue correcta deshabilita los checkbox,
+				los botones, oculta el modal, muestra una alerta y redirecciona
+				al inicio */
 				if (response.data.status == 'ok') {
 					$(":checkbox").attr('disabled', true);
 					$("#btn_enviar").attr('disabled', true);
@@ -2000,6 +2013,7 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 				}
 			});
 		} else {
+			/* Si falla sólo muestra la alerta */
 			$scope.alerta = {
 				titulo: 'Atención!',
 				tipo: 'warning',
@@ -2011,12 +2025,14 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 	     }
      }
 
-
+	/* Consulta si la asistencia ya se registro el día de hoy para un curso */
 	$scope.existeAsistencia = asistenciaService.existe(curso.getID())
 		.then(function (response) {
 			$scope.asistencia = response;
 		});
 
+	/* Si el registro de asistencia existe deshabilita el formulario y 
+	muestra un mensaje */
 	$scope.YaSeRegistroAsistencia = function () {
 		$timeout(function () {
 			if ($scope.asistencia == 'existe') {
@@ -2028,20 +2044,21 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 		}, 1000);
 	}
 
+	/* Llamado al curso */
 	$scope.getCursos();
 });
 
 app.controller('participantesICtrl', function ($scope, $http, $location, user, curso, periodoService) {
+
 	$scope.user = user.getName();
+
 	$scope.cursoID = function (id) {
 		curso.setID(id);
 	}
 
+	/* Obtiene participantes de un curso */
 	$scope.getParticipantes = function () {
-
 		$scope.idCurso = curso.getID();
-		// console.log($scope.idCurso);
-
 		if ($scope.idCurso != "") {
 			$http({
 				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getParticipantes.php',
@@ -2052,19 +2069,17 @@ app.controller('participantesICtrl', function ($scope, $http, $location, user, c
 				data: 'idCurso=' + $scope.idCurso
 			}).then(function successCallback(response) {
 				$scope.participantes = response.data;
-				// console.log(response.data);
-			}, function errorCallback(response) {
-
 			});
 		}
-
 	}
 
+	/* abre el oficio del curso en otra pestaña */
 	$scope.printFormato = function () {
 		$scope.idCurso = curso.getID();
 		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getFormatoListaAsistencia.php?idc=' + $scope.idCurso, '_blank');
 	}
 
+	/* Llamada a la funcion */
 	$scope.getParticipantes();
 });
 
@@ -2077,6 +2092,7 @@ app.controller('reconocimientosICtrl', function ($scope, $http, user, curso, per
 			$scope.periodo = response;
 		});
 });
+
 /* CONTROLADORES PARA EL USUARIO JEFE */
 
 app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, periodoService, $timeout) {
