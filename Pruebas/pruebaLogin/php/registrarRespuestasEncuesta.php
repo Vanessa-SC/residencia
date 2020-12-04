@@ -22,7 +22,7 @@ $contador = 0;
     foreach($respuestas as $key => $value){
 
         $sql = "INSERT INTO usuario_responde_encuesta
-                VALUES($idUsuario,$idEncuesta,$key,$value,null)";
+                VALUES($idUsuario,$idCurso,$idEncuesta,$key,$value,null)";
                 
         if(mysqli_query($conn,$sql)){
             $contador = $contador + 1;
