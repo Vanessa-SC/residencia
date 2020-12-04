@@ -1,23 +1,10 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="appCurso-I">
-	<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cursos</title>
-</head>
-<link rel="stylesheet" href="../css/bootstrap.min.css">
-<link rel="stylesheet" href="../css/estilos.css">
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
-<script src="../js/AngularJS/appCurso-I.js"></script>
-
-<body>
     <ng-include src="'nav-Instructor.html'"></ng-include>
-    <div class="container" ng-controller="cursoController">
+    <div class="container">
         <div class="programa_page d-flex justify-content-center">
             <div class="p-2"><img src="../images/Logo ITD.png" alt="logo ITD" class="logoITD"></div>
             <div class="p-4">
                 <div class="text-center">
-                    <h1>Periodo: {{periodo}}</h1>
+                    <h1>Periodo Agosto/Diciembre 2020</h1>
                     <h3>Programa Institucional de Formaci&oacute;n y Actualizaci&oacute;n Docente y Profesional</h3>
                 </div>
             </div>
@@ -29,23 +16,40 @@
                     <th scope="col">No.</th>
                     <th scope="col">Curso</th>
                     <th scope="col">Periodo de realizaci&oacute;n</th>
-                    <th scope="col">Subir documentaci&oacute;n</th>
-                    <th scope="col">Asistencia</th>
-                    <th scope="col">Participantes</th>
+                    <th scope="col"></th>
+                   
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="x in curso">
+                <tr>
                     <th></th>
                     <th scope="row">1</th>
-                    <td><a href="informacion-curso.html">{{x.curso}}</a></td>
-                    <td>{{x.horario}}</td>
-                    <td><a href="subir-docscurso.html"><button class="btn bg-white documento_icon"></button></a></td>
-                    <td><a href="asistencia.html"><button class="btn bg-white calendario_icon"></button></a></td>
-                    <td><a href="participantes.html"><button class="btn bg-white grupo_icon"></button></a></td>
+                    <td>Diplomado para la Formaci&oacute;n y Desarrollo de Competencias Docentes - M&oacute;dulo II: Planeaci&oacute;n del Proceso de Aprendizaje</td>
+                    <td>18 al 22 de junio del 2019 <br>9:00 - 15:00 Hrs.</td>
+                    <td><a href="descargarConstancia.html"><button class="btn bg-white eye_icon"></button></a></td>
+                   
+                </tr>
+                <tr>
+                    <th></th>
+                    <th scope="row">2</th>
+                    <td>Diplomado para la Formaci&oacute;n de Tutores - M&oacute;dulo II: Programa de Tutor&iacute;as Semipresencial</td>
+                    <td>18 al 22 de junio del 2019 <br>9:00 - 15:00 Hrs.</td>
+                    <td><button class="btn bg-white eye_icon"></button></td>
+                    
+                </tr>
+                <tr>
+                    <th></th>
+                    <th scope="row">3</th>
+                    <td>Diplomado para la Formaci&oacute;n de Tutores - M&oacute;dulo II: Programa de Tutor&iacute;as En linea</td>
+                    <td>18 al 22 de junio del 2019 <br>Horario abierto.</td>
+                    <td><button class="btn bg-white eye_icon"></button></td>
+                   
                 </tr>
             </tbody>
         </table>
+
+        
+       
 
     </div>
 </body>
