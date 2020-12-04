@@ -1988,6 +1988,7 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 	     }
      }
 
+
 	$scope.existeAsistencia = asistenciaService.existe(curso.getID())
 		.then(function (response) {
 			$scope.asistencia = response;
@@ -2034,6 +2035,11 @@ app.controller('participantesICtrl', function ($scope, $http, $location, user, c
 			});
 		}
 
+	}
+
+	$scope.printFormato = function () {
+		$scope.idCurso = curso.getID();
+		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getFormatoListaAsistencia.php?idc=' + $scope.idCurso, '_blank');
 	}
 
 	$scope.getParticipantes();

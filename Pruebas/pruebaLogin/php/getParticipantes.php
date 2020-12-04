@@ -8,7 +8,8 @@ if (!isset($_POST)) {
 
 $id = mysqli_real_escape_string($conn, $_POST['idCurso']);
 
-$sql = "SELECT usuario.idUsuario, departamento.nombreDepartamento as nombreD, usuario.rol, 
+$sql = "SELECT usuario.idUsuario, departamento.nombreDepartamento as nombreD, usuario.rol, usuario.RFC, 
+        usuario.CURP, usuario.horas, usuario.nivel, usuario.perfilDeseable, usuario.funcionAdministrativa, 
         concat_ws(' ',usuario.apellidoPaterno,usuario.apellidoMaterno,usuario.nombre) as nombre
         FROM usuario_has_curso 
         Inner join usuario        
@@ -16,7 +17,9 @@ $sql = "SELECT usuario.idUsuario, departamento.nombreDepartamento as nombreD, us
         Inner join departamento
         ON usuario.Departamento_idDepartamento = departamento.idDepartamento
         AND usuario_has_curso.estado = 1
-        AND usuario_has_curso.Curso_idCurso = $id 
+        AND usuario_has_curso.Curso_idCurso = $id
+        WHERE usuario.rol = 3 
+        AND activo = 'SI'
         ORDER BY usuario.apellidoPaterno ASC";
 
 $result = $conn->query($sql) or die($conn->error . __LINE__);

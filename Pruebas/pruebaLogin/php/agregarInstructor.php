@@ -16,11 +16,18 @@ $sql = "INSERT INTO usuario
         VALUES ('',
             '$inst->departamento',
             4,
+            '$inst->nombreUsuario',
+            '$inst->contrasena',
             '$inst->apellidoPaterno',
             '$inst->apellidoMaterno',
             '$inst->nombre',
-            '$inst->nombreUsuario',
-            '$inst->contrasena'
+            upper('$inst->RFC'),
+            upper('$inst->CURP'),
+            '$inst->horas',
+            '$inst->nivel',
+            '$inst->perfilDeseable',
+            'SI',
+            '$inst->funcionAdministrativa'
             )
         ";
 
