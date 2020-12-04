@@ -1962,7 +1962,6 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 					$("#btn_enviar").attr('disabled', true);
 					$("#btn_borrar").attr('disabled', true);
 					$('#modal').modal('hide');
-<<<<<<< HEAD
 					$('.modal-backdrop').remove();
 					$scope.alerta = {
 						titulo: 'Listo!',
@@ -1990,14 +1989,6 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
      }
 
 
-=======
-					$location.path('/inicioI');
-				}
-			});
-		}
-	};
-
->>>>>>> 1e70b135814dea6320f9a753ed5a10e49a1d5a2b
 	$scope.existeAsistencia = asistenciaService.existe(curso.getID())
 		.then(function (response) {
 			$scope.asistencia = response;
@@ -2415,7 +2406,6 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getOficioCurso.php?idd=' + user.getIdDepartamento() +
 			'&idc=' + curso.getID() + '&idu=' + user.getIdUsuario(), '_blank');
 	}
-<<<<<<< HEAD
 
 	$scope.faltaDocumentacion = function () {
 		$timeout(function () {
@@ -2433,7 +2423,6 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 	}
 
 
-=======
 
 	$scope.faltaDocumentacion = function () {
 		$timeout(function () {
@@ -2451,7 +2440,6 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 	}
 
 
->>>>>>> 1e70b135814dea6320f9a753ed5a10e49a1d5a2b
 	$scope.getCursoAct();
 	$scope.getInfoCurso();
 	$scope.getCursos();
