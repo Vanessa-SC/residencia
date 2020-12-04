@@ -1,11 +1,11 @@
 <ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasJ/nav.html'"></ng-include>
-<div class="container">
+<div class="container" ng-init="faltaDocumentacion()">
     <div class="programa_page d-flex justify-content-center">
         <div class="p-2"><img src="/Residencia/Proyecto/images/Logo ITD.png" alt="logo ITD" class="logoITD"></div>
         <div class="p-4">
             <div class="text-center">
                 <h1>Periodo {{periodo}}</h1>
-                <h3>Formaci&oacute;n de Programa Institucional y Actualizaci&oacute;n docente y Profesional</h3>
+                <h3>Programa Institucional de Formaci&oacute;n y Actualizaci&oacute;n Docente y Profesional</h3>
             </div>
         </div>
     </div>
@@ -36,7 +36,10 @@
         </thead>
         <tbody>
             <tr ng-repeat="x in cursos">
-                <th scope="row" class=" align-middle "> <img ng-src="/Residencia/Proyecto/images/{{x.validado}}.png"></th>
+                <th scope="row" class=" align-middle "> 
+                    <span id="documentacion{{x.idCurso}}"></span>
+                    <img ng-src="/Residencia/Proyecto/images/{{x.validado}}.png">
+                </th>
                 <td class=" align-middle "> {{x.maestro}} </td>
                 <td class=" align-middle "> {{x.curso}} </td>
                 <td class=" align-middle "> {{x.fecha}} <br> {{x.horario}} </td>

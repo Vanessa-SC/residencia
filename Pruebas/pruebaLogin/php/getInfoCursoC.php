@@ -24,11 +24,8 @@ $sql = "SELECT curso.idCurso,
             curso.validado,
             departamento.nombreDepartamento,
             curso.Departamento_idDepartamento as departamento
-        FROM instructor 
-        INNER JOIN curso
+        FROM instructor Inner join curso
         ON curso.Instructor_idInstructor=instructor.idInstructor
-        INNER JOIN departamento
-        ON curso.Departamento_idDepartamento = departamento.idDepartamento
         AND curso.idCurso = $id ";
 
 $result = $conn->query($sql) or die($conn->error . __LINE__);

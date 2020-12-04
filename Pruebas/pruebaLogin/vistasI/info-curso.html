@@ -26,6 +26,8 @@
                 <td class="font-weight-bold">No. de horas por curso</td>
                 <td class="font-weight-bold">Instructor (a)</td>
                 <td class="font-weight-bold">Dirigido a:</td>
+                <td class="font-weight-bold">Modalidad:</td>
+                <td class="font-weight-bold">Departamento:</td>
             </tr>
             <tr>
                 <td>{{infoCurso.fecha}} <br>
@@ -34,7 +36,15 @@
                 <td>{{infoCurso.duracion}}</td>
                 <td>{{infoCurso.maestro}}</td>
                 <td>{{infoCurso.destinatarios}}</td>
+                <td>{{infoCurso.modalidad}}</td>
+                <td>{{infoCurso.nombreDepartamento}}</td>
             </tr>
         </tbody>
     </table>
+    
+    <div class="text-center mt-4">
+        <button class="btn bg-wine text-white" ng-click="printOficio()">
+            <span class="print_icon mr-2"></span>Imprimir oficio del curso
+        </button>
+    </div>
 </div>

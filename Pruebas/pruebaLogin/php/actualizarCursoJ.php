@@ -19,6 +19,9 @@ if ( $mes <= 6 ){
     $periodo = 'Agosto / Diciembre ' . $año;
 }
 
+/* Formato fecha */
+$fechaInicio = date('Y-m-d', strtotime($curso->fechaInicio));
+$fechaFin = date('Y-m-d', strtotime($curso->fechaFin));
 
 /* Modalidad */
 if ($curso->modalidad == 1) {
@@ -29,22 +32,46 @@ if ($curso->modalidad == 1) {
     $modalidad = "Semipresencial";
 }
 
+/* Determinando el departamento */
+if($curso->departamento == 0 ){
+    $curso->departamento = 5;
+}
+
+$dep = "SELECT nombreDepartamento 
+        FROM departamento 
+        WHERE idDepartamento = $curso->departamento";
+
+$result = $conn->query($dep) or die($conn->error . __LINE__);
+
+$departamento = implode(mysqli_fetch_assoc($result));
+
+if($departamento == "Todos los Departamentos"){
+    $departamento = "ITD";
+}
+
+/* Actualizar Clave de registro */
+$preClave = substr($curso->ClaveRegistro, 0, 9);  
+
+$claveRegistro = $preClave . $departamento;
+
 /* Query de actualización */
 $sql = "UPDATE curso
         SET Folio = '$curso->Folio',
-            ClaveRegistro = '$curso->ClaveRegistro',
+            ClaveRegistro = '$claveRegistro',
             nombreCurso = '$curso->curso',
             periodo = '$periodo',
             duracion = '$curso->duracion',
             horaInicio = '$curso->horaInicio',
             horaFin = '$curso->horaFin',
-            fechaInicio = '$curso->fechaInicio',
-            fechaFin = '$curso->fechaFin',
+            fechaInicio = '$fechaInicio',
+            fechaFin = '$fechaFin',
             modalidad = '$modalidad',
             lugar = '$curso->lugar',
             destinatarios = '$curso->destinatarios',
             objetivo = '$curso->objetivo',
-            observaciones = '$curso->observaciones'
+            observaciones = '$curso->observaciones',
+            instructor_idInstructor = '$curso->instructor',
+            departamento_idDepartamento = '$curso->departamento'
         WHERE idCurso = '$curso->idCurso'
         ";
 

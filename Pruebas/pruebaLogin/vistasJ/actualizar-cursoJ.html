@@ -8,12 +8,12 @@
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="folio">Folio</label>
 			</div>
-			<input required type="text" id="folio" class="form-control" ng-model="curso.Folio"
+			<input type="text" id="folio" class="form-control" ng-model="curso.Folio"
 				ng-value="actCurso.Folio">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="ClaveRegistro">Clave registro</label>
 			</div>
-			<input required type="text" id="ClaveRegistro" class="form-control" ng-model="curso.ClaveRegistro"
+			<input readonly type="text" id="ClaveRegistro" class="form-control" ng-model="curso.ClaveRegistro"
 				ng-value="actCurso.ClaveRegistro">
 		</div>
 		<div class="input-group mb-5  mt-4">
@@ -95,18 +95,19 @@
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="departamento">Departamento</label>
 			</div>
-			<select required class="custom-select" id="departamento" ng-model="curso.departamento">
-				<option ng-repeat="x in dptos" value="{{x.idDepartamento}}"> {{x.nombreDepartamento}} </option>
+			<select required class="custom-select" id="departamento" ng-model="actCurso.departamento">
+				<option value="0"> Cualquier departamento </option>
+				<option ng-value="dpto.idDepartamento"> {{dpto.nombreDepartamento}} </option>
 			</select>
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="instructor">Instructor</label>
 			</div>
-			<select required class="custom-select" id="instructor" ng-model="curso.instructor">
+			<select required class="custom-select" id="instructor" ng-model="actCurso.instructor">
 				<option ng-repeat="x in instructor" value="{{x.idInstructor}}"> {{x.nombre}} </option>
 			</select>
 		</div>
 		<div class="text-center mt-5 mb-5">
-			<button class="btn bg-wine" ng-click="actualizarCurso()">
+			<button class="btn bg-wine" ng-click="actualizarCurso(actCurso)">
 				<span class="ok2_icon"></span>Actualizar
 				<br>
 			</button>
