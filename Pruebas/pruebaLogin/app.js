@@ -1958,7 +1958,6 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 				data: JSON.stringify(datos)
 			}).then(function successCallback(response) {
 				if (response.data.status == 'ok') {
-					asistencia.tomarAsistencia($scope.fecha);
 					$(":checkbox").attr('disabled', true);
 					$("#btn_enviar").attr('disabled', true);
 					$("#btn_borrar").attr('disabled', true);
