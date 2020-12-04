@@ -9,46 +9,97 @@ if (!isset($_POST)) {
 $formatt = "SET lc_time_names = 'es_MX' ";
 mysqli_query($conn,$formatt);
 
+/* 
+ SELECT
+    SUM(CASE WHEN sexo = 'Masculino' THEN 1 END) AS Masculino
+    ,SUM(CASE WHEN sexo = 'Femenino' THEN 1 END) AS Femenino
+    from usuario
+    where rol = 3
+*/
+
 
 $idCurso = 1;
 
-$sql = "SELECT 
-            usuario.idUsuario, departamento.nombreDepartamento as nombreD, usuario.rol, usuario.RFC, 
-            usuario.CURP, usuario.horas, usuario.nivel, usuario.perfilDeseable, usuario.funcionAdministrativa as FD, 
-            concat_ws(' ',usuario.apellidoPaterno,usuario.apellidoMaterno,usuario.nombre) as nombre,
-            concat_ws(' ',instructor.apellidoPaterno,instructor.apellidomaterno,instructor.nombre) as maestro, 
-            instructor.RFC as insRFC,
-            instructor.CURP as insCURP,
-            curso.idCurso, 
-            curso.nombreCurso as curso, 
-            curso.objetivo, curso.Instructor_idInstructor,            
-            curso.modalidad,
-            concat_ws(' - ', DATE_FORMAT(curso.fechaInicio, '%d de %M'), DATE_FORMAT(curso.fechaFin, '%d de %M, %Y')) as fecha,
-            concat_ws(' - ',curso.horaInicio,curso.horaFin) as horario, 
-            curso.lugar,
-            curso.duracion,
-            curso.periodo,
-            curso.destinatarios, 
-            curso.validado,
-            curso.Departamento_idDepartamento as departamento
-            FROM usuario_has_curso 
-            Inner join usuario        
-            ON usuario.idUsuario = usuario_has_curso.Usuario_idUsuario
-            Inner join departamento
-            ON usuario.Departamento_idDepartamento = departamento.idDepartamento
-            AND usuario_has_curso.estado = 1
-            AND usuario_has_curso.Curso_idCurso = $idCurso
-            Inner join curso 
-            ON curso.idCurso = usuario_has_curso.Curso_idCurso            
-            Inner join instructor 
-            ON curso.Instructor_idInstructor=instructor.idInstructor
-            WHERE usuario.rol = 3 
-            AND activo = 'SI'         
-            
-        ";
+$nombre = "Sistemas y Computación";
+
+/*
+CORRECTA
+SELECT
+    departamento.nombreDepartamento,
+    SUM(usuario.Departamento_idDepartamento) as totalDpto
+    FROM 
+    usuario    
+    INNER JOIN departamento 
+    ON usuario.Departamento_idDepartamento = departamento.idDepartamento
+    INNER JOIN usuario_has_curso
+    ON usuario.idUsuario = usuario_has_curso.Usuario_idUsuario
+    where departamento.idDepartamento in(select idDepartamento from departamento)    
+    AND usuario.rol = 3
+    AND usuario_has_curso.Curso_idCurso = $idCurso
+    GROUP BY 
+    departamento.nombreDepartamento
+
+    *******
+    departamento.nombreDepartamento
+    SUM(usuario.Departamento_idDepartamento) as totalDpto,
+    SUM(CASE WHEN usuario.sexo = 'Masculino' THEN 1 END) AS totalMasculino,
+    SUM(CASE WHEN usuario.sexo = 'Femenino' THEN 1 END) AS totalFemenino,
+
+    FROM 
+    usuario    
+    INNER JOIN departamento 
+    ON usuario.Departamento_idDepartamento = departamento.idDepartamento
+    INNER JOIN usuario_has_curso
+    ON usuario.idUsuario = usuario_has_curso.Usuario_idUsuario
+    where departamento.idDepartamento in(select idDepartamento from departamento)    
+    AND usuario.rol = 3
+    AND usuario_has_curso.Curso_idCurso = $idCurso
+    GROUP BY 
+    departamento.nombreDepartamento
+
+
+*/
+
+$idDepartamento = 2;
+
+$sql = "SELECT
+    departamento.nombreDepartamento,
+    SUM(usuario.Departamento_idDepartamento) AS totalDpto,
+    SUM(CASE WHEN usuario.sexo = 'Masculino' THEN 1 END) AS totalMasculino,
+    SUM(CASE WHEN usuario.sexo = 'Femenino' THEN 1 END) AS totalFemenino,
+    SUM(CASE WHEN usuario.contrato = 'Base' THEN 1 END) AS totalBase,
+    SUM(CASE WHEN usuario.contrato = 'Honorario,' THEN 1 END) AS totalHonorario,
+    SUM(CASE WHEN usuario.contrato = 'Interinato' THEN 1 END) AS totalInterinato,
+    SUM(CASE WHEN usuario.horas = 'Medio Tiempo' THEN 1 END) AS totalMedioTiempo,
+    SUM(CASE WHEN usuario.horas = 'Tres Cuartos de Tiempo' THEN 1 END) AS totalTresCuartosTiempo,
+    SUM(CASE WHEN usuario.horas = 'Tiempo Completo' THEN 1 END) AS totalTiempoCompleto,
+    SUM(CASE WHEN usuario.horas = 'Asignaturas' THEN 1 END) AS totalAsignaturas,
+    SUM(CASE WHEN usuario.horas = 'Sin Horas' THEN 1 END) AS totalSinHoras,
+    SUM(CASE WHEN usuario.nivel = 'Maestría' THEN 1 END) AS totalMaestria,
+    SUM(CASE WHEN usuario.nivel = 'Licenciatura' THEN 1 END) AS totalLicenciatura,
+    SUM(CASE WHEN usuario.nivel = 'Doctorado' THEN 1 END) AS totalDoctorado,
+    SUM(CASE WHEN usuario.nivel = 'Especialización' THEN 1 END) AS totalEspecializacion,
+    SUM(CASE WHEN usuario.perfilDeseable = 'Maestría' THEN 1 END) AS totalMaestria,
+    SUM(CASE WHEN usuario.perfilDeseable = 'Licenciatura' THEN 1 END) AS totalLicenciatura,
+    SUM(CASE WHEN usuario.perfilDeseable = 'Doctorado' THEN 1 END) AS totalDoctorado,
+    SUM(CASE WHEN usuario.perfilDeseable = 'Especialización' THEN 1 END) AS totalEspecializacion,
+    SUM(CASE WHEN usuario.funcionAdministrativa = 'X' THEN 1 END) AS totalfuncionAdministrativa,
+    SUM(CASE WHEN usuario.funcionAdministrativa = 'NO' THEN 1 END) AS totalNfuncionAdministrativa
+    FROM 
+    usuario    
+    INNER JOIN departamento 
+    ON usuario.Departamento_idDepartamento = departamento.idDepartamento
+    INNER JOIN usuario_has_curso
+    ON usuario.idUsuario = usuario_has_curso.Usuario_idUsuario
+    WHERE departamento.idDepartamento IN(SELECT idDepartamento FROM departamento)    
+    AND usuario.rol = 3
+    AND usuario_has_curso.Curso_idCurso = $idCurso
+    GROUP BY 
+    departamento.nombreDepartamento
+    ";
 
 $result = $conn->query($sql) or die($conn->error . __LINE__);
 
 $curso = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-echo json_encode($curso[0]);
+echo json_encode($curso);

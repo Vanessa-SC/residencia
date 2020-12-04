@@ -9,33 +9,42 @@
             </div>
         </div>
     </div>
-    <table class="table">
+    <table class="table table-responsive">
         <thead>
             <tr>
                 <th></th>
                 <th scope="col">Participante</th>
+                <th scope="col">Sexo</th>
+                <th scope="col">Contrato</th>
                 <th scope="col">RFC</th>
                 <th scope="col">Departamento</th>
                 <th scope="col">Horas</th>
                 <th scope="col">Nivel</th>
                 <th scope="col">Perfil deseable</th>
+                <th scope="col">Función Administrativa</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="x in participantes">
                 <th></th>
                 <td> {{x.nombre}} </td>
+                <td> {{x.sexo}} </td>
+                <td> {{x.contrato}} </td>
                 <td> {{x.RFC}} </td>
                 <td> {{x.nombreD}} </td>
                 <td> {{x.horas}} </td>
                 <td> {{x.nivel}} </td>
                 <td> {{x.perfilDeseable}} </td>
+                <td> {{x.FD}} </td>
             </tr>
         </tbody>
     </table>
     <div class="text-center ">
         <button class="btn bg-wine text-white" ng-click="printFormato()">
             <span class="print_icon mr-2"></span>Formato Lista de Asistencia
+        </button>
+        <button class="btn bg-wine text-white" ng-click="printIndicadores()">
+            <span class="print_icon mr-2"></span>Indicadores de Participantes
         </button>
     </div>
 </div>

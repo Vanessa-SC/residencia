@@ -1,23 +1,27 @@
 <?php
 
+//Librería y archivo de conexión
 require_once "../XLSX/vendor/autoload.php";
 include_once 'conexion.php';
 
+//Variable que se obtiene al momento de llamar al método
 $idCurso = $_GET['idc'];
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-
+//Nombre del nuevo archivo que se genera
 $filename = "ITD-AD-FO-8 Formato de Lista de Asistencia.xlsx";
 header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheet‌​ml.sheet");
 header('Content-Disposition: attachment; filename="' . $filename. '"');
 
+//Llamado a la plantilla
 $documento = \PhpOffice\PhpSpreadsheet\IOFactory::load('../XLSX/plantilla.xlsx');
 
 $activeSheet = $documento->getActiveSheet();
 $activeSheet->setTitle("Lista de Asistencia");
 
+//Consulta a la base de datos
 $query = $conn->query("SELECT 
             usuario.idUsuario, departamento.nombreDepartamento as nombreD, usuario.rol, usuario.RFC, 
             usuario.CURP, usuario.horas, usuario.nivel, usuario.perfilDeseable, usuario.funcionAdministrativa as FD, 
@@ -40,23 +44,26 @@ $query = $conn->query("SELECT
             curso.validado,
             curso.Departamento_idDepartamento as departamento
             FROM usuario_has_curso 
-            Inner join usuario        
+            INNER JOIN usuario        
             ON usuario.idUsuario = usuario_has_curso.Usuario_idUsuario
-            Inner join departamento
+            INNER JOIN departamento
             ON usuario.Departamento_idDepartamento = departamento.idDepartamento
             AND usuario_has_curso.estado = 1
             AND usuario_has_curso.Curso_idCurso = $idCurso
-            Inner join curso 
+            INNER JOIN curso 
             ON curso.idCurso = usuario_has_curso.Curso_idCurso            
-            Inner join instructor 
+            INNER JOIN instructor 
             ON curso.Instructor_idInstructor=instructor.idInstructor
             WHERE usuario.rol = 3 
             AND activo = 'SI'         
             
         ");
- 
+
+// Si se obtiene el número de filas del resultado, entonces comienza el recorrido
 if($query->num_rows > 0) {
+    //Comienza en la fila 22
     $i = 22;
+    //Ciclo while que recorremo los resultados de la consulta y los imprimie
     while($row = $query->fetch_assoc()) {
         $activeSheet->setCellValue('B'.'13' , $row['curso']);
         $activeSheet->setCellValue('B'.'14' , $row['maestro']);
@@ -77,6 +84,6 @@ if($query->num_rows > 0) {
     }
 }
 
-
+//Creación de documento
 $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($documento, 'Xlsx');
 $writer->save("php://output");

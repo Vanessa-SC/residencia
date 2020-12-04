@@ -2042,6 +2042,11 @@ app.controller('participantesICtrl', function ($scope, $http, $location, user, c
 		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getFormatoListaAsistencia.php?idc=' + $scope.idCurso, '_blank');
 	}
 
+	$scope.printIndicadores = function () {
+		$scope.idCurso = curso.getID();
+		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getFormatoIndicadores.php?idc=' + $scope.idCurso, '_blank');
+	}
+
 	$scope.getParticipantes();
 });
 
