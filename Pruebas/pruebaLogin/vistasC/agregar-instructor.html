@@ -78,13 +78,56 @@
 
 		<div class="input-group mb-3 mt-4">			
 			<div class="input-group-prepend">
+				<label class="input-group-text" for="horas">Horas</label>
+			</div>
+			<select required class="custom-select" id="horas" ng-model="inst.horas">
+				<option value="1"> Sin horas </option>
+				<option value="2"> Tiempo Completo </option>
+				<option value="3"> Medio Tiempo </option>
+				<option value="4"> Tres Cuartos de Tiempo </option>
+				<option value="5"> Asignaturas </option>
+			</select>
+
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="nivel">Nivel</label>
+			</div>
+			<select required class="custom-select" id="nivel" ng-model="inst.nivel">
+				<option value="1"> Licenciatura </option>
+				<option value="2"> Maestría </option>
+				<option value="3"> Doctorado </option>
+				<option value="4"> Especialización </option>				
+			</select>
+
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="perfilDeseable">Perfil Deseable</label>
+			</div>
+			<select required class="custom-select" id="perfilDeseable" ng-model="inst.perfilDeseable">
+				<option value="1"> Maestría </option>
+				<option value="2"> Doctorado </option>
+				<option value="3"> Especialización </option>				
+			</select>
+		</div>
+
+		<div class="dropdown-divider mt-4 mb-4"></div>
+
+		<div class="input-group mb-3 mt-4">			
+			<div class="input-group-prepend">
 				<label class="input-group-text" for="departamento">Departamento</label>
 			</div>
 			<select required class="custom-select" id="departamento" ng-model="inst.departamento">
 				<option ng-repeat="x in dptos" value="{{x.idDepartamento}}"> {{x.nombreDepartamento}} </option>
 			</select>
+
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="funcionAdministrativa">Función Administrativa</label>
+			</div>
+			<select required class="custom-select" id="funcionAdministrativa" ng-model="inst.funcionAdministrativa">
+				<option value="1"> SI </option>
+				<option value="2"> NO </option>
+			</select>
 		</div>
 	</form>
+	
 	<div class="text-center mb-4">
 		<button class="btn bg-wine" ng-click="agregarInstructor(inst)">
 			<span class="adduser_icon"></span>Agregar
