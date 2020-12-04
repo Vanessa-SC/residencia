@@ -2013,6 +2013,11 @@ app.controller('participantesICtrl', function ($scope, $http, $location, user, c
 
 	}
 
+	$scope.printFormato = function () {
+		$scope.idCurso = curso.getID();
+		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getFormatoListaAsistencia.php?idc=' + $scope.idCurso, '_blank');
+	}
+
 	$scope.getParticipantes();
 });
 
