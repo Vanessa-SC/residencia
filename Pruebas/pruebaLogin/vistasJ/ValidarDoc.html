@@ -1,5 +1,5 @@
 <ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasJ/nav.html'"></ng-include>
-<div class="container">
+<div class="container" ng-init="getListaDocumentosSubidos();getInfoCurso()">
     <div class="programa_page d-flex justify-content-center">
         <div class="pt-5">
             <button title="Regresar a la página anterior" class="btn-back back_icon" ng-click="back()">
@@ -25,11 +25,6 @@
                 <div class="col-sm-3 text-center">{{infoCurso.fecha}} <br> {{infoCurso.horario}} </div>
                 <div class="w-100"></div>
                 <br>
-                <div class="col text-center">
-                    <a href="#!/inicioC/verDocumento" ng-click="verDoc(infoCurso.idCurso,7)" style="color: #000;">
-                        <u>Oficio de registro de curso <button class="btn bg-white import_icon"></button></u>
-                    </a>
-                </div>
             </div>
         </div>
     </div>
@@ -76,7 +71,7 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     <button type="button" class="btn bg-wine" data-dismiss="modal"
-                                        ng-click="addComment(documento,doc.idDocumento)">Agregar
+                                        ng-click="addComment(documento,doc.idDocumento,infoCurso.idCurso)">Agregar
                                         comentario</button>
                                 </div>
                             </div>
@@ -86,7 +81,7 @@
                 <th scope="row">{{doc.idDocumento}}</th>
                 <td>{{doc.nombreDocumento}}</td>
                 <td>
-                    <a href="#!/inicioC/verDocumento" ng-click="verDoc(infoCurso.idCurso,doc.idDocumento)">
+                    <a target="_blank" href="http://localhost/Residencia/Proyecto/files/{{doc.rutaArchivo}}" ng-click="verDoc(infoCurso.idCurso,doc.idDocumento)">
                         <button class="btn bg-white import_icon"></button>
                     </a>
                 </td>
@@ -96,9 +91,29 @@
                 </td>
                 <td>
                     <button class="btn btn-sm bg-wine text-white" data-toggle="modal"
-                        data-target="#modalComentario{{doc.idDocumento}}">
+                        data-target="#modalComentario{{doc.idDocumento}}"
+                       id="btn{{doc.idDocumento}}">
                         <span class="comment_icon mr-2"></span>Agregar comentario
                     </button>
+                    <div id="coment{{doc.idDocumento}}">
+                        <div class="d-flex">
+                            <div class="input-group mb-3" >
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="comment-black_icon"></i>
+                                    </span>
+                                </div>
+                                <textarea type="text" class="form-control" 
+                                    aria-label="Comentario" readonly aria-describedby="basic-addon1"
+                                    ng-model="documento.comentario" 
+                                    ng-init="documento.comentario = doc.comentario"></textarea>
+                            </div>
+                            <div class="text-center align-middle">
+                                <button class=" btn btn-light editar_icon" title="Editar comentario" data-toggle="modal"
+                                data-target="#modalComentario{{doc.idDocumento}}"></button>
+                            </div>
+                        </div>
+                    </div>
                 </td>
             </tr>
         </tbody>
