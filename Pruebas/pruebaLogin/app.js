@@ -1962,11 +1962,32 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 					$("#btn_enviar").attr('disabled', true);
 					$("#btn_borrar").attr('disabled', true);
 					$('#modal').modal('hide');
-					$location.path('/inicioI');
+					$('.modal-backdrop').remove();
+					$scope.alerta = {
+						titulo: 'Listo!',
+						tipo: 'success',
+						mensaje: 'La asistencia se registro con éxito. En breve será redireccionado...'
+					};
+					$(document).ready(function () {
+						$('#alerta').toast('show');
+					});
+					$timeout(function () {
+						$location.path('/inicioI');
+					}, 1250);
 				}
 			});
-		}
-	};
+		} else {
+			$scope.alerta = {
+				titulo: 'Atención!',
+				tipo: 'warning',
+				mensaje: 'No se ha podido registrar la asistencia.'
+			};
+			$(document).ready(function () {
+				$('#alerta').toast('show');
+				});
+	     }
+     }
+
 
 	$scope.existeAsistencia = asistenciaService.existe(curso.getID())
 		.then(function (response) {
@@ -2385,6 +2406,23 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getOficioCurso.php?idd=' + user.getIdDepartamento() +
 			'&idc=' + curso.getID() + '&idu=' + user.getIdUsuario(), '_blank');
 	}
+
+	$scope.faltaDocumentacion = function () {
+		$timeout(function () {
+			$http({
+				method: 'GET',
+				url: '/Residencia/Pruebas/pruebaLogin/php/numDocsCursos.php',
+			}).then(function successCallback(response) {
+				angular.forEach(response.data.numDocsCurso, function (value, key) {
+					if (value.num_docs < 7) {
+						$("#documentacion" + value.idCurso).append('<button class="btn bg-white info_icon" title="Falta documentación"></button>');
+					}
+				});
+			});
+		}, 500);
+	}
+
+
 
 	$scope.faltaDocumentacion = function () {
 		$timeout(function () {
