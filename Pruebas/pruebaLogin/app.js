@@ -1699,7 +1699,7 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 				$scope.alert = {
 					titulo: 'Error!',
 					tipo: 'danger',
-					mensaje: 'Ocurrió un error al crear el curso'
+					mensaje: 'Ocurrió un error al agregar'
 				};
 				$(document).ready(function () {
 					$('#alerta').toast('show');

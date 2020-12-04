@@ -21,12 +21,19 @@ $sql = "UPDATE instructor
             instructor.fechaNacimiento = '$fechaNacimiento',
             instructor.telefono = '$instructor->telefono',
             instructor.Correo = '$instructor->Correo',
-            usuario.departamento = '$instructor->departamento',
-            usuario.apellidoPaterno = '$instructor->apellidoPaterno',
-            usuario.apellidoMaterno = '$instructor->apellidoMaterno',
-            usuario.nombre = '$instructor->nombre',
+            usuario.Departamento_idDepartamento = '$instructor->departamento',
             usuario.nombreUsuario = '$instructor->nombreUsuario',
-            usuario.contrasena = '$instructor->contrasena'
+            usuario.contrasena = '$instructor->contrasena',
+            usuario.apellidoPaterno = '$instructor->apellidoPaterno',
+            usuario.apellidoMaterno = '$instructor->apellidoMaterno',            
+            usuario.nombre = '$instructor->nombre',
+            usuario.RFC = upper('$instructor->RFC'),
+            usuario.CURP = upper('$instructor->CURP'),
+            usuario.horas = '$instructor->horas',
+            usuario.nivel = '$instructor->nivel',
+            usuario.perfilDeseable = '$instructor->perfilDeseable',
+            usuario.activo = '$instructor->activo',
+            usuario.funcionAdministrativa = '$instructor->funcionAdministrativa',
         WHERE idInstructor = '$instructor->idInstructor'
         ";
 

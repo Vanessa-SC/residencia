@@ -41,7 +41,8 @@
                 <th scope="col">Horas</th>
                 <th scope="col">Nivel</th>
                 <th scope="col">Perfil Deseable</th>
-                <th scope="col">Función Administrativa</th>
+                <th scope="col">Función Administrativa</th>                
+                <th scope="col">Activo</th>
                 <th scope="col"></th>
             </tr>
         </thead>
@@ -57,6 +58,7 @@
                 <td class="align-middle"> {{x.nivel}} </td>
                 <td class="align-middle"> {{x.perfilDeseable}} </td>
                 <td class="align-middle"> {{x.funcionAdministrativa}} </td>
+                <td class="align-middle"> {{x.activo}} </td>
                 <td class="align-middle">
                     <a href="#!/inicioC/instructores/actualizarInstructor" ng-click=instructorID(x.idInstructor)>
                         <button class="btn btn-sm bg-white editar_icon mb-1" title="Editar"></button>
