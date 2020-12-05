@@ -22,7 +22,8 @@ $activeSheet = $documento->getActiveSheet();
 $activeSheet->setTitle("Indicadores");
 
 /*
-Consulta a la base de datos
+Consulta a la base de datos para obtener los nombres de los departamentos, 
+filtrarlos según los usuarios pertenecientes al curso y contar los departamentos
 */
 $sql = $conn->query("SELECT
         departamento.nombreDepartamento, COUNT(usuario.Departamento_idDepartamento) AS totalDpto 
@@ -36,6 +37,9 @@ $sql = $conn->query("SELECT
         GROUP BY  departamento.nombreDepartamento
         ");
 
+/*
+Consulta a la base de datos para contar los diferentes indicadores de los usuarios pertenecientes al curso
+*/
 $query = $conn->query("SELECT
         COUNT(CASE WHEN usuario.sexo = 'Masculino' THEN 1 END) AS totalMasculino,
         COUNT(CASE WHEN usuario.sexo = 'Femenino' THEN 1 END) AS totalFemenino,
@@ -65,7 +69,19 @@ $query = $conn->query("SELECT
         AND usuario.rol = 3
         ");
 
-// Si se obtiene el número de filas del resultado, entonces comienza el recorrido
+// Si se obtiene el número de filas del resultado de la primera consulta, entonces comienza el recorrido
+if($sql->num_rows > 0) {
+    //Comienza en la fila 22
+    $i = 11;
+    //Ciclo while que recorremo los resultados de la consulta y los imprime
+    while($row = $sql->fetch_assoc()) {
+        $activeSheet->setCellValue('E'.$i , $row['nombreDepartamento']);
+        $activeSheet->setCellValue('F'.$i , $row['totalDpto']);
+        $i++;
+    }
+}
+
+// Si se obtiene el número de filas del resultado de la segunda consulta, entonces comienza el recorrido
 if($query->num_rows > 0) {
     //Comienza en la fila 22
     $i = 11;
@@ -90,17 +106,6 @@ if($query->num_rows > 0) {
         $activeSheet->setCellValue('L'.'13' , $row['totalPEspecializacion']);
         $activeSheet->setCellValue('N'.'11' , $row['totalfuncionAdministrativa']);
         $activeSheet->setCellValue('N'.'12' , $row['totalNfuncionAdministrativa']);
-        $i++;
-    }
-}
-
-if($sql->num_rows > 0) {
-    //Comienza en la fila 22
-    $i = 11;
-    //Ciclo while que recorremo los resultados de la consulta y los imprime
-    while($row = $sql->fetch_assoc()) {
-        $activeSheet->setCellValue('E'.$i , $row['nombreDepartamento']);
-        $activeSheet->setCellValue('F'.$i , $row['totalDpto']);
         $i++;
     }
 }
