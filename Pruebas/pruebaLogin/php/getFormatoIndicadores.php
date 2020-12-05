@@ -21,48 +21,55 @@ $documento = \PhpOffice\PhpSpreadsheet\IOFactory::load('../XLSX/plantillaIndicad
 $activeSheet = $documento->getActiveSheet();
 $activeSheet->setTitle("Indicadores");
 
-//Consulta a la base de datos
-$query = $conn->query("SELECT
-        departamento.nombreDepartamento,
-        SUM(usuario.Departamento_idDepartamento) AS totalDpto,
-        SUM(CASE WHEN usuario.sexo = 'Masculino' THEN 1 END) AS totalMasculino,
-        SUM(CASE WHEN usuario.sexo = 'Femenino' THEN 1 END) AS totalFemenino,
-        SUM(CASE WHEN usuario.contrato = 'Base' THEN 1 END) AS totalBase,
-        SUM(CASE WHEN usuario.contrato = 'Honorario,' THEN 1 END) AS totalHonorario,
-        SUM(CASE WHEN usuario.contrato = 'Interinato' THEN 1 END) AS totalInterinato,
-        SUM(CASE WHEN usuario.horas = 'Medio Tiempo' THEN 1 END) AS totalMedioTiempo,
-        SUM(CASE WHEN usuario.horas = 'Tres Cuartos de Tiempo' THEN 1 END) AS totalTresCuartosTiempo,
-        SUM(CASE WHEN usuario.horas = 'Tiempo Completo' THEN 1 END) AS totalTiempoCompleto,
-        SUM(CASE WHEN usuario.horas = 'Asignaturas' THEN 1 END) AS totalAsignaturas,
-        SUM(CASE WHEN usuario.horas = 'Sin Horas' THEN 1 END) AS totalSinHoras,
-        SUM(CASE WHEN usuario.nivel = 'Maestría' THEN 1 END) AS totalMaestria,
-        SUM(CASE WHEN usuario.nivel = 'Licenciatura' THEN 1 END) AS totalLicenciatura,
-        SUM(CASE WHEN usuario.nivel = 'Doctorado' THEN 1 END) AS totalDoctorado,
-        SUM(CASE WHEN usuario.nivel = 'Especialización' THEN 1 END) AS totalEspecializacion,
-        SUM(CASE WHEN usuario.perfilDeseable = 'Maestría' THEN 1 END) AS totalPMaestria,
-        SUM(CASE WHEN usuario.perfilDeseable = 'Licenciatura' THEN 1 END) AS totalPLicenciatura,
-        SUM(CASE WHEN usuario.perfilDeseable = 'Doctorado' THEN 1 END) AS totalPDoctorado,
-        SUM(CASE WHEN usuario.perfilDeseable = 'Especialización' THEN 1 END) AS totalPEspecializacion,
-        SUM(CASE WHEN usuario.funcionAdministrativa = 'X' THEN 1 END) AS totalfuncionAdministrativa,
-        SUM(CASE WHEN usuario.funcionAdministrativa = 'NO' THEN 1 END) AS totalNfuncionAdministrativa
-        FROM 
-        usuario    
-        INNER JOIN departamento 
-        ON usuario.Departamento_idDepartamento = departamento.idDepartamento
+/*
+Consulta a la base de datos
+*/
+$sql = $conn->query("SELECT
+        departamento.nombreDepartamento, COUNT(usuario.Departamento_idDepartamento) AS totalDpto 
+        FROM usuario 
+        inner join departamento 
+        on usuario.Departamento_idDepartamento = departamento.idDepartamento 
         INNER JOIN usuario_has_curso
         ON usuario.idUsuario = usuario_has_curso.Usuario_idUsuario
-        WHERE departamento.idDepartamento IN(SELECT idDepartamento FROM departamento)    
-        AND usuario.rol = 3
+        where departamento.idDepartamento in(select idDepartamento from departamento) 
         AND usuario_has_curso.Curso_idCurso = $idCurso
-        GROUP BY 
-        departamento.nombreDepartamento
+        GROUP BY  departamento.nombreDepartamento
+        ");
+
+$query = $conn->query("SELECT
+        COUNT(CASE WHEN usuario.sexo = 'Masculino' THEN 1 END) AS totalMasculino,
+        COUNT(CASE WHEN usuario.sexo = 'Femenino' THEN 1 END) AS totalFemenino,
+        COUNT(CASE WHEN usuario.contrato = 'Base' THEN 1 END) AS totalBase,
+        COUNT(CASE WHEN usuario.contrato = 'Honorario' THEN 1 END) AS totalHonorario,
+        COUNT(CASE WHEN usuario.contrato = 'Interinato' THEN 1 END) AS totalInterinato,
+        COUNT(CASE WHEN usuario.horas = 'Medio Tiempo' THEN 1 END) AS totalMedioTiempo,
+        COUNT(CASE WHEN usuario.horas = 'Tres Cuartos de Tiempo' THEN 1 END) AS totalTresCuartosTiempo,
+        COUNT(CASE WHEN usuario.horas = 'Tiempo Completo' THEN 1 END) AS totalTiempoCompleto,
+        COUNT(CASE WHEN usuario.horas = 'Asignaturas' THEN 1 END) AS totalAsignaturas,
+        COUNT(CASE WHEN usuario.horas = 'Sin Horas' THEN 1 END) AS totalSinHoras,
+        COUNT(CASE WHEN usuario.nivel = 'Maestría' THEN 1 END) AS totalMaestria,
+        COUNT(CASE WHEN usuario.nivel = 'Licenciatura' THEN 1 END) AS totalLicenciatura,
+        COUNT(CASE WHEN usuario.nivel = 'Doctorado' THEN 1 END) AS totalDoctorado,
+        COUNT(CASE WHEN usuario.nivel = 'Especialización' THEN 1 END) AS totalEspecializacion,
+        COUNT(CASE WHEN usuario.perfilDeseable = 'Maestría' THEN 1 END) AS totalPMaestria,
+        COUNT(CASE WHEN usuario.perfilDeseable = 'Licenciatura' THEN 1 END) AS totalPLicenciatura,
+        COUNT(CASE WHEN usuario.perfilDeseable = 'Doctorado' THEN 1 END) AS totalPDoctorado,
+        COUNT(CASE WHEN usuario.perfilDeseable = 'Especialización' THEN 1 END) AS totalPEspecializacion,
+        COUNT(CASE WHEN usuario.funcionAdministrativa = 'X' THEN 1 END) AS totalfuncionAdministrativa,
+        COUNT(CASE WHEN usuario.funcionAdministrativa = 'NO' THEN 1 END) AS totalNfuncionAdministrativa
+        FROM 
+        usuario    
+        INNER JOIN usuario_has_curso
+        ON usuario.idUsuario = usuario_has_curso.Usuario_idUsuario
+        WHERE usuario_has_curso.Curso_idCurso = $idCurso
+        AND usuario.rol = 3
         ");
 
 // Si se obtiene el número de filas del resultado, entonces comienza el recorrido
 if($query->num_rows > 0) {
     //Comienza en la fila 22
     $i = 11;
-    //Ciclo while que recorremo los resultados de la consulta y los imprimie
+    //Ciclo while que recorremo los resultados de la consulta y los imprime
     while($row = $query->fetch_assoc()) {
         $activeSheet->setCellValue('B'.'11' , $row['totalFemenino']);
         $activeSheet->setCellValue('B'.'12' , $row['totalMasculino']);
@@ -83,6 +90,15 @@ if($query->num_rows > 0) {
         $activeSheet->setCellValue('L'.'13' , $row['totalPEspecializacion']);
         $activeSheet->setCellValue('N'.'11' , $row['totalfuncionAdministrativa']);
         $activeSheet->setCellValue('N'.'12' , $row['totalNfuncionAdministrativa']);
+        $i++;
+    }
+}
+
+if($sql->num_rows > 0) {
+    //Comienza en la fila 22
+    $i = 11;
+    //Ciclo while que recorremo los resultados de la consulta y los imprime
+    while($row = $sql->fetch_assoc()) {
         $activeSheet->setCellValue('E'.$i , $row['nombreDepartamento']);
         $activeSheet->setCellValue('F'.$i , $row['totalDpto']);
         $i++;

@@ -18,7 +18,6 @@ $sql = "SELECT usuario.idUsuario, departamento.nombreDepartamento as nombreD, us
         ON usuario.idUsuario = usuario_has_curso.Usuario_idUsuario
         Inner join departamento
         ON usuario.Departamento_idDepartamento = departamento.idDepartamento
-        AND usuario_has_curso.estado = 1
         AND usuario_has_curso.Curso_idCurso = $id
         WHERE usuario.rol = 3 
         AND activo = 'SI'

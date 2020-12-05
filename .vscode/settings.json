@@ -1,6 +1,6 @@
 {
     "editor.wordWrap": "on",
-    "editor.fontFamily": "Fira code retina",
+    //"editor.fontFamily": "Fira code retina",
     "editor.fontLigatures": true,
     "editor.fontWeight": "450"
 }

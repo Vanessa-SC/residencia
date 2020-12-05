@@ -23,6 +23,11 @@ $idCurso = 1;
 $nombre = "Sistemas y Computación";
 
 /*
+
+SELECT a.id, a.nombre, SUM(b.valor)
+   FROM tablanombres a LEFT JOIN tablavalores b ON a.id = b.id 
+   GROUP BY a.id, a.nombre
+
 CORRECTA
 SELECT
     departamento.nombreDepartamento,
@@ -58,11 +63,7 @@ SELECT
     departamento.nombreDepartamento
 
 
-*/
-
-$idDepartamento = 2;
-
-$sql = "SELECT
+    -----
     departamento.nombreDepartamento,
     SUM(usuario.Departamento_idDepartamento) AS totalDpto,
     SUM(CASE WHEN usuario.sexo = 'Masculino' THEN 1 END) AS totalMasculino,
@@ -94,8 +95,49 @@ $sql = "SELECT
     WHERE departamento.idDepartamento IN(SELECT idDepartamento FROM departamento)    
     AND usuario.rol = 3
     AND usuario_has_curso.Curso_idCurso = $idCurso
-    GROUP BY 
-    departamento.nombreDepartamento
+
+
+    SELECT  
+    departamento.nombreDepartamento, COUNT(usuario.Departamento_idDepartamento) AS dptos 
+    FROM usuario 
+    inner join departamento 
+    on usuario.Departamento_idDepartamento = departamento.idDepartamento 
+    INNER JOIN usuario_has_curso
+    ON usuario.idUsuario = usuario_has_curso.Usuario_idUsuario
+    where departamento.idDepartamento in(select idDepartamento from departamento) 
+    AND usuario_has_curso.Curso_idCurso = $idCurso
+    GROUP BY  departamento.nombreDepartamento
+*/
+
+$idDepartamento = 2;
+
+$sql = "SELECT  
+        COUNT(CASE WHEN usuario.sexo = 'Masculino' THEN 1 END) AS totalMasculino,
+        COUNT(CASE WHEN usuario.sexo = 'Femenino' THEN 1 END) AS totalFemenino,
+        COUNT(CASE WHEN usuario.contrato = 'Base' THEN 1 END) AS totalBase,
+        COUNT(CASE WHEN usuario.contrato = 'Honorario,' THEN 1 END) AS totalHonorario,
+        COUNT(CASE WHEN usuario.contrato = 'Interinato' THEN 1 END) AS totalInterinato,
+        COUNT(CASE WHEN usuario.horas = 'Medio Tiempo' THEN 1 END) AS totalMedioTiempo,
+        COUNT(CASE WHEN usuario.horas = 'Tres Cuartos de Tiempo' THEN 1 END) AS totalTresCuartosTiempo,
+        COUNT(CASE WHEN usuario.horas = 'Tiempo Completo' THEN 1 END) AS totalTiempoCompleto,
+        COUNT(CASE WHEN usuario.horas = 'Asignaturas' THEN 1 END) AS totalAsignaturas,
+        COUNT(CASE WHEN usuario.horas = 'Sin Horas' THEN 1 END) AS totalSinHoras,
+        COUNT(CASE WHEN usuario.nivel = 'Maestría' THEN 1 END) AS totalMaestria,
+        COUNT(CASE WHEN usuario.nivel = 'Licenciatura' THEN 1 END) AS totalLicenciatura,
+        COUNT(CASE WHEN usuario.nivel = 'Doctorado' THEN 1 END) AS totalDoctorado,
+        COUNT(CASE WHEN usuario.nivel = 'Especialización' THEN 1 END) AS totalEspecializacion,
+        COUNT(CASE WHEN usuario.perfilDeseable = 'Maestría' THEN 1 END) AS totalPMaestria,
+        COUNT(CASE WHEN usuario.perfilDeseable = 'Licenciatura' THEN 1 END) AS totalPLicenciatura,
+        COUNT(CASE WHEN usuario.perfilDeseable = 'Doctorado' THEN 1 END) AS totalPDoctorado,
+        COUNT(CASE WHEN usuario.perfilDeseable = 'Especialización' THEN 1 END) AS totalPEspecializacion,
+        COUNT(CASE WHEN usuario.funcionAdministrativa = 'X' THEN 1 END) AS totalfuncionAdministrativa,
+        COUNT(CASE WHEN usuario.funcionAdministrativa = 'NO' THEN 1 END) AS totalNfuncionAdministrativa
+        FROM 
+        usuario    
+        INNER JOIN usuario_has_curso
+        ON usuario.idUsuario = usuario_has_curso.Usuario_idUsuario
+        WHERE usuario_has_curso.Curso_idCurso = $idCurso
+        AND usuario.rol = 3
     ";
 
 $result = $conn->query($sql) or die($conn->error . __LINE__);

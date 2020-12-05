@@ -1932,21 +1932,6 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 		});
 
 	/* Obtiene la lista de los docentes inscritos a X curso */
-	$scope.getListaAsistencia = function () {
-		$scope.idCurso = curso.getID();
-		if ($scope.idCurso != "") {
-			$http({
-				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getListaAsistencia.php',
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded'
-				},
-				data: 'idCurso=' + $scope.idCurso
-			}).then(function successCallback(response) {
-				$scope.participantes = response.data;
-			});
-		}
-	}
 
 	$scope.getParticipantes = function () {
 		$scope.idCurso = curso.getID();
