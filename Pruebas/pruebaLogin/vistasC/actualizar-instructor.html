@@ -26,6 +26,23 @@
 
 		<div class="dropdown-divider mt-4 mb-4"></div>
 
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="fechaNacimiento">Fecha Nacimiento</label>
+			</div>
+			<input required type="date" id="fechaNacimiento" class="form-control" as-date
+				ng-model="instructor.fechaNacimiento" ng-value="actInstructor.fechaNacimiento">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="sexo">Sexo</label>
+			</div>
+			<select required class="custom-select" id="sexo" ng-model="instructor.sexo" ng-value="actInstructor.sexo">
+				<option selected value="Femenino"> Femenino </option>
+				<option value="Masculino"> Masculino </option>
+			</select>
+		</div>
+
+		<div class="dropdown-divider mt-4 mb-4"></div>
+
 		<div class="input-group mb-3 mt-4">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="nombreUsuario">Nombre Usuario</label>
@@ -62,12 +79,7 @@
 		</div>
 		<div class="dropdown-divider mt-4 mb-4"></div>
 
-		<div class="input-group mb-3 mt-4">
-			<div class="input-group-prepend">
-				<label class="input-group-text" for="fechaNacimiento">Fecha Nacimiento</label>
-			</div>
-			<input required type="date" id="fechaNacimiento" class="form-control" as-date
-				ng-model="instructor.fechaNacimiento" ng-value="actInstructor.fechaNacimiento">
+		<div class="input-group mb-3 mt-4">			
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="telefono">Teléfono</label>
 			</div>
@@ -84,7 +96,16 @@
 
 		<div class="dropdown-divider mt-4 mb-4"></div>
 
-		<div class="input-group mb-3 mt-4">			
+		<div class="input-group mb-3 mt-4">	
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="contrato">Contrato</label>
+			</div>
+			<select required class="custom-select" id="contrato" ng-model="instructor.contrato" ng-value="actInstructor.contrato">
+				<option selected value="Ninguno"> Ninguno </option>
+				<option value="Base"> Base </option>
+				<option value="Interinato"> Interinato </option>
+				<option value="Honorario"> Honorario </option>				
+			</select>		
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="horas">Horas</label>
 			</div>
@@ -149,7 +170,7 @@
 		</div>
 	</form>
 	<div class="text-center mb-5">
-		<button class="btn bg-wine" ng-click="actualizarInstructor()">
+		<button class="btn bg-wine" ng-click="actualizarInstructor(actInstructor)">
 			<span class="ok2_icon"></span>Actualizar
 		</button>
 	</div>

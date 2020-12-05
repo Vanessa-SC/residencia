@@ -1725,7 +1725,7 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			data: JSON.stringify($scope.instructor)
+			data: JSON.stringify($scope.actInstructor)
 		}).then(function successCallback(response) {
 			if (response.data.status != "ok") {
 				$scope.alert = {
