@@ -21,6 +21,8 @@ $sql = "INSERT INTO usuario
             '$inst->apellidoPaterno',
             '$inst->apellidoMaterno',
             '$inst->nombre',
+            '$inst->sexo',
+            '$inst->contrato',
             upper('$inst->RFC'),
             upper('$inst->CURP'),
             '$inst->horas',
