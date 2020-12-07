@@ -1404,6 +1404,39 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 			});
 		}, 500);
 	}
+
+	/* Cambia la validación de un documento */
+	$scope.validarDocumento = function (val,id){
+		if(curso.getID() != undefined){
+			$http({
+				method: 'POST',
+				url: '/Residencia/Pruebas/pruebaLogin/php/validarDocumentoCurso.php',
+				headers: { 'Content-type':'application/x-www-form-urlencoded'},
+				data: 'validado='+val+"&idd="+id+"&idc="+curso.getID()
+			}).then(function successCallback (response){
+				if(response.data.status == 'ok'){
+					$scope.alert = {
+						titulo: 'Ok!',
+						tipo: 'success',
+						mensaje: 'La validación del documento aplicada.'
+					};
+					$(document).ready(function () {
+						$('#alerta').toast('show');
+					});
+				} else {
+					$scope.alert = {
+						titulo: 'Error!',
+						tipo: 'danger',
+						mensaje: 'La validación del documento no pudo ser aplicada.'
+					};
+					$(document).ready(function () {
+						$('#alerta').toast('show');
+					});
+				}
+			});
+		}
+	}
+	
 });
 
 app.controller('constanciasCtrl', function ($scope, $http, $location, user, periodoService, curso, constancia) {

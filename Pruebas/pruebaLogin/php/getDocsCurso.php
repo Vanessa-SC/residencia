@@ -11,7 +11,8 @@ $idCurso = $_POST['idCurso'];
 $sql = "SELECT documento.idDocumento,
         documento.nombreDocumento,
         curso_has_documento.comentario,
-        curso_has_documento.rutaArchivo
+        curso_has_documento.rutaArchivo,
+        curso_has_documento.estadoVerificado as validado
         FROM documento,curso_has_documento
         WHERE documento.idDocumento = curso_has_documento.Documento_idDocumento
         AND curso_has_documento.Curso_idCurso = $idCurso

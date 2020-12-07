@@ -1,4 +1,8 @@
 Proyecto/files/
 log.txt
+**/.vscode/
+
+
 
 /* comando: git --no-pager log > log.txt */
+
