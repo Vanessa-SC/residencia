@@ -1,0 +1,27 @@
+<?php
+
+/* Conexion */
+include_once 'conexion.php';
+
+/* Recepcion de datos */
+$idc = mysqli_real_escape_string($conn,$_POST['idc']);
+
+/* Array de respuesta */
+$response = [];
+
+/* SQL */
+$sql =  "SELECT * 
+         FROM curso_has_documento
+         WHERE Curso_idCurso = $idc 
+         AND estadoVerificado = 'SI'";
+
+$result = $conn->query($sql) or die($conn->error . __LINE__);
+
+/* Contar si todos los documentos del curso han sido validados */
+if(mysqli_num_rows($result) == 7 ) {
+    $response['docs_status'] = 'validos';
+} else {
+    $response['docs_status'] = 'invalidos';
+}
+
+echo json_encode($response,true);

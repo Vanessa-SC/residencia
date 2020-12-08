@@ -23,4 +23,4 @@ $result = $conn->query($sql) or die($conn->error . __LINE__);
 
 $curso = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-echo json_encode($curso[0]);
+echo json_encode($curso[0],true);

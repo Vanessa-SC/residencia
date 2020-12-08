@@ -56,7 +56,7 @@ if (mysqli_query($conn, $sql)) {
         $response['status'] = 'error al insertar oficio de registro';
     }
 } else {
-    $response['status'] = 'error' . mysqli_error($conn);
+    $response['status'] = 'error: ' . mysqli_error($conn);
 } 
 
 echo json_encode($response,JSON_FORCE_OBJECT);

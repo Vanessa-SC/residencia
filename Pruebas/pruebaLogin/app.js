@@ -629,13 +629,20 @@ app.service('constancia', function () {
 app.service('instructor', function () {
 	var id;
 
-	/* Almacenar temporalmente ID del instructor */
-	this.setID = function (instructorID) {
-		id = instructorID;
+	/* guarda el ID del Instructor */
+	this.setID = function (InstructorID) {
+		id = InstructorID;
+		localStorage.setItem('idInstructor', JSON.stringify({
+			id: id
+		}));
 	};
 
-	/* Obtener ID del instructor */
+	/* obtiene el ID del Instructor */
 	this.getID = function () {
+		if (!!localStorage.getItem('idInstructor')) {
+			var data = JSON.parse(localStorage.getItem('idInstructor'));
+			id = data.id;
+		}
 		return id;
 	};
 
@@ -1398,7 +1405,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 			}).then(function successCallback(response) {
 				angular.forEach(response.data.numDocsCurso, function (value, key) {
 					if (value.num_docs < 7) {
-						$("#documentacion" + value.idCurso).append('<button class="btn bg-white info_icon" title="Falta documentación"></button>');
+						$("#documentacion" + value.idCurso).append('<span class="info_icon" title="Falta documentación"></span>');
 					}
 				});
 			});
@@ -1423,6 +1430,9 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 					$(document).ready(function () {
 						$('#alerta').toast('show');
 					});
+					/* Llamamos al método para verificar el estado de validacion
+					   de la documentacion */
+					   $scope.validacionDocumentos();
 				} else {
 					$scope.alert = {
 						titulo: 'Error!',
@@ -1435,8 +1445,78 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 				}
 			});
 		}
+	}	
+
+	/* Validar si todos los documentos del curso están validados 
+	   para poder validar el curso */
+	$scope.validacionDocumentos = function () {
+		if(curso.getID() != undefined){
+			$timeout(function(){
+				$http({
+					method: 'POST',
+					url: '/Residencia/Pruebas/pruebaLogin/php/getValidacionDocumentos.php',
+					headers: { 'Content-type':'application/x-www-form-urlencoded'},
+					data: 'idc='+curso.getID()
+				}).then(function successCallback(response){
+					/* Si la documentación del curso ya está aprobada
+					   y el curso aún no, se nos muestra una alerta para
+					   que lo hagamos */
+					if(response.data.docs_status == 'validos' && $scope.infoCurso.validado == 'NO'){
+						$scope.alert = {
+							titulo: 'Atención!',
+							tipo: 'secondary',
+							mensaje: 'Los documentos están validados. Ya puedes validar el curso.'
+						};
+						$(document).ready(function () {
+							$('#alerta').toast('show');
+						});
+						$("#curso_validado").attr('disabled',false);
+					}
+					/* Si se resubió un documento y la documentación pasa a estar 
+					   invalidada, se vuelve a poner el curso como "no valido" */
+					if(response.data.docs_status == 'invalidos' && $scope.infoCurso.validado == 'SI'){
+						$http({
+							method: 'POST',
+							url: '/Residencia/Pruebas/pruebaLogin/php/validarCurso.php',
+							headers: { 'Content-type':'application/x-www-form-urlencoded'},
+							data: 'idc='+curso.getID()+"&val="+'NO'
+						}).then(function successCallback(response){
+							if(response.data.status ==  'ok'){
+								$scope.getInfoCurso();
+							}
+						});
+					}
+				});
+			},1000);
+		}
+		
 	}
-	
+
+	/* Validar el curso */
+	$scope.validarCurso = function (){
+		if( curso.getID() != undefined ){
+			$timeout(function(){
+				$http({
+					method: 'POST',
+					url: '/Residencia/Pruebas/pruebaLogin/php/validarCurso.php',
+					headers: { 'Content-type':'application/x-www-form-urlencoded'},
+					data: 'idc='+curso.getID()+"&val="+$scope.infoCurso.validado
+				}).then(function successCallback(response){
+					if(response.data.status ==  'ok'){
+						$scope.alert = {
+							titulo: 'Actualizado!',
+							tipo: 'success',
+							mensaje: 'La validación del curso ha sido aplicada.'
+						};
+						$(document).ready(function () {
+							$('#alerta').toast('show');
+						});
+					}
+				});
+			},500);
+		}
+	}
+
 });
 
 app.controller('constanciasCtrl', function ($scope, $http, $location, user, periodoService, curso, constancia) {
@@ -1731,23 +1811,22 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 
 	/* Obtener datos del instructor para su actualización */
 	$scope.getInstructorAct = function () {
-		$scope.idInstructor = instructor.getID();
 		/* Valida que el ID no esté vacío */
-		if ($scope.idInstructor != "") {
+		if (instructor.getID() != "") {
 			$http({
 				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getInstructorAct.php',
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded'
 				},
-				data: 'idInstructor=' + $scope.idInstructor
+				data: 'idInstructor=' + instructor.getID()
 			}).then(function successCallback(response) {
 				$scope.actInstructor = response.data;
 				$scope.instructor = response.data;
 			});
 		}
 	}
-	/* llamado a la funcion */
+
 	$scope.getInstructorAct();
 
 	/* Realizar la modificación de los datos del instructor */
@@ -1769,9 +1848,6 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 				$(document).ready(function () {
 					$('#alerta').toast('show');
 				});
-				$timeout(function () {
-					$location.path("/inicioC/instructores");
-				}, 2000);
 			} else {
 				$scope.alert = {
 					titulo: 'Creado!',
@@ -1787,6 +1863,8 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 			}
 		});
 	}
+
+
 });
 
 /* CONTROLADORES PARA EL USUARIO INSTRUCTOR */

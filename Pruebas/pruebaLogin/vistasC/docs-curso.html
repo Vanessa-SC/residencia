@@ -1,5 +1,5 @@
 <ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasC/nav.html'"></ng-include>
-<div class="container" ng-init="getListaDocumentosSubidos();getInfoCurso()">
+<div class="container" ng-init="getListaDocumentosSubidos();getInfoCurso();validacionDocumentos()">
     <div class="programa_page d-flex justify-content-center">
         <div class="pt-5">
             <button title="Regresar a la página anterior" class="btn-back back_icon" ng-click="back()">
@@ -13,19 +13,37 @@
             </div>
         </div>
     </div>
-    <div class="card  border-dark mb-3">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-sm-3  text-center"><strong>Instructor postulado</strong></div>
-                <div class="col-sm-5">{{infoCurso.maestro}}</div>
-                <div class="col-sm-3 text-center"><strong>Fecha:</strong></div>
-                <div class="w-100"></div>
-                <div class="col-sm-2 text-center"><strong>Curso a impartir:</strong></div>
-                <div class="col-sm-6">{{infoCurso.curso}}</div>
-                <div class="col-sm-3 text-center">{{infoCurso.fecha}} <br> {{infoCurso.horario}} </div>
-                <div class="w-100"></div>
-                <br>
+
+    <div class="card border-dark px-5 py-3">
+        <div class="row">
+            <div class="col-sm-12">
+                <span class="font-weight-bold">Instructor: </span> {{infoCurso.maestro}}
             </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <span class="font-weight-bold">Curso a impartir: </span>
+            </div>
+            <div class="col-sm-6">
+                <span class="font-italic"><p>{{infoCurso.curso}}</p>
+            </div>
+            <div class="col-sm-4 text-center">
+                <span class="font-weight-bold">Fecha:</span><br>{{infoCurso.fecha}}<br>{{infoCurso.horario}}
+            </div>
+        </div>
+        <div class="row my-0 py-0 text-center d-flex justify-content-center">
+                <div class="col-sm-2">
+                  <label for="curso_validado">Estado del curso:</label>
+                </div>
+                <div class="form-group col-sm-2">
+                  <select disabled 
+                  class="custom-select custom-select-sm shadow bg-secondary text-white align-self-middle" name="curso_validado" id="curso_validado" 
+                  ng-model="infoCurso.validado" ng-change="validarCurso()">
+                        <option value="NO">No válido</option>
+                        <option value="SI">Válido</option>
+                    </select>
+                </div>
+            <!-- </div> -->
         </div>
     </div>
     <table class="table text-center">
@@ -36,7 +54,7 @@
                 <th scope="col">Documentos</th>
                 <th scope="col">Ver</th>
                 <th scope="col">Validar</th>
-                <th scope="col"></th>
+                <th scope="col"><span class="comment-black_icon mr-2"></span> Comentario</th>
             </tr>
         </thead>
         <tbody>
@@ -91,13 +109,13 @@
                 </td>
                 <td class="align-middle">
                     <div>
-                        <select class="custom-select custom-select-sm" ng-model="doc.validado" ng-change="validarDocumento(doc.validado,doc.idDocumento)">
+                        <select class="custom-select custom-select-sm align-self-center pl-2" ng-model="doc.validado" ng-change="validarDocumento(doc.validado,doc.idDocumento)">
                             <option value="SI">Válido</option>
                             <option value="NO">No válido</option>
                         </select>
                     </div>
                 </td>
-                <td class="align-middle">
+                <td class="align-middle d-flex justify-content-center">
                     <button class="btn btn-sm bg-wine text-white" data-toggle="modal"
                         data-target="#modalComentario{{doc.idDocumento}}" id="btn{{doc.idDocumento}}">
                         <span class="comment_icon mr-2"></span>Agregar comentario
