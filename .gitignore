@@ -6,4 +6,4 @@ log.txt
 
 /* comando: git --no-pager log > log.txt */
 
-.vscode/settings.json
+**/.vscode/settings.json
