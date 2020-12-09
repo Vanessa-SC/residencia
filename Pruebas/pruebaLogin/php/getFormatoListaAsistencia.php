@@ -28,9 +28,26 @@ La consulta maneja distintas condiciones: condiciones entre IDs para relaciones 
 además el usuario debe tener rol 3 es decir debe ser docente y debe estar activo
 */
 
+$sql = $conn->query("SELECT
+        IF(usuario.funcionAdministrativa = 'SI', 'X', usuario.funcionAdministrativa) AS FD
+            FROM usuario_has_curso 
+            INNER JOIN usuario        
+            ON usuario.idUsuario = usuario_has_curso.Usuario_idUsuario
+            INNER JOIN departamento
+            ON usuario.Departamento_idDepartamento = departamento.idDepartamento
+            AND usuario_has_curso.Curso_idCurso = $idCurso
+            INNER JOIN curso 
+            ON curso.idCurso = usuario_has_curso.Curso_idCurso            
+            INNER JOIN instructor 
+            ON curso.Instructor_idInstructor=instructor.idInstructor
+            WHERE usuario.rol = 3 
+            AND activo = 'SI'
+            AND funcionAdministrativa = 'SI'
+        ");
+
 $query = $conn->query("SELECT 
             usuario.idUsuario, departamento.nombreDepartamento AS nombreD, usuario.rol, usuario.RFC, 
-            usuario.CURP, usuario.horas, usuario.nivel, usuario.perfilDeseable, usuario.funcionAdministrativa AS FD, 
+            usuario.CURP, usuario.horas, usuario.nivel, usuario.perfilDeseable, 
             concat_ws(' ',usuario.apellidoPaterno,usuario.apellidoMaterno,usuario.nombre) AS nombre,
             concat_ws(' ',instructor.nombre,instructor.apellidoPaterno,instructor.apellidomaterno) AS maestro, 
             instructor.RFC AS insRFC,
@@ -63,6 +80,18 @@ $query = $conn->query("SELECT
             AND activo = 'SI'      
         ");
 
+// Si se obtiene el número de filas del resultado de la primera consulta, entonces comienza el recorrido
+if($sql->num_rows > 0) {
+    //Comienza en la fila 22
+    $i = 22;
+    //Ciclo while que recorremo los resultados de la consulta y los imprime
+    while($row = $sql->fetch_assoc()) {
+        $activeSheet->setCellValue('E'.$i , $row['FD']);
+        $i++;
+    }
+}
+
+
 // Si se obtiene el número de filas del resultado, entonces comienza el recorrido
 if($query->num_rows > 0) {
     //Comienza en la fila 22
@@ -82,7 +111,6 @@ if($query->num_rows > 0) {
         $activeSheet->setCellValue('B'.$i , $row['nombre']);
         $activeSheet->setCellValue('C'.$i , $row['RFC']);
         $activeSheet->setCellValue('D'.$i , $row['nombreD']);
-        $activeSheet->setCellValue('E'.$i , $row['FD']);
         $activeSheet->setCellValue('F'.$i , 'X');
         $i++;
     }
