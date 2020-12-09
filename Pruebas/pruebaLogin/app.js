@@ -1858,7 +1858,7 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 				});
 			} else {
 				$scope.alert = {
-					titulo: 'Creado!',
+					titulo: '¡Actualizado!',
 					tipo: 'success',
 					mensaje: 'Actualización exitosa.'
 				};

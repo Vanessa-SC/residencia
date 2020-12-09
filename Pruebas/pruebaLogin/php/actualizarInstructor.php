@@ -36,8 +36,8 @@ $sql = "UPDATE instructor
             usuario.nivel = '$actInstructor->nivel',
             usuario.perfilDeseable = '$actInstructor->perfilDeseable',
             usuario.activo = '$actInstructor->activo',
-            usuario.funcionAdministrativa = '$actInstructor->funcionAdministrativa',
-        WHERE idInstructor = $actInstructor->idInstructor
+            usuario.funcionAdministrativa = '$actInstructor->funcionAdministrativa'
+        WHERE instructor.idInstructor = $actInstructor->idInstructor
         ";
 
 if (mysqli_query($conn, $sql)) {

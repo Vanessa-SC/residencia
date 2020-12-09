@@ -9,9 +9,9 @@ if (!isset($_POST)) {
 $id = mysqli_real_escape_string($conn, $_POST['idInstructor']);
 
 $sql = "SELECT 
-        instructor.idInstructor, instructor.apellidoPaterno, instructor.apellidoMaterno, 
+        instructor.idInstructor, instructor.idUsuario, instructor.apellidoPaterno, instructor.apellidoMaterno, 
         instructor.nombre, instructor.RFC, instructor.CURP, instructor.fechaNacimiento, 
-        instructor.telefono, instructor.Correo, usuario.nombreUsuario, usuario.contrasena, usuario.sexo, usuario.contrato,
+        instructor.telefono, instructor.Correo, usuario.idUsuario, usuario.nombreUsuario, usuario.contrasena, usuario.sexo, usuario.contrato,
         usuario.horas, usuario.perfilDeseable, usuario.activo, usuario.funcionAdministrativa, usuario.nivel,
         usuario.Departamento_idDepartamento as departamento
         FROM instructor 
