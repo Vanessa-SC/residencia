@@ -107,37 +107,18 @@ SELECT
     where departamento.idDepartamento in(select idDepartamento from departamento) 
     AND usuario_has_curso.Curso_idCurso = $idCurso
     GROUP BY  departamento.nombreDepartamento
+
+    IF(usuario.funcionAdministrativa = 'NO', 'X', usuario.funcionAdministrativa) AS D,
+    IF(usuario.funcionAdministrativa = 'SI', 'X', usuario.funcionAdministrativa) AS FD,
 */
 
 $idDepartamento = 2;
+$date_start = date('2019-07-06');
+$date_end = date('2019-09-18');
 
 $sql = "SELECT  
-        COUNT(CASE WHEN usuario.sexo = 'Masculino' THEN 1 END) AS totalMasculino,
-        COUNT(CASE WHEN usuario.sexo = 'Femenino' THEN 1 END) AS totalFemenino,
-        COUNT(CASE WHEN usuario.contrato = 'Base' THEN 1 END) AS totalBase,
-        COUNT(CASE WHEN usuario.contrato = 'Honorario,' THEN 1 END) AS totalHonorario,
-        COUNT(CASE WHEN usuario.contrato = 'Interinato' THEN 1 END) AS totalInterinato,
-        COUNT(CASE WHEN usuario.horas = 'Medio Tiempo' THEN 1 END) AS totalMedioTiempo,
-        COUNT(CASE WHEN usuario.horas = 'Tres Cuartos de Tiempo' THEN 1 END) AS totalTresCuartosTiempo,
-        COUNT(CASE WHEN usuario.horas = 'Tiempo Completo' THEN 1 END) AS totalTiempoCompleto,
-        COUNT(CASE WHEN usuario.horas = 'Asignaturas' THEN 1 END) AS totalAsignaturas,
-        COUNT(CASE WHEN usuario.horas = 'Sin Horas' THEN 1 END) AS totalSinHoras,
-        COUNT(CASE WHEN usuario.nivel = 'Maestría' THEN 1 END) AS totalMaestria,
-        COUNT(CASE WHEN usuario.nivel = 'Licenciatura' THEN 1 END) AS totalLicenciatura,
-        COUNT(CASE WHEN usuario.nivel = 'Doctorado' THEN 1 END) AS totalDoctorado,
-        COUNT(CASE WHEN usuario.nivel = 'Especialización' THEN 1 END) AS totalEspecializacion,
-        COUNT(CASE WHEN usuario.perfilDeseable = 'Maestría' THEN 1 END) AS totalPMaestria,
-        COUNT(CASE WHEN usuario.perfilDeseable = 'Licenciatura' THEN 1 END) AS totalPLicenciatura,
-        COUNT(CASE WHEN usuario.perfilDeseable = 'Doctorado' THEN 1 END) AS totalPDoctorado,
-        COUNT(CASE WHEN usuario.perfilDeseable = 'Especialización' THEN 1 END) AS totalPEspecializacion,
-        COUNT(CASE WHEN usuario.funcionAdministrativa = 'X' THEN 1 END) AS totalfuncionAdministrativa,
-        COUNT(CASE WHEN usuario.funcionAdministrativa = 'NO' THEN 1 END) AS totalNfuncionAdministrativa
-        FROM 
-        usuario    
-        INNER JOIN usuario_has_curso
-        ON usuario.idUsuario = usuario_has_curso.Usuario_idUsuario
-        WHERE usuario_has_curso.Curso_idCurso = $idCurso
-        AND usuario.rol = 3
+DATE('2020-12-07' + INTERVAL (2 - DAYOFWEEK('2020-12-23')) DAY) as start_date,  
+DATE('2020-12-07' + INTERVAL (7 - DAYOFWEEK('2020-12-23')) DAY) as end_date
     ";
 
 $result = $conn->query($sql) or die($conn->error . __LINE__);

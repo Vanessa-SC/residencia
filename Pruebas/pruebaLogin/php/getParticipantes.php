@@ -8,8 +8,7 @@ if (!isset($_POST)) die();
 $id = mysqli_real_escape_string($conn, $_POST['idCurso']);
 
 $sql = "SELECT usuario.idUsuario, departamento.nombreDepartamento as nombreD, usuario.rol, usuario.RFC, 
-        usuario.CURP, usuario.horas, usuario.nivel, usuario.perfilDeseable, 
-        IF(usuario.funcionAdministrativa = 'X', 'SI', usuario.funcionAdministrativa) AS FD,
+        usuario.CURP, usuario.horas, usuario.nivel, usuario.perfilDeseable, usuario.funcionAdministrativa as FD,
         usuario.sexo, usuario.contrato, 
         concat_ws(' ',usuario.apellidoPaterno,usuario.apellidoMaterno,usuario.nombre) as nombre
         FROM usuario_has_curso 
