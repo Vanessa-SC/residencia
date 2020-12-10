@@ -117,8 +117,8 @@ $date_start = date('2019-07-06');
 $date_end = date('2019-09-18');
 
 $sql = "SELECT  
-DATE('2020-12-07' + INTERVAL (2 - DAYOFWEEK('2020-12-23')) DAY) as start_date,  
-DATE('2020-12-07' + INTERVAL (7 - DAYOFWEEK('2020-12-23')) DAY) as end_date
+select dateadd(wk, datediff(wk, 0, getdate()), 0) as StartDate 
+select dateadd(wk, datediff(wk, 0, getdate()), 0) + 6) as EndDate
     ";
 
 $result = $conn->query($sql) or die($conn->error . __LINE__);
