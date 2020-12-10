@@ -1,5 +1,7 @@
 <?php
 
+/* Obtiene los datos del instructor para rellenar el formulario de actualizacion de los datos del instructor */
+
 include_once 'conexion.php';
 
 if (!isset($_POST)) {

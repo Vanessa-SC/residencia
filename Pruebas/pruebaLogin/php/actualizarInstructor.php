@@ -1,12 +1,14 @@
 <?php
 
+/* Actualizará los datos de un Instructor */
 
+/* Recepción del array con los datos del instructor */
 $actInstructor = json_decode(file_get_contents("php://input"));
-
+//conexion
 include_once('conexion.php');
-
+//array de respuesta
 $response = [];
-
+//formato de la fecha
 $fechaNacimiento = strftime ('%Y-%m-%d', strtotime($actInstructor->fechaNacimiento));
 
 /* Query de actualización */
@@ -39,13 +41,12 @@ $sql = "UPDATE instructor
             usuario.funcionAdministrativa = '$actInstructor->funcionAdministrativa'
         WHERE instructor.idInstructor = $actInstructor->idInstructor
         ";
-
+// ejecución del Query
 if (mysqli_query($conn, $sql)) {
     $response['status'] = 'ok';
 } else {
-    $response['status'] = 'error' . mysqli_error($conn);
+    $response['status'] = 'error ' . mysqli_error($conn);
 } 
 
-
+// impresion de la respuesta
 echo json_encode($response,JSON_FORCE_OBJECT);
-// echo json_encode($curso);

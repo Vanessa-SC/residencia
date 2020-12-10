@@ -1,29 +1,22 @@
 <?php
 
+/* Obtiene un listado de los comentarios de los documentos de un curso */
+
+//conexion
 include_once 'conexion.php';
 
-$response = [];
-
+// asignacion de variables
 $idCurso = mysqli_real_escape_string($conn, $_POST['idCurso']);
 $idDocumento = mysqli_real_escape_string($conn, $_POST['idDocumento']);
 
-$response['curso'] = $idCurso;
-$response['documento'] = $idDocumento;
-$response['comentario'] = $comentario;
-
+// Query de consulta
 $sql = "SELECT *
         FROM curso_has_documento
         WHERE Curso_idCurso = $idCurso
         AND Documento_idDocumento = $idDocumento";
-
-if (mysqli_query($conn, $sql)) {
-    $response['status'] = 'ok';
-} else {
-    $response['status'] = 'error';
-}
-
+// validacion de ejecucion de consulta
 $result = $conn->query($query) or die($conn->error . __LINE__);
-
+// asociacion de resultados
 $comentarios = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-echo json_encode($comentarios);
+// impresion de resultados
+echo json_encode($comentarios,true);

@@ -1,8 +1,9 @@
 <?php 
 
+/*  Calcular el periodo actual  */
+
 
 $response = [];
-//Calcular el periodo actual
 
 $mes = date('n');
 $año = date('Y');

@@ -1,5 +1,8 @@
 <?php
 
+/* Verifica si un documento de un curso está validado */
+
+
 /* Validar que se estén recibiendo datos */
 if(!isset($_POST)) die();
 

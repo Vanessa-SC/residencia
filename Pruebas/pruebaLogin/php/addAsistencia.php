@@ -1,7 +1,11 @@
 <?php
 
+/* Registrará la asistencia de los participantes de un curso en el día actual */
+
+//conexion
 include_once 'conexion.php';
 
+//recepcion de datos
 $datos = json_decode(file_get_contents('php://input'), true);
 
 /* Separar el arreglo */
@@ -46,11 +50,11 @@ for ($i = 0; $i < max($keyLista); $i++) {
             mysqli_query($conn,$sql);
     }
 }
-
+/* validacion para saber si todas las consultas se realizaron */
 if( $contador == count($keyParticipantes)){
     $response['status'] = 'ok';
 } else {
     $response['status'] = 'error';
 }
-
+/* impresion de la respuesta */
 echo json_encode($response,true);

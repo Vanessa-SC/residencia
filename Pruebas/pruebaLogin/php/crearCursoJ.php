@@ -1,7 +1,10 @@
 <?php
 
-$curso = json_decode(file_get_contents("php://input"));
+/* Creacion de curso desde usuairo Jefe */
 
+/* Recepción de Array de datos */
+$curso = json_decode(file_get_contents("php://input"));
+//conexion
 include_once 'conexion.php';
 
 /* Conversión de los formatos de fecha y hora, año */
@@ -49,11 +52,11 @@ if ($curso->modalidad == 1) {
     $res = mysqli_query($conn,$sqlGetDepto);
     $idDepartamento = mysqli_fetch_array ($res);
 
-if($curso->departamento == 0){
-    $departamento = $idDepartamento[0];
-} else {
-    $departamento = $curso->departamento;
-}
+    if($curso->departamento == 0){
+        $departamento = $idDepartamento[0];
+    } else {
+        $departamento = $curso->departamento;
+    }
 
 /* Validar si hay observaciones */
 if(empty($curso->observaciones)){

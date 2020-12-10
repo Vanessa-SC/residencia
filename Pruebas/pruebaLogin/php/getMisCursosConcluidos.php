@@ -1,11 +1,11 @@
 <?php
 
+/* Obtiene el historial de los cursos a los que ha pertenecido el docente */
+
+
 include_once 'conexion.php';
 
-if (!isset($_POST)) {
-    die();
-}
-
+if (!isset($_POST)) die();
 $id = mysqli_real_escape_string($conn, $_POST['idUsuario']);
 
 $formatt = "SET lc_time_names = 'es_MX' ";
@@ -22,7 +22,6 @@ $sql = "SELECT curso.idCurso, curso.nombreCurso as curso,
         AND usuario_has_curso.Usuario_idUsuario = $id";
 
 $result = $conn->query($sql) or die($conn->error . __LINE__);
-
 $curso = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 echo json_encode($curso);

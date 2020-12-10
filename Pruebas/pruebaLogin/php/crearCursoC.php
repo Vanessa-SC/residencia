@@ -1,7 +1,10 @@
 <?php
 
-$curso = json_decode(file_get_contents("php://input"));
+/*  Creación de un curso desde usuario Coordinador  */
 
+//Recepcion de array de datos
+$curso = json_decode(file_get_contents("php://input"));
+//conexion
 include_once 'conexion.php';
 
 /* Conversión de los formatos de fecha y hora, año */
@@ -81,10 +84,12 @@ $sql = "INSERT INTO curso
             '$curso->departamento')
         ";
 
+/* Ejecución del Query */
 if (mysqli_query($conn, $sql)) {
     $response['status'] = 'ok';
 } else {
     $response['status'] = 'error' . mysqli_error($conn);
 }
 
+/* Impresión de resultado */
 echo json_encode($response, JSON_FORCE_OBJECT);
