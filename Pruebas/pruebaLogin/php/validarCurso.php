@@ -1,5 +1,7 @@
 <?php
 
+/* Establece el estado de un curso como "Válido" */
+
 /* Conexion */
 include_once 'conexion.php';
 

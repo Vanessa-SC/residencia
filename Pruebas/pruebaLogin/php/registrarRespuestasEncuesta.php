@@ -1,5 +1,8 @@
 <?php
 
+/* Registra las respuestas de un usuario en una encuesta */
+
+/* Recepcion de datos y conexión */
 $datos = json_decode(file_get_contents("php://input"),true);
 
 include_once 'conexion.php';

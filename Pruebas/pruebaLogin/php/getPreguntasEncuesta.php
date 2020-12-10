@@ -1,5 +1,7 @@
 <?php
 
+/* Obtiene las preguntas de una encuesta */
+
 include_once 'conexion.php';
 
 $formatt = "SET lc_time_names = 'es_MX' ";

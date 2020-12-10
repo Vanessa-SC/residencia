@@ -1,11 +1,16 @@
 <?php
 
+/* 
+    Crear la Clave de Registro del curso siguiendo el formato:
+        xxxxx-año-departamento
+    donde xxxxx es un número autoincremental y el año es a dos dígitos
+*/
+
 include_once 'conexion.php';
-
 if (!isset($_POST)) die();
+$idDepto = mysqli_real_escape_string($conn, $_POST['idDepartamento']);
 
-    $idDepto = mysqli_real_escape_string($conn, $_POST['idDepartamento']);
-
+// ID 1 => Departamento no asignado
 if ($idDepto != 1){
 
     /* Asignación del código del folio */

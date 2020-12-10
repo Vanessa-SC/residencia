@@ -1,7 +1,8 @@
 <?php
 
-if(!isset($_POST)) die();
+/* Verifica si un docente ya ha respondido una encuesta de un curso */
 
+if(!isset($_POST)) die();
 include_once 'conexion.php';
 
 $idCurso = mysqli_real_escape_string($conn,$_POST['idc']);
@@ -15,8 +16,7 @@ $query = "SELECT *
         AND usuario_responde_encuesta.Curso_idCurso = $idCurso";
 
 $result = $conn->query($query) or die($conn->error . __LINE__);
-
-$curso = mysqli_fetch_all($result, MYSQLI_ASSOC);
+// $curso = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 if( mysqli_num_rows($result) > 0 ){
     $response['status'] = 'contestada';

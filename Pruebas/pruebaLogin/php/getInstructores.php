@@ -1,10 +1,13 @@
 <?php 
 
-include_once 'conexion.php';
+/* Obtiene el listado de los datos de los instructores */
 
+// Conexion y formado de fecha en español
+include_once 'conexion.php';
 $formatt = "SET lc_time_names = 'es_MX' ";
 mysqli_query($conn,$formatt);
 
+// Consulta, ejecución y asociacion de resultados
 $sql = "SELECT 
     instructor.idInstructor, instructor.apellidoPaterno, instructor.apellidomaterno, 
     instructor.nombre, 
@@ -17,15 +20,13 @@ $sql = "SELECT
     ON instructor.idUsuario = usuario.idUsuario
     ORDER BY apellidoPaterno ASC 
 ";
-
 $result = $conn->query($sql) or die($conn->error . __LINE__);
-
 $arr = array();
-
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $arr[] = $row;
     }
 }
 
+// Impresion de resultados
 echo json_encode($arr);

@@ -1,16 +1,19 @@
 <?php
 
-include_once 'conexion.php';
+/* Obtiene los cursos que han sido asignados a un Instructor */
 
+// conexion
+include_once 'conexion.php';
+// se reciben datos POST?
 if (!isset($_POST)) {
     die();
 }
-
+// asignacion de variables
 $id = mysqli_real_escape_string($conn, $_POST['idUsuario']);
-
+// Formato de fechas en español
 $formatt = "SET lc_time_names = 'es_MX' ";
 mysqli_query($conn,$formatt);
-
+// Query de consulta
 $sql = "SELECT curso.idCurso, curso.nombreCurso as curso, 
         curso.objetivo, curso.Instructor_idInstructor,
         concat_ws(' - ', DATE_FORMAT(curso.fechaInicio, '%d de %M'), DATE_FORMAT(curso.fechaFin, '%d de %M, %Y')) as fecha, 
@@ -23,9 +26,9 @@ $sql = "SELECT curso.idCurso, curso.nombreCurso as curso,
         AND usuario.idUsuario = $id
         ORDER BY fechaInicio ASC
         ";
-
+// validacion de ejecucion de la consulta
 $result = $conn->query($sql) or die($conn->error . __LINE__);
-
+// guardado de resultados en un array
 $curso = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
+// impresion de resultados
 echo json_encode($curso);

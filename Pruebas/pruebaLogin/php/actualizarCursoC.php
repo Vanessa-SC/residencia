@@ -1,10 +1,12 @@
 <?php
 
+/* Actualizará los datos del curso desde el usuario Coordinador */
 
+/* Recepción del array que contiene los datos */
 $curso = json_decode(file_get_contents("php://input"));
-
+/* Conexión a la BD */
 include_once('conexion.php');
-
+/* Array de respuesta */
 $response = [];
 
 /* Obtención del año */
@@ -50,13 +52,13 @@ $sql = "UPDATE curso
         WHERE idCurso = '$curso->idCurso'
         ";
 
+
+/* Ejecución de la sentencia SQL */
 if (mysqli_query($conn, $sql)) {
     $response['status'] = 'ok';
 } else {
     $response['status'] = 'error' . mysqli_error($conn);
 } 
 
-
+/* Impresión de la respuesta en formato JSON */
 echo json_encode($response,JSON_FORCE_OBJECT);
-// echo json_encode($curso);
-

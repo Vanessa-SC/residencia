@@ -1,16 +1,22 @@
 <?php
 
+/* Obtiene la información de un curso */
+
+// Conexion
 include_once 'conexion.php';
 
 if (!isset($_POST)) {
     die();
 }
 
+// Formato de fechas en español
 $formatt = "SET lc_time_names = 'es_MX' ";
 mysqli_query($conn,$formatt);
 
+// Recepcion del ID
 $id = mysqli_real_escape_string($conn, $_POST['idCurso']);
 
+// Query de consulta de datos del curso
 $sql = "SELECT curso.idCurso, 
             concat_ws(' ',instructor.apellidoPaterno,instructor.apellidomaterno,instructor.nombre) as maestro, 
             curso.nombreCurso as curso, 
@@ -31,8 +37,8 @@ $sql = "SELECT curso.idCurso,
         ON curso.Departamento_idDepartamento = departamento.idDepartamento
         AND curso.idCurso = $id ";
 
+// Ejecución de la consulta y asociacion de resultados en una variable
 $result = $conn->query($sql) or die($conn->error . __LINE__);
-
 $curso = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-echo json_encode($curso[0]);
+// Impresion de resultados
+echo json_encode($curso[0],true);

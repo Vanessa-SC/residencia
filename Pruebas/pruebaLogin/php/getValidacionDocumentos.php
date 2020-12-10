@@ -1,5 +1,7 @@
 <?php
 
+/*  Realiza una verificación para ver si todos los documentos del curso ya están validados o no  */
+
 /* Conexion */
 include_once 'conexion.php';
 

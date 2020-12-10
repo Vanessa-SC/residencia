@@ -15,21 +15,25 @@
 		</div>
 	</div>
 
-	<div class="card  border-dark mb-3">
-		<div class="card-body">
-			<div class="row">
-				<div class="col-sm-3  text-center"><strong>Instructor postulado</strong></div>
-				<div class="col-sm-5">{{infoCurso.maestro}}</div>
-				<div class="col-sm-3 text-center"><strong>Fecha:</strong></div>
-				<div class="w-100"></div>
-				<div class="col-sm-2 text-center"><strong>Curso a impartir:</strong></div>
-				<div class="col-sm-6">{{infoCurso.curso}}</div>
-				<div class="col-sm-3 text-center">{{infoCurso.fecha}} <br> {{infoCurso.horario}} </div>
-				<div class="w-100"></div>
-				<br>
-			</div>
-		</div>
+	<div class="card border-dark px-5 py-3">
+        <div class="row">
+            <div class="col-sm-12">
+                <span class="font-weight-bold mr-2">Instructor: </span> {{infoCurso.maestro}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <span class="font-weight-bold">Curso a impartir: </span>
+            </div>
+            <div class="col-sm-6">
+                <span class="font-italic"><p>{{infoCurso.curso}}</p>
+            </div>
+            <div class="col-sm-4 text-center">
+                <span class="font-weight-bold">Fecha:</span><br>{{infoCurso.fecha}}<br>{{infoCurso.horario}}
+            </div>
+        </div>
 	</div>
+	
 	<table class="table text-center">
 		<thead>
 			<tr>
@@ -42,7 +46,7 @@
 		<tbody>
 			<tr ng-repeat="doc in documentos">
 				<th><button class=" btn bg-white"></button></th>
-				<th scope="row" class="align-middle">{{doc.idDocumento}}</th>
+				<th scope="row" class="align-middle">{{ $index + 1 }}</th>
 				<td class="align-middle">
 					{{doc.nombreDocumento}}
 					<span id="linkDocumento{{doc.idDocumento}}"></span>
@@ -94,4 +98,12 @@
 			</tr>
 		</tbody>
 	</table>
+	<div class="text-center mt-5 mb-5">
+		<a href="#!/inicioJ">
+			<button class="btn bg-wine">
+				<span class="ok2_icon"></span>Terminar
+				<br>
+			</button>
+		</a>
+	</div>
 </div>

@@ -1,7 +1,10 @@
 <?php
 
-$inst = json_decode(file_get_contents("php://input"));
+/* Registrará un nuevo instructor */
 
+// Recepcion del array de datos
+$inst = json_decode(file_get_contents("php://input"));
+//conexion
 include_once('conexion.php');
 
 
@@ -11,7 +14,7 @@ setlocale(LC_TIME,'es_MX');
 
 $fechaNacimiento = strftime ('%Y-%m-%d', strtotime($inst->fechaNacimiento));
 
-/* Query de insercion */
+/* Query de insercion  a tabla usuario */
 $sql = "INSERT INTO usuario
         VALUES ('',
             '$inst->departamento',
@@ -32,11 +35,14 @@ $sql = "INSERT INTO usuario
             '$inst->funcionAdministrativa'
             )
         ";
-
+//ejecucion del query y validación de su ejecucion
 if (mysqli_query($conn, $sql)) {
 
     /* INSERTAR CAMPOS EN TABLA instructor */
+
+    //Obtener el último ID insertado
     $idUsuario = mysqli_insert_id($conn);
+    // Query de insercion a tabla instructor
     $sql = "INSERT INTO instructor
     VALUES(
         '',
@@ -50,13 +56,14 @@ if (mysqli_query($conn, $sql)) {
         '$inst->telefono',
         '$inst->correo'
     )";
+    //validacion del éxito del segundo query
     if(mysqli_query($conn, $sql)){
         $response['status'] = 'ok';
     } else {
-        $response['status'] = 'error al insertar oficio de registro';
+        $response['status'] = 'error al insertar instructor';
     }
 } else {
     $response['status'] = 'error: ' . mysqli_error($conn);
 } 
-
+//impresion del resultado
 echo json_encode($response,JSON_FORCE_OBJECT);

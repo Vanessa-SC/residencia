@@ -1,5 +1,8 @@
 <?php
 
+/* Obtiene los datos de un documento de un curso */
+
+
 include_once 'conexion.php';
 
 if (!isset($_POST)) {

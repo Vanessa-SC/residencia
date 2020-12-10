@@ -1,11 +1,10 @@
 <?php
 
+/* Obtiene los datos de todos los usuarios que están inscritos a un curso */
+
 include_once 'conexion.php';
 
-if (!isset($_POST)) {
-    die();
-}
-
+if (!isset($_POST)) die();
 $id = mysqli_real_escape_string($conn, $_POST['idCurso']);
 
 $sql = "SELECT usuario.idUsuario, departamento.nombreDepartamento as nombreD, usuario.rol, usuario.RFC, 
@@ -24,7 +23,5 @@ $sql = "SELECT usuario.idUsuario, departamento.nombreDepartamento as nombreD, us
         ORDER BY usuario.apellidoPaterno ASC";
 
 $result = $conn->query($sql) or die($conn->error . __LINE__);
-
 $curso = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
 echo json_encode($curso);
