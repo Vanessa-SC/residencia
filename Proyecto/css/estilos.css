@@ -609,6 +609,13 @@ button.btn-back:hover {
   background-size: contain;
 }
 
+.downloadDocs_icon {
+  background: url(/Residencia/proyecto/images/download_docs.png) no-repeat center;
+  padding: 0.5em !important;
+  background-size: cover;
+  background-size: contain;
+}
+
 .red {
   background: url(/Residencia/proyecto/images/red.png) no-repeat center;
   background-size: cover;

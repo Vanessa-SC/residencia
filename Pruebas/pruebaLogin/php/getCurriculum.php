@@ -5,7 +5,7 @@ require_once "../XLSX/PHPWord_0.17/autoload.php";
 include_once 'conexion.php';
 
 //Variable que se obtiene al momento de llamar al método
-$id = 7;
+$id = $_GET['id'];
 
 //Nombre del nuevo archivo que se genera
 // Template processor instance creation
@@ -28,7 +28,7 @@ $query = $conn->query("SELECT
         FROM instructor 
         INNER JOIN usuario
         ON instructor.idUsuario = usuario.idUsuario
-        WHERE instructor.idInstructor = '$id'      
+        WHERE instructor.idUsuario = '$id'      
         ");
 
 // Si se obtiene el número de filas del resultado, entonces comienza el recorrido

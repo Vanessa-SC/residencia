@@ -1914,6 +1914,19 @@ app.controller('cursosICtrl', function ($scope, $http, $timeout, user, curso, pe
 
 		});
 	}
+
+	/*Obtiene plantilla de Currículum con Datos principales del instructor */
+	$scope.printFormato = function () {
+		$scope.id = user.getIdUsuario();
+		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getCurriculum.php?id=' + $scope.id, '_blank');
+	}
+
+	/*Obtiene plantilla de Ficha Técnica del Servicio */
+	$scope.printFicha = function () {
+		$scope.id = curso.getID();
+		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getFichaTecnica.php?id=' + $scope.id, '_blank');
+	}
+
 	/* Establece el id del curso */
 	$scope.cursoID = function (id) {
 		curso.setID(id);
