@@ -1580,6 +1580,18 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 		}
 	}
 
+	//Formatos
+	/* Archivo excel de indicadores */
+	$scope.printIndicadores = function () {
+		$scope.idCurso = curso.getID();
+		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getFormatoIndicadores.php?idc=' + $scope.idCurso, '_blank');
+	}
+
+	/* Archivo word de Programa Institucional */
+	$scope.printProgramaInstitucional = function () {
+		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getFormatoProgramaInstitucional.php?', '_blank');
+	}
+
 });
 
 app.controller('constanciasCtrl', function ($scope, $http, $location, user, periodoService, curso, constancia) {
@@ -2251,11 +2263,6 @@ app.controller('participantesICtrl', function ($scope, $http, $location, user, c
 		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getFormatoListaAsistencia.php?idc=' + $scope.idCurso, '_blank');
 	}
 
-	$scope.printIndicadores = function () {
-		$scope.idCurso = curso.getID();
-		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getFormatoIndicadores.php?idc=' + $scope.idCurso, '_blank');
-	}
-
 	$scope.getParticipantes();
 });
 
@@ -2835,6 +2842,18 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 				});
 			}, 500);
 		}
+	}
+
+	//Formatos
+	/* Archivo excel de indicadores */
+	$scope.printIndicadores = function () {
+		$scope.idCurso = curso.getID();
+		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getFormatoIndicadores.php?idc=' + $scope.idCurso, '_blank');
+	}
+
+	/* Archivo word de Programa Institucional */
+	$scope.printProgramaInstitucional = function () {
+		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getFormatoProgramaInstitucional.php?', '_blank');
 	}
 
 	/* Llamado a las funciones */
