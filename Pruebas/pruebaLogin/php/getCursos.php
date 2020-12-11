@@ -2,7 +2,7 @@
 
 /* Obtiene el listado de los cursos y se muestran en el Programa del Coordinador */
 
-// conexion
+// Conexión
 include_once 'conexion.php';
 // Formato de fechas en español
 $formatt = "SET lc_time_names = 'es_MX' ";
@@ -17,15 +17,15 @@ $sql = "SELECT curso.idCurso,
             curso.validado
     FROM instructor Inner join curso
     ON curso.Instructor_idInstructor=instructor.idInstructor ";
-// validacion de resultados de ejecucion
+// Validación de resultados de ejecución
 $result = $conn->query($sql) or die($conn->error . __LINE__);
-// array de resultados
+// Array de resultados
 $arr = array();
-// si hay resultados se guardan en una variable
+// Si hay resultados se guardan en una variable
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $arr[] = $row;
     }
 }
-// impresion de resultados
+// Impresión de resultados
 echo json_encode($arr,true);

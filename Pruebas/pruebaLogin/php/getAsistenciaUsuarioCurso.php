@@ -17,7 +17,7 @@ $sql = "SELECT a.asistencia, c.nombreCurso, DATE_FORMAT(a.fecha,'%d/%m/%Y') as f
 
 // validacion de ejecucion de consulta
 $result = $conn->query($sql) or die($conn->error . __LINE__);
-// asociacion de resultados
+// Asociación de resultados
 $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 echo json_encode($data, true);

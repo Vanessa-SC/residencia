@@ -16,7 +16,7 @@ header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheet�
 header('Content-Disposition: attachment; filename="' . $filename. '"');
 
 //Llamado a la plantilla
-$documento = \PhpOffice\PhpSpreadsheet\IOFactory::load('../XLSX/plantilla.xlsx');
+$documento = \PhpOffice\PhpSpreadsheet\IOFactory::load('../XLSX/plantillaListaAsistencia.xlsx');
 
 $activeSheet = $documento->getActiveSheet();
 $activeSheet->setTitle("Lista de Asistencia");
@@ -27,6 +27,11 @@ dentro de la consulta se concatenan parámetros y se asignan formatos de fecha.
 La consulta maneja distintas condiciones: condiciones entre IDs para relaciones entre tablas, 
 además el usuario debe tener rol 3 es decir debe ser docente y debe estar activo
 */
+
+/* Obtener nombre del coordinador(a) de Actualizacion Docente */
+$sqlGetCoord = $conn->query("SELECT Jefe
+                FROM departamento
+                WHERE nombreDepartamento='Actualización Docente'");
 
 $sql = $conn->query("SELECT
         IF(usuario.funcionAdministrativa = 'SI', 'X', usuario.funcionAdministrativa) AS FD
@@ -79,6 +84,17 @@ $query = $conn->query("SELECT
             WHERE usuario.rol = 3 
             AND activo = 'SI'      
         ");
+
+// Si se obtiene el número de filas del resultado de la primera consulta, entonces comienza el recorrido
+if($sqlGetCoord->num_rows > 0) {
+    //Comienza en la fila 22
+    $i = 22;
+    //Ciclo while que recorremo los resultados de la consulta y los imprime
+    while($row = $sqlGetCoord->fetch_assoc()) {
+        $activeSheet->setCellValue('D'.'42' , $row['Jefe']);
+        $i++;
+    }
+}
 
 // Si se obtiene el número de filas del resultado de la primera consulta, entonces comienza el recorrido
 if($sql->num_rows > 0) {

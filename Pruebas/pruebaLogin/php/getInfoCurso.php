@@ -2,7 +2,7 @@
 
 /* Obtiene la información de un curso */
 
-// Conexion
+// Conexión
 include_once 'conexion.php';
 
 if (!isset($_POST)) {
@@ -37,8 +37,8 @@ $sql = "SELECT curso.idCurso,
         ON curso.Departamento_idDepartamento = departamento.idDepartamento
         AND curso.idCurso = $id ";
 
-// Ejecución de la consulta y asociacion de resultados en una variable
+// Ejecución de la consulta y asociación de resultados en una variable
 $result = $conn->query($sql) or die($conn->error . __LINE__);
 $curso = mysqli_fetch_all($result, MYSQLI_ASSOC);
-// Impresion de resultados
+// Impresión de resultados
 echo json_encode($curso[0],true);

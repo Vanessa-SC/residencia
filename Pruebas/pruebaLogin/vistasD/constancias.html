@@ -1,50 +1,49 @@
 <ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasD/nav.html'"></ng-include>
-<div class="container">
+<div class="container" ng-init="getConstancias()">
     <div class="programa_page d-flex justify-content-center">
         <div class="p-2"><img src="/Residencia/Proyecto/images/Logo ITD.png" alt="logo ITD" class="logoITD"></div>
         <div class="p-4">
             <div class="text-center">
-                <h1>Periodo Agosto/Diciembre 2020</h1>
+                <h1>Periodo {{periodo}}</h1>
                 <h3>Programa Institucional de Formaci&oacute;n y Actualizaci&oacute;n Docente y Profesional</h3>
             </div>
         </div>
     </div>
+    <div class="d-flex justify-content-between">
+
+		<div class="input-group mb-3 p-2 col-sm-4 mt-2">
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span class="input-group-text">Constancias:</span>
+				</div>
+				<input type="text" class="form-control" ng-model="filtro" placeholder="Filtrar">
+			</div>
+		</div>
+	</div>
     <table class="table text-center">
         <thead>
             <tr>
-                <th></th>
-                <td class="align-middle font-italic">No.</th>
-                <td class="align-middle font-italic">Curso</th>
-                <td class="align-middle font-italic">Periodo de realizaci&oacute;n</th>
-                <td class="align-middle font-italic"></th>
-                
-            </tr>
+				<th scope="col" class="align-middle">Folio</th>
+				<th scope="col" class="align-middle">Curso</th>
+				<th scope="col" class="align-middle">Fecha del curso</th>
+				<th scope="col" class="align-middle">Fecha de expedición</th>
+				<th scope="col" class="align-middle">Duración</th>
+				<th scope="col" class="align-middle">Instructor</th>
+				<th scope="col"></th>
+			</tr>
         </thead>
         <tbody>
-            <tr>
-                <th></th>
-                <th scope="row">1</th>
-                <td>Diplomado para la Formaci&oacute;n y Desarrollo de Competencias Docentes - M&oacute;dulo II: Planeaci&oacute;n del Proceso de Aprendizaje</td>
-                <td>18 al 22 de junio del 2019 <br>9:00 - 15:00 Hrs.</td>
-                <td><a href="#!/inicioD/constancias/descargar"><button class="btn bg-white eye_icon"></button></a></td>
-                
-            </tr>
-            <tr>
-                <th></th>
-                <th scope="row">2</th>
-                <td>Diplomado para la Formaci&oacute;n de Tutores - M&oacute;dulo II: Programa de Tutor&iacute;as Semipresencial</td>
-                <td>18 al 22 de junio del 2019 <br>9:00 - 15:00 Hrs.</td>
-                <td><button class="btn bg-white eye_icon"></button></td>
-                
-            </tr>
-            <tr>
-                <th></th>
-                <th scope="row">3</th>
-                <td>Diplomado para la Formaci&oacute;n de Tutores - M&oacute;dulo II: Programa de Tutor&iacute;as En linea</td>
-                <td>18 al 22 de junio del 2019 <br>Horario abierto.</td>
-                <td><button class="btn bg-white eye_icon"></button></td>
-                
-            </tr>
-        </tbody>
+			<tr ng-repeat="x in constancias | filter:filtro">
+				<th scope="row" class="align-middle">{{x.folio}}</th>
+				<td class="align-middle">{{x.nombreCurso}}</td>
+				<td class="align-middle">{{x.fecha}} <br>{{x.horario}}</td>
+				<td class="align-middle">{{x.fechaExpedicion}}</td>
+				<td class="align-middle">{{x.duracion}} Hrs.</td>
+				<td class="align-middle"> {{x.maestro}} </td>
+				<td class="align-middle">
+					
+				</td>
+			</tr>
+		</tbody>
     </table>
 </div>

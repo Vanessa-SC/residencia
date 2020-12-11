@@ -40,7 +40,7 @@ $dep = "SELECT nombreDepartamento
 /* Ejecución de la query */
 $result = $conn->query($dep) or die($conn->error . __LINE__);
 
-/* asociacion del resultado */
+/* Asociación del resultado */
 $departamento = implode(mysqli_fetch_assoc($result));
 
 /* Asignación de la tercera parte de la clave del curso */

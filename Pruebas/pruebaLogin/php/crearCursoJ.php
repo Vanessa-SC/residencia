@@ -4,7 +4,7 @@
 
 /* Recepción de Array de datos */
 $curso = json_decode(file_get_contents("php://input"));
-//conexion
+// Conexión
 include_once 'conexion.php';
 
 /* Conversión de los formatos de fecha y hora, año */
@@ -63,14 +63,14 @@ if(empty($curso->observaciones)){
     $curso->observaciones== "Ninguna";
 }
 
-/* validar si hay folio  */
+/* Validar si hay folio  */
 if(empty($curso->folio)){
     $curso->folio = "";
 }
 
 
 // if(array_key_exists('observaciones', get_object_vars($curso))){
-//     /* Query de insercion */
+//     /* Query de inserción */
     $sql = "INSERT INTO curso
     VALUES ('',
         '$curso->folio',

@@ -5,6 +5,10 @@
 // Conexión
 include_once 'conexion.php';
 
+// Recoge el ID del usuario 
+if (!isset($_POST)) die();
+$id = mysqli_real_escape_string($conn, $_POST['idUsuario']);
+
 // Formato de idioma para las fechas
 $formatt = "SET lc_time_names = 'es_MX' ";
 mysqli_query($conn,$formatt);
@@ -18,10 +22,14 @@ $sql = "SELECT curso.idCurso,
         curso.duracion,
         constancia.folio, 
         usuario.nombreUsuario,
-        concat_ws(' ',usuario.apellidoPaterno,usuario.apellidomaterno,usuario.nombre) as nombre
-        FROM usuario, curso, constancia
+        concat_ws(' ',instructor.apellidoPaterno,instructor.apellidomaterno,instructor.nombre) as maestro
+        FROM usuario, curso, constancia, instructor
         WHERE constancia.Curso_idCurso = curso.idCurso
-        AND constancia.Usuario_idUsuario = usuario.idUsuario";
+        AND constancia.Usuario_idUsuario = usuario.idUsuario
+        AND curso.Instructor_idInstructor=instructor.idInstructor
+        AND constancia.Usuario_idUsuario = $id
+        ORDER BY fechaInicio ASC
+        ";
 
 // Validación de ejecución de consulta
 $result = $conn->query($sql) or die($conn->error . __LINE__);

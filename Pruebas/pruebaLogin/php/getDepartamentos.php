@@ -2,16 +2,16 @@
 
 /* Obtiene el listado de departamentos ordenados alfabéticamente */
 
-//conexion
+// Conexión
 include_once 'conexion.php';
 
-//query de consulta
+// Query de consulta
 $sql = "SELECT * FROM departamento ORDER BY nombreDepartamento ASC ";
 
-// validacion de ejecucion de consulta
+// Validación de ejecución de consulta
 $result = $conn->query($sql) or die($conn->error . __LINE__);
 
-// almacenamiento de resultados
+// Almacenamiento de resultados
 $arr = array();
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
@@ -19,5 +19,5 @@ if ($result->num_rows > 0) {
     }
 }
 
-// impresion de resultados
+// Impresión de resultados
 echo json_encode($arr,true);

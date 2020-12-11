@@ -2,10 +2,10 @@
 
 /* Obtiene un listado de todas las constancias del periodo actual */
 
-// conexion
+// Conexión
 include_once 'conexion.php';
 
-// obtencion de datos
+// Obtención de datos
 $periodo = json_decode(file_get_contents("php://input"));
 
 // Formato español para fechas
@@ -25,18 +25,18 @@ $sql = "SELECT constancia.folio,
         AND constancia.Curso_idCurso=Curso.idCurso
         AND curso.periodo = '$periodo'";
 
-// Validacion de resultado de ejecucion
+// Validación de resultado de ejecución
 $result = $conn->query($sql) or die($conn->error . __LINE__);
 
-// array de resultados
+// Array de resultados
 $arr = array();
 
-// si hay resultados se guardan
+// Si hay resultados se guardan
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $arr[] = $row;
     }
 }
 
-// impresion del array de resultados
+// Impresión del array de resultados
 echo json_encode($arr,true);
