@@ -170,11 +170,8 @@ button.op {
 
 /*  LOGIN PAGE */
 
-div.main {
-  background: #6f193f;
-  background: radial-gradient(ellipse at center, #6f193f 1%, #451620 100%);
-  width: 100%;
-  height: calc(80vh);
+.h100{
+  min-height: 100vh;
 }
 
 #login form {
@@ -188,12 +185,16 @@ div.main {
 }
 
 #login {
-  border-right: 1px solid #fff;
-  padding: 0px 22px;
-  width: 59%;
+  padding: 0px 5px;
+  width: 50%;
 }
 
 .logo {
+  background: url(/Residencia/proyecto/images/Logo%20ITD.png) no-repeat center;
+  background-size: cover;
+  background-size: contain;
+}
+.logo-hm {
   background: url(/Residencia/proyecto/images/Logo%20ITD.png) no-repeat center;
   background-size: cover;
   background-size: contain;
@@ -709,6 +710,13 @@ button.btn.btn-inv.no-btn {
   .username-mobile {
     display: none;
   }
+  .nav-login{
+    display:none;
+  }
+  .bg-login{
+    background-color: #6f193f;
+  }
+
 }
 
 @media only screen and (max-width: 992px) {
@@ -726,6 +734,53 @@ button.btn.btn-inv.no-btn {
   }
   .username-mobile {
     display: block;
+  }
+
+  .hide-mobile{
+    display:none;
+  }
+  .nav-login{
+    display:block;
+  }
+  .bg-login{
+    background-color: #6f193f;
+    
+  }
+
+    #login form input[type="text"],
+  input[type="password"] {
+    background-color: #eee;
+    border-radius: 0px 3px 3px 0px;
+    color: #000;
+    margin-bottom: 1em;
+    padding: 0 16px;
+    width: 200px;
+  }
+  
+  #login form input[type="submit"] {
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    background-color: #fff;
+    color: #000;
+    font-weight: bold;
+    /* margin-bottom: 2em; */
+    text-transform: uppercase;
+    padding: 5px 10px;
+    height: 30px;
+  }
+  #login form span.fa {
+    background-color: #fff;
+    border-radius: 3px 0px 0px 3px #6f193f;
+    color: #000;
+    display: block;
+    float: left;
+    height: 50px;
+    font-size: 24px;
+    line-height: 50px;
+    text-align: center;
+    width: 50px;
+
   }
 }
 /* 

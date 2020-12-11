@@ -31,10 +31,33 @@ if ($curso->modalidad == 1) {
     $modalidad = "Semipresencial";
 }
 
+
+/* Query para obtener el departamento */
+$dep = "SELECT nombreDepartamento 
+        FROM departamento 
+        WHERE idDepartamento = $curso->departamento";
+
+/* Ejecución de la query */
+$result = $conn->query($dep) or die($conn->error . __LINE__);
+
+/* asociacion del resultado */
+$departamento = implode(mysqli_fetch_assoc($result));
+
+/* Asignación de la tercera parte de la clave del curso */
+if($departamento == "Todos los Departamentos"){
+    $departamento = "ITD";
+}
+
+/* Actualizar Clave de registro */
+$preClave = substr($curso->ClaveRegistro, 0, 9);  
+
+$claveRegistro = $preClave . $departamento;
+
+
 /* Query de actualización */
 $sql = "UPDATE curso
         SET Folio = '$curso->Folio',
-            ClaveRegistro = '$curso->ClaveRegistro',
+            ClaveRegistro = '$claveRegistro',
             nombreCurso = '$curso->curso',
             periodo = '$periodo',
             duracion = '$curso->duracion',
