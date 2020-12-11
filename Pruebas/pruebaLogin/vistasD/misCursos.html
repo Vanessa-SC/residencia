@@ -1,5 +1,5 @@
 <ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasD/nav.html'"></ng-include>
-<div class="container">
+<div class="container" ng-init="getMisCursos();getMisCursosConcluidos()">
     <div class="programa_page d-flex justify-content-center">
         <div class="p-2"><img src="/Residencia/Proyecto/images/Logo ITD.png" alt="logo ITD" class="logoITD"></div>
         <div class="p-4">
@@ -30,7 +30,11 @@
                         <th scope="row">{{mc.idCurso}}</th>
                         <td>{{mc.curso}}</td>
                         <td>{{mc.fecha}} <br>{{mc.horario}} Hrs.</td>
-                        <td><a href=""><button class="btn bg-white calendario_icon"></button></a></td>
+                        <td>
+                            <a href="#!/inicioD/asistencia" ng-click="cursoID(mc.idCurso)">
+                                <button class="btn bg-white calendario_icon"></button>
+                            </a>
+                        </td>
                     </tr>
                 </tbody>
             </table>

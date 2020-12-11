@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute']);
+var app = angular.module('myApp', ['ngRoute','angular.filter']);
 
 /* Configuración de todas las rutas */
 app.config(function ($routeProvider, $locationProvider) {
@@ -245,6 +245,17 @@ app.config(function ($routeProvider, $locationProvider) {
 				},
 			},
 			templateUrl: './vistasD/misCursos.html',
+			controller: 'cursosDCtrl'
+
+		}).when('/inicioD/asistencia', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 3) {
+						$location.path(user.getPath());
+					}
+				},
+			},
+			templateUrl: './vistasD/asistencia-curso.html',
 			controller: 'cursosDCtrl'
 
 		}).when('/inicioD/constancias', {
@@ -2939,6 +2950,20 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 		}
 	}
 
+	$scope.getAsistenciaCurso = function(){
+		if(curso.getID != undefined && user.getIdUsuario() != undefined){
+			$http({
+				method: 'POST',
+				url: '/Residencia/Pruebas/pruebaLogin/php/getAsistenciaUsuarioCurso.php',
+				headers: { 'Content-type':'application/x-www-form-urlencoded'},
+				data: 'idc='+curso.getID()+'&idu='+user.getIdUsuario()
+			}).then(function successCallback(response){
+				console.log(response.data);
+				$scope.asistencia = response.data;
+			});
+		}
+	}
+
 	/* Obtener la información de un curso */
 	$scope.getInfoCurso = function () {
 		$scope.idCurso = curso.getID();
@@ -2979,7 +3004,6 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 	muestra un mensaje en su lugar*/
 	$scope.YaRespondioEncuesta = function () {
 		$timeout(function () {
-			console.log($scope.encuesta);
 			if ($scope.encuesta == 'contestada') {
 				$("input").attr('disabled', true);
 				$("textarea").attr('disabled', true);
@@ -3062,9 +3086,6 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 	/* Llamado a funciones */
 	$scope.getPreguntasEncuesta();
 	$scope.getCursos();
-	$scope.getInfoCurso();
-	$scope.getMisCursos();
-	$scope.getMisCursosConcluidos();
 });
 
 app.controller('constanciasDCtrl', function ($scope, $http, $location, user, periodoService) {
