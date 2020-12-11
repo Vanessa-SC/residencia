@@ -3299,6 +3299,31 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 app.controller('constanciasDCtrl', function ($scope, $http, $location, user, periodoService) {
 
 	$scope.user = user.getName();
+
+	/* consultar el periodo */
+	$scope.periodo = periodoService.getPeriodo()
+		.then(function (response) {
+			$scope.periodo = response;
+	});
+
+	/* Obtener todas las constancias del Docente */
+	$scope.getConstancias = function () {
+		//Obtiene el ID del usuario
+		$scope.id = user.getIdUsuario();
+		if ($scope.id != undefined) {
+			$http({
+				url: '/Residencia/Pruebas/pruebaLogin/php/getMisConstancias.php',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idUsuario=' + $scope.id
+			}).then(function successCallback(response) {
+				$scope.constancias = response.data;
+			});
+		}
+	}
+
 });
 
 
