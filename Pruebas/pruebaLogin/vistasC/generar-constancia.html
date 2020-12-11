@@ -40,44 +40,50 @@
 				<span class="ok2_icon"></span>Generar
 			</button>
 		</div>
-		
-
 	</table>
-	<div>
-		<h4 class="text-center">Constancias. <br> Periodo {{periodo}} </h4>
-		<table class="table text-center">
-			<thead>
+	<h4 class="text-center">Constancias. <br> Periodo {{periodo}} </h4>
+	<div class="table-responsive">
+		
+		<table class="table table-bordered">
+			<thead class="bg-wine text-white text-center">
 				<tr>
-					<th scope="col">Folio</th>
-					<th scope="col">Docente</th>
-					<th scope="col">Curso</th>
-					<th scope="col">Fecha</th>
-					<th scope="col">Descargar</th>
+					<td class="align-middle font-italic">Folio</td>
+					<td class="align-middle font-italic">Docente</td>
+					<td class="align-middle font-italic">Curso</td>
+					<td class="align-middle font-italic">Fecha</td>
+					<td class="align-middle font-italic">Descargar</td>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="x in constanciasPeriodoActual">
-					<th scope="row">{{x.folio}}</th>
-					<td>{{x.nombre}}</td>
-					<td>{{x.curso}}</td>
-					<td>{{x.fecha}}</td>
-					<td><a href="/Residencia/Proyecto/files/{{x.rutaConstancia}}" target="_blank"><button class="btn bg-white download_icon"></button></a></td>
+					<th class="align-middle" scope="row">{{x.folio}}</th>
+					<td class="align-middle">{{x.nombre}}</td>
+					<td class="align-middle">{{x.curso}}</td>
+					<td class="align-middle">{{x.fecha}}</td>
+					<td class="align-middle text-center"><a href="/Residencia/Proyecto/files/{{x.rutaConstancia}}" target="_blank"><button class="btn bg-white download_icon"></button></a></td>
 				</tr>
 
+			</tbody>
+			<tbody ng-show="constanciasPeriodoActual | isEmpty">
+				<tr class="text-center">
+					<td class="align-middle" colspan="4" class=" bg-light align-middle p-4 font-italic">
+						<h5>No hay constancias este periodo</h5>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
 	<div class="card-footer text-muted text-center">Todos los derechos reservados. ITD 2020</div>
 </div>
-<div class="toast" data-autohide="false" id="alerta"
-	style="position: fixed; top: 50px; right: 50px; background-color: rgb(255, 255, 255); width:500px">
-	<div class="toast-header bg-{{alert.tipo}} text-white">
-		<strong class="mr-auto">{{alert.titulo}}</strong>
-		<button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
-			<span aria-hidden="true" style="font-size: 1.1em;">&times;</span>
-		</button>
-	</div>
-	<div class="toast-body">
-		<div class="text-dark">{{alert.mensaje}}</div>
-	</div>
+<div class="toast w-75" data-autohide="false" id="alerta"
+    style="position: fixed; top: 50px; right: 30px; background-color: rgb(250, 250, 250);">
+    <div class="toast-header bg-{{alert.tipo}} text-dark">
+        <strong class="mr-auto">{{alert.titulo}}</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
+            <span aria-hidden="true" style="font-size: 1.1em;">&times;</span>
+        </button>
+    </div>
+    <div class="toast-body">
+        <div>{{alert.mensaje}}</div>
+    </div>
 </div>

@@ -10,27 +10,36 @@
         </div>
     </div>
     <table class="table table-responsive  text-center">
-        <thead>
+        <thead class="bg-wine text-white">
             <tr>
-                <th></th>
-                <th scope="col">Curso</th>
-                <th scope="col">Periodo de realizaci&oacute;n</th>
-                <th scope="col">Subir documentaci&oacute;n</th>
-                <th scope="col">Asistencia</th>
-                <th scope="col">Participantes</th>
+                <td class="align-middle font-italic" colspan="2">Curso</td>
+                <td class="align-middle font-italic">Periodo de realizaci&oacute;n</td>
+                <td class="align-middle font-italic">Subir documentaci&oacute;n</td>
+                <td class="align-middle font-italic">Asistencia</td>
+                <td class="align-middle font-italic">Participantes</td>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="x in cursos">
-                <th scope="row" class=" align-middle "> 
+                <th scope="row" class=" align-middle ">
                     <span id="documentacion{{x.idCurso}}"></span>
                 </th>
-                <td><a class="text-decoration-none " href="#!/inicioI/cursos/infoCurso" ng-click=cursoID(x.idCurso) title="Ver más">{{x.curso}}</a></td>
+                <td><a class="text-decoration-none " href="#!/inicioI/cursos/infoCurso" ng-click=cursoID(x.idCurso)
+                        title="Ver más">{{x.curso}}</a></td>
                 <td>{{x.fecha}} <br> {{x.horario}}</td>
-                <td class=" align-middle "><a href="#!/inicioI/subirDocumentos"
-                    ng-click=cursoID(x.idCurso)><button class="btn bg-white subirDocumento_icon"></button></a></td>
-                <td class=" align-middle "><a href="#!/inicioI/asistencia" ng-click=cursoID(x.idCurso)><button class="btn bg-white calendario_icon"></button></a></td>
-                <td class=" align-middle "><a href="#!/inicioI/participantes" ng-click=cursoID(x.idCurso)><button class="btn bg-white grupo_icon" title="Participantes"></button></a></td>
+                <td class=" align-middle "><a href="#!/inicioI/subirDocumentos" ng-click=cursoID(x.idCurso)><button
+                            class="btn bg-white subirDocumento_icon"></button></a></td>
+                <td class=" align-middle "><a href="#!/inicioI/asistencia" ng-click=cursoID(x.idCurso)><button
+                            class="btn bg-white calendario_icon"></button></a></td>
+                <td class=" align-middle "><a href="#!/inicioI/participantes" ng-click=cursoID(x.idCurso)><button
+                            class="btn bg-white grupo_icon" title="Participantes"></button></a></td>
+            </tr>
+        </tbody>
+        <tbody ng-show="cursos | isEmpty">
+            <tr class="text-center">
+                <td class="align-middle" colspan="4" class=" bg-light align-middle p-4 font-italic">
+                    <h5>No hay registros</h5>
+                </td>
             </tr>
         </tbody>
     </table>

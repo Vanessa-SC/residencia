@@ -9,41 +9,48 @@
             </div>
         </div>
     </div>
-    <table class="table table-responsive">
-        <thead>
-            <tr>
-                <th></th>
-                <th scope="col">Participante</th>
-                <th scope="col">Sexo</th>
-                <th scope="col">Contrato</th>
-                <th scope="col">RFC</th>
-                <th scope="col">Departamento</th>
-                <th scope="col">Horas</th>
-                <th scope="col">Nivel</th>
-                <th scope="col">Perfil deseable</th>
-                <th scope="col">Función Administrativa</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="x in participantes">
-                <th></th>
-                <td> {{x.nombre}} </td>
-                <td> {{x.sexo}} </td>
-                <td> {{x.contrato}} </td>
-                <td> {{x.RFC}} </td>
-                <td> {{x.nombreD}} </td>
-                <td> {{x.horas}} </td>
-                <td> {{x.nivel}} </td>
-                <td> {{x.perfilDeseable}} </td>
-                <td> {{x.FD}} </td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="text-center ">
-        <button class="btn bg-wine text-white" ng-click="printFormato()">
+    <div class="table-responsive">
+        <table class="table table-bordered text-center">
+            <thead class="bg-wine text-white">
+                <tr>
+                    <td class="font-italic align-middle">Participante</td>
+                    <td class="font-italic align-middle">Sexo</td>
+                    <td class="font-italic align-middle">Contrato</td>
+                    <td class="font-italic align-middle">RFC</td>
+                    <td class="font-italic align-middle">Departamento</td>
+                    <td class="font-italic align-middle">Horas</td>
+                    <td class="font-italic align-middle">Nivel</td>
+                    <td class="font-italic align-middle">Perfil deseable</td>
+                    <td class="font-italic align-middle">Función Administrativa</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="x in participantes">
+                    <td class="align-middle"> {{x.nombre}} </td>
+                    <td class="align-middle"> {{x.sexo}} </td>
+                    <td class="align-middle"> {{x.contrato}} </td>
+                    <td class="align-middle"> {{x.RFC}} </td>
+                    <td class="align-middle"> {{x.nombreD}} </td>
+                    <td class="align-middle"> {{x.horas}} </td>
+                    <td class="align-middle"> {{x.nivel}} </td>
+                    <td class="align-middle"> {{x.perfilDeseable}} </td>
+                    <td class="align-middle"> {{x.FD}} </td>
+                </tr>
+            </tbody>
+            <tbody ng-show="participantes | isEmpty">
+                <tr class="text-center">
+                    <td class="align-middle" colspan="10" class=" bg-light align-middle p-4 font-italic">
+                        <h5>No hay registros</h5>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center" ng-hide="participantes | isEmpty">
+        <button class="btn bg-wine text-white p-2 m-2" ng-click="printFormato()">
             <span class="downloadDocs_icon mr-2"></span>Formato Lista de Asistencia
         </button>
-        <button class="btn bg-wine text-white" ng-click="printIndicadores()">
+        <button class="btn bg-wine text-white p-2 m-2s" ng-click="printIndicadores()">
             <span class="downloadDocs_icon mr-2"></span>Indicadores de Participantes
         </button>
     </div>

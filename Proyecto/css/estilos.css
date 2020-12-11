@@ -149,6 +149,35 @@ button.op {
   font-weight: 600;
 }
 
+/* Borders and colors */
+
+.border-wine {
+  border: #6f193f solid 1px;
+}
+.text-wine {
+  color: #6f193f;
+}
+
+
+/* Tabla sin resultados */
+table > tbody:empty {
+  position: relative;
+  display: table-caption;
+  caption-side: bottom;
+  min-height: 50px;
+  background-color: rgb(240,240,240);
+  text-align: center;
+}
+table > tbody:empty:before {
+  content: 'SIN DATOS';
+  position: absolute;
+  font-size: 12px;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 /* RESULTADI CURP Y RFC */
 #resultadoR {
   color: red;
@@ -170,7 +199,7 @@ button.op {
 
 /*  LOGIN PAGE */
 
-.h100{
+.h100 {
   min-height: 100vh;
 }
 
@@ -611,7 +640,8 @@ button.btn-back:hover {
 }
 
 .downloadDocs_icon {
-  background: url(/Residencia/proyecto/images/download_docs.png) no-repeat center;
+  background: url(/Residencia/proyecto/images/download_docs.png) no-repeat
+    center;
   padding: 0.5em !important;
   background-size: cover;
   background-size: contain;
@@ -710,13 +740,12 @@ button.btn.btn-inv.no-btn {
   .username-mobile {
     display: none;
   }
-  .nav-login{
-    display:none;
+  .nav-login {
+    display: none;
   }
-  .bg-login{
+  .bg-login {
     background-color: #6f193f;
   }
-
 }
 
 @media only screen and (max-width: 992px) {
@@ -735,19 +764,16 @@ button.btn.btn-inv.no-btn {
   .username-mobile {
     display: block;
   }
-
-  .hide-mobile{
-    display:none;
+  .hide-mobile {
+    display: none;
   }
-  .nav-login{
-    display:block;
+  .nav-login {
+    display: block;
   }
-  .bg-login{
+  .bg-login {
     background-color: #6f193f;
-    
   }
-
-    #login form input[type="text"],
+  #login form input[type="text"],
   input[type="password"] {
     background-color: #eee;
     border-radius: 0px 3px 3px 0px;
@@ -756,7 +782,6 @@ button.btn.btn-inv.no-btn {
     padding: 0 16px;
     width: 200px;
   }
-  
   #login form input[type="submit"] {
     border-radius: 3px;
     -moz-border-radius: 3px;
@@ -780,27 +805,8 @@ button.btn.btn-inv.no-btn {
     line-height: 50px;
     text-align: center;
     width: 50px;
-
   }
 }
-/* 
-@media (max-width: 800px) {
-  .logoHeader {
-    display: none;
-  }
-}
-
-@media (max-width: 600px) {
-  .header {
-    display: none !important;
-  }
-  .logoITD {
-    display: none;
-  }
-  .username {
-    display: none;
-  }
-} */
 
 /* Estilos del TOAST */
 .wrap {
@@ -825,38 +831,110 @@ button.btn.btn-inv.no-btn {
 }
 
 /* Cursores */
-.cursor-alias {cursor: alias !important;}
-.cursor-all-scroll {cursor: all-scroll !important;}
-.cursor-auto {cursor: auto !important;}
-.cursor-cell {cursor: cell !important;}
-.cursor-context-menu {cursor: context-menu !important;}
-.cursor-col-resize {cursor: col-resize !important;}
-.cursor-copy {cursor: copy !important;}
-.cursor-crosshair {cursor: crosshair !important;}
-.cursor-default {cursor: default !important;}
-.cursor-e-resize {cursor: e-resize !important;}
-.cursor-ew-resize {cursor: ew-resize !important;}
-.cursor-grab {cursor: -webkit-grab; cursor: grab !important;}
-.cursor-grabbing {cursor: -webkit-grabbing; cursor: grabbing !important;}
-.cursor-help {cursor: help !important;}
-.cursor-move {cursor: move !important;}
-.cursor-n-resize {cursor: n-resize !important;}
-.cursor-ne-resize {cursor: ne-resize !important;}
-.cursor-nesw-resize {cursor: nesw-resize !important;}
-.cursor-ns-resize {cursor: ns-resize !important;}
-.cursor-nw-resize {cursor: nw-resize !important;}
-.cursor-nwse-resize {cursor: nwse-resize !important;}
-.cursor-no-drop {cursor: no-drop !important;}
-.cursor-none {cursor: none !important;}
-.cursor-not-allowed {cursor: not-allowed !important;}
-.cursor-pointer {cursor: pointer !important;}
-.cursor-progress {cursor: progress !important;}
-.cursor-row-resize {cursor: row-resize !important;}
-.cursor-s-resize {cursor: s-resize !important;}
-.cursor-se-resize {cursor: se-resize !important;}
-.cursor-sw-resize {cursor: sw-resize !important;}
-.cursor-text {cursor: text !important;}
-.cursor-w-resize {cursor: w-resize !important;}
-.cursor-wait {cursor: wait !important;}
-.cursor-zoom-in {cursor: zoom-in !important;}
-.cursor-zoom-out {cursor: zoom-out !important;}
+.cursor-alias {
+  cursor: alias !important;
+}
+.cursor-all-scroll {
+  cursor: all-scroll !important;
+}
+.cursor-auto {
+  cursor: auto !important;
+}
+.cursor-cell {
+  cursor: cell !important;
+}
+.cursor-context-menu {
+  cursor: context-menu !important;
+}
+.cursor-col-resize {
+  cursor: col-resize !important;
+}
+.cursor-copy {
+  cursor: copy !important;
+}
+.cursor-crosshair {
+  cursor: crosshair !important;
+}
+.cursor-default {
+  cursor: default !important;
+}
+.cursor-e-resize {
+  cursor: e-resize !important;
+}
+.cursor-ew-resize {
+  cursor: ew-resize !important;
+}
+.cursor-grab {
+  cursor: -webkit-grab;
+  cursor: grab !important;
+}
+.cursor-grabbing {
+  cursor: -webkit-grabbing;
+  cursor: grabbing !important;
+}
+.cursor-help {
+  cursor: help !important;
+}
+.cursor-move {
+  cursor: move !important;
+}
+.cursor-n-resize {
+  cursor: n-resize !important;
+}
+.cursor-ne-resize {
+  cursor: ne-resize !important;
+}
+.cursor-nesw-resize {
+  cursor: nesw-resize !important;
+}
+.cursor-ns-resize {
+  cursor: ns-resize !important;
+}
+.cursor-nw-resize {
+  cursor: nw-resize !important;
+}
+.cursor-nwse-resize {
+  cursor: nwse-resize !important;
+}
+.cursor-no-drop {
+  cursor: no-drop !important;
+}
+.cursor-none {
+  cursor: none !important;
+}
+.cursor-not-allowed {
+  cursor: not-allowed !important;
+}
+.cursor-pointer {
+  cursor: pointer !important;
+}
+.cursor-progress {
+  cursor: progress !important;
+}
+.cursor-row-resize {
+  cursor: row-resize !important;
+}
+.cursor-s-resize {
+  cursor: s-resize !important;
+}
+.cursor-se-resize {
+  cursor: se-resize !important;
+}
+.cursor-sw-resize {
+  cursor: sw-resize !important;
+}
+.cursor-text {
+  cursor: text !important;
+}
+.cursor-w-resize {
+  cursor: w-resize !important;
+}
+.cursor-wait {
+  cursor: wait !important;
+}
+.cursor-zoom-in {
+  cursor: zoom-in !important;
+}
+.cursor-zoom-out {
+  cursor: zoom-out !important;
+}

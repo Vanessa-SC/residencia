@@ -1,5 +1,5 @@
 <ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasD/nav.html'"></ng-include>
-<div class="container">
+<div class="container" ng-init="getCursos();getMisCursos()">
     <div class="programa_page d-flex justify-content-center">
         <div class="p-2"><img src="/Residencia/Proyecto/images/Logo ITD.png" alt="logo ITD" class="logoITD"></div>
         <div class="p-4">
@@ -12,63 +12,59 @@
     <div class="text-center">
         <h4>Cursos disponibles</h4>
     </div>
-    <div class="card-borderless mb-3">
-        <div class="card-body">
-            <table class="table text-center">
-                <thead>
+    <div class="card shadow-lg mb-3">
+        <div class="card-body table-responsive">
+            <table class="table table-sm text-center table-bordered">
+                <thead class="bg-wine text-white">
                     <tr>
-                        <th scope="col">Curso</th>
-                        <th scope="col">Periodo de realizaci&oacute;n</th>
-                        <th scope="col">M&aacute;s informaci&oacute;n</th>
-                        <th scope="col">Inscribirme</th>
+                        <td class="font-italic align-middle">Curso</td>
+                        <td class="font-italic align-middle">Periodo de realizaci&oacute;n</td>
+                        <td class="font-italic align-middle">M&aacute;s informaci&oacute;n</td>
+                        <td class="font-italic align-middle">Inscribirme</td>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="x in cursos">
-                        <td> {{x.curso}} </td>
-                        <td> {{x.fecha}} <br> {{x.horario}} </td>
-                        <td><a href="#!/inicioD/cursos/informacion" ng-click=cursoID(x.idCurso)><button
-                        class="btn btn-light moreinfo_icon" title="Ver más información"></button></a></td>
-                        <td>
+                        <td class="align-middle"> {{x.curso}} </td>
+                        <td class="align-middle"> {{x.fecha}} <br> {{x.horario}} </td>
+                        <td class="align-middle"><a href="#!/inicioD/cursos/informacion"
+                                ng-click=cursoID(x.idCurso)><button class="btn btn-light moreinfo_icon"
+                                    title="Ver más información"></button></a></td>
+                        <td class="align-middle">
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-light bg-white editar_icon" data-toggle="modal"
-                            data-target="#modal{{x.idCurso}}"></button>
+                                data-target="#modal{{x.idCurso}}"></button>
                             <!-- Modal -->
-                            <div class="modal fade" id="modal{{x.idCurso}}" tabindex="-1" role="dialog" aria-labelledby="Title"
-                                aria-hidden="true">
+                            <div class="modal fade" id="modal{{x.idCurso}}" tabindex="-1" role="dialog"
+                                aria-labelledby="Title" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
+                                                <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
                                             ¿Está seguro de que quiere inscribirse al curso: <br> "<span
-                                            class="font-italic">{{x.curso}}</span>"?
+                                                class="font-italic">{{x.curso}}</span>"?
                                         </div>
                                         <div class="modal-footer">
                                             <button class="btn btn-success" title="Aceptar"
-                                            ng-click="inscribirCurso(x.idCurso)" data-dismiss="modal"
-                                            data-backdrop="false">Aceptar</button>
+                                                ng-click="inscribirCurso(x.idCurso)" data-dismiss="modal"
+                                                data-backdrop="false">Aceptar</button>
                                             <button type="button" class="btn btn-danger" data-dismiss="modal"
-                                            data-backdrop="false">Cancelar</button>
+                                                data-backdrop="false">Cancelar</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="toast" data-autohide="false" id="alerta"
-                                style="position: fixed; top: 50px; right: 50px; background-color: rgb(255, 255, 255); width:500px">
-                                <div class="toast-header bg-{{alert.tipo}} text-white">
-                                    <strong class="mr-auto">{{alert.titulo}}</strong>
-                                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
-                                    <span aria-hidden="true" style="font-size: 1.1em;">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="toast-body">
-                                    <div>{{alert.mensaje}}</div>
-                                </div>
-                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody ng-show="cursos | isEmpty">
+                    <tr class="text-center">
+                        <td class="align-middle" colspan="4" class=" bg-light align-middle p-4 font-italic">
+                            <h5>No hay registros</h5>
                         </td>
                     </tr>
                 </tbody>
@@ -78,71 +74,76 @@
     <div class="text-center">
         <h4>Cursos Inscritos</h4>
     </div>
-    <div class="card  border-dark mb-3">
-        <div class="card-body">
-            <table class="table text-center">
-                <thead>
+    <div class="card shadow-lg mb-3">
+        <div class="card-body table-responsive">
+            <table class="table table-sm text-center table-bordered">
+                <thead class="bg-wine text-white">
                     <tr>
-                        <th></th>
-                        <th scope="col">Curso</th>
-                        <th scope="col">Periodo de realizaci&oacute;n</th>
-                        <th scope="col">Salir del curso</th>
-                        <th scope="col">Encuesta de opini&oacute;n</th>
+                        <td class="font-italic align-middle" scope="col">Curso</td>
+                        <td class="font-italic align-middle" scope="col">Periodo de realizaci&oacute;n</td>
+                        <td class="font-italic align-middle" scope="col">Salir del curso</td>
+                        <td class="font-italic align-middle" scope="col">Encuesta de opini&oacute;n</td>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="mc in misCursos">
-                        <th></th>
-                        <td>{{mc.curso}}</td>
-                        <td>{{mc.fecha}} <br>{{mc.horario}} Hrs.</td>
-                        <td>
+                        <td class="align-middle">{{mc.curso}}</td>
+                        <td class="align-middle">{{mc.fecha}} <br>{{mc.horario}} Hrs.</td>
+                        <td class="align-middle">
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-light bg-white logout_icon" data-toggle="modal"
-                            data-target="#modalS{{mc.idCurso}}"></button>
+                                data-target="#modalS{{mc.idCurso}}"></button>
                             <!-- Modal -->
-                            <div class="modal fade" id="modalS{{mc.idCurso}}" tabindex="-1" role="dialog" aria-labelledby="Title"
-                                aria-hidden="true">
+                            <div class="modal fade" id="modalS{{mc.idCurso}}" tabindex="-1" role="dialog"
+                                aria-labelledby="Title" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
+                                                <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
                                             ¿Está seguro de que quiere salir del curso: <br> "<span
-                                            class="font-italic">{{mc.curso}}</span>"?
+                                                class="font-italic">{{mc.curso}}</span>"?
                                         </div>
                                         <div class="modal-footer">
                                             <button class="btn btn-success" title="Aceptar"
-                                            ng-click="salirCurso(mc.idCurso)"
-                                            data-backdrop="false">Aceptar</button>
+                                                ng-click="salirCurso(mc.idCurso)" data-backdrop="false">Aceptar</button>
                                             <button type="button" class="btn btn-danger" data-dismiss="modal"
-                                            data-backdrop="false">Cancelar</button>
+                                                data-backdrop="false">Cancelar</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="toast" data-autohide="false" id="alerta"
-                                style="position: fixed; top: 50px; right: 50px; background-color: rgb(255, 255, 255); width:500px">
-                                <div class="toast-header bg-{{alerta.tipo}} text-white">
-                                    <strong class="mr-auto">{{alerta.titulo}}</strong>
-                                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
-                                    <span aria-hidden="true" style="font-size: 1.1em;">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="toast-body">
-                                    <div>{{alerta.mensaje}}</div>
-                                </div>
-                            </div>
                         </td>
-                        <td>
+                        <td class="align-middle">
                             <a href="#!/inicioD/encuesta" ng-click="getEncuesta(1,mc.idCurso)">
                                 <button class="btn bg-white encuesta_icon"></button>
                             </a>
                         </td>
                     </tr>
                 </tbody>
-            </table>            
+                <tbody ng-show="misCursos | isEmpty">
+                    <tr class="text-center">
+                        <td class="align-middle" colspan="4" class=" bg-light align-middle p-4 font-italic">
+                            <h5>No hay registros</h5>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
+    <div class="toast w-75" data-autohide="false" id="alerta"
+        style="position: fixed; top: 50px; right: 30px; background-color: rgb(250, 250, 250);">
+        <div class="toast-header bg-{{alert.tipo}} text-dark">
+            <strong class="mr-auto">{{alert.titulo}}</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
+                <span aria-hidden="true" style="font-size: 1.1em;">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            <div>{{alert.mensaje}}</div>
+        </div>
+    </div>
+</div>

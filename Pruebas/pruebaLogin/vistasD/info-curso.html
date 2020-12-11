@@ -5,36 +5,32 @@
             <button title="Regresar a la página anterior" class="btn-back back_icon" ng-click="back()">
             </button>            
         </div>
-        <p class="w-100 text-center p-4 mt-2 border-bottom border-dark">
-            <strong>Curso:</strong><br>
-            {{infoCurso.curso}}
-        </p>
+        <div class="text-justify p-3 mt-2 border-bottom border-dark">
+            <h1>{{infoCurso.curso}}</h1>
+        </div>
     </div>
-    
-    
-    
-    <table class="table-striped">
-        <thead>
-            <tr>
-                <td colspan="5" style="padding-bottom: 15px;" ><strong>Objetivo: </strong>{{infoCurso.objetivo}} <br></td>
-            </tr>
-        </thead>
-        <tbody class="bg-white text-center table table-bordered mt-2 pt-2">
-            <tr>
-                <td class="font-weight-bold">Periodo de realizaci&oacute;n</td>
-                <td class="font-weight-bold">Lugar</td>
-                <td class="font-weight-bold">No. de horas por curso</td>
-                <td class="font-weight-bold">Instructor (a)</td>
-                <td class="font-weight-bold">Dirigido a:</td>
-            </tr>
-            <tr>
-                <td>{{infoCurso.fecha}} <br>
-                {{infoCurso.horario}}</td>
-                <td>{{infoCurso.lugar}}</td>
-                <td>{{infoCurso.duracion}}</td>
-                <td>{{infoCurso.maestro}}</td>
-                <td>{{infoCurso.destinatarios}}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div>
+        <div class="text-justify p-3" style="padding-bottom: 15px;" ><strong>Objetivo: </strong>{{infoCurso.objetivo}}</div>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <tbody class="bg-white text-center table table-bordered mt-2 pt-2">
+                <tr class="bg-wine">
+                    <td class="font-italic text-white align-middle">Periodo de realizaci&oacute;n</td>
+                    <td class="font-italic text-white align-middle">Lugar</td>
+                    <td class="font-italic text-white align-middle">No. de horas por curso</td>
+                    <td class="font-italic text-white align-middle">Instructor (a)</td>
+                    <td class="font-italic text-white align-middle">Dirigido a:</td>
+                </tr>
+                <tr>
+                    <td class="align-middle">{{infoCurso.fecha}} <br>
+                    {{infoCurso.horario}}</td>
+                    <td class="align-middle">{{infoCurso.lugar}}</td>
+                    <td class="align-middle">{{infoCurso.duracion}}</td>
+                    <td class="align-middle">{{infoCurso.maestro}}</td>
+                    <td class="align-middle">{{infoCurso.destinatarios}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

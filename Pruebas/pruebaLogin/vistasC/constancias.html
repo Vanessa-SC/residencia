@@ -21,34 +21,36 @@
 			</div>
 		</div>
 	</div>
-	<table class="table table-hover table-sm text-center">
-		<thead>
-			<tr>
-				<th scope="col" class="align-middle">Folio</th>
-				<th scope="col" class="align-middle">Curso</th>
-				<th scope="col" class="align-middle">Fecha del curso</th>
-				<th scope="col" class="align-middle">Fecha de expedición</th>
-				<th scope="col" class="align-middle">Duración</th>
-				<th scope="col" class="align-middle">Docente</th>
-				<th scope="col"></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="x in constancias | filter:filtro">
-				<th scope="row" class="align-middle">{{x.folio}}</th>
-				<td class="align-middle">{{x.nombreCurso}}</td>
-				<td class="align-middle">{{x.fecha}} <br>{{x.horario}}</td>
-				<td class="align-middle">{{x.fechaExpedicion}}</td>
-				<td class="align-middle">{{x.duracion}} Hrs.</td>
-				<td class="align-middle"> {{x.nombre}} </td>
-				<td class="align-middle">
-					<!-- href="#!/inicioC/constancias/ver" -->
-					<a href="#!/inicioC/constancias/ver">
-						<!-- <button class="btn bg-white eye_icon"></button></button> -->
-						<button class="btn bg-white eye_icon" ng-click="verConstancia(x.folio,x.idCurso)"></button></button>
-					</a>
-				</td>
-			</tr>
-		</tbody>
-	</table>
+	<div class="table-responsive">
+		<table class="table table-bordered table-sm">
+			<thead class="bg-wine text-white text-center">
+				<tr>
+					<td class="align-middle font-italic">Folio</td>
+					<td class="align-middle font-italic">Curso</td>
+					<td class="align-middle font-italic">Fecha del curso</td>
+					<td class="align-middle font-italic">Fecha de expedición</td>
+					<td class="align-middle font-italic">Duración</td>
+					<td class="align-middle font-italic">Docente</td>
+					<td></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="x in constancias | filter:filtro">
+					<th scope="row" class="align-middle">{{x.folio}}</th>
+					<td class="align-middle">{{x.nombreCurso}}</td>
+					<td class="align-middle">{{x.fecha}} <br>{{x.horario}}</td>
+					<td class="align-middle">{{x.fechaExpedicion}}</td>
+					<td class="align-middle">{{x.duracion}} Hrs.</td>
+					<td class="align-middle"> {{x.nombre}} </td>
+					<td class="align-middle">
+						<!-- href="#!/inicioC/constancias/ver" -->
+						<a href="#!/inicioC/constancias/ver">
+							<!-- <button class="btn bg-white eye_icon"></button></button> -->
+							<button class="btn bg-white eye_icon" ng-click="verConstancia(x.folio,x.idCurso)"></button></button>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>

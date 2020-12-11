@@ -761,6 +761,17 @@ app.filter('trustAsResourceUrl', ['$sce', function ($sce) {
 	};
 }]);
 
+app.filter('isEmpty', function () {
+	var bar;
+	return function (obj) {
+		for (bar in obj) {
+			if (obj.hasOwnProperty(bar)) {
+				return false;
+			}
+		}
+		return true;
+	};
+});
 
 /* Directiva para establecer formato de un input como Número */
 app.directive('stringToNumber', function () {
@@ -2601,6 +2612,14 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 			},
 		}).then(function successCallback(response) {
 			if (response.data.status == 'ok') {
+				$scope.alert = {
+					titulo: 'Archivo subido!',
+					tipo: 'success',
+					mensaje: 'Archivo subido correctamente'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
 				$('#modal' + idDoc).modal('hide');
 				document.getElementById('mensaje' + idDoc).innerHTML = 'Documento guardado';
 				$('#linkDocumento' + idDoc).replaceWith('<span id="linkDocumento' + idDoc + '"><a href="/Residencia/Proyecto/files/' + response.data.doc + '" target="_blank">Ver documento</a></span>');
@@ -3085,7 +3104,6 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 	}
 	/* Llamado a funciones */
 	$scope.getPreguntasEncuesta();
-	$scope.getCursos();
 });
 
 app.controller('constanciasDCtrl', function ($scope, $http, $location, user, periodoService) {
