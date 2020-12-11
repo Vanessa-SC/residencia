@@ -1,0 +1,190 @@
+<ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasJ/nav.html'"></ng-include>
+<div class="container px-5">
+	<div class="text-center mt-3 border-bottom">
+		<h4>Actualizar instructor</h4>
+	</div>
+	<form id="validar">
+		<div class="input-group mb-3 mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="apellidoPaterno">Apellido Paterno</label>
+			</div>
+			<input required type="text" id="apellidoPaterno" class="form-control" ng-model="instructor.apellidoPaterno"
+				ng-value="actInstructor.apellidoPaterno">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="apellidoMaterno">Apellido Materno</label>
+			</div>
+			<input required type="text" id="apellidoMaterno" class="form-control" ng-model="instructor.apellidoMaterno"
+				ng-value="actInstructor.apellidoMaterno">
+		</div>
+		<div class="input-group mb-3 mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="nombre">Nombre(s)</label>
+			</div>
+			<input required type="text" id="nombre" class="form-control"
+				ng-model="instructor.nombre" ng-value="actInstructor.nombre">
+		</div>
+
+		<div class="dropdown-divider mt-4 mb-4"></div>
+
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="fechaNacimiento">Fecha Nacimiento</label>
+			</div>
+			<input required type="date" id="fechaNacimiento" class="form-control" as-date
+				ng-model="instructor.fechaNacimiento" ng-value="actInstructor.fechaNacimiento">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="sexo">Sexo</label>
+			</div>
+			<select required class="custom-select" id="sexo" ng-model="instructor.sexo" ng-value="actInstructor.sexo">
+				<option selected value="Femenino"> Femenino </option>
+				<option value="Masculino"> Masculino </option>
+			</select>
+		</div>
+
+		<div class="dropdown-divider mt-4 mb-4"></div>
+
+		<div class="input-group mb-3 mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="nombreUsuario">Nombre Usuario</label>
+			</div>
+			<input required type="text" id="nombreUsuario" class="form-control" ng-model="instructor.nombreUsuario" ng-value="actInstructor.nombreUsuario">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="contrasena">Contraseña</label>
+			</div>
+			<input required type="text" id="contrasena" class="form-control" ng-model="instructor.contrasena" ng-value="actInstructor.contrasena">
+		</div>
+
+		<div class="dropdown-divider mt-4 mb-4"></div>
+		<div class="input-group mt-4 text-">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="RFC">RFC</label>
+			</div>
+			<input style="text-transform:uppercase;" required type="text" id="rfc_input" oninput="validarInputR(this)"
+				class="form-control" ng-model="instructor.RFC" ng-value="actInstructor.RFC">
+
+		</div>
+		<div>
+			<pre id="resultadoR"></pre>
+		</div>
+		<div class="input-group mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="CURP">CURP</label>
+			</div>
+			<input style="text-transform:uppercase;" required type="text" id="curp_input" oninput="validarInputC(this)"
+				name="curp" class="form-control" ng-model="instructor.CURP" ng-value="actInstructor.CURP">
+
+		</div>
+		<div>
+			<pre id="resultadoC"></pre>
+		</div>
+		<div class="dropdown-divider mt-4 mb-4"></div>
+
+		<div class="input-group mb-3 mt-4">			
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="telefono">Teléfono</label>
+			</div>
+			<input required type="text" id="telefono" class="form-control" ng-model="instructor.telefono"
+				ng-value="actInstructor.telefono">
+		</div>
+		<div class="input-group mb-3 mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="correo">Correo electrónico</label>
+			</div>
+			<input required type="email" id="correo" class="form-control" ng-model="instructor.Correo"
+				ng-value="actInstructor.Correo">
+		</div>
+
+		<div class="dropdown-divider mt-4 mb-4"></div>
+
+		<div class="input-group mb-3 mt-4">	
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="contrato">Contrato</label>
+			</div>
+			<select required class="custom-select" id="contrato" ng-model="instructor.contrato" ng-value="actInstructor.contrato">
+				<option selected value="Ninguno"> Ninguno </option>
+				<option value="Base"> Base </option>
+				<option value="Interinato"> Interinato </option>
+				<option value="Honorario"> Honorario </option>				
+			</select>		
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="horas">Horas</label>
+			</div>
+			<select required class="custom-select" id="horas" ng-model="instructor.horas" ng-value="actInstructor.horas">
+				<option value="Sin horas"> Sin horas </option>
+				<option value="Tiempo Completo"> Tiempo Completo </option>
+				<option value="Medio Tiempo"> Medio Tiempo </option>
+				<option value="Tres Cuartos de Tiempo"> Tres Cuartos de Tiempo </option>
+				<option value="Asignaturas"> Asignaturas </option>
+			</select>
+
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="activo">Activo</label>
+			</div>
+			<select required class="custom-select" id="activo" ng-model="instructor.activo" ng-value="actInstructor.activo">
+				<option value="SI"> SI </option>
+				<option value="NO"> NO </option>				
+			</select>
+		</div>
+
+		<div class="dropdown-divider mt-4 mb-4"></div>
+
+		<div class="input-group mb-3 mt-4">			
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="nivel">Nivel</label>
+			</div>
+			<select required class="custom-select" id="nivel" ng-model="instructor.nivel" ng-value="actInstructor.nivel">
+				<option value="Licenciatura"> Licenciatura </option>
+				<option value="Maestría"> Maestría </option>
+				<option value="Doctorado"> Doctorado </option>
+				<option value="Especialización"> Especialización </option>				
+			</select>
+
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="perfilDeseable">Perfil Deseable</label>
+			</div>
+			<select required class="custom-select" id="perfilDeseable" ng-model="instructor.perfilDeseable" ng-value="actInstructor.perfilDeseable">
+				<option value="Ninguno"> Ninguno </option>
+				<option value="Maestría"> Maestría </option>
+				<option value="Doctorado"> Doctorado </option>
+				<option value="Especialización"> Especialización </option>				
+			</select>
+		</div>
+
+		<div class="dropdown-divider mt-4 mb-4"></div>
+
+		<div class="input-group mb-3 mt-4">			
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="departamento">Departamento</label>
+			</div>
+			<select required class="custom-select" id="departamento" ng-model="actInstructor.departamento">
+				<option ng-repeat="x in dptos" value="{{x.idDepartamento}}"> {{x.nombreDepartamento}} </option>
+			</select>
+
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="funcionAdministrativa">Función Administrativa</label>
+			</div>
+			<select required class="custom-select" id="funcionAdministrativa" ng-model="instructor.funcionAdministrativa" ng-value="actInstructor.funcionAdministrativa">
+				<option value="SI"> SI </option>
+				<option value="NO"> NO </option>
+			</select>
+		</div>
+	</form>
+	<div class="text-center mb-5">
+		<button class="btn bg-wine" ng-click="actualizarInstructor(actInstructor)">
+			<span class="ok2_icon"></span>Actualizar
+		</button>
+	</div>
+	<div class="card-footer text-muted text-center">Todos los derechos reservados. ITD 2020</div>
+</div>
+<div class="toast" data-autohide="false" id="alerta"
+	style="position: fixed; top: 50px; right: 50px; background-color: rgb(255, 255, 255); width:500px">
+	<div class="toast-header bg-{{alert.tipo}} text-white">
+		<strong class="mr-auto">{{alert.titulo}}</strong>
+		<button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
+			<span aria-hidden="true" style="font-size: 1.1em;">&times;</span>
+		</button>
+	</div>
+	<div class="toast-body">
+		<div class="text-dark">{{alert.mensaje}}</div>
+	</div>
+</div>
