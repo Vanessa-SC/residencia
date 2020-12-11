@@ -1,15 +1,9 @@
 <ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasD/nav.html'"></ng-include>
-<div class="container" ng-init="getConstancias()">
-    <div class="programa_page d-flex justify-content-center">
-        <div class="p-2"><img src="/Residencia/Proyecto/images/Logo ITD.png" alt="logo ITD" class="logoITD"></div>
-        <div class="p-4">
-            <div class="text-center">
-                <h1>Periodo {{periodo}}</h1>
-                <h3>Programa Institucional de Formaci&oacute;n y Actualizaci&oacute;n Docente y Profesional</h3>
-            </div>
-        </div>
-    </div>
-    <div class="d-flex justify-content-between">
+<div class="container">
+	<div class="text-center mt-2">
+		<h1>Periodo {{periodo}}</h1>
+	</div>
+	<div class="d-flex justify-content-between">
 
 		<div class="input-group mb-3 p-2 col-sm-4 mt-2">
 			<div class="input-group mb-3">
@@ -20,30 +14,36 @@
 			</div>
 		</div>
 	</div>
-    <table class="table text-center">
-        <thead>
-            <tr>
-				<th scope="col" class="align-middle">Folio</th>
-				<th scope="col" class="align-middle">Curso</th>
-				<th scope="col" class="align-middle">Fecha del curso</th>
-				<th scope="col" class="align-middle">Fecha de expedición</th>
-				<th scope="col" class="align-middle">Duración</th>
-				<th scope="col" class="align-middle">Instructor</th>
-				<th scope="col"></th>
-			</tr>
-        </thead>
-        <tbody>
-			<tr ng-repeat="x in constancias | filter:filtro">
-				<th scope="row" class="align-middle">{{x.folio}}</th>
-				<td class="align-middle">{{x.nombreCurso}}</td>
-				<td class="align-middle">{{x.fecha}} <br>{{x.horario}}</td>
-				<td class="align-middle">{{x.fechaExpedicion}}</td>
-				<td class="align-middle">{{x.duracion}} Hrs.</td>
-				<td class="align-middle"> {{x.maestro}} </td>
-				<td class="align-middle">
-					
-				</td>
-			</tr>
-		</tbody>
-    </table>
+	<div class="table-responsive">
+		<table class="table table-bordered table-sm">
+			<thead class="bg-wine text-white text-center">
+				<tr>
+					<td class="align-middle font-italic">Folio</td>
+					<td class="align-middle font-italic">Curso</td>
+					<td class="align-middle font-italic">Fecha del curso</td>
+					<td class="align-middle font-italic">Fecha de expedición</td>
+					<td class="align-middle font-italic">Duración</td>
+					<td class="align-middle font-italic">Instructor</td>
+					<td></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="x in constancias | filter:filtro">
+					<th scope="row" class="align-middle">{{x.folio}}</th>
+					<td class="align-middle">{{x.nombreCurso}}</td>
+					<td class="align-middle">{{x.fecha}} <br>{{x.horario}}</td>
+					<td class="align-middle">{{x.fechaExpedicion}}</td>
+					<td class="align-middle">{{x.duracion}} Hrs.</td>
+					<td class="align-middle"> {{x.maestro}} </td>
+					<td class="align-middle">
+						<!-- href="#!/inicioC/constancias/ver" -->
+						<a href="#!/inicioD/constancias/descargar">
+							<!-- <button class="btn bg-white eye_icon"></button></button> -->
+							<button class="btn bg-white eye_icon" ng-click="verConstancia(x.folio,x.idCurso)"></button></button>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
