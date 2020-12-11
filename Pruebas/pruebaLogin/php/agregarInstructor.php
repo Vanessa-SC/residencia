@@ -4,7 +4,7 @@
 
 // Recepcion del array de datos
 $inst = json_decode(file_get_contents("php://input"));
-//conexion
+// Conexión
 include_once('conexion.php');
 
 
@@ -35,14 +35,14 @@ $sql = "INSERT INTO usuario
             '$inst->funcionAdministrativa'
             )
         ";
-//ejecucion del query y validación de su ejecucion
+// Ejecución del query y validación de su ejecucion
 if (mysqli_query($conn, $sql)) {
 
     /* INSERTAR CAMPOS EN TABLA instructor */
 
-    //Obtener el último ID insertado
+    // Obtener el último ID insertado
     $idUsuario = mysqli_insert_id($conn);
-    // Query de insercion a tabla instructor
+    // Query de inserción a tabla instructor
     $sql = "INSERT INTO instructor
     VALUES(
         '',
@@ -56,7 +56,7 @@ if (mysqli_query($conn, $sql)) {
         '$inst->telefono',
         '$inst->correo'
     )";
-    //validacion del éxito del segundo query
+    // Validación del éxito del segundo query
     if(mysqli_query($conn, $sql)){
         $response['status'] = 'ok';
     } else {
@@ -65,5 +65,5 @@ if (mysqli_query($conn, $sql)) {
 } else {
     $response['status'] = 'error: ' . mysqli_error($conn);
 } 
-//impresion del resultado
+// Impresión del resultado
 echo json_encode($response,JSON_FORCE_OBJECT);

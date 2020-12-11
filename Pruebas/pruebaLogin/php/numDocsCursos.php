@@ -2,7 +2,7 @@
 
 /* Obtiene el número de Documentos de cada curso individual */
 
-// Conexion
+// Conexión
 include_once 'conexion.php';
 // Array de respuesta
 $response = [];

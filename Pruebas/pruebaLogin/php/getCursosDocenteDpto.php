@@ -2,13 +2,13 @@
 
 /* Obtiene los datos del curso correspondientes al departamento del Docente y dirigidos a todos los departamentos */
 
-// conexion
+// Conexión
 include_once 'conexion.php';
 // recibe datos POST?
 if (!isset($_POST)) {
     die();
 }
-// asignacion de variables
+// Asignación de variables
 $id = mysqli_real_escape_string($conn, $_POST['idDepartamento']);
 
 /* Obtener ID del departamento "Todos los Departamentos" */
@@ -49,15 +49,15 @@ $sql = "SELECT curso.idCurso,
         AND curso.Departamento_idDepartamento = '$dpto[0]' 
         ";
 
-// validacion de ejecucion de la consulta
+// Validación de ejecución de la consulta
 $result = $conn->query($sql) or die($conn->error . __LINE__);
-// array de respuesta
+// Array de respuesta
 $arr = array();
-// si hay resultados se almacenan en el array
+// Si hay resultados se almacenan en el array
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $arr[] = $row;
     }
 }
-// impresion del array
+// Impresión del array
 echo json_encode($arr, true);

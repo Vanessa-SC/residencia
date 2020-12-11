@@ -2,30 +2,30 @@
 
 /* Eliminación de un instructor */
 
-//conexion
+// Conexión
 include_once 'conexion.php';
 // Se recibe algo en POST?
 if (!isset($_POST)) {
     die();
 }
-// array de respuesta
+// Array de respuesta
 $response = [];
 
-// asignacion de dato a variable
+// Asignación de dato a variable
 $id = mysqli_real_escape_string($conn, $_POST['idInstructor']);
 
-// Query de eliminacion
+// Query de eliminación
 $query = "DELETE instructor, usuario
             FROM instructor
             JOIN usuario
             ON instructor.idUsuario = usuario.idUsuario
             WHERE instructor.idInstructor = '$id'";
-// Se ejecutó correctamente?
+// ¿Se ejecutó correctamente?
 if(mysqli_query($conn, $query)){
    $response['status'] = 'ok';
 } else {
     $response['status'] = 'Error';
 }
 
-//respuesta
+// Respuesta
 echo json_encode($response);

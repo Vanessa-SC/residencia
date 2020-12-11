@@ -2,13 +2,13 @@
 
 /* Obtiene los datos del curso para rellenar el formulario de actualizacion de datos del curso */
 
-// conexion
+// Conexión
 include_once 'conexion.php';
-// Se reciben datos POST?
+// ¿Se reciben datos POST?
 if (!isset($_POST)) {
     die();
 }
-// asignacion de variables
+// Asignación de variables
 $id = mysqli_real_escape_string($conn, $_POST['idCurso']);
 // Query de consulta
 $sql = "SELECT curso.idCurso, 
@@ -32,9 +32,9 @@ $sql = "SELECT curso.idCurso,
     FROM instructor Inner join curso
     ON curso.Instructor_idInstructor=instructor.idInstructor
     AND curso.idCurso = $id ";
-// validacion de ejecucion de la consulta
+// Validación de Ejecución de la consulta
 $result = $conn->query($sql) or die($conn->error . __LINE__);
-// asociacion de resultados en una variable
+// Asociación de resultados en una variable
 $curso = mysqli_fetch_all($result, MYSQLI_ASSOC);
-// imprimir resultados
+// Imprimir resultados
 echo json_encode($curso[0],true);

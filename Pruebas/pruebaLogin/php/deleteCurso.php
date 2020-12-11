@@ -2,23 +2,23 @@
 
 /* Eliminación de un curso */
 
-//conexion
+// Conexión
 include_once 'conexion.php';
 // Se recibe algo en POST?
 if (!isset($_POST)) {
     die();
 }
-// array de respuesta
+// Array de respuesta
 $response = [];
-// asignacion de dato a variable
+// Asignación de dato a variable
 $id = mysqli_real_escape_string($conn, $_POST['idCurso']);
 // Query de eliminacion
 $query = "DELETE FROM curso WHERE idCurso = '$id'";
-// Se ejecutó correctamente?
+// ¿Se ejecutó correctamente?
 if(mysqli_query($conn, $query)){
    $response['status'] = 'ok';
 } else {
     $response['status'] = 'Error';
 }
-// respuesta
+// Respuesta
 echo json_encode($response);

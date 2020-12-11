@@ -2,10 +2,10 @@
 
 /* Establece el estado de un curso como "Válido" */
 
-/* Conexion */
+/* Conexión */
 include_once 'conexion.php';
 
-/* Recepcion de datos */
+/* Recepción de datos */
 $idc = mysqli_real_escape_string($conn,$_POST['idc']);
 $val = mysqli_real_escape_string($conn,$_POST['val']);
 

@@ -2,14 +2,14 @@
 
 /* Obtiene los cursos impartidos durante un periodo determinado */
 
-// conexion
+// Conexión
 include_once 'conexion.php';
 
-// se reciben datos POST?
+// ¿Se reciben datos POST?
 if (!isset($_POST)) {
     die();
 }
-// asignacion de variables
+// Asignación de variables
 $periodo = mysqli_real_escape_string($conn, $_POST['periodo']);
 
 // Formato de fechas en español
@@ -30,18 +30,18 @@ $sql = "SELECT curso.idCurso,
         ON curso.Instructor_idInstructor=instructor.idInstructor 
         AND curso.periodo = '$periodo'";
 
-// validacion de ejecucion de la consulta
+// Validación de ejecución de la consulta
 $result = $conn->query($sql) or die($conn->error . __LINE__);
 
-// array de resultado
+// Array de resultado
 $arr = array();
 
-// si hay resultados se guardan en el array
+// Si hay resultados se guardan en el array
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $arr[] = $row;
     }
 }
 
-// impresion del array
+// Impresión del array
 echo json_encode($arr);

@@ -2,16 +2,16 @@
 
 /* Obtiene el listado de los documentos que deben subirse al curso */
 
-// conexion
+// Conexión
 include_once 'conexion.php';
 
-// query 
+// Query 
 $sql = "SELECT * FROM documento ";
 
-// ejecucion
+// Ejecución
 $result = $conn->query($sql) or die($conn->error . __LINE__);
 
-// asociacion de resultados
+// Asociación de resultados
 $arr = array();
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
@@ -19,5 +19,5 @@ if ($result->num_rows > 0) {
     }
 }
 
-// impresion de resultados
+// Impresión de resultados
 echo json_encode($arr);

@@ -2,14 +2,14 @@
 
 /* Obtiene los datos de la constancia de un usuario en un curso */
 
-// conexion
+// Conexión
 include_once 'conexion.php';
 
-// formato de idioma para las fechas
+// Formato de idioma para las fechas
 $formatt = "SET lc_time_names = 'es_MX' ";
 mysqli_query($conn,$formatt);
 
-// consulta SQL
+// Consulta SQL
 $sql = "SELECT curso.idCurso,
         curso.nombreCurso, 
         concat_ws(' - ', DATE_FORMAT(curso.fechaInicio, '%d de %M'), DATE_FORMAT(curso.fechaFin, '%d de %M, %Y')) as fecha,
@@ -23,21 +23,21 @@ $sql = "SELECT curso.idCurso,
         WHERE constancia.Curso_idCurso = curso.idCurso
         AND constancia.Usuario_idUsuario = usuario.idUsuario";
 
-// Validacion de ejecusion de consulta
+// Validación de ejecución de consulta
 $result = $conn->query($sql) or die($conn->error . __LINE__);
 
-// declaracion del array que contendrá los resultados de la consulta
+// Declaración del array que contendrá los resultados de la consulta
 $arr = array();
 
-// si hay resultados...
+// Si hay resultados...
 if ($result->num_rows > 0) {
 
-    // guardamos los resultados en el array
+    // Guardamos los resultados en el array
     while ($row = $result->fetch_assoc()) {
         $arr[]  = $row;
     }
 
 }
 
-// impresion del array de resultados
+// Impresión del array de resultados
 echo json_encode($arr,true);

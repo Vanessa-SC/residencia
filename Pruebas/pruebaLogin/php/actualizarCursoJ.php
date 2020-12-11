@@ -49,7 +49,7 @@ $dep = "SELECT nombreDepartamento
 /* Ejecución de la query */
 $result = $conn->query($dep) or die($conn->error . __LINE__);
 
-/* asociacion del resultado */
+/* Asociación del resultado */
 $departamento = implode(mysqli_fetch_assoc($result));
 
 /* Asignación de la tercera parte de la clave del curso */
@@ -90,6 +90,6 @@ if (mysqli_query($conn, $sql)) {
     $response['status'] = 'error' . mysqli_error($conn);
 } 
 
-/* impresion del resultado */
+/* Impresión del resultado */
 echo json_encode($response,JSON_FORCE_OBJECT);
 

@@ -1,6 +1,6 @@
 <?php
 
-// conexion y verificacion de recepcion de datos
+// Conexión y verificación de recepción de datos
 include_once 'conexion.php';
 if (!isset($_POST)) die();
 
@@ -29,9 +29,9 @@ $sql = "SELECT curso.idCurso,
         ON curso.Instructor_idInstructor=instructor.idInstructor
         AND curso.idCurso = $id ";
 
-// Ejecución de consulta y asociacion de resultados
+// Ejecución de consulta y asociación de resultados
 $result = $conn->query($sql) or die($conn->error . __LINE__);
 $curso = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-// impresion de resultados
+// Impresión de resultados
 echo json_encode($curso[0],true);

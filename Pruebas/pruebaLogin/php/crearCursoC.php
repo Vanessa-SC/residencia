@@ -4,7 +4,7 @@
 
 //Recepcion de array de datos
 $curso = json_decode(file_get_contents("php://input"));
-//conexion
+// Conexión
 include_once 'conexion.php';
 
 /* Conversión de los formatos de fecha y hora, año */
@@ -17,7 +17,7 @@ setlocale(LC_TIME, 'es_MX');
 $fechaInicio = strftime('%Y-%m-%d', strtotime($curso->fechaInicio));
 $fechaFin = strftime('%Y-%m-%d', strtotime($curso->fechaFin));
 
-/* fecha del curso para el oficio de registro */
+/* Fecha del curso para el oficio de registro */
 $inicio = strftime('%d de %B', strtotime($curso->fechaInicio));
 $fin = strftime('%d de %B, %Y', strtotime($curso->fechaFin));
 $fechaCurso = $inicio . ' al ' . $fin;
@@ -55,12 +55,12 @@ if(empty($curso->observaciones)){
     $curso->observaciones== "Ninguna";
 }
 
-/* validar si hay folio  */
+/* Validar si hay folio  */
 if(empty($curso->folio)){
     $curso->folio = "";
 }
 
-/* Query de insercion */
+/* Query de inserción */
 $sql = "INSERT INTO curso
         VALUES ('',
             '$curso->folio',

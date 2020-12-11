@@ -2,18 +2,18 @@
 
 /* Obtiene los documentos de un curso ordenados por su ID */
 
-// conexion
+// Conexión
 include_once 'conexion.php';
 
-// recibe datos?
+// ¿Recibe datos?
 if (!isset($_POST)) {
     die();
 }
 
-// asignación de variable
+// Asignación de variable
 $idCurso = $_POST['idCurso'];
 
-//query de consulta
+// Query de consulta
 $sql = "SELECT documento.idDocumento,
         documento.nombreDocumento,
         curso_has_documento.comentario,
@@ -24,10 +24,10 @@ $sql = "SELECT documento.idDocumento,
         AND curso_has_documento.Curso_idCurso = $idCurso
         ORDER BY documento.idDocumento";
 
-// validacion de ejecucion de consulta
+// Validación de ejecucion de consulta
 $result = $conn->query($sql) or die($conn->error . __LINE__);
 
-// almacenamiento de resultados
+// Almacenamiento de resultados
 $arr = array();
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
@@ -35,5 +35,5 @@ if ($result->num_rows > 0) {
     }
 }
 
-// impresion de resultados
+// Impresión de resultados
 echo json_encode($arr);

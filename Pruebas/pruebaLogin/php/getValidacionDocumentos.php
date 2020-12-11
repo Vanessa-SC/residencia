@@ -2,10 +2,10 @@
 
 /*  Realiza una verificación para ver si todos los documentos del curso ya están validados o no  */
 
-/* Conexion */
+/* Conexión */
 include_once 'conexion.php';
 
-/* Recepcion de datos */
+/* Recepción de datos */
 $idc = mysqli_real_escape_string($conn,$_POST['idc']);
 
 /* Array de respuesta */

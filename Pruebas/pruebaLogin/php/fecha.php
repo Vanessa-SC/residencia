@@ -5,11 +5,11 @@
 // Establecimiento de zona horaria
 date_default_timezone_set('America/Mexico_City');
 
-// array de respuesta
+// Array de respuesta
 $res = [];
-// formato y obtencion de la fecha
+// Formato y obtención de la fecha
 $fecha = date('d/m/Y');
-    //guardado de la fecha
+    // Guardado de la fecha
     $res['fecha'] = $fecha;
-    //impresion
+    // Impresión
 echo json_encode($res);

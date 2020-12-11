@@ -1,13 +1,13 @@
 <?php
 /* Obtiene los cursos filtrados por departamento para Jefe */
 
-// conexion
+// Conexión
 include_once 'conexion.php';
 // Se reciben datos POST?
 if (!isset($_POST)) {
     die();
 }
-// asignacion de variables
+// Asignación de variables
 $id = mysqli_real_escape_string($conn, $_POST['idDepartamento']);
 
 // Formato español para la fecha
@@ -27,15 +27,15 @@ $sql = "SELECT curso.idCurso,
         OR (curso.Instructor_idInstructor=instructor.idInstructor and curso.Departamento_idDepartamento = 5)";
         /*!- El ID 5 corresponde al departamento "Todos los Departamentos" */
 
-// validacion de ejecucion de la consulta
+// Validación de ejecución de la consulta
 $result = $conn->query($sql) or die($conn->error . __LINE__);
-// array de respuesta
+// Array de respuesta
 $arr = array();
-// si hay resultados se almacenan en el array
+// Si hay resultados se almacenan en el array
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $arr[] = $row;
     }
 }
-// impresion de resultados
+// Impresión de resultados
 echo json_encode($arr,true);

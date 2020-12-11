@@ -2,17 +2,17 @@
 
 /* Verifica si ya se han subido documentos a un curso y retorna el path de los mismos*/
 
-// POST vacio?
+// ¿POST vacio?
 if (!isset($_POST)) {
     die();
 }
-// conexion
+// Conexión
 include_once 'conexion.php';
 
 // $idCurso = $_POST['idc'];
 $idCurso = mysqli_real_escape_string($conn, $_POST['idc']);
 
-// array de respuesta
+// Array de respuesta
 $response = [];
 
 // Consulta
@@ -25,7 +25,7 @@ $sql = "SELECT documento.idDocumento,
         AND curso_has_documento.Curso_idCurso = $idCurso
         ORDER BY documento.idDocumento";
 
-// ejecución de la consulta
+// Ejecución de la consulta
 $result = $conn->query($sql) or die($conn->error . __LINE__);
 
 // Si hubo resultados...
@@ -37,16 +37,16 @@ if ($result->num_rows > 0) {
     // El estado de documentos indica que existe
     $response['status'] = 'existe';
 
-    //extraccion de los key para el ciclo For
+    // Extracción de los key para el ciclo For
     $keyDocs = (array_keys($docs));
 
     for ($i = 0; $i <= max($keyDocs); $i++) {
 
-        /* almacenamos la ruta de los documentos individuales */
+        /* Almacenamos la ruta de los documentos individuales */
         $response['documentos'][$i+1] = $docs[$i]['rutaArchivo'];
 
     }
 }
 
-// imprimimos la respuesta
+// Imprimimos la respuesta
 echo json_encode($response, true);
