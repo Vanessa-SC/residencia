@@ -39,7 +39,7 @@ $sql = $conn->query("SELECT
         GROUP BY curso.nombreCurso, departamento.nombreDepartamento
         ");
 
-//Obtiene el año actual
+//Obtiene el periodo actual
 $mes = date('n');
 $año = date('Y');
 

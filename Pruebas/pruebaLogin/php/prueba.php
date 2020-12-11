@@ -126,18 +126,7 @@ if ( $mes <= 6 ){
 }
 
 
-$sql = "SELECT 
-        curso.nombreCurso, 
-        departamento.nombreDepartamento, COUNT(usuario.Departamento_idDepartamento) AS totalDpto 
-        FROM usuario 
-        inner join departamento 
-        on usuario.Departamento_idDepartamento = departamento.idDepartamento 
-        INNER JOIN usuario_has_curso
-        ON usuario.idUsuario = usuario_has_curso.Usuario_idUsuario
-        INNER JOIN curso
-        ON curso.idCurso = usuario_has_curso.Curso_idCurso
-        where departamento.idDepartamento in(select idDepartamento from departamento) 
-        GROUP BY curso.nombreCurso, departamento.nombreDepartamento
+$sql = "SELECT count(*) FROM curso
     ";
 
 $result = $conn->query($sql) or die($conn->error . __LINE__);
