@@ -3,7 +3,7 @@
         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="username-mobile text-light mx-auto pr-4">{{user}}  <span class="user2_icon ml-2"></span></div>
+    <div class="username-mobile text-light mx-auto pr-4">{{user}} <span class="user2_icon ml-2"></span></div>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
@@ -18,9 +18,19 @@
             <li class="nav-item">
                 <a class="nav-link" href="#!/inicioC/instructores">Instructores</a>
             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Formatos
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">formato1</a>
+                    <a class="dropdown-item" href="#">formato2</a>
+                </div>
+            </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
-            <div class=" username text-light mx-auto pr-4">{{user}}  <span class="user2_icon ml-2"></span></div>
+            <div class=" username text-light mx-auto pr-4">{{user}} <span class="user2_icon ml-2"></span></div>
             <a href="#!/logout"><button type="button" class="btn btn-small btn-outline-light">Cerrar sesión</button></a>
         </form>
     </div>
