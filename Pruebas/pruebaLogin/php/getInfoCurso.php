@@ -5,6 +5,7 @@
 // Conexión
 include_once 'conexion.php';
 
+// Validar que se estén recibiendo datos
 if (!isset($_POST)) {
     die();
 }
@@ -16,7 +17,7 @@ mysqli_query($conn,$formatt);
 // Recepcion del ID
 $id = mysqli_real_escape_string($conn, $_POST['idCurso']);
 
-// Query de consulta de datos del curso
+// SQL de consulta de datos del curso
 $sql = "SELECT curso.idCurso, 
             concat_ws(' ',instructor.apellidoPaterno,instructor.apellidomaterno,instructor.nombre) as maestro, 
             curso.nombreCurso as curso, 

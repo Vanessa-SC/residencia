@@ -12,7 +12,7 @@ $periodo = json_decode(file_get_contents("php://input"));
 $formatt = "SET lc_time_names = 'es_MX' ";
 mysqli_query($conn,$formatt);
 
-// Query de consulta
+// SQL de consulta
 $sql = "SELECT constancia.folio,
             constancia.rutaConstancia,
             concat_ws(' ',apellidoPaterno,apellidomaterno,nombre) as nombre,

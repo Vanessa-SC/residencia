@@ -13,7 +13,7 @@ $id = mysqli_real_escape_string($conn, $_POST['idUsuario']);
 // Formato de fechas en español
 $formatt = "SET lc_time_names = 'es_MX' ";
 mysqli_query($conn,$formatt);
-// Query de consulta
+// SQL de consulta
 $sql = "SELECT curso.idCurso, curso.nombreCurso as curso, 
         curso.objetivo, curso.Instructor_idInstructor,
         concat_ws(' - ', DATE_FORMAT(curso.fechaInicio, '%d de %M'), DATE_FORMAT(curso.fechaFin, '%d de %M, %Y')) as fecha, 

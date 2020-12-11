@@ -59,4 +59,5 @@ if (!empty($_FILES['archivo'])) {
     }
 }
 
+// Respuesta
 echo json_encode($response);

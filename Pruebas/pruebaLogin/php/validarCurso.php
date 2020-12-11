@@ -17,11 +17,12 @@ $sql =  "UPDATE curso
          SET validado = '$val'
          WHERE idCurso = $idc";
 
-
+/* Ejecución de la consulta */
 if(mysqli_query($conn,$sql)) {
     $response['status'] = 'ok';
 } else {
     $response['status'] = 'error '.mysqli_error($conn);
 }
 
+/* Imprimir respuesta en formato JSON */
 echo json_encode($response,true);

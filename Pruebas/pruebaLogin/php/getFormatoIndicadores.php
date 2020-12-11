@@ -1,21 +1,22 @@
 <?php
 
-//Librería y archivo de conexión
+// Librería y archivo de conexión
 require_once "../XLSX/vendor/autoload.php";
 include_once 'conexion.php';
 
 //Variable que se obtiene al momento de llamar al método
 $idCurso = $_GET['idc'];
 
+// Instancias de creación
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-//Nombre del nuevo archivo que se genera
+// Nombre del nuevo archivo que se genera
 $filename = "Indicadores de Participantes del Curso.xlsx";
 header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheet‌​ml.sheet");
 header('Content-Disposition: attachment; filename="' . $filename. '"');
 
-//Llamado a la plantilla
+// Llamado a la plantilla
 $documento = \PhpOffice\PhpSpreadsheet\IOFactory::load('../XLSX/plantillaIndicadores.xlsx');
 
 $activeSheet = $documento->getActiveSheet();
@@ -39,7 +40,7 @@ $sql = $conn->query("SELECT
         GROUP BY curso.nombreCurso, departamento.nombreDepartamento
         ");
 
-//Obtiene el periodo actual
+// Obtiene el periodo actual para la consulta
 $mes = date('n');
 $año = date('Y');
 
@@ -86,11 +87,13 @@ $query = $conn->query("SELECT
         GROUP BY curso.nombreCurso
         ");
 
-// Si se obtiene el número de filas del resultado de la segunda consulta, entonces comienza el recorrido
+/* Si se obtiene el número de filas del resultado de la segunda consulta, 
+entonces comienza el recorrido para imprimir el total de indicadores
+*/
 if($query->num_rows > 0) {
-    //Comienza en la fila 22
+    // Comienza en la fila 22
     $i = 11;
-    //Ciclo while que recorremo los resultados de la consulta y los imprime
+    // Ciclo while que recorremo los resultados de la consulta y los imprime
     while($row = $query->fetch_assoc()) {
         $activeSheet->setCellValue('B'.$i , $row['nombreCurso']);
         $activeSheet->setCellValue('C'.$i , $row['totalFemenino']);
@@ -112,7 +115,7 @@ if($query->num_rows > 0) {
         $activeSheet->setCellValue('S'.$i , $row['totalPEspecializacion']);
         $activeSheet->setCellValue('T'.$i , $row['totalfuncionAdministrativa']);
         $activeSheet->setCellValue('U'.$i , $row['totalNfuncionAdministrativa']);
-        //Totales
+        // Totales
         $activeSheet->setCellValue('C51','=SUM(C11:C50)');
         $activeSheet->setCellValue('D51','=SUM(D11:D50)');
         $activeSheet->setCellValue('E51','=SUM(E11:E50)');
@@ -136,22 +139,23 @@ if($query->num_rows > 0) {
     }
 }
 
-//creación de nueva hoja
+// Creación de nueva hoja
 $hoja = $documento->createSheet();
 $hoja->setTitle("Departamentos");
 
-//Valores por defecto
+// Valores por defecto
 $hoja->setCellValue('A1', 'Nombre del curso')->getColumnDimension('A')->setWidth(60);
 $hoja->setCellValue('B1', 'Departamento')->getColumnDimension('B')->setWidth(30);
 $hoja->setCellValue('C1', 'Total');
 
 /*
-// Si se obtiene el número de filas del resultado de la primera consulta, entonces comienza el recorrido
+Si se obtiene el número de filas del resultado de la primera consulta, 
+entonces comienza el recorrido para imprimir los Cursos y los Departamentos de los participantes
 */
 if($sql->num_rows > 0) {
-    //Comienza en la fila 22
+    // Comienza en la fila 22
     $i = 2;
-    //Ciclo while que recorremo los resultados de la consulta y los imprime
+    // Ciclo while que recorremo los resultados de la consulta y los imprime
     while($row = $sql->fetch_assoc()) {
         $hoja->setCellValue('A'.$i , $row['nombreCurso']);
         $hoja->setCellValue('B'.$i , $row['nombreDepartamento']);
@@ -160,6 +164,6 @@ if($sql->num_rows > 0) {
     }
 }
 
-//Creación de documento
+// Creación de documento
 $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($documento, 'Xlsx');
 $writer->save("php://output");

@@ -20,9 +20,17 @@ $sql = "SELECT
     ON instructor.idUsuario = usuario.idUsuario
     ORDER BY apellidoPaterno ASC 
 ";
+
+// Validación de ejecución de consulta
 $result = $conn->query($sql) or die($conn->error . __LINE__);
+
+// Declaración del array que contendrá los resultados de la consulta
 $arr = array();
+
+// Si hay resultados...
 if ($result->num_rows > 0) {
+
+    // Guardamos los resultados en el array
     while ($row = $result->fetch_assoc()) {
         $arr[] = $row;
     }

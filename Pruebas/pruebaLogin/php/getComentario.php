@@ -9,7 +9,7 @@ include_once 'conexion.php';
 $idCurso = mysqli_real_escape_string($conn, $_POST['idCurso']);
 $idDocumento = mysqli_real_escape_string($conn, $_POST['idDocumento']);
 
-// Query de consulta
+// SQL de consulta
 $sql = "SELECT *
         FROM curso_has_documento
         WHERE Curso_idCurso = $idCurso

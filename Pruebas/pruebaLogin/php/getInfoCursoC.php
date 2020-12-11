@@ -11,7 +11,7 @@ mysqli_query($conn,$formatt);
 // Recepción del ID
 $id = mysqli_real_escape_string($conn, $_POST['idCurso']);
 
-// Query de consulta
+// SQL de consulta
 $sql = "SELECT curso.idCurso, 
             concat_ws(' ',instructor.apellidoPaterno,instructor.apellidomaterno,instructor.nombre) as maestro, 
             curso.nombreCurso as curso, 

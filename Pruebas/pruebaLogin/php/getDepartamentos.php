@@ -5,7 +5,7 @@
 // Conexión
 include_once 'conexion.php';
 
-// Query de consulta
+// SQL de consulta
 $sql = "SELECT * FROM departamento ORDER BY nombreDepartamento ASC ";
 
 // Validación de ejecución de consulta

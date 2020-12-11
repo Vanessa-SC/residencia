@@ -15,11 +15,11 @@ $query = "DELETE
             WHERE Curso_idCurso = '$idCurso'
             AND Usuario_idUsuario = '$idUsuario'
             ";
-
+// ¿Se ejecutó correctamente?
 if(mysqli_query($conn, $query)){
    $response['status'] = 'ok';
 } else {
     $response['status'] = 'Error';
 }
-
+// Respuesta
 echo json_encode($response);

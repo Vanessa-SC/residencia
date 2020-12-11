@@ -16,7 +16,7 @@ $periodo = mysqli_real_escape_string($conn, $_POST['periodo']);
 $formatt = "SET lc_time_names = 'es_MX' ";
 mysqli_query($conn,$formatt);
 
-// Query de consulta
+// SQL de consulta
 $sql = "SELECT curso.idCurso,
             concat_ws(' ',instructor.apellidoPaterno,instructor.apellidomaterno,instructor.nombre) as maestro,
             curso.nombreCurso as curso,

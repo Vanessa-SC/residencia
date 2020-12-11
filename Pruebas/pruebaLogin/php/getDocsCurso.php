@@ -13,7 +13,7 @@ if (!isset($_POST)) {
 // Asignación de variable
 $idCurso = $_POST['idCurso'];
 
-// Query de consulta
+// SQL de consulta
 $sql = "SELECT documento.idDocumento,
         documento.nombreDocumento,
         curso_has_documento.comentario,

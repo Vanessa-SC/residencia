@@ -11,7 +11,7 @@ include_once 'conexion.php';
 // Asignación de variable
 $id = mysqli_real_escape_string($conn,$_POST['departamento']);
 
-// Query de consulta
+// SQL de consulta
 $sql = "SELECT * FROM departamento WHERE idDepartamento = $id ";
 
 // Validación de ejecución de la consulta

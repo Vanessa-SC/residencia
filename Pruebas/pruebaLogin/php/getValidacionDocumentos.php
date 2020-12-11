@@ -17,6 +17,7 @@ $sql =  "SELECT *
          WHERE Curso_idCurso = $idc 
          AND estadoVerificado = 'SI'";
 
+// Ejecución de la consulta
 $result = $conn->query($sql) or die($conn->error . __LINE__);
 
 /* Contar si todos los documentos del curso han sido validados */
@@ -25,5 +26,5 @@ if(mysqli_num_rows($result) == 7 ) {
 } else {
     $response['docs_status'] = 'invalidos';
 }
-
-echo json_encode($response,true);
+// Imprimimos la respuesta
+echo json_encode($response, true);

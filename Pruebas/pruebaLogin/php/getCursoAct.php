@@ -10,7 +10,7 @@ if (!isset($_POST)) {
 }
 // Asignación de variables
 $id = mysqli_real_escape_string($conn, $_POST['idCurso']);
-// Query de consulta
+// SQL de consulta
 $sql = "SELECT curso.idCurso, 
             curso.Folio, 
             curso.ClaveRegistro, 
