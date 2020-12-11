@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<!-- <div class="container-fluid">
     <div class="bg-wine">
         <div class="main">
             <div class="container-login">
@@ -34,5 +34,51 @@
             </div>
 
         </div>
+    </div>
+</div> -->
+
+<div class="container-fluid bg-wine bg-login">
+    <nav class="navbar navbar-expand-md navbar-dark bg-wine nav-login border-bottom shadow text-center border-light">
+        <span class="navbar-brand">Sistema Integral de Información <br>
+            <h3>ITD - Portal de maestros</h3>
+        </span>
+    </nav>
+    <div class="row m-0 justify-content-center align-items-center vh-100">
+        <div class="justify-content-center">
+            <div class="d-flex">
+                <div class="p-5 m-auto bd-highlight ">
+                    <div class="login align-middle" id="login">
+                        <form method="post">
+                            <p><span class="fa fa-user"></span><input type="text" Placeholder="Nombre de usuario"
+                                    required ng-model="username"></p>
+                            <p><span class="fa fa-lock"></span><input type="password" Placeholder="Contraseña" required
+                                    ng-model="password"></p>
+                            <div class="text-center">
+                                <span>
+                                    <input class="bg-dark text-white" type="submit" value="Ingresar" ng-click="login()">
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="p-2 m-auto bd-highlight hide-mobile border-left border-white">
+                    <div id="login">
+                        <img src="/Residencia/Proyecto/Images/logo ITD.png" style="width:250px;" alt="logoITD">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="toast" data-autohide="false" id="alerta"
+    style="position: fixed; top: 80px; right: 50px; background-color: rgb(255, 255, 255); width:500px">
+    <div class="toast-header bg-{{alert.tipo}} text-white">
+        <strong class="mr-auto">{{alert.titulo}}</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
+            <span aria-hidden="true" style="font-size: 1.1em;">&times;</span>
+        </button>
+    </div>
+    <div class="toast-body">
+        <div class="text-dark">{{alert.mensaje}}</div>
     </div>
 </div>
