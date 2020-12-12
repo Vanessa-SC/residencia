@@ -9,9 +9,8 @@ mysqli_query($conn,$formatt);
 
 // Consulta, ejecución y asociación de resultados
 $sql = "SELECT 
-    instructor.idInstructor, instructor.apellidoPaterno, instructor.apellidomaterno, 
-    instructor.nombre, 
-    concat_ws(' ',instructor.apellidoPaterno,instructor.apellidomaterno,instructor.nombre) as nombre,
+    instructor.idInstructor,
+    concat_ws(' ',instructor.apellidoPaterno,instructor.apellidoMaterno,instructor.nombre) as nombre,
     instructor.RFC, instructor.CURP, DATE_FORMAT(instructor.fechaNacimiento, '%d-%M-%Y') as fechaNacimiento, 
     instructor.telefono, instructor.Correo, 
     usuario.horas, usuario.perfilDeseable, usuario.activo, usuario.funcionAdministrativa, usuario.nivel

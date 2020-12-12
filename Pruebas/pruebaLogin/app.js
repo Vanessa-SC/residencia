@@ -488,6 +488,33 @@ app.config(function ($routeProvider, $locationProvider) {
 			templateUrl: './vistasJ/actualizar-instructor.html',
 			controller: 'instructoresJCtrl'
 
+		})
+		
+		/*  RUTAS PARA EL USUARIO ADMINISTRADOR DEL SISTEMA */
+		.when('/inicioA', {
+			resolve: {
+				check: function ($location, user) {
+					if (!user.isUserLoggedIn()) {
+						$location.path('/login');
+					}
+					if (user.isUserLoggedIn()) {
+						$location.path(user.getPath());
+					}
+				},
+			},
+			templateUrl: './vistasA/usuarios.html',
+			controller: 'usuariosACtrl'
+		}).when('/inicioA/encuesta', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 5) {
+						$location.path(user.getPath());
+					}
+				},
+			},
+			templateUrl: './vistasA/encuesta.html',
+			controller: 'usuariosACtrl'
+		
 		}).otherwise({
 			templateUrl: '404.html'
 		});
@@ -986,6 +1013,9 @@ app.controller('loginCtrl', function ($scope, $http, $location, user) {
 					} else if (response.data.rol == 4) {
 						user.saveData(response.data, '/inicioI');
 						$location.path('/inicioI');
+					} else if (response.data.rol == 5) {
+						user.saveData(response.data, '/inicioA');
+						$location.path('/inicioA');
 					}
 				} else {
 					/* Si las credenciales fueron incorrectas muestra una alerta */
@@ -3415,6 +3445,26 @@ app.controller('constanciasDCtrl', function ($scope, $http, $location, user, cur
 	$scope.getConstancias();
 });
 
+/*	CONTROLADORES PARA EL USUARIO ADMINISTRADOR DEL SISTEMA */
+app.controller('usuariosACtrl', function ($scope, $http, $location, user, periodoService) {
+	$scope.user = user.getName();
+
+	/* consultar el periodo */
+	$scope.periodo = periodoService.getPeriodo()
+		.then(function (response) {
+			$scope.periodo = response;
+		});
+
+	/* Peticion para obtener todos los Usuarios */
+	$scope.getUsuarios = function () {
+		$http({
+			method: 'GET',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getUsuarios.php'
+		}).then(function successCallback(response) {
+			$scope.usuarios = response.data;
+		});
+	}
+});
 
 /* Controlador para pruebas individuales */
 app.controller('pruebaCtrl', function ($scope, $http) {
