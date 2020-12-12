@@ -36,11 +36,16 @@
 					<td class="align-middle">{{x.duracion}} Hrs.</td>
 					<td class="align-middle"> {{x.maestro}} </td>
 					<td class="align-middle">
-						<!-- href="#!/inicioC/constancias/ver" -->
 						<a href="#!/inicioD/constancias/descargar">
-							<!-- <button class="btn bg-white eye_icon"></button></button> -->
 							<button class="btn bg-white eye_icon" ng-click="verConstancia(x.folio,x.idCurso)"></button></button>
 						</a>
+					</td>
+				</tr>
+			</tbody>
+			<tbody ng-show="constancias | isEmpty">
+				<tr class="text-center">
+					<td class="align-middle" colspan="4" class=" bg-light align-middle p-4 font-italic">
+						<h5>No hay registros</h5>
 					</td>
 				</tr>
 			</tbody>

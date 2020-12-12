@@ -29,7 +29,12 @@
             </div>
             <div class="col-sm-4 text-center">
                 <span class="font-weight-bold">Fecha:</span><br>{{infoCurso.fecha}}<br>{{infoCurso.horario}}
-            </div>
+			</div>
+			<div class="col-sm-7 text-right">
+				<button class="btn bg-wine text-white m-2" ng-click="printFicha()">
+					<span class="downloadDocs_icon mr-2"></span>Formato Ficha T&eacute;cnica
+				</button>
+			</div>	
         </div>
 	</div>
 	<div class="table-responsive">

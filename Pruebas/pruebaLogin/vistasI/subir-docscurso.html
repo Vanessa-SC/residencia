@@ -32,6 +32,11 @@
 			<div class="col-sm-4 text-center">
 				<span class="font-weight-bold">Fecha:</span><br>{{infoCurso.fecha}}<br>{{infoCurso.horario}}
 			</div>
+			<div class="col-sm-7 text-right">
+				<button class="btn bg-wine text-white m-2" ng-click="printFicha()">
+					<span class="downloadDocs_icon mr-2"></span>Formato Ficha T&eacute;cnica
+				</button>
+			</div>			
 		</div>
 	</div>
 	<div class="table-responsive">
@@ -98,13 +103,13 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="text-center ">
-		<button class="btn bg-wine text-white m-2" ng-click="printFicha()">
-			<span class="downloadDocs_icon mr-2"></span>Formato Ficha T&eacute;cnica
-		</button>
-		<button class="btn bg-wine text-white m-2" ng-click="printFormato()">
-			<span class="downloadDocs_icon mr-2"></span>Formato Curr&iacute;culum
-		</button>
+	<div class="text-center mt-5 mb-5">
+		<a href="#!/inicioI">
+			<button class="btn bg-wine">
+				<span class="ok2_icon"></span>Terminar
+				<br>
+			</button>
+		</a>
 	</div>
 	<div class="toast w-75" data-autohide="false" id="alerta"
 		style="position: fixed; top: 50px; right: 30px; background-color: rgb(250, 250, 250);">

@@ -1592,6 +1592,12 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getFormatoProgramaInstitucional.php?', '_blank');
 	}
 
+	/*Obtiene plantilla de Ficha Técnica del Servicio */
+	$scope.printFicha = function () {
+		$scope.id = curso.getID();
+		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getFichaTecnica.php?id=' + $scope.id, '_blank');
+	}
+
 });
 
 app.controller('constanciasCtrl', function ($scope, $http, $location, user, periodoService, curso, constancia) {
@@ -2854,6 +2860,12 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 	/* Archivo word de Programa Institucional */
 	$scope.printProgramaInstitucional = function () {
 		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getFormatoProgramaInstitucional.php?', '_blank');
+	}
+
+	/*Obtiene plantilla de Ficha Técnica del Servicio */
+	$scope.printFicha = function () {
+		$scope.id = curso.getID();
+		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getFichaTecnica.php?id=' + $scope.id, '_blank');
 	}
 
 	/* Llamado a las funciones */
