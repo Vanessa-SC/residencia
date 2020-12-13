@@ -52,7 +52,7 @@ if ($curso->modalidad == 1) {
 
 /* Validar si hay observaciones */
 if(empty($curso->observaciones)){
-    $curso->observaciones== "Ninguna";
+    $curso->observaciones = "Ninguna";
 }
 
 /* Validar si hay folio  */

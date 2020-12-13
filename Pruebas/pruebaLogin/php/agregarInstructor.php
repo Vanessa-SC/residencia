@@ -7,6 +7,32 @@ $inst = json_decode(file_get_contents("php://input"));
 // Conexión
 include_once('conexion.php');
 
+/* Validar si hay contrato */
+if(empty($inst->contrato)){
+    $inst->contrato = "Ninguno";
+}
+
+/* Validar si hay horas */
+if(empty($inst->horas)){
+    $inst->horas = "Sin horas";
+}
+
+/* Validar si hay departamento */
+if(empty($inst->departamento)){
+    $inst->departamento = "No asignado";
+}
+
+/* Validar si hay FD */
+if(empty($inst->funcionAdministrativa)){
+    $inst->funcionAdministrativa = "NO";
+}
+
+/* personal */
+if ($inst->personal == 1) {
+    $personal = "Interno";
+}else {
+    $modalidad = "Externo";
+}
 
 /* Conversión de los formatos de fecha */
 
@@ -54,7 +80,8 @@ if (mysqli_query($conn, $sql)) {
         upper('$inst->CURP'),
         '$fechaNacimiento',
         '$inst->telefono',
-        '$inst->correo'
+        '$inst->correo',
+        '$inst->personal'
     )";
     // Validación del éxito del segundo query
     if(mysqli_query($conn, $sql)){

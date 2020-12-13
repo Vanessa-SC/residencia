@@ -1813,6 +1813,27 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 		});
 
 	/* Obtiene a los instructores */
+	$scope.validarCampos = function () {
+		$("#personal").change(function () {
+            if ($(this).val() == 1) {
+				$("#contrato").removeAttr("disabled");
+				$("#contrato").focus();
+				$("#horas").removeAttr("disabled");
+				$("#horas").focus();
+				$("#departamento").removeAttr("disabled");
+				$("#departamento").focus();
+				$("#funcionAdministrativa").removeAttr("disabled");
+                $("#funcionAdministrativa").focus();
+            } else {
+				$("#contrato").attr("disabled", "disabled");
+				$("#horas").attr("disabled", "disabled");
+				$("#departamento").attr("disabled", "disabled");
+				$("#funcionAdministrativa").attr("disabled", "disabled");
+            }
+        });
+	}
+	
+		/* Obtiene a los instructores */
 	$scope.getInstructores = function () {
 		$http({
 			method: 'GET',

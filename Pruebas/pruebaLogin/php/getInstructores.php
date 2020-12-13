@@ -17,7 +17,7 @@ $sql = "SELECT
     FROM instructor 
     Inner join usuario
     ON instructor.idUsuario = usuario.idUsuario
-    ORDER BY apellidoPaterno ASC 
+    ORDER BY instructor.apellidoPaterno ASC 
 ";
 
 // Validación de ejecución de consulta
