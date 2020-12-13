@@ -31,7 +31,7 @@ if(empty($inst->funcionAdministrativa)){
 if ($inst->personal == 1) {
     $personal = "Interno";
 }else {
-    $modalidad = "Externo";
+    $personal = "Externo";
 }
 
 /* Conversión de los formatos de fecha */
@@ -81,7 +81,7 @@ if (mysqli_query($conn, $sql)) {
         '$fechaNacimiento',
         '$inst->telefono',
         '$inst->correo',
-        '$inst->personal'
+        '$personal'
     )";
     // Validación del éxito del segundo query
     if(mysqli_query($conn, $sql)){

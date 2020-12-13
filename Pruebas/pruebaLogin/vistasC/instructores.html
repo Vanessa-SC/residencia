@@ -34,6 +34,7 @@
             <thead class="bg-wine text-white text-center">
                 <tr>
                     <td class="align-middle italic-font">Nombre</th>
+                    <td class="align-middle italic-font">Personal</th>
                     <td class="align-middle italic-font">RFC</th>
                     <td class="align-middle italic-font">CURP</th>
                     <td class="align-middle italic-font">Fecha de Nacimiento</th>
@@ -50,6 +51,7 @@
             <tbody>
                 <tr ng-repeat="x in instructores | filter:filtro">
                     <td class="align-middle"> {{x.nombre}} </td>
+                    <td class="align-middle"> {{x.personal}} </td>
                     <td class="align-middle"> {{x.RFC}} </td>
                     <td class="align-middle"> {{x.CURP}} </td>
                     <td class="align-middle"> {{x.fechaNacimiento}} </td>

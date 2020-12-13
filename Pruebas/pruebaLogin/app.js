@@ -1959,8 +1959,6 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 		}
 	}
 
-	$scope.getInstructorAct();
-
 	/* Realizar la modificación de los datos del instructor */
 	$scope.actualizarInstructor = function () {
 		$http({
@@ -3067,8 +3065,6 @@ app.controller('instructoresJCtrl', function ($scope, $http, $location, user, pe
 			});
 		}
 	}
-
-	$scope.getInstructorAct();
 
 	/* Realizar la modificación de los datos del instructor */
 	$scope.actualizarInstructor = function () {
