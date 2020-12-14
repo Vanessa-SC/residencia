@@ -3504,7 +3504,7 @@ app.controller('constanciasDCtrl', function ($scope, $http, $location, user, cur
 });
 
 /*	CONTROLADORES PARA EL USUARIO ADMINISTRADOR DEL SISTEMA */
-app.controller('usuariosACtrl', function ($scope, $http, $location, user, periodoService, usuario) {
+app.controller('usuariosACtrl', function ($scope, $http, $location, user, periodoService, usuario, $timeout) {
 	$scope.user = user.getName();
 
 	/* consultar el periodo */
@@ -3563,7 +3563,7 @@ app.controller('usuariosACtrl', function ($scope, $http, $location, user, period
 					$('#alerta').toast('show');
 				});
 				$timeout(function () {
-					$location.path("inicioA/usuarios");
+					$location.path("/inicioA");
 				}, 2000);
 			} else {
 				$scope.alert = {
@@ -3575,7 +3575,7 @@ app.controller('usuariosACtrl', function ($scope, $http, $location, user, period
 					$('#alerta').toast('show');
 				});
 				$timeout(function () {
-					$location.path("inicioA/usuarios");
+					$location.path("/inicioA");
 				}, 2000);
 			}
 		});
@@ -3674,7 +3674,7 @@ app.controller('usuariosACtrl', function ($scope, $http, $location, user, period
 					$('#alerta').toast('show');
 				});
 				$timeout(function () {
-					$location.path("/inicioA/usuarios");
+					$location.path("/inicioA");
 				}, 2000);
 			}
 		});

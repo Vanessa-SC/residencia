@@ -14,25 +14,25 @@ $fechaNacimiento = strftime ('%Y-%m-%d', strtotime($actUsuario->fechaNacimiento)
 /* Query de actualización */
 $sql = "UPDATE usuario
         SET 
-            Departamento_idDepartamento = '$actUsuario->departamento',
-            rol = '$actUsuario->rol',
-            nombreUsuario = '$actUsuario->nombreUsuario',
-            contrasena = '$actUsuario->contrasena',
-            apellidoPaterno = '$actUsuario->apellidoPaterno',
-            apellidoMaterno = '$actUsuario->apellidoMaterno',            
-            nombre = '$actUsuario->nombre',
-            sexo = '$actUsuario->sexo',
-            contrato = '$actUsuario->contrato',
-            RFC = upper('$actUsuario->RFC'),
-            CURP = upper('$actUsuario->CURP'),
-            fechaNacimiento = '$actUsuario->fechaNacimiento',
-            telefono = '$actUsuario->telefono',
-            Correo = '$actUsuario->Correo',
-            horas = '$actUsuario->horas',
-            nivel = '$actUsuario->nivel',
-            perfilDeseable = '$actUsuario->perfilDeseable',
-            activo = '$actUsuario->activo',
-            funcionAdministrativa = '$actUsuario->funcionAdministrativa'
+        usuario.Departamento_idDepartamento = '$actUsuario->departamento',
+        usuario.rol = '$actUsuario->rol',
+        usuario.nombreUsuario = '$actUsuario->nombreUsuario',
+        usuario.contrasena = '$actUsuario->contrasena',
+        usuario.apellidoPaterno = '$actUsuario->apellidoPaterno',
+        usuario.apellidoMaterno = '$actUsuario->apellidoMaterno',            
+        usuario.nombre = '$actUsuario->nombre',
+        usuario.sexo = '$actUsuario->sexo',
+        usuario.contrato = '$actUsuario->contrato',
+        usuario.RFC = upper('$actUsuario->RFC'),
+        usuario.CURP = upper('$actUsuario->CURP'),
+        usuario.fechaNacimiento = '$actUsuario->fechaNacimiento',
+        usuario.telefono = '$actUsuario->telefono',
+        usuario.Correo = '$actUsuario->Correo',
+        usuario.horas = '$actUsuario->horas',
+        usuario.nivel = '$actUsuario->nivel',
+        usuario.perfilDeseable = '$actUsuario->perfilDeseable',
+        usuario.activo = '$actUsuario->activo',
+        usuario.funcionAdministrativa = '$actUsuario->funcionAdministrativa'
         WHERE idUsuario = $actUsuario->idUsuario
         ";
 // Ejecución del Query
