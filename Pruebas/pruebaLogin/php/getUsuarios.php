@@ -11,8 +11,9 @@ mysqli_query($conn,$formatt);
 $sql = "SELECT 
     usuario.idUsuario, usuario.Departamento_idDepartamento, rol.rol,
     concat_ws(' ', usuario.apellidoPaterno, usuario.apellidoMaterno, usuario.nombre) as nombre,
-    departamento.nombreDepartamento, departamento.idDepartamento, 
-    usuario.nombreUsuario, usuario.contrasena, usuario.sexo, 
+    departamento.nombreDepartamento, departamento.idDepartamento, usuario.nombreUsuario, usuario.contrasena, 
+    usuario.sexo, DATE_FORMAT(usuario.fechaNacimiento, '%d-%m-%Y') as fechaNacimiento, 
+    usuario.telefono, usuario.Correo,
     usuario.contrato, usuario.RFC, usuario.CURP, usuario.horas, usuario.nivel, usuario.perfilDeseable, 
     usuario.activo, usuario.funcionAdministrativa
     FROM usuario

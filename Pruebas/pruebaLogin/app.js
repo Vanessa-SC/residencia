@@ -504,7 +504,7 @@ app.config(function ($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistasA/usuarios.html',
 			controller: 'usuariosACtrl'
-		}).when('/inicioA/encuesta', {
+		}).when('/inicioA/usuarios/agregarUsuario', {
 			resolve: {
 				check: function ($location, user) {
 					if (user.getRol() != 5) {
@@ -512,7 +512,18 @@ app.config(function ($routeProvider, $locationProvider) {
 					}
 				},
 			},
-			templateUrl: './vistasA/encuesta.html',
+			templateUrl: './vistasA/agregar-usuario.html',
+			controller: 'usuariosACtrl'
+		
+		}).when('/inicioA/usuarios/actualizarUsuario', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 5) {
+						$location.path(user.getPath());
+					}
+				},
+			},
+			templateUrl: './vistasA/actualizar-usuario.html',
 			controller: 'usuariosACtrl'
 		
 		}).otherwise({
@@ -536,6 +547,14 @@ app.service('user', function () {
 			username = data.username;
 		}
 		return username;
+	};
+
+	/* guarda el ID del usuario */
+	this.setIdUsuario = function (usuarioID) {
+		id = usuarioID;
+		localStorage.setItem('idUsuario', JSON.stringify({
+			id: id
+		}));
 	};
 
 	/* Obtiene el ID del usuario que se guardó en el inicio de sesion */
@@ -712,6 +731,28 @@ app.service('instructor', function () {
 	this.getID = function () {
 		if (!!localStorage.getItem('idInstructor')) {
 			var data = JSON.parse(localStorage.getItem('idInstructor'));
+			id = data.id;
+		}
+		return id;
+	};
+
+});
+
+app.service('usuario', function () {
+	var id;
+
+	/* guarda el ID del Usuario */
+	this.setID = function (UsuarioID) {
+		id = UsuarioID;
+		localStorage.setItem('idUsuario', JSON.stringify({
+			id: id
+		}));
+	};
+
+	/* obtiene el ID del Usuario */
+	this.getID = function () {
+		if (!!localStorage.getItem('idUsuario')) {
+			var data = JSON.parse(localStorage.getItem('idUsuario'));
 			id = data.id;
 		}
 		return id;
@@ -1812,8 +1853,8 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 			$scope.periodo = response;
 		});
 
-	/* Obtiene a los instructores */
-	$scope.validarCampos = function () {
+	/* Oculta campos en el formulario */
+	$scope.ocultarCampos = function () {
 		$("#personal").change(function () {
             if ($(this).val() == 1) {
 				$("#contrato").removeAttr("disabled");
@@ -3463,7 +3504,7 @@ app.controller('constanciasDCtrl', function ($scope, $http, $location, user, cur
 });
 
 /*	CONTROLADORES PARA EL USUARIO ADMINISTRADOR DEL SISTEMA */
-app.controller('usuariosACtrl', function ($scope, $http, $location, user, periodoService) {
+app.controller('usuariosACtrl', function ($scope, $http, $location, user, periodoService, usuario) {
 	$scope.user = user.getName();
 
 	/* consultar el periodo */
@@ -3481,6 +3522,164 @@ app.controller('usuariosACtrl', function ($scope, $http, $location, user, period
 			$scope.usuarios = response.data;
 		});
 	}
+
+	/* Peticion para obtener todos los departamentos */
+	$scope.getDepartamentos = function () {
+		$http({
+			method: 'GET',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getDepartamentos.php'
+		}).then(function successCallback(response) {
+			$scope.dptos = response.data;
+		});
+	}
+
+	/* Peticion para obtener todos los Roles */
+	$scope.getRoles = function () {
+		$http({
+			method: 'GET',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getRoles.php'
+		}).then(function successCallback(response) {
+			$scope.roles = response.data;
+		});
+	}
+
+	/* Insertar un Usuario */
+	$scope.agregarUsuario = function (datos) {
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/agregarUsuario.php',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			data: JSON.stringify(datos)
+		}).then(function successCallback(response) {
+			if (response.data.status == "ok") {
+				$scope.alert = {
+					titulo: '¡Agregado!',
+					tipo: 'success',
+					mensaje: 'Usuario agregado de forma exitosa.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$timeout(function () {
+					$location.path("inicioA/usuarios");
+				}, 2000);
+			} else {
+				$scope.alert = {
+					titulo: '¡Error!',
+					tipo: 'danger',
+					mensaje: 'Ocurrió un error al ingresar Usuario'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$timeout(function () {
+					$location.path("inicioA/usuarios");
+				}, 2000);
+			}
+		});
+	}
+
+	/* variable json para Usuario */
+	$scope.users = {};
+
+	/* Eliminación de un Usuario */
+	$scope.deleteUsuario = function (id, nombreUsuario) {
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/deleteUsuario.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idUsuario=' + id
+		}).then(function successCallback(response) {
+			if (response.data.status == "ok") {
+				$('#modal' + id).modal('hide');
+				$('.modal-backdrop').remove();
+
+				$scope.alert = {
+					titulo: '¡Eliminado!',
+					tipo: 'success',
+					mensaje: 'Usuario eliminado correctamente.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$scope.getUsuarios();
+			} else {
+				$scope.alert = {
+					titulo: '¡Error!',
+					tipo: 'danger',
+					mensaje: 'No se pudo eliminar al Usuario.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+			}
+		}, function errorCallback(response) {
+			return false;
+		});
+	}
+
+	/* Establecer ID del instructor */
+	$scope.usuarioID = function (id) {
+		usuario.setID(id);
+	}
+
+	/* Obtener datos del usuario para su actualización */
+	$scope.getUsuarioAct = function () {
+		/* Valida que el ID no esté vacío */
+		if (usuario.getID() != "") {
+			$http({
+				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getUsuarioAct.php',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idUsuario=' + usuario.getID()
+			}).then(function successCallback(response) {
+				$scope.actUsuario = response.data;
+				$scope.users = response.data;
+			});
+		}
+	}
+
+	/* Realizar la modificación de los datos del Usuario */
+	$scope.actualizarUsuario = function () {
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/actualizarUsuario.php',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			data: JSON.stringify($scope.actUsuario)
+		}).then(function successCallback(response) {
+			if (response.data.status != "ok") {
+				$scope.alert = {
+					titulo: '¡Error!',
+					tipo: 'danger',
+					mensaje: 'Ocurrió un error al agregar.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+			} else {
+				$scope.alert = {
+					titulo: '¡Actualizado!',
+					tipo: 'success',
+					mensaje: 'Actualización exitosa.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$timeout(function () {
+					$location.path("/inicioA/usuarios");
+				}, 2000);
+			}
+		});
+	}
+
 });
 
 /* Controlador para pruebas individuales */

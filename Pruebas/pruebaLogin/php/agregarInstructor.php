@@ -7,17 +7,17 @@ $inst = json_decode(file_get_contents("php://input"));
 // Conexión
 include_once('conexion.php');
 
-/* Validar si hay contrato */
+/* Validar si hay Contrato */
 if(empty($inst->contrato)){
     $inst->contrato = "Ninguno";
 }
 
-/* Validar si hay horas */
+/* Validar si hay Horas */
 if(empty($inst->horas)){
     $inst->horas = "Sin horas";
 }
 
-/* Validar si hay departamento */
+/* Validar si hay Departamento */
 if(empty($inst->departamento)){
     $inst->departamento = "No asignado";
 }
@@ -27,7 +27,7 @@ if(empty($inst->funcionAdministrativa)){
     $inst->funcionAdministrativa = "NO";
 }
 
-/* personal */
+/* Personal */
 if ($inst->personal == 1) {
     $personal = "Interno";
 }else {
@@ -54,6 +54,9 @@ $sql = "INSERT INTO usuario
             '$inst->contrato',
             upper('$inst->RFC'),
             upper('$inst->CURP'),
+            '$fechaNacimiento',
+            '$inst->telefono',
+            '$inst->correo',
             '$inst->horas',
             '$inst->nivel',
             '$inst->perfilDeseable',
