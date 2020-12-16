@@ -2984,8 +2984,12 @@ app.controller('instructoresJCtrl', function ($scope, $http, $location, user, pe
 	/* Obtiene a los instructores */
 	$scope.getInstructores = function () {
 		$http({
-			method: 'GET',
-			url: '/Residencia/Pruebas/pruebaLogin/php/getInstructores.php'
+			method: 'POST',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getInstructoresDepartamento.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idDepartamento=' + user.getIdDepartamento()
 		}).then(function successCallback(response) {
 			$scope.instructores = response.data;
 		});
@@ -3004,6 +3008,21 @@ app.controller('instructoresJCtrl', function ($scope, $http, $location, user, pe
 	}
 	/* Llamado a la funcion */
 	$scope.getDepartamentos();
+	
+	/* Obtener departamento del usuario para incluirlo en el 
+	select de los formularios */
+	$scope.getDepartamento = function () {
+		$http({
+			method: 'POST',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getDepartamento.php',
+			headers: {
+				'Content-type': 'application/x-www-form-urlencoded'
+			},
+			data: 'departamento=' + user.getIdDepartamento()
+		}).then(function successCallback(response) {
+			$scope.dpto = response.data;
+		});
+	}
 
 	/* Insertar un instructor */
 	$scope.agregarInstructor = function (datos) {
