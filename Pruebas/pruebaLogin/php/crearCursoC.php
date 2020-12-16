@@ -55,6 +55,17 @@ if(empty($curso->observaciones)){
     $curso->observaciones = "Ninguna";
 }
 
+/* Validar si hay materiales */
+if(empty($curso->materiales)){
+    $curso->materiales = "Ninguno";
+}
+
+/* Validar si hay fuentes */
+if(empty($curso->fuentes)){
+    $curso->fuentes = "Ninguna";
+}
+
+
 /* Validar si hay folio  */
 if(empty($curso->folio)){
     $curso->folio = "";
@@ -74,8 +85,15 @@ $sql = "INSERT INTO curso
             '$fechaFin',
             '$modalidad',
             '$curso->lugar',
-           ' $curso->destinatarios',
+            '$curso->destinatarios',
             '$curso->Objetivo',
+            '$curso->introduccion',
+            '$curso->justificacion',
+            '$curso->contenido',
+            '$curso->materiales',
+            '$curso->criterios',
+            '$curso->resultados',
+            '$curso->fuentes',
             '$curso->observaciones',
             'no',
             null,
