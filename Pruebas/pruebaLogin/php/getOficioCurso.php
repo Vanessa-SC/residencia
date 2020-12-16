@@ -119,7 +119,7 @@ $pdf->Ln(35);
 // Nombre del usuario que creó el curso y su departamento
 $pdf->Cell(strlen($curso['usuario'])*2.3, 0, utf8_decode($curso['usuario']), 0, 0,'L');
 $pdf->Ln(5);
-$pdf->Cell(105, 0, 'DEPARTAMENTO '.utf8_decode(strtoupper($curso['nombreDepartamento'])), 0, 0,'L');
+$pdf->Cell(105, 0, 'DEPARTAMENTO '.strtoupper(utf8_decode($curso['nombreDepartamento'])), 0, 0,'L');
 // Nombre del PDF
 $archivo = 'doc_' . time() . '.pdf';
 // Salida del documento

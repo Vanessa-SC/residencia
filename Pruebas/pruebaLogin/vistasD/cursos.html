@@ -9,68 +9,7 @@
             </div>
         </div>
     </div>
-    <div class="text-center">
-        <h4>Cursos disponibles</h4>
-    </div>
-    <div class="card shadow-lg mb-3">
-        <div class="card-body table-responsive">
-            <table class="table table-sm text-center table-bordered">
-                <thead class="bg-wine text-white">
-                    <tr>
-                        <td class="font-italic align-middle">Curso</td>
-                        <td class="font-italic align-middle">Periodo de realizaci&oacute;n</td>
-                        <td class="font-italic align-middle">M&aacute;s informaci&oacute;n</td>
-                        <td class="font-italic align-middle">Inscribirme</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="x in cursos">
-                        <td class="align-middle"> {{x.curso}} </td>
-                        <td class="align-middle"> {{x.fecha}} <br> {{x.horario}} </td>
-                        <td class="align-middle"><a href="#!/inicioD/cursos/informacion"
-                                ng-click=cursoID(x.idCurso)><button class="btn btn-light moreinfo_icon"
-                                    title="Ver más información"></button></a></td>
-                        <td class="align-middle">
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-light bg-white editar_icon" data-toggle="modal"
-                                data-target="#modal{{x.idCurso}}"></button>
-                            <!-- Modal -->
-                            <div class="modal fade" id="modal{{x.idCurso}}" tabindex="-1" role="dialog"
-                                aria-labelledby="Title" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            ¿Está seguro de que quiere inscribirse al curso: <br> "<span
-                                                class="font-italic">{{x.curso}}</span>"?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button class="btn btn-success" title="Aceptar"
-                                                ng-click="inscribirCurso(x.idCurso)" data-dismiss="modal"
-                                                data-backdrop="false">Aceptar</button>
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal"
-                                                data-backdrop="false">Cancelar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-                <tbody ng-show="cursos | isEmpty">
-                    <tr class="text-center">
-                        <td class="align-middle" colspan="4" class=" bg-light align-middle p-4 font-italic">
-                            <h5>No hay registros</h5>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    
     <div class="text-center">
         <h4>Cursos Inscritos</h4>
     </div>
@@ -125,6 +64,68 @@
                     </tr>
                 </tbody>
                 <tbody ng-show="misCursos | isEmpty">
+                    <tr class="text-center">
+                        <td class="align-middle" colspan="4" class=" bg-light align-middle p-4 font-italic">
+                            <h5>No hay registros</h5>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="text-center">
+        <h4>Cursos disponibles</h4>
+    </div>
+    <div class="card shadow-lg mb-3">
+        <div class="card-body table-responsive">
+            <table class="table table-sm text-center table-bordered">
+                <thead class="bg-wine text-white">
+                    <tr>
+                        <td class="font-italic align-middle">Curso</td>
+                        <td class="font-italic align-middle">Periodo de realizaci&oacute;n</td>
+                        <td class="font-italic align-middle">M&aacute;s informaci&oacute;n</td>
+                        <td class="font-italic align-middle">Inscribirme</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in cursos">
+                        <td class="align-middle"> {{x.curso}} </td>
+                        <td class="align-middle"> {{x.fecha}} <br> {{x.horario}} </td>
+                        <td class="align-middle"><a href="#!/inicioD/cursos/informacion"
+                                ng-click=cursoID(x.idCurso)><button class="btn btn-light moreinfo_icon"
+                                    title="Ver más información"></button></a></td>
+                        <td class="align-middle">
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-light bg-white editar_icon" data-toggle="modal"
+                                data-target="#modal{{x.idCurso}}"></button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="modal{{x.idCurso}}" tabindex="-1" role="dialog"
+                                aria-labelledby="Title" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ¿Está seguro de que quiere inscribirse al curso: <br> "<span
+                                                class="font-italic">{{x.curso}}</span>"?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-success" title="Aceptar"
+                                                ng-click="inscribirCurso(x.idCurso)" data-dismiss="modal"
+                                                data-backdrop="false">Aceptar</button>
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal"
+                                                data-backdrop="false">Cancelar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody ng-show="cursos | isEmpty">
                     <tr class="text-center">
                         <td class="align-middle" colspan="4" class=" bg-light align-middle p-4 font-italic">
                             <h5>No hay registros</h5>

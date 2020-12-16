@@ -14,26 +14,28 @@
         </div>
     </div>
     <div class="table-responsive">
-        <table class="table">
-            <tbody class="bg-white text-center table table-bordered mt-2 pt-2">
-                <tr class="bg-wine">
-                    <td class="font-italic text-white align-middle">Periodo de realizaci&oacute;n</td>
-                    <td class="font-italic text-white align-middle">Lugar</td>
-                    <td class="font-italic text-white align-middle">No. de horas por curso</td>
-                    <td class="font-italic text-white align-middle">Instructor (a)</td>
-                    <td class="font-italic text-white align-middle">Dirigido a:</td>
-                    <td class="font-italic text-white align-middle">Modalidad:</td>
-                    <td class="font-italic text-white align-middle">Departamento:</td>
-                </tr>
+        <table class="table-striped align-middle ">
+            <thead class="bg-wine text-white text-center">
                 <tr>
-                    <td class="align-middle">{{infoCurso.fecha}} <br>
+                    <td class="font-italic align-middle">Periodo de realizaci&oacute;n</td>
+                    <td class="font-italic align-middle">Lugar</td>
+                    <td class="font-italic align-middle">No. de horas por curso</td>
+                    <td class="font-italic align-middle">Instructor (a)</td>
+                    <td class="font-italic align-middle">Dirigido a:</td>
+                    <td class="font-italic align-middle">Modalidad</td>
+                    <td class="font-italic align-middle">Departamento</td>
+                </tr>
+            </thead>
+            <tbody class="text-center table table-bordered mt-2 pt-2">
+                <tr>
+                    <td class=" align-middle ">{{infoCurso.fecha}} <br>
                         {{infoCurso.horario}}</td>
-                    <td class="align-middle">{{infoCurso.lugar}}</td>
-                    <td class="align-middle">{{infoCurso.duracion}}</td>
-                    <td class="align-middle">{{infoCurso.maestro}}</td>
-                    <td class="align-middle">{{infoCurso.destinatarios}}</td>
-                    <td class="align-middle">{{infoCurso.modalidad}}</td>
-                    <td class="align-middle">{{infoCurso.nombreDepartamento}}</td>
+                    <td class=" align-middle ">{{infoCurso.lugar}}</td>
+                    <td class=" align-middle ">{{infoCurso.duracion}}</td>
+                    <td class=" align-middle ">{{infoCurso.maestro}}</td>
+                    <td class=" align-middle ">{{infoCurso.destinatarios}}</td>
+                    <td class=" align-middle ">{{infoCurso.modalidad}}</td>
+                    <td class=" align-middle ">{{infoCurso.nombreDepartamento}}</td>
                 </tr>
             </tbody>
         </table>

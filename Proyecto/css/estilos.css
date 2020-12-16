@@ -158,6 +158,10 @@ button.op {
   color: #6f193f;
 }
 
+.bg-black {
+  background-color: #000;
+}
+
 
 /* Tabla sin resultados */
 table > tbody:empty {
@@ -786,8 +790,8 @@ button.btn.btn-inv.no-btn {
     border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
-    background-color: #fff;
-    color: #000;
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     font-weight: bold;
     /* margin-bottom: 2em; */
     text-transform: uppercase;
