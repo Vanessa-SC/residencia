@@ -32,6 +32,26 @@ if ( $mes <= 6 ){
     $response = 'Agosto / Diciembre ';
 }
 
+/* Obtener nombre del jefe(a) de Desarrollo Académico */
+$sqlGetDes = "SELECT Jefe
+                FROM departamento
+                WHERE nombreDepartamento='Desarrollo Académico'";
+$res = mysqli_query($conn,$sqlGetDes);
+$des = mysqli_fetch_array ($res);
+
+/* Imprime el nombre del jefe(a) de Desarrollo Académico */
+$templateProcessor->setValue('nombreDes', $des['Jefe']); 
+
+/* Obtener nombre del jefe(a) de Subdirección Académica */
+$sqlGetSub = "SELECT Jefe
+                FROM departamento
+                WHERE nombreDepartamento='Subdirección Académica'";
+$resS = mysqli_query($conn,$sqlGetSub);
+$sub = mysqli_fetch_array ($resS);
+
+/* Imprime el nombre del jefe(a) de Desarrollo Académico */
+$templateProcessor->setValue('nombreSub', $sub['Jefe']); 
+
 // Consulta a la base de datos, para obtener el número de cursos del periodo actual
 $query = "SELECT count(*) idCurso 
             FROM curso  

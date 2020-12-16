@@ -60,7 +60,17 @@ if ($curso->modalidad == 1) {
 
 /* Validar si hay observaciones */
 if(empty($curso->observaciones)){
-    $curso->observaciones== "Ninguna";
+    $curso->observaciones = "Ninguna";
+}
+
+/* Validar si hay materiales */
+if(empty($curso->materiales)){
+    $curso->materiales = "Ninguno";
+}
+
+/* Validar si hay fuentes */
+if(empty($curso->fuentes)){
+    $curso->fuentes = "Ninguna";
 }
 
 /* Validar si hay folio  */
@@ -86,6 +96,13 @@ if(empty($curso->folio)){
         '$curso->lugar',
         '$curso->destinatarios',
         '$curso->Objetivo',
+        '$curso->introduccion',
+        '$curso->justificacion',
+        '$curso->contenido',
+        '$curso->materiales',
+        '$curso->criterios',
+        '$curso->resultados',
+        '$curso->fuentes',
         '$curso->observaciones',
         'no',
         null,
