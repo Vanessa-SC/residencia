@@ -4,26 +4,30 @@
 		<h4>Actualizar curso</h4>
 	</div>
 	<form>
-		<div class="input-group mb-4 mt-3">
+		<div class="input-group mb-4 mt-5">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="folio">Folio</label>
 			</div>
-			<input type="text" id="folio" class="form-control" ng-model="curso.Folio" ng-value="actCurso.Folio">
+			<input type="text" id="folio" class="form-control" ng-model="curso.Folio"
+				ng-value="actCurso.Folio">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="ClaveRegistro">Clave registro</label>
 			</div>
 			<input readonly type="text" id="ClaveRegistro" class="form-control" ng-model="curso.ClaveRegistro"
 				ng-value="actCurso.ClaveRegistro">
 		</div>
-		<div class="input-group mb-4  mt-4">
+
+		<div class="dropdown-divider mb-4 mt-4"></div>
+		<h5>Datos generales del curso</h5>
+
+		<div class="input-group mb-3 mt-4">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="nombreCurso">Nombre</label>
 			</div>
-			<textarea required type="text" id="nombreCurso" class="form-control" ng-model="curso.curso"
-				ng-value="actCurso.curso"></textarea>
+			<input required type="text" id="nombreCurso" class="form-control" ng-model="curso.curso"
+				ng-value="actCurso.curso">
 		</div>
-		<div class="dropdown-divider"></div>
-		<div class="input-group mb-4  mt-3">
+		<div class="input-group mb-3  mt-4">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="duracion">Duraci&oacute;n</label>
 			</div>
@@ -42,7 +46,7 @@
 			<input required type="time" id="horaFin" class="form-control" as-date ng-model="curso.horaFin"
 				ng-value="actCurso.horaFin">
 		</div>
-		<div class="input-group mb-4  mt-4">
+		<div class="input-group mt-4">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="fechaInicio">Fecha Inicio</label>
 			</div>
@@ -54,13 +58,14 @@
 			<input required type="date" id="fechaFin" class="form-control" as-date ng-model="curso.fechaFin"
 				ng-value="actCurso.fechaFin">
 		</div>
-		<div class="dropdown-divider"></div>
-		<div class="input-group mb-4  mt-3">
+
+		<div class="dropdown-divider mb-4 mt-4"></div>
+
+		<div class="input-group mb-3">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="modalidad">Modalidad</label>
 			</div>
-			<select required class="custom-select" id="modalidad" ng-model="curso.modalidad"
-				ng-value="actCurso.modalidad">
+			<select required class="custom-select" id="modalidad" ng-model="curso.modalidad" ng-value="actCurso.modalidad">
 				<option value="1">Presencial</option>
 				<option value="2">Virtual</option>
 				<option value="3">Semipresencial</option>
@@ -76,22 +81,7 @@
 			<input required type="text" id="destinatarios" class="form-control" ng-model="actCurso.destinatarios"
 				ng-value="actCurso.destinatarios">
 		</div>
-		<div class="input-group mb-4  mt-4">
-			<div class="input-group-prepend">
-				<label class="input-group-text" for="objetivo">Objetivo</label>
-			</div>
-			<textarea required type="text" id="objetivo" class="form-control" ng-value="actCurso.objetivo"
-				ng-model="actCurso.objetivo"></textarea>
-		</div>
-		<div class="input-group mb-4  mt-4">
-			<div class="input-group-prepend">
-				<label class="input-group-text" for="observaciones">Observaciones</label>
-			</div>
-			<textarea type="text" id="observaciones" class="form-control" ng-model="actCurso.observaciones"
-				ng-value="actCurso.observaciones"></textarea>
-		</div>
-		<div class="dropdown-divider"></div>
-		<div class="input-group mb-4  mt-3">
+		<div class="input-group mb-3  mt-4">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="departamento">Departamento</label>
 			</div>
@@ -106,7 +96,81 @@
 				<option ng-repeat="x in instructor" value="{{x.idInstructor}}"> {{x.nombre}} </option>
 			</select>
 		</div>
-		<div class="text-center mt-3 mb-4">
+
+		<div class="dropdown-divider mb-4 mt-4"></div>
+		<h5>Descripci&oacute;n del curso</h5>
+		
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="introduccion">Introducci&oacute;n</label>
+			</div>
+			<textarea required type="text" id="introduccion" class="form-control" ng-value="actCurso.introduccion"
+				ng-model="actCurso.introduccion"></textarea>
+		</div>
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="justificacion">Justificaci&oacute;n</label>
+			</div>
+			<textarea required type="text" id="justificacion" class="form-control" ng-value="actCurso.justificacion"
+				ng-model="actCurso.justificacion"></textarea>
+		</div>
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="objetivo">Objetivo</label>
+			</div>
+			<textarea required type="text" id="objetivo" class="form-control" ng-value="actCurso.objetivo"
+				ng-model="actCurso.objetivo"></textarea>
+		</div>
+
+		<div class="dropdown-divider mb-4 mt-4"></div>
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="contenido">Contenido Tem&aacute;tico</label>
+			</div>
+			<textarea required type="text" id="contenido" class="form-control" ng-value="actCurso.contenido"
+				ng-model="actCurso.contenido"></textarea>
+		</div>
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="materiales">Materiales Did&aacute;cticos</label>
+			</div>
+			<textarea required type="text" id="materiales" class="form-control" ng-value="actCurso.materiales"
+				ng-model="actCurso.materiales"></textarea>
+		</div>
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="criterios">Criterios de evaluaci&oacute;n</label>
+			</div>
+			<textarea required type="text" id="criterios" class="form-control" ng-value="actCurso.criterios"
+				ng-model="actCurso.criterios"></textarea>
+		</div>
+		
+		<div class="dropdown-divider mb-4 mt-4"></div>
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="resultados">Resultados</label>
+			</div>
+			<textarea required type="text" id="resultados" class="form-control" ng-value="actCurso.resultados"
+				ng-model="actCurso.resultados"></textarea>
+		</div>
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="fuentes">Fuentes de Informaci&oacute;n</label>
+			</div>
+			<textarea required type="text" id="fuentes" class="form-control" ng-value="actCurso.fuentes"
+				ng-model="actCurso.fuentes"></textarea>
+		</div>
+
+		<div class="dropdown-divider mt-4"></div>
+		<div class="input-group mb-4  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="observaciones">Observaciones</label>
+			</div>
+			<textarea type="text" id="observaciones" class="form-control" ng-model="actCurso.observaciones"
+				ng-value="actCurso.observaciones"></textarea>
+		</div>
+
+		<div class="text-center mt-5 mb-5">
 			<button class="btn bg-wine" ng-click="actualizarCurso(actCurso)">
 				<span class="ok2_icon"></span>Actualizar
 				<br>

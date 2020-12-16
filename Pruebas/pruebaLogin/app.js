@@ -1288,7 +1288,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 				if (response.data.status == "ok") {
 					/* Asigna datos de éxito a la alerta */
 					$scope.alert = {
-						titulo: 'Creado!',
+						titulo: '¡Creado!',
 						tipo: 'success',
 						mensaje: 'Curso creado de forma exitosa.'
 					};
@@ -1303,9 +1303,9 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 				} else {
 					/* Asigna datos de error a la alerta */
 					$scope.alert = {
-						titulo: 'Error!',
+						titulo: '¡Error!',
 						tipo: 'danger',
-						mensaje: 'Ocurrió un error al crear el curso'
+						mensaje: 'Ocurrió un error al crear el curso.'
 					};
 					/* muestra un toast */
 					$(document).ready(function () {
@@ -1345,9 +1345,9 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 			   correspondiente y redirige a la pantalla de inicio */
 			if (response.data.status != "error") {
 				$scope.alert = {
-					titulo: 'Error!',
+					titulo: '¡Error!',
 					tipo: 'danger',
-					mensaje: 'Ocurrió un error al actualizar el curso'
+					mensaje: 'Ocurrió un error al actualizar el curso.'
 				};
 				$(document).ready(function () {
 					$('#alerta').toast('show');
@@ -1355,7 +1355,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 			}
 			if (response.data.status == "ok") {
 				$scope.alert = {
-					titulo: 'Actualizado!',
+					titulo: '¡Actualizado!',
 					tipo: 'success',
 					mensaje: 'Actualización exitosa.'
 				};
@@ -1385,9 +1385,9 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 				$('#modal' + id).modal('hide');
 				$('.modal-backdrop').remove();
 				$scope.alert = {
-					titulo: 'Eliminado!',
+					titulo: '¡Eliminado!',
 					tipo: 'success',
-					mensaje: 'Curso eliminado correctamente'
+					mensaje: 'Curso eliminado correctamente.'
 				};
 				$(document).ready(function () {
 					$('#alerta').toast('show');
@@ -1397,7 +1397,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 				/* si la eliminación no tuvo exito muestra el 
 				toast correspondiente */
 				$scope.alert = {
-					titulo: 'Error!',
+					titulo: '¡Error!',
 					tipo: 'danger',
 					mensaje: 'No se pudo eliminar el curso.'
 				};
@@ -1434,9 +1434,9 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 				/* Muestra el toast, oculta la ventana modal,
 				   agregar un link para abrir el documento */
 				$scope.alert = {
-					titulo: 'Archivo subido!',
+					titulo: '¡Archivo subido!',
 					tipo: 'success',
-					mensaje: 'Archivo subido correctamente'
+					mensaje: 'Archivo subido correctamente.'
 				};
 				$(document).ready(function () {
 					$('#alerta').toast('show');
@@ -1551,7 +1551,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 			}).then(function successCallback(response) {
 				if (response.data.status == 'ok') {
 					$scope.alert = {
-						titulo: 'Ok!',
+						titulo: '¡Ok!',
 						tipo: 'success',
 						mensaje: 'La validación del documento aplicada.'
 					};
@@ -1563,7 +1563,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 					$scope.validacionDocumentos();
 				} else {
 					$scope.alert = {
-						titulo: 'Error!',
+						titulo: '¡Error!',
 						tipo: 'danger',
 						mensaje: 'La validación del documento no pudo ser aplicada.'
 					};
@@ -1593,7 +1593,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 					   que lo hagamos */
 					if (response.data.docs_status == 'validos' && $scope.infoCurso.validado == 'NO') {
 						$scope.alert = {
-							titulo: 'Atención!',
+							titulo: '¡Atención!',
 							tipo: 'secondary',
 							mensaje: 'Los documentos están validados. Ya puedes validar el curso.'
 						};
@@ -1638,7 +1638,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 				}).then(function successCallback(response) {
 					if (response.data.status == 'ok') {
 						$scope.alert = {
-							titulo: 'Actualizado!',
+							titulo: '¡Actualizado!',
 							tipo: 'success',
 							mensaje: 'La validación del curso ha sido aplicada.'
 						};
@@ -1807,7 +1807,7 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 			-No insertado: muestra alerta */
 			if (response.data.status == "ok") {
 				$scope.alert = {
-					titulo: 'Listo!',
+					titulo: '¡Listo!',
 					tipo: 'success',
 					mensaje: 'Constancia generada con éxito.'
 				};
@@ -1818,7 +1818,7 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 				$scope.constancia = {};
 			} else {
 				$scope.alert = {
-					titulo: 'Oops!',
+					titulo: '¡Error!',
 					tipo: 'danger',
 					mensaje: 'Ocurrió un error al generar la constancia.'
 				};
@@ -1910,7 +1910,7 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 		}).then(function successCallback(response) {
 			if (response.data.status == "ok") {
 				$scope.alert = {
-					titulo: 'Creado!',
+					titulo: '¡Creado!',
 					tipo: 'success',
 					mensaje: 'Instructor agregado de forma exitosa.'
 				};
@@ -1922,9 +1922,9 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 				}, 2000);
 			} else {
 				$scope.alert = {
-					titulo: 'Error!',
+					titulo: '¡Error!',
 					tipo: 'danger',
-					mensaje: 'Ocurrió un error al ingresar instructor'
+					mensaje: 'Ocurrió un error al ingresar instructor.'
 				};
 				$(document).ready(function () {
 					$('#alerta').toast('show');
@@ -1954,9 +1954,9 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 				$('.modal-backdrop').remove();
 
 				$scope.alert = {
-					titulo: 'Eliminado!',
+					titulo: '¡Eliminado!',
 					tipo: 'success',
-					mensaje: 'Instructor eliminado correctamente'
+					mensaje: 'Instructor eliminado correctamente.'
 				};
 				$(document).ready(function () {
 					$('#alerta').toast('show');
@@ -1964,7 +1964,7 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 				$scope.getInstructores();
 			} else {
 				$scope.alert = {
-					titulo: 'Error!',
+					titulo: '¡Error!',
 					tipo: 'danger',
 					mensaje: 'No se pudo eliminar al instructor.'
 				};
@@ -2012,9 +2012,9 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 		}).then(function successCallback(response) {
 			if (response.data.status != "ok") {
 				$scope.alert = {
-					titulo: 'Error!',
+					titulo: '¡Error!',
 					tipo: 'danger',
-					mensaje: 'Ocurrió un error al agregar'
+					mensaje: 'Ocurrió un error al agregar.'
 				};
 				$(document).ready(function () {
 					$('#alerta').toast('show');
@@ -2128,9 +2128,9 @@ app.controller('cursosICtrl', function ($scope, $http, $timeout, user, curso, pe
 		}).then(function successCallback(response) {
 			if (response.data.status == 'ok') {
 				$scope.alert = {
-					titulo: 'Archivo subido!',
+					titulo: '¡Archivo subido!',
 					tipo: 'success',
-					mensaje: 'Archivo subido correctamente'
+					mensaje: 'Archivo subido correctamente.'
 				};
 				$(document).ready(function () {
 					$('#alerta').toast('show');
@@ -2295,7 +2295,7 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 		} else {
 			/* Si falla sólo muestra la alerta */
 			$scope.alerta = {
-				titulo: 'Atención!',
+				titulo: '¡Atención!',
 				tipo: 'warning',
 				mensaje: 'No se ha podido registrar la asistencia.'
 			};
@@ -2567,7 +2567,7 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 				console.log(response.data);
 				if (response.data.status == "ok") {
 					$scope.alert = {
-						titulo: 'Creado!',
+						titulo: '¡Creado!',
 						tipo: 'success',
 						mensaje: 'Curso creado de forma exitosa.'
 					};
@@ -2579,9 +2579,9 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 					}, 2000);
 				} else {
 					$scope.alert = {
-						titulo: 'Error!',
+						titulo: '¡Error!',
 						tipo: 'danger',
-						mensaje: 'Ocurrió un error al crear el curso'
+						mensaje: 'Ocurrió un error al crear el curso.'
 					};
 					$(document).ready(function () {
 						$('#alerta').toast('show');
@@ -2590,7 +2590,7 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 			});
 		} else {
 			$scope.alert = {
-				titulo: 'Hey!',
+				titulo: '¡Atención!',
 				tipo: 'warning',
 				mensaje: 'Verifica que todos los campos estén llenos.'
 			};
@@ -2613,16 +2613,16 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 		}).then(function successCallback(response) {
 			if (response.data.status != "ok") {
 				$scope.alert = {
-					titulo: 'Error!',
+					titulo: '¡Error!',
 					tipo: 'danger',
-					mensaje: 'Ocurrió un error al crear el curso'
+					mensaje: 'Ocurrió un error al crear el curso.'
 				};
 				$(document).ready(function () {
 					$('#alerta').toast('show');
 				});
 			} else {
 				$scope.alert = {
-					titulo: 'Actualizado!',
+					titulo: '¡Actualizado!',
 					tipo: 'success',
 					mensaje: 'Actualización exitosa.'
 				};
@@ -2681,9 +2681,9 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 				$('.modal-backdrop').remove();
 
 				$scope.alert = {
-					titulo: 'Eliminado!',
+					titulo: '¡Eliminado!',
 					tipo: 'success',
-					mensaje: 'Curso eliminado correctamente'
+					mensaje: 'Curso eliminado correctamente.'
 				};
 				$(document).ready(function () {
 					$('#alerta').toast('show');
@@ -2691,7 +2691,7 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 				$scope.getCursos();
 			} else {
 				$scope.alert = {
-					titulo: 'Error!',
+					titulo: '¡Error!',
 					tipo: 'danger',
 					mensaje: 'No se pudo eliminar el curso.'
 				};
@@ -2751,7 +2751,7 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 				$scope.alert = {
 					titulo: 'Archivo subido!',
 					tipo: 'success',
-					mensaje: 'Archivo subido correctamente'
+					mensaje: 'Archivo subido correctamente.'
 				};
 				$(document).ready(function () {
 					$('#alerta').toast('show');
@@ -2840,7 +2840,7 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 			}).then(function successCallback(response) {
 				if (response.data.status == 'ok') {
 					$scope.alert = {
-						titulo: 'Ok!',
+						titulo: '¡Ok!',
 						tipo: 'success',
 						mensaje: 'La validación del documento aplicada.'
 					};
@@ -2852,7 +2852,7 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 					$scope.validacionDocumentos();
 				} else {
 					$scope.alert = {
-						titulo: 'Error!',
+						titulo: '¡Error!',
 						tipo: 'danger',
 						mensaje: 'La validación del documento no pudo ser aplicada.'
 					};
@@ -2882,7 +2882,7 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 					   que lo hagamos */
 					if (response.data.docs_status == 'validos' && $scope.infoCurso.validado == 'NO') {
 						$scope.alert = {
-							titulo: 'Atención!',
+							titulo: '¡Atención!',
 							tipo: 'secondary',
 							mensaje: 'Los documentos están validados. Ya puedes validar el curso.'
 						};
@@ -2927,7 +2927,7 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 				}).then(function successCallback(response) {
 					if (response.data.status == 'ok') {
 						$scope.alert = {
-							titulo: 'Actualizado!',
+							titulo: '¡Actualizado!',
 							tipo: 'success',
 							mensaje: 'La validación del curso ha sido aplicada.'
 						};
@@ -2984,8 +2984,12 @@ app.controller('instructoresJCtrl', function ($scope, $http, $location, user, pe
 	/* Obtiene a los instructores */
 	$scope.getInstructores = function () {
 		$http({
-			method: 'GET',
-			url: '/Residencia/Pruebas/pruebaLogin/php/getInstructores.php'
+			method: 'POST',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getInstructoresDepartamento.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idDepartamento=' + user.getIdDepartamento()
 		}).then(function successCallback(response) {
 			$scope.instructores = response.data;
 		});
@@ -3004,6 +3008,21 @@ app.controller('instructoresJCtrl', function ($scope, $http, $location, user, pe
 	}
 	/* Llamado a la funcion */
 	$scope.getDepartamentos();
+	
+	/* Obtener departamento del usuario para incluirlo en el 
+	select de los formularios */
+	$scope.getDepartamento = function () {
+		$http({
+			method: 'POST',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getDepartamento.php',
+			headers: {
+				'Content-type': 'application/x-www-form-urlencoded'
+			},
+			data: 'departamento=' + user.getIdDepartamento()
+		}).then(function successCallback(response) {
+			$scope.dpto = response.data;
+		});
+	}
 
 	/* Insertar un instructor */
 	$scope.agregarInstructor = function (datos) {
@@ -3017,7 +3036,7 @@ app.controller('instructoresJCtrl', function ($scope, $http, $location, user, pe
 		}).then(function successCallback(response) {
 			if (response.data.status == "ok") {
 				$scope.alert = {
-					titulo: 'Creado!',
+					titulo: '¡Creado!',
 					tipo: 'success',
 					mensaje: 'Instructor agregado de forma exitosa.'
 				};
@@ -3029,9 +3048,9 @@ app.controller('instructoresJCtrl', function ($scope, $http, $location, user, pe
 				}, 2000);
 			} else {
 				$scope.alert = {
-					titulo: 'Error!',
+					titulo: '¡Error!',
 					tipo: 'danger',
-					mensaje: 'Ocurrió un error al ingresar instructor'
+					mensaje: 'Ocurrió un error al agregar instructor.'
 				};
 				$(document).ready(function () {
 					$('#alerta').toast('show');
@@ -3061,9 +3080,9 @@ app.controller('instructoresJCtrl', function ($scope, $http, $location, user, pe
 				$('.modal-backdrop').remove();
 
 				$scope.alert = {
-					titulo: 'Eliminado!',
+					titulo: '¡Eliminado!',
 					tipo: 'success',
-					mensaje: 'Instructor eliminado correctamente'
+					mensaje: 'Instructor eliminado correctamente.'
 				};
 				$(document).ready(function () {
 					$('#alerta').toast('show');
@@ -3071,7 +3090,7 @@ app.controller('instructoresJCtrl', function ($scope, $http, $location, user, pe
 				$scope.getInstructores();
 			} else {
 				$scope.alert = {
-					titulo: 'Error!',
+					titulo: '¡Error!',
 					tipo: 'danger',
 					mensaje: 'No se pudo eliminar al instructor.'
 				};
@@ -3119,9 +3138,9 @@ app.controller('instructoresJCtrl', function ($scope, $http, $location, user, pe
 		}).then(function successCallback(response) {
 			if (response.data.status != "ok") {
 				$scope.alert = {
-					titulo: 'Error!',
+					titulo: '¡Error!',
 					tipo: 'danger',
-					mensaje: 'Ocurrió un error al agregar'
+					mensaje: 'Ocurrió un error al agregar.'
 				};
 				$(document).ready(function () {
 					$('#alerta').toast('show');
@@ -3189,7 +3208,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 				$scope.alerta = {
 					titulo: '¡Has salido!',
 					tipo: 'success',
-					mensaje: 'Has salido del curso correctamente'
+					mensaje: 'Has salido del curso correctamente.'
 				};
 				$(document).ready(function () {
 					$('#alerta').toast('show');
@@ -3198,7 +3217,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 				$scope.getMisCursos();
 			} else {
 				$scope.alerta = {
-					titulo: 'Error!',
+					titulo: '¡Error!',
 					tipo: 'danger',
 					mensaje: 'No se pudo salir del curso.'
 				};
@@ -3230,7 +3249,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 					$scope.alert = {
 						titulo: '¡Estás inscrito!',
 						tipo: 'success',
-						mensaje: 'Te has inscrito al curso correctamente'
+						mensaje: 'Te has inscrito al curso correctamente.'
 					};
 					$(document).ready(function () {
 						$('#alerta').toast('show');
@@ -3248,7 +3267,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 					});
 				} else {
 					$scope.alert = {
-						titulo: 'Error!',
+						titulo: '¡Error!',
 						tipo: 'danger',
 						mensaje: 'No se pudo inscribir del curso.'
 					};
@@ -3420,7 +3439,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 			});
 		} else {
 			$scope.alerta = {
-				titulo: 'Atención!',
+				titulo: '¡Atención!',
 				tipo: 'warning',
 				mensaje: 'No ha respondido todas las preguntas.'
 			};
@@ -3569,7 +3588,7 @@ app.controller('usuariosACtrl', function ($scope, $http, $location, user, period
 				$scope.alert = {
 					titulo: '¡Error!',
 					tipo: 'danger',
-					mensaje: 'Ocurrió un error al ingresar Usuario'
+					mensaje: 'Ocurrió un error al ingresar Usuario.'
 				};
 				$(document).ready(function () {
 					$('#alerta').toast('show');

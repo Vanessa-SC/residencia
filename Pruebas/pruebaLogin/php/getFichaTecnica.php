@@ -29,6 +29,13 @@ $query = $conn->query("SELECT
             concat_ws(' ',instructor.nombre,instructor.apellidoPaterno,instructor.apellidomaterno) as nombre,
             curso.nombreCurso as curso, 
             curso.objetivo, 
+            curso.introduccion,
+            curso.justificacion,
+            curso.contenido,
+            curso.materiales,
+            curso.criterios,
+            curso.resultados,
+            curso.fuentes,
             curso.modalidad,
             concat_ws(' - ',curso.horaInicio,curso.horaFin) as horario, 
             curso.lugar,
@@ -67,6 +74,13 @@ if($query->num_rows > 0) {
         $templateProcessor->setValue('objetivo', $row['objetivo']);
         $templateProcessor->setValue('duracion', $row['duracion']);
         $templateProcessor->setValue('nombre', $row['nombre']);
+        $templateProcessor->setValue('introduccion', $row['introduccion']);
+        $templateProcessor->setValue('justificacion', $row['justificacion']);
+        $templateProcessor->setValue('contenido', $row['contenido']);
+        $templateProcessor->setValue('materiales', $row['materiales']);
+        $templateProcessor->setValue('criterios', $row['criterios']);
+        $templateProcessor->setValue('resultados', $row['resultados']);
+        $templateProcessor->setValue('fuentes', $row['fuentes']);
         $i++;
     }
 }
