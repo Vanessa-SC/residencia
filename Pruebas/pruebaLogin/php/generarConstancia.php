@@ -29,7 +29,6 @@ if ($datos->rol == 4) {
 }
 
 /* Creación del documento PDF */
-/* Creación del documento PDF */
 
 // documento en 'landscape' (orientacion horizontal)
 $pdf = new FPDF('P', 'mm', 'letter');
