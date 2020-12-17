@@ -126,13 +126,42 @@ if ( $mes <= 6 ){
 }
 
 
-$sqlGetSub = $conn->query("SELECT Jefe
-                FROM departamento
-                WHERE nombreDepartamento='Subdirección Académica'");
-$res = mysqli_query($conn,$sqlGetSub);
-$sub = mysqli_fetch_array ($res);
+$id = 1;
+
+/* Consulta SQL */
+$lunes = "SELECT STR_TO_DATE(CONCAT(YEARWEEK(NOW(), 1),'Monday'), '%x%v %W');
+";
+$res = mysqli_query($conn,$lunes);
+$l = mysqli_fetch_array ($res);
+
+$sql = "SELECT usuario.nombre, 
+DATE_FORMAT(asistencia.fecha,'%d/%m') as fecha
+FROM  asistencia
+INNER JOIN usuario
+ON usuario.idUsuario = asistencia.Usuario_idUsuario
+WHERE asistencia.Curso_idCurso = 1
+AND asistencia.fecha = $l";
+
+/* Ejecución de la consulta */
+$result = $conn->query($sql) or die($conn->error . __LINE__);
+$curso = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+/* Imprimir respuesta */
+echo json_encode($curso);
 
 /* 
+
+$sql = "SELECT usuario.nombre, CONCAT(ELT(WEEKDAY(asistencia.fecha)+1, 'L', 'M', 'M', 'J', 'V')) AS DIA_SEMANA, 
+DATE_FORMAT(asistencia.fecha,'%d/%m') as fecha
+FROM  asistencia
+INNER JOIN usuario
+ON usuario.idUsuario = asistencia.Usuario_idUsuario
+WHERE asistencia.Curso_idCurso = 1
+
+SELECT * FROM asistencia WHERE fecha > DATE_SUB(NOW(), INTERVAL 1 WEEK) ORDER BY Usuario_idUsuario DESC
+
+
+
 AND YEAR(curso.periodo) = $response
 SELECT * FROM curso WHERE periodo LIKE '$response%';
 
