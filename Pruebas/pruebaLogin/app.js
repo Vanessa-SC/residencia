@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute','angular.filter']);
+var app = angular.module('myApp', ['ngRoute', 'angular.filter']);
 
 /* Configuración de todas las rutas */
 app.config(function ($routeProvider, $locationProvider) {
@@ -454,7 +454,7 @@ app.config(function ($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistasJ/encuesta.html',
 			controller: 'cursosJCtrl'
-			
+
 		}).when('/inicioJ/instructores', {
 			resolve: {
 				check: function ($location, user) {
@@ -489,7 +489,7 @@ app.config(function ($routeProvider, $locationProvider) {
 			controller: 'instructoresJCtrl'
 
 		})
-		
+
 		/*  RUTAS PARA EL USUARIO ADMINISTRADOR DEL SISTEMA */
 		.when('/inicioA', {
 			resolve: {
@@ -514,7 +514,7 @@ app.config(function ($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistasA/agregar-usuario.html',
 			controller: 'usuariosACtrl'
-		
+
 		}).when('/inicioA/usuarios/actualizarUsuario', {
 			resolve: {
 				check: function ($location, user) {
@@ -525,7 +525,7 @@ app.config(function ($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistasA/actualizar-usuario.html',
 			controller: 'usuariosACtrl'
-		
+
 		}).otherwise({
 			templateUrl: '404.html'
 		});
@@ -1744,6 +1744,12 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 			data: 'idCurso=' + curso.idCurso
 		}).then(function successCallback(response) {
 			$scope.participantesCurso = response.data;
+			// adición de la opción "todos los participantes"
+			$scope.participantesCurso.push({
+				'idUsuario': '0',
+				'nombre': 'Todos los participantes aprobados'
+			});
+			$scope.participantesList = response.data;
 		});
 	}
 
@@ -1782,41 +1788,80 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 
 	/* Creación de una constancia */
 	$scope.crearConstancia = function () {
-		/* se guardan los datos en un json */
-		var datos = {
-			'folio': $scope.constancia.folio,
-			'participante': $scope.constancia.participante.nombre,
-			'idUsuario': $scope.constancia.participante.idUsuario,
-			'rol': $scope.constancia.participante.rol,
-			'curso': $scope.constancia.curso.curso,
-			'idCurso': $scope.constancia.curso.idCurso,
-			'fecha': $scope.constancia.curso.fecha,
-			'duracion': $scope.constancia.curso.duracion
-		}
-		/* Manda el json  */
-		$http({
-			method: 'POST',
-			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/generarConstancia.php',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			data: JSON.stringify(datos)
-		}).then(function successCallback(response) {
-			/* Valida el éxito de la inserción
-			-Insertado: muestra alerta, vacía formulario y recarga listado de constancias
-			-No insertado: muestra alerta */
-			if (response.data.status == "ok") {
-				$scope.alert = {
-					titulo: '¡Listo!',
-					tipo: 'success',
-					mensaje: 'Constancia generada con éxito.'
-				};
-				$(document).ready(function () {
-					$('#alerta').toast('show');
-				});
-				$scope.getConstanciasPeriodoActual();
-				$scope.constancia = {};
-			} else {
+		if ($scope.constancia.participante.nombre != "Todos los participantes aprobados") {
+			/* se guardan los datos en un json */
+			var datos = {
+				'folio': $scope.constancia.folio,
+				'participante': $scope.constancia.participante.nombre,
+				'idUsuario': $scope.constancia.participante.idUsuario,
+				'rol': $scope.constancia.participante.rol,
+				'curso': $scope.constancia.curso.curso,
+				'idCurso': $scope.constancia.curso.idCurso,
+				'fecha': $scope.constancia.curso.fecha,
+				'duracion': $scope.constancia.curso.duracion
+			}
+			/* Manda el json  */
+			$http({
+				method: 'POST',
+				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/generarConstancia.php',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				data: JSON.stringify(datos)
+			}).then(function successCallback(response) {
+				/* Valida el éxito de la inserción
+				-Insertado: muestra alerta, vacía formulario y recarga listado de constancias
+				-No insertado: muestra alerta */
+				if (response.data.status == "ok") {
+					$scope.alert = {
+						titulo: '¡Listo!',
+						tipo: 'success',
+						mensaje: 'Constancia generada con éxito.'
+					};
+					$(document).ready(function () {
+						$('#alerta').toast('show');
+					});
+					$scope.getConstanciasPeriodoActual();
+					$scope.constancia = {};
+				} else {
+					$scope.alert = {
+						titulo: '¡Error!',
+						tipo: 'danger',
+						mensaje: 'Ocurrió un error al generar la constancia.'
+					};
+					$(document).ready(function () {
+						$('#alerta').toast('show');
+					});
+				}
+			});
+		} else {
+			var datos = {
+				'folio': $scope.constancia.folio,
+				'idUsuario': $scope.constancia.participante.idUsuario,
+				'curso': $scope.constancia.curso.curso,
+				'idCurso': $scope.constancia.curso.idCurso
+			}
+			$http({
+				method: 'POST',
+				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/generarConstanciasCurso.php',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				data: JSON.stringify(datos)
+			}).then(function successCallback(response) {
+				if (response.data.status == "ok") {
+					$scope.alert = {
+						titulo: '¡Listo!',
+						tipo: 'success',
+						mensaje: 'Constancias generadas con éxito.'
+					};
+					$(document).ready(function () {
+						$('#alerta').toast('show');
+					});
+					$scope.getConstanciasPeriodoActual();
+					$scope.constancia = [];
+				}
+			}, function errorCallback(response){
 				$scope.alert = {
 					titulo: '¡Error!',
 					tipo: 'danger',
@@ -1825,8 +1870,8 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 				$(document).ready(function () {
 					$('#alerta').toast('show');
 				});
-			}
-		});
+			});
+		}
 	}
 
 	/* Datos que serán usados en la vista */
@@ -1856,7 +1901,7 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 	/* Oculta campos en el formulario */
 	$scope.ocultarCampos = function () {
 		$("#personal").change(function () {
-            if ($(this).val() == 1) {
+			if ($(this).val() == 1) {
 				$("#contrato").removeAttr("disabled");
 				$("#contrato").focus();
 				$("#horas").removeAttr("disabled");
@@ -1864,17 +1909,17 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 				$("#departamento").removeAttr("disabled");
 				$("#departamento").focus();
 				$("#funcionAdministrativa").removeAttr("disabled");
-                $("#funcionAdministrativa").focus();
-            } else {
+				$("#funcionAdministrativa").focus();
+			} else {
 				$("#contrato").attr("disabled", "disabled");
 				$("#horas").attr("disabled", "disabled");
 				$("#departamento").attr("disabled", "disabled");
 				$("#funcionAdministrativa").attr("disabled", "disabled");
-            }
-        });
+			}
+		});
 	}
-	
-		/* Obtiene a los instructores */
+
+	/* Obtiene a los instructores */
 	$scope.getInstructores = function () {
 		$http({
 			method: 'GET',
@@ -3008,7 +3053,7 @@ app.controller('instructoresJCtrl', function ($scope, $http, $location, user, pe
 	}
 	/* Llamado a la funcion */
 	$scope.getDepartamentos();
-	
+
 	/* Obtener departamento del usuario para incluirlo en el 
 	select de los formularios */
 	$scope.getDepartamento = function () {
@@ -3316,14 +3361,16 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 		}
 	}
 
-	$scope.getAsistenciaCurso = function(){
-		if(curso.getID != undefined && user.getIdUsuario() != undefined){
+	$scope.getAsistenciaCurso = function () {
+		if (curso.getID != undefined && user.getIdUsuario() != undefined) {
 			$http({
 				method: 'POST',
 				url: '/Residencia/Pruebas/pruebaLogin/php/getAsistenciaUsuarioCurso.php',
-				headers: { 'Content-type':'application/x-www-form-urlencoded'},
-				data: 'idc='+curso.getID()+'&idu='+user.getIdUsuario()
-			}).then(function successCallback(response){
+				headers: {
+					'Content-type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idc=' + curso.getID() + '&idu=' + user.getIdUsuario()
+			}).then(function successCallback(response) {
 				console.log(response.data);
 				$scope.asistencia = response.data;
 			});
@@ -3461,7 +3508,7 @@ app.controller('constanciasDCtrl', function ($scope, $http, $location, user, cur
 	$scope.periodo = periodoService.getPeriodo()
 		.then(function (response) {
 			$scope.periodo = response;
-	});
+		});
 
 	/* Obtener todas las constancias del Docente */
 	$scope.getConstancias = function () {
