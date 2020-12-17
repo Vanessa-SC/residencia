@@ -55,7 +55,7 @@ $pdf->SetFont('Montserrat-medium', '', 14);
 $pdf->Ln(90);
 
 $pdf->SetFont('Montserrati', 'I', 14);
-$pdf->MultiCell(0, 7, utf8_decode(mb_strtoupper('por su valiosa participación en el curso "'.$datos->curso.'"','utf-8')) , 0, 'C', false);
+$pdf->MultiCell(0, 7, utf8_decode(mb_strtoupper('por su valiosa participación en el curso '.$datos->curso,'utf-8')) , 0, 'C', false);
 $pdf->SetFont('Montserrati', 'I', 11);
 $pdf->Ln(10);
 $pdf->MultiCell(0, 0, 'Victoria de Durango, Dgo. a ' . $actual, 0, 'C', false);
