@@ -536,6 +536,50 @@ app.config(function ($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistasA/actualizar-usuario.html',
 			controller: 'usuariosACtrl'
+		
+		}).when('/inicioA/instructores', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 5) {
+						$location.path(user.getPath());
+					}
+				},
+			},
+			templateUrl: './vistasA/instructores.html',
+			controller: 'instructoresACtrl'
+
+		}).when('/inicioA/instructores/agregarInstructor', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 5) {
+						$location.path(user.getPath());
+					}
+				},
+			},
+			templateUrl: './vistasA/agregar-instructor.html',
+			controller: 'instructoresACtrl'
+
+		}).when('/inicioA/instructores/actualizarInstructor', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 5) {
+						$location.path(user.getPath());
+					}
+				},
+			},
+			templateUrl: './vistasA/actualizar-instructor.html',
+			controller: 'instructoresACtrl'
+
+		}).when('/inicioA/departamentos', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 5) {
+						$location.path(user.getPath());
+					}
+				},
+			},
+			templateUrl: './vistasA/departamentos.html',
+			controller: 'departamentosACtrl'
 
 		}).otherwise({
 			templateUrl: '404.html'
@@ -3816,6 +3860,373 @@ app.controller('usuariosACtrl', function ($scope, $http, $location, user, period
 			}
 		});
 	}
+
+});
+
+app.controller('instructoresACtrl', function ($scope, $http, $location, user, periodoService, instructor, $timeout) {
+
+	$scope.user = user.getName();
+
+	$scope.periodo = periodoService.getPeriodo()
+		.then(function (response) {
+			$scope.periodo = response;
+		});
+
+	/* Oculta campos en el formulario */
+	$scope.ocultarCampos = function () {
+		$("#personal").change(function () {
+			if ($(this).val() == 1) {
+				$("#contrato").removeAttr("disabled");
+				$("#contrato").focus();
+				$("#horas").removeAttr("disabled");
+				$("#horas").focus();
+				$("#departamento").removeAttr("disabled");
+				$("#departamento").focus();
+				$("#funcionAdministrativa").removeAttr("disabled");
+				$("#funcionAdministrativa").focus();
+			} else {
+				$("#contrato").attr("disabled", "disabled");
+				$("#horas").attr("disabled", "disabled");
+				$("#departamento").attr("disabled", "disabled");
+				$("#funcionAdministrativa").attr("disabled", "disabled");
+			}
+		});
+	}
+
+	/* Obtiene a los instructores */
+	$scope.getInstructores = function () {
+		$http({
+			method: 'GET',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getInstructores.php'
+		}).then(function successCallback(response) {
+			$scope.instructores = response.data;
+		});
+	}
+	/* Llamado a la funcion */
+	$scope.getInstructores();
+
+	/* Obtiene listado de departamentos */
+	$scope.getDepartamentos = function () {
+		$http({
+			method: 'GET',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getDepartamentos.php'
+		}).then(function successCallback(response) {
+			$scope.dptos = response.data;
+		});
+	}
+	/* Llamado a la funcion */
+	$scope.getDepartamentos();
+
+	/* Insertar un instructor */
+	$scope.agregarInstructor = function (datos) {
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/agregarInstructor.php',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			data: JSON.stringify(datos)
+		}).then(function successCallback(response) {
+			if (response.data.status == "ok") {
+				$scope.alert = {
+					titulo: '¡Creado!',
+					tipo: 'success',
+					mensaje: 'Instructor agregado de forma exitosa.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$timeout(function () {
+					$location.path("inicioC/instructores");
+				}, 2000);
+			} else {
+				$scope.alert = {
+					titulo: '¡Error!',
+					tipo: 'danger',
+					mensaje: 'Ocurrió un error al ingresar instructor.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$timeout(function () {
+					$location.path("inicioC/instructores");
+				}, 2000);
+			}
+		});
+	}
+
+	/* variable json para instructor */
+	$scope.inst = {};
+
+	/* Eliminación de un instructor */
+	$scope.deleteInstructor = function (id, nombreInstructor) {
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/deleteInstructor.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idInstructor=' + id
+		}).then(function successCallback(response) {
+			if (response.data.status == "ok") {
+				$('#modal' + id).modal('hide');
+				$('.modal-backdrop').remove();
+
+				$scope.alert = {
+					titulo: '¡Eliminado!',
+					tipo: 'success',
+					mensaje: 'Instructor eliminado correctamente.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$scope.getInstructores();
+			} else {
+				$scope.alert = {
+					titulo: '¡Error!',
+					tipo: 'danger',
+					mensaje: 'No se pudo eliminar al instructor.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+			}
+		}, function errorCallback(response) {
+			return false;
+		});
+	}
+
+	/* Establecer ID del instructor */
+	$scope.instructorID = function (id) {
+		instructor.setID(id);
+	}
+
+	/* Obtener datos del instructor para su actualización */
+	$scope.getInstructorAct = function () {
+		/* Valida que el ID no esté vacío */
+		if (instructor.getID() != "") {
+			$http({
+				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getInstructorAct.php',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idInstructor=' + instructor.getID()
+			}).then(function successCallback(response) {
+				$scope.actInstructor = response.data;
+				$scope.instructor = response.data;
+			});
+		}
+	}
+
+	/* Realizar la modificación de los datos del instructor */
+	$scope.actualizarInstructor = function () {
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/actualizarInstructor.php',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			data: JSON.stringify($scope.actInstructor)
+		}).then(function successCallback(response) {
+			if (response.data.status != "ok") {
+				$scope.alert = {
+					titulo: '¡Error!',
+					tipo: 'danger',
+					mensaje: 'Ocurrió un error al agregar.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+			} else {
+				$scope.alert = {
+					titulo: '¡Actualizado!',
+					tipo: 'success',
+					mensaje: 'Actualización exitosa.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$timeout(function () {
+					$location.path("/inicioC/instructores");
+				}, 2000);
+			}
+		});
+	}
+
+
+});
+
+app.controller('departamentosACtrl', function ($scope, $http, $location, user, periodoService, instructor, $timeout) {
+
+	$scope.user = user.getName();
+
+	$scope.periodo = periodoService.getPeriodo()
+		.then(function (response) {
+			$scope.periodo = response;
+		});
+
+	/* Peticion para obtener todos los Usuarios */
+	$scope.getUsuarios = function () {
+		$http({
+			method: 'GET',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getUsuariosDis.php'
+		}).then(function successCallback(response) {
+			$scope.usuarios = response.data;
+		});
+	}
+	/* Llamado a la funcion */
+	$scope.getUsuarios();
+
+	/* Obtiene listado de departamentos */
+	$scope.getDepartamentos = function () {
+		$http({
+			method: 'GET',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getDepartamentos.php'
+		}).then(function successCallback(response) {
+			$scope.dptos = response.data;
+		});
+	}
+	/* Llamado a la funcion */
+	$scope.getDepartamentos();
+
+	/* Insertar un Departamento */
+	$scope.agregarDepartamento = function (datos) {
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/agregarDepartamento.php',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			data: JSON.stringify(datos)
+		}).then(function successCallback(response) {
+			if (response.data.status == "ok") {
+				$scope.alert = {
+					titulo: '¡Creado!',
+					tipo: 'success',
+					mensaje: 'Departamento agregado de forma exitosa.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$timeout(function () {
+					$location.path("inicioA/departamentos");
+				}, 2000);
+			} else {
+				$scope.alert = {
+					titulo: '¡Error!',
+					tipo: 'danger',
+					mensaje: 'Ocurrió un error al ingresar Departamento.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$timeout(function () {
+					$location.path("inicioA/departamentos");
+				}, 2000);
+			}
+		});
+	}
+
+	/* variable json para Departamento */
+	$scope.dpto = {};
+
+	/* Eliminación de un Departamento */
+	$scope.deleteDepartamento = function (id, nombreDepartamento) {
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/deleteDepartamento.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idDepartamento=' + id
+		}).then(function successCallback(response) {
+			if (response.data.status == "ok") {
+				$('#modal' + id).modal('hide');
+				$('.modal-backdrop').remove();
+
+				$scope.alert = {
+					titulo: '¡Eliminado!',
+					tipo: 'success',
+					mensaje: 'Departamento eliminado correctamente.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$scope.getDepartamentos();
+			} else {
+				$scope.alert = {
+					titulo: '¡Error!',
+					tipo: 'danger',
+					mensaje: 'No se pudo eliminar el Departamento.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+			}
+		}, function errorCallback(response) {
+			return false;
+		});
+	}
+
+	/* Establecer ID del instructor */
+	$scope.instructorID = function (id) {
+		instructor.setID(id);
+	}
+
+	/* Obtener datos del instructor para su actualización */
+	$scope.getInstructorAct = function () {
+		/* Valida que el ID no esté vacío */
+		if (instructor.getID() != "") {
+			$http({
+				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getInstructorAct.php',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idInstructor=' + instructor.getID()
+			}).then(function successCallback(response) {
+				$scope.actInstructor = response.data;
+				$scope.instructor = response.data;
+			});
+		}
+	}
+
+	/* Realizar la modificación de los datos del instructor */
+	$scope.actualizarInstructor = function () {
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/actualizarInstructor.php',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			data: JSON.stringify($scope.actInstructor)
+		}).then(function successCallback(response) {
+			if (response.data.status != "ok") {
+				$scope.alert = {
+					titulo: '¡Error!',
+					tipo: 'danger',
+					mensaje: 'Ocurrió un error al agregar.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+			} else {
+				$scope.alert = {
+					titulo: '¡Actualizado!',
+					tipo: 'success',
+					mensaje: 'Actualización exitosa.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$timeout(function () {
+					$location.path("/inicioC/instructores");
+				}, 2000);
+			}
+		});
+	}
+
 
 });
 

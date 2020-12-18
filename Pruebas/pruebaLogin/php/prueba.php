@@ -127,20 +127,18 @@ if ( $mes <= 6 ){
 
 
 $id = 1;
+//2 lunes, 3 martes, 4 Miercoles, 5 jueves, 6 viernes
 
-/* Consulta SQL */
-$lunes = "SELECT STR_TO_DATE(CONCAT(YEARWEEK(NOW(), 1),'Monday'), '%x%v %W');
-";
-$res = mysqli_query($conn,$lunes);
-$l = mysqli_fetch_array ($res);
-
-$sql = "SELECT usuario.nombre, 
-DATE_FORMAT(asistencia.fecha,'%d/%m') as fecha
-FROM  asistencia
+$sql = "SELECT 
+concat_ws(' ',usuario.apellidoPaterno,usuario.apellidoMaterno,usuario.nombre) AS nombre,
+DATE_FORMAT(asistencia.fecha,'%d/%m') as fecha 
+FROM asistencia 
 INNER JOIN usuario
 ON usuario.idUsuario = asistencia.Usuario_idUsuario
 WHERE asistencia.Curso_idCurso = 1
-AND asistencia.fecha = $l";
+AND DAYOFWEEK(fecha) = 5
+AND fecha > DATE_SUB(NOW(), INTERVAL 1 WEEK)
+";
 
 /* Ejecución de la consulta */
 $result = $conn->query($sql) or die($conn->error . __LINE__);
