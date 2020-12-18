@@ -4,7 +4,7 @@
 
 		<div class="input-group mb-3 mt-4 col-sm-12">
 			<div class="input-group-prepend">
-				<label class="input-group-text" for="usuario">usuario</label>
+				<label class="input-group-text" for="usuario">Jefe de Departamento</label>
 			</div>
 			<select required class="custom-select" id="usuario" ng-model="dpto.usuario">
 				<option ng-repeat="x in usuarios" value="{{x.nombre}}"> {{x.nombre}} </option>
@@ -12,7 +12,7 @@
 		</div>
 		<div class="input-group mb-3 mt-4 col-sm-12">
 			<div class="input-group-prepend">
-				<label class="input-group-text" for="nombreDpto">Nombre</label>
+				<label class="input-group-text" for="nombreDpto">Nombre Departamento</label>
 			</div>
 			<input required type="text" id="nombreDpto" class="form-control" ng-model="dpto.nombreDpto">
 		</div>
