@@ -15,6 +15,9 @@ $idc = $data->idCurso;
 $folio = $data->folio;
 
 /* Obtener fecha actual en español */
+
+date_default_timezone_set('America/Mexico_City');
+
 $bMeses = array("void", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
 $bDias = array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
 $fecha = getdate();
@@ -50,25 +53,25 @@ foreach($participantes as list($id,$nombre)){
     // Agregar página
     $pdf->AddPage();
     // Background
-    $pdf->Image('C:\xampp\htdocs\Residencia\Pruebas\pruebaLogin\FPDF\CONSTANCIA.jpg', 0, 0, 220);
-    $pdf->Ln(50);
+    $pdf->Image('C:\xampp\htdocs\Residencia\Pruebas\pruebaLogin\FPDF\CONSTANCIA.jpg', 3, 0, 210);
+    $pdf->Ln(43);
     // Tipografía
     $pdf->AddFont('Montserrat','','montserrat.php');
     $pdf->AddFont('Montserrat','I','montserrati.php');
     $pdf->AddFont('Montserrat','B','montserratb.php');
-    $pdf->AddFont('Montserrat-black','B','Montserrat-Black.php');
+    $pdf->AddFont('Montserrat-black','','Montserrat-Black.php');
     $pdf->AddFont('Montserrat-medium','','Montserrat-Medium.php');
 
-    $pdf->SetFont('Montserrat-black','B',18);
+    $pdf->SetFont('Montserrat-black','',18);
 
     /* Nombre del participante */
     $pdf->Cell(200, 160, utf8_decode( $nombre ), 0, 0, 'C');
     $pdf->SetFont('Montserrat-medium', '', 14);
     $pdf->Ln(90);
 
-    $pdf->SetFont('Montserrat', 'I', 14);
+    $pdf->SetFont('Montserrat-medium', '', 14);
     $pdf->MultiCell(0, 7, utf8_decode(mb_strtoupper('por su valiosa participación en el curso '.$curso,'utf-8')) , 0, 'C', false);
-    $pdf->SetFont('Montserrat', 'I', 11);
+    $pdf->SetFont('Montserrat-medium', '', 11);
     $pdf->Ln(10);
     $pdf->MultiCell(0, 0, 'Victoria de Durango, Dgo. a ' . $hoy, 0, 'C', false);
 
@@ -84,8 +87,57 @@ foreach($participantes as list($id,$nombre)){
     mysqli_query($conn, $sql);
 }
 
-$response['status'] = 'ok';
+/** Obtener nombre del instructor */
+$getInstructor  =  "SELECT upper(concat_ws(' ',i.nombre,i.apellidoPaterno,i.apellidoMaterno)) as nombre, i.idUsuario
+                    FROM instructor i, curso c
+                    WHERE i.idInstructor = c.Instructor_idInstructor
+                    AND c.idCurso = $idc";
 
+
+$result = $conn->query($getInstructor) or die($conn->error . __LINE__);
+$data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+$instructor = $data[0]['nombre'];
+$idi = $data[0]['idUsuario'];
+
+/* Creación del RECONOCIMIENTO del instructor */
+
+// documento en 'landscape' (orientacion horizontal)
+$pdf = new FPDF('P', 'mm', 'letter');
+$pdf->SetAutoPageBreak(false);
+$pdf->AddPage();
+$pdf->Image('C:\xampp\htdocs\Residencia\Pruebas\pruebaLogin\FPDF\RECONOCIMIENTO.jpg', 3, 0, 210);
+$pdf->Ln(43);
+
+$pdf->AddFont('Montserrat','','montserrat.php');
+$pdf->AddFont('Montserrati','I','montserrati.php');
+$pdf->AddFont('Montserratb','B','montserratb.php');
+$pdf->AddFont('Montserrat-black','B','Montserrat-Black.php');
+$pdf->AddFont('Montserrat-medium','','Montserrat-Medium.php');
+$pdf->SetFont('Montserrat-black','B',18);
+/* Nombre del instructor */
+$pdf->Cell(200, 160, $instructor, 0, 0, 'C');
+$pdf->SetFont('Montserrat-medium', '', 14);
+$pdf->Ln(90);
+$pdf->MultiCell(0, 5, utf8_decode(mb_strtoupper('por haber impartido el curso '.$curso,'utf-8')) , 0, 'C', false);
+$pdf->SetFont('Montserrat-medium', '', 11);
+$pdf->Ln(15);
+$pdf->MultiCell(0, 0, utf8_decode(mb_strtoupper('Victoria de Durango, Dgo. a ' . $hoy,'utf-8')), 0, 'C', false);
+
+$archivo = 'R_' . time() . '.pdf';
+
+$pdf->Output("C:/xampp/htdocs/Residencia/Proyecto/files/" . $archivo, 'F');
+
+$sql2 = "INSERT INTO constancia
+        VALUES('','$folio-$idi-R','$archivo',$idc,$idi)";
+
+
+mysqli_query($conn, $sql2);
+
+
+
+
+$response['status'] = 'ok';
 
 
 echo json_encode($response,true);

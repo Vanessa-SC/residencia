@@ -2324,7 +2324,7 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 					$("#btn_borrar").attr('disabled', true);
 					$('#modal').modal('hide');
 					$('.modal-backdrop').remove();
-					$scope.alerta = {
+					$scope.alert = {
 						titulo: 'Listo!',
 						tipo: 'success',
 						mensaje: 'La asistencia se registro con éxito. En breve será redireccionado...'
@@ -2334,7 +2334,7 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 					});
 					$timeout(function () {
 						$location.path('/inicioI');
-					}, 1250);
+					}, 2000);
 				}
 			});
 		} else {
