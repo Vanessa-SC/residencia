@@ -28,7 +28,7 @@ $sql = "SELECT curso.idCurso,
         AND constancia.Usuario_idUsuario = usuario.idUsuario
         AND curso.Instructor_idInstructor=instructor.idInstructor
         AND constancia.Usuario_idUsuario = $id
-        AND constancia.rutaConstancia LIKE 'C_%'
+        AND constancia.rutaConstancia LIKE 'R_%'
         ORDER BY fechaInicio ASC
         ";
 

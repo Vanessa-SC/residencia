@@ -318,6 +318,17 @@ app.config(function ($routeProvider, $locationProvider) {
 			templateUrl: './vistasI/reconocimientos.html',
 			controller: 'reconocimientosICtrl'
 
+		}).when('/inicioI/reconocimientos/descargar', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 4) {
+						$location.path(user.getPath());
+					}
+				},
+			},
+			templateUrl: './vistasI/descargarReconocimiento.html',
+			controller: 'reconocimientosICtrl'
+
 		}).when('/inicioI/cursos/infoCurso', {
 			resolve: {
 				check: function ($location, user) {
@@ -2407,14 +2418,73 @@ app.controller('participantesICtrl', function ($scope, $http, $location, user, c
 	$scope.getParticipantes();
 });
 
-app.controller('reconocimientosICtrl', function ($scope, $http, user, curso, periodoService) {
+app.controller('reconocimientosICtrl', function ($scope, $http, $location, user, curso, periodoService, constancia) {
 
-	user.getName();
+	$scope.user = user.getName();
 
 	$scope.periodo = periodoService.getPeriodo()
 		.then(function (response) {
 			$scope.periodo = response;
 		});
+
+	/* Obtener todas los reconocimientos del Instructor */
+	$scope.getConstancias = function () {
+		//Obtiene el ID del usuario
+		$scope.id = user.getIdUsuario();
+		if ($scope.id != undefined) {
+			$http({
+				url: '/Residencia/Pruebas/pruebaLogin/php/getMisReconocimientos.php',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idUsuario=' + $scope.id
+			}).then(function successCallback(response) {
+				$scope.constancias = response.data;
+			});
+		}
+	}
+
+	/** Establecer el ID del curso y folio de la constancia */
+	$scope.verConstancia = function (folio, idCurso) {
+		constancia.setFolio(folio);
+		curso.setID(idCurso);
+		$scope.getConstancia();
+	};
+
+	/* Obtener datos de una constancia */
+	$scope.getConstancia = function () {
+		/** Recurperar folio y ID  */
+		var idCurso = curso.getID();
+		var folio = constancia.getFolio();
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getConstancia.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idCurso=' + idCurso + '&folio=' + folio
+		}).then(function successCallback(response) {
+			$scope.constancia = response.data;
+		});
+	}
+
+	/* Retorna la URL del documento */
+	$scope.getDocumento = function () {
+		return 'http://localhost/Residencia/proyecto/files/' + constancia.getRuta();
+	};
+
+	$scope.back = function () {
+		window.history.back();
+	};
+
+	/* Datos que serán usados en la vista */
+	$scope.folioConstancia = constancia.getFolio();
+	$scope.rutaConstancia = constancia.getRuta();
+
+	/* Llamado a las funciones */
+	$scope.getConstancia();
+	$scope.getConstancias();
 });
 
 /* CONTROLADORES PARA EL USUARIO JEFE */
