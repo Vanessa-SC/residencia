@@ -3066,6 +3066,7 @@ app.controller('instructoresJCtrl', function ($scope, $http, $location, user, pe
 			data: 'departamento=' + user.getIdDepartamento()
 		}).then(function successCallback(response) {
 			$scope.dpto = response.data;
+			$scope.instructor.departamento = $scope.dpto.idDepartamento;
 		});
 	}
 

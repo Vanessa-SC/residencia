@@ -1,5 +1,5 @@
 <ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasJ/nav.html'"></ng-include>
-<div class="container px-5" ng-init="getInstructorAct()">
+<div class="container px-5" ng-init="getInstructorAct();getDepartamento()">
 	<div class="text-center mt-3 border-bottom">
 		<h4>Actualizar instructor</h4>
 	</div>
@@ -157,7 +157,8 @@
 				<label class="input-group-text" for="departamento">Departamento</label>
 			</div>
 			<select required class="custom-select" id="departamento" ng-model="actInstructor.departamento">
-				<option ng-repeat="x in dptos" value="{{x.idDepartamento}}"> {{x.nombreDepartamento}} </option>
+				<option value="1"> No asignado </option>
+				<option ng-value="dpto.idDepartamento"> {{dpto.nombreDepartamento}} </option>
 			</select>
 
 			<div class="input-group-prepend">
