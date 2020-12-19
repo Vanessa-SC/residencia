@@ -4103,9 +4103,7 @@ app.controller('departamentosACtrl', function ($scope, $http, $location, user, p
 				$(document).ready(function () {
 					$('#alerta').toast('show');
 				});
-				$timeout(function () {
-					$location.path("inicioA/departamentos");
-				}, 2000);
+				$scope.getDepartamentos();
 			} else {
 				$scope.alert = {
 					titulo: '¡Error!',
@@ -4181,9 +4179,43 @@ app.controller('departamentosACtrl', function ($scope, $http, $location, user, p
 				data: 'idDepartamento=' + departamento.getID()
 			}).then(function successCallback(response) {
 				$scope.actDpto = response.data;
-				$scope.departamento = response.data;
+				// $scope.departamento = response.data;
 			});
 		}
+	}
+
+	/* Realizar la modificación de los datos del departamento */
+	$scope.actualizarDepartamento = function (data) {
+		$http({
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/actualizarDepartamento.php',
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			data: data
+		}).then(function successCallback(response) {
+			if(response.data.status == 'ok'){
+				$scope.alert = {
+					titulo: '¡Actualizaco!',
+					tipo: 'success',
+					mensaje: 'Departamento actualizado correctamente.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$scope.getDepartamentos();
+			}else {
+				$scope.alert = {
+					titulo: '¡Error!',
+					tipo: 'danger',
+					mensaje: 'No se pudo actualizar el departamento.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+			}
+			$scope.actDpto.Jefe = "";
+		});
 	}
 
 	/* Realizar la modificación de los datos del instructor */

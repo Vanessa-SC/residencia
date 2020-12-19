@@ -39,17 +39,17 @@
 					<td class="align-middle">{{d.Jefe}}</td>
 					<td class="align-middle text-center">
                         <a ng-click="departamentoID(d.idDepartamento)">
-							<button class="btn btn-sm bg-white editar_icon mb-1" data-toggle="modal" data-target="#modalEditar"
+							<button class="btn btn-sm bg-white editar_icon mb-1" data-toggle="modal" data-target="#modalEditar{{d.idDepartamento}}"
 								title="Editar"></button>
 						</a>
 						
 						<!-- Modal -->
-                        <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="modalEditar"
+                        <div class="modal fade" id="modalEditar{{d.idDepartamento}}" tabindex="-1" role="dialog" aria-labelledby="modalEditar"
                             aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header bg-wine text-white">
-                                        <h5 class="modal-title" id="modalEditarTitulo">Editar curso</h5>
+                                        <h5 class="modal-title" id="modalEditarTitulo">Editar departamento</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -60,22 +60,21 @@
                                                 <div class="input-group-prepend">
                                                     <label class="input-group-text" for="usuario">Jefe</label>
                                                 </div>
-                                                <select required class="custom-select" id="usuario" ng-model="departamento.Jefe" ng-model="actDpto.Jefe">
-                                                    <option ng-repeat="x in usuarios" value="{{x.idUsuario}}"> {{x.nombre}} </option>
+                                                <select required class="custom-select" id="usuario{{d.idDepartamento}}" ng-model="actDpto.Jefe">
+                                                    <option ng-repeat="x in usuarios" value="{{x.nombre}}"> {{x.nombre}} </option>
                                                 </select>
                                             </div>
                                             <div class="input-group mb-2  mt-3">
                                                 <div class="input-group-prepend">
                                                     <label class="input-group-text" for="nombreDpto">Nombre Departamento</label>
                                                 </div>
-                                                <input required type="text" id="nombreDpto" class="form-control" ng-model="departamento.nombreDepartamento" ng-value="actDpto.nombreDepartamento">
+                                                <input required type="text" id="nombreDpto{{d.idDepartamento}}" class="form-control" ng-model="actDpto.nombreDepartamento" ng-value="d.nombreDepartamento">
                                             </div>
                                         </form>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn bg-wine" data-dismiss="modal" ng-click="actualizarCurso(actDpto)">Guardar
-                                            cambios</button>
+                                        <button type="button" class="btn bg-wine" data-dismiss="modal" ng-click="actualizarDepartamento(actDpto)">Guardar cambios</button>
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +92,7 @@
                             aria-labelledby="Title" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="dialog">
                                 <div class="modal-content">
-                                    <div class="modal-header">
+                                    <div class="modal-header bg-wine">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -103,10 +102,10 @@
                                             class="font-italic">{{d.nombreDepartamento}}</span>"?
                                     </div>
                                     <div class="modal-footer">
-                                        <button class="btn btn-success" title="Aceptar"
+                                        <button class="btn bg-wine text-white" title="Aceptar"
                                             ng-click="deleteDepartamento(d.idDepartamento, d.nombreDepartamento)"
                                             data-backdrop="false">Aceptar</button>
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal"
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
                                             data-backdrop="false">Cancelar</button>
                                     </div>
                                 </div>
