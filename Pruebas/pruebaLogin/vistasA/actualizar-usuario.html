@@ -19,19 +19,19 @@
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="apellidoPaterno">Apellido Paterno</label>
 			</div>
-			<input required type="text" id="apellidoPaterno" class="form-control" ng-model="Usuario.apellidoPaterno"
+			<input required type="text" id="apellidoPaterno" class="form-control" ng-model="users.apellidoPaterno"
 				ng-value="actUsuario.apellidoPaterno">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="apellidoMaterno">Apellido Materno</label>
 			</div>
-			<input required type="text" id="apellidoMaterno" class="form-control" ng-model="Usuario.apellidoMaterno"
+			<input required type="text" id="apellidoMaterno" class="form-control" ng-model="users.apellidoMaterno"
 				ng-value="actUsuario.apellidoMaterno">
 		</div>
 		<div class="input-group mb-3 mt-4">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="nombre">Nombre(s)</label>
 			</div>
-			<input required type="text" id="nombre" class="form-control" ng-model="Usuario.nombre"
+			<input required type="text" id="nombre" class="form-control" ng-model="users.nombre"
 				ng-value="actUsuario.nombre">
 		</div>
 
@@ -42,11 +42,11 @@
 				<label class="input-group-text" for="fechaNacimiento">Fecha Nacimiento</label>
 			</div>
 			<input required type="date" id="fechaNacimiento" class="form-control" as-date
-				ng-model="Usuario.fechaNacimiento" ng-value="actUsuario.fechaNacimiento">
+				ng-model="users.fechaNacimiento" ng-value="actUsuario.fechaNacimiento">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="sexo">Sexo</label>
 			</div>
-			<select required class="custom-select" id="sexo" ng-model="Usuario.sexo" ng-value="actUsuario.sexo">
+			<select required class="custom-select" id="sexo" ng-model="users.sexo" ng-value="actUsuario.sexo">
 				<option selected value="Femenino"> Femenino </option>
 				<option value="Masculino"> Masculino </option>
 			</select>
@@ -58,12 +58,12 @@
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="nombreUsuario">Nombre Usuario</label>
 			</div>
-			<input required type="text" id="nombreUsuario" class="form-control" ng-model="Usuario.nombreUsuario"
+			<input required type="text" id="nombreUsuario" class="form-control" ng-model="users.nombreUsuario"
 				ng-value="actUsuario.nombreUsuario">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="contrasena">Contraseña</label>
 			</div>
-			<input required type="text" id="contrasena" class="form-control" ng-model="Usuario.contrasena"
+			<input required type="text" id="contrasena" class="form-control" ng-model="users.contrasena"
 				ng-value="actUsuario.contrasena">
 		</div>
 
@@ -73,7 +73,7 @@
 				<label class="input-group-text" for="RFC">RFC</label>
 			</div>
 			<input style="text-transform:uppercase;" required type="text" id="rfc_input" oninput="validarInputR(this)"
-				class="form-control" ng-model="Usuario.RFC" ng-value="actUsuario.RFC">
+				class="form-control" ng-model="users.RFC" ng-value="actUsuario.RFC">
 
 		</div>
 		<div>
@@ -84,7 +84,7 @@
 				<label class="input-group-text" for="CURP">CURP</label>
 			</div>
 			<input style="text-transform:uppercase;" required type="text" id="curp_input" oninput="validarInputC(this)"
-				name="curp" class="form-control" ng-model="Usuario.CURP" ng-value="actUsuario.CURP">
+				name="curp" class="form-control" ng-model="users.CURP" ng-value="actUsuario.CURP">
 
 		</div>
 		<div>
@@ -96,14 +96,14 @@
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="telefono">Teléfono</label>
 			</div>
-			<input required type="text" id="telefono" class="form-control" ng-model="Usuario.telefono"
+			<input required type="text" id="telefono" class="form-control" ng-model="users.telefono"
 				ng-value="actUsuario.telefono">
 		</div>
 		<div class="input-group mb-3 mt-4">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="Correo">Correo electrónico</label>
 			</div>
-			<input required type="email" id="Correo" class="form-control" ng-model="Usuario.Correo"
+			<input required type="email" id="Correo" class="form-control" ng-model="users.Correo"
 				ng-value="actUsuario.Correo">
 		</div>
 
@@ -113,7 +113,7 @@
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="contrato">Contrato</label>
 			</div>
-			<select required class="custom-select" id="contrato" ng-model="Usuario.contrato"
+			<select required class="custom-select" id="contrato" ng-model="users.contrato"
 				ng-value="actUsuario.contrato">
 				<option selected value="Ninguno"> Ninguno </option>
 				<option value="Base"> Base </option>
@@ -123,7 +123,7 @@
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="horas">Horas</label>
 			</div>
-			<select required class="custom-select" id="horas" ng-model="Usuario.horas"
+			<select required class="custom-select" id="horas" ng-model="users.horas"
 				ng-value="actUsuario.horas">
 				<option value="Sin horas"> Sin horas </option>
 				<option value="Tiempo Completo"> Tiempo Completo </option>
@@ -135,7 +135,7 @@
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="activo">Activo</label>
 			</div>
-			<select required class="custom-select" id="activo" ng-model="Usuario.activo"
+			<select required class="custom-select" id="activo" ng-model="users.activo"
 				ng-value="actUsuario.activo">
 				<option value="SI"> SI </option>
 				<option value="NO"> NO </option>
@@ -148,7 +148,7 @@
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="nivel">Nivel</label>
 			</div>
-			<select required class="custom-select" id="nivel" ng-model="Usuario.nivel"
+			<select required class="custom-select" id="nivel" ng-model="users.nivel"
 				ng-value="actUsuario.nivel">
 				<option value="Licenciatura"> Licenciatura </option>
 				<option value="Maestría"> Maestría </option>
@@ -159,7 +159,7 @@
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="perfilDeseable">Perfil Deseable</label>
 			</div>
-			<select required class="custom-select" id="perfilDeseable" ng-model="Usuario.perfilDeseable"
+			<select required class="custom-select" id="perfilDeseable" ng-model="users.perfilDeseable"
 				ng-value="actUsuario.perfilDeseable">
 				<option value="Ninguno"> Ninguno </option>
 				<option value="Maestría"> Maestría </option>
@@ -182,7 +182,7 @@
 				<label class="input-group-text" for="funcionAdministrativa">Función Administrativa</label>
 			</div>
 			<select required class="custom-select" id="funcionAdministrativa"
-				ng-model="Usuario.funcionAdministrativa" ng-value="actUsuario.funcionAdministrativa">
+				ng-model="users.funcionAdministrativa" ng-value="actUsuario.funcionAdministrativa">
 				<option value="SI"> SI </option>
 				<option value="NO"> NO </option>
 			</select>

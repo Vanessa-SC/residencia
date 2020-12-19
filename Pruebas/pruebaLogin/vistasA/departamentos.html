@@ -1,5 +1,5 @@
 <ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasA/nav.html'"></ng-include>
-<div class="container px-5" ng-controlelr="constanciasController">
+<div class="container px-5" ng-controlelr="constanciasController" ng-init="getDepartamentoAct();getDepartamentos()">
 	<table class="table border-bottom border-dark">
 
 		<div class="input-group mb-3 mt-4 col-sm-12">
@@ -34,22 +34,62 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="x in dptos">
-					<th class="align-middle" scope="row">{{x.nombreDepartamento}}</th>
-					<td class="align-middle">{{x.Jefe}}</td>
+				<tr ng-repeat="d in dptos">
+					<th class="align-middle" scope="row">{{d.nombreDepartamento}}</th>
+					<td class="align-middle">{{d.Jefe}}</td>
 					<td class="align-middle text-center">
-                        <a href="#!/inicioA/departamentos/actualizarDepartamento" ng-click=DepartamentoID(x.idDepartamento)>
-                            <button class="btn btn-sm bg-white editar_icon mb-1" title="Editar"></button>
-                        </a>
+                        <a ng-click="departamentoID(d.idDepartamento)">
+							<button class="btn btn-sm bg-white editar_icon mb-1" data-toggle="modal" data-target="#modalEditar"
+								title="Editar"></button>
+						</a>
+						
+						<!-- Modal -->
+                        <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="modalEditar"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-wine text-white">
+                                        <h5 class="modal-title" id="modalEditarTitulo">Editar curso</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="input-group mb-2  mt-3">
+                                                <div class="input-group-prepend">
+                                                    <label class="input-group-text" for="usuario">Jefe</label>
+                                                </div>
+                                                <select required class="custom-select" id="usuario" ng-model="departamento.Jefe" ng-model="actDpto.Jefe">
+                                                    <option ng-repeat="x in usuarios" value="{{x.idUsuario}}"> {{x.nombre}} </option>
+                                                </select>
+                                            </div>
+                                            <div class="input-group mb-2  mt-3">
+                                                <div class="input-group-prepend">
+                                                    <label class="input-group-text" for="nombreDpto">Nombre Departamento</label>
+                                                </div>
+                                                <input required type="text" id="nombreDpto" class="form-control" ng-model="departamento.nombreDepartamento" ng-value="actDpto.nombreDepartamento">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn bg-wine" data-dismiss="modal" ng-click="actualizarCurso(actDpto)">Guardar
+                                            cambios</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Button trigger modal -->
 
 
                         <button type="button" class="btn btn-light bg-white borrar_icon" data-toggle="modal"
-                            data-target="#modal{{x.idDepartamento}}"></button>
+                            data-target="#modal{{d.idDepartamento}}"></button>
 
 
                         <!-- Modal -->
-                        <div class="modal fade" id="modal{{x.idDepartamento}}" tabindex="-1" role="dialog"
+                        <div class="modal fade" id="modal{{d.idDepartamento}}" tabindex="-1" role="dialog"
                             aria-labelledby="Title" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="dialog">
                                 <div class="modal-content">
@@ -60,11 +100,11 @@
                                     </div>
                                     <div class="modal-body">
                                         ¿Está seguro de que quiere eliminar el Departamento: <br> "<span
-                                            class="font-italic">{{x.nombreDepartamento}}</span>"?
+                                            class="font-italic">{{d.nombreDepartamento}}</span>"?
                                     </div>
                                     <div class="modal-footer">
                                         <button class="btn btn-success" title="Aceptar"
-                                            ng-click="deleteDepartamento(x.idDepartamento, x.nombreDepartamento)"
+                                            ng-click="deleteDepartamento(d.idDepartamento, d.nombreDepartamento)"
                                             data-backdrop="false">Aceptar</button>
                                         <button type="button" class="btn btn-danger" data-dismiss="modal"
                                             data-backdrop="false">Cancelar</button>

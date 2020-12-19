@@ -21,6 +21,7 @@ $sql = "SELECT
     ON usuario.Departamento_idDepartamento=departamento.idDepartamento
     INNER JOIN rol
     ON rol.idRol = usuario.rol
+    WHERE rol.rol!='Instructor'
     ORDER BY usuario.apellidoPaterno ASC 
 ";
 

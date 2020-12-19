@@ -20,7 +20,7 @@ $sql = "SELECT idUsuario, Departamento_idDepartamento as departamento, rol, nomb
 /* Ejecución de la consulta */
 $result = $conn->query($sql) or die($conn->error . __LINE__);
 
-$curso = mysqli_fetch_all($result, MYSQLI_ASSOC);
+$usuario = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 // Impresión de resultados
-echo json_encode($curso[0],true);
+echo json_encode($usuario[0],true);

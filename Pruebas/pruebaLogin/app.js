@@ -793,6 +793,28 @@ app.service('usuario', function () {
 
 });
 
+app.service('departamento', function () {
+	var id;
+
+	/* guarda el ID del departamento */
+	this.setID = function (departamentoID) {
+		id = departamentoID;
+		localStorage.setItem('idDepartamento', JSON.stringify({
+			id: id
+		}));
+	};
+
+	/* obtiene el ID del departamento */
+	this.getID = function () {
+		if (!!localStorage.getItem('idDepartamento')) {
+			var data = JSON.parse(localStorage.getItem('idDepartamento'));
+			id = data.id;
+		}
+		return id;
+	};
+
+});
+
 app.service('encuesta', function () {
 	var id;
 
@@ -4029,7 +4051,7 @@ app.controller('instructoresACtrl', function ($scope, $http, $location, user, pe
 
 });
 
-app.controller('departamentosACtrl', function ($scope, $http, $location, user, periodoService, instructor, $timeout) {
+app.controller('departamentosACtrl', function ($scope, $http, $location, user, periodoService, departamento, $timeout) {
 
 	$scope.user = user.getName();
 
@@ -4141,25 +4163,25 @@ app.controller('departamentosACtrl', function ($scope, $http, $location, user, p
 		});
 	}
 
-	/* Establecer ID del instructor */
-	$scope.instructorID = function (id) {
-		instructor.setID(id);
+	/* Establecer ID del departamento */
+	$scope.departamentoID = function (id) {
+		departamento.setID(id);
 	}
 
-	/* Obtener datos del instructor para su actualización */
-	$scope.getInstructorAct = function () {
+	/* Obtener datos del departamento para su actualización */
+	$scope.getDepartamentoAct = function () {
 		/* Valida que el ID no esté vacío */
-		if (instructor.getID() != "") {
+		if (departamento.getID() != "") {
 			$http({
-				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getInstructorAct.php',
+				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getDepartamentoAct.php',
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded'
 				},
-				data: 'idInstructor=' + instructor.getID()
+				data: 'idDepartamento=' + departamento.getID()
 			}).then(function successCallback(response) {
-				$scope.actInstructor = response.data;
-				$scope.instructor = response.data;
+				$scope.actDpto = response.data;
+				$scope.departamento = response.data;
 			});
 		}
 	}
