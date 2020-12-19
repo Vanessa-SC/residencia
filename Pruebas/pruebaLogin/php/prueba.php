@@ -135,29 +135,21 @@ $dias = $bDias[$fecha["wday"]];
 $meses = $bMeses[$fecha["mon"]];
 
 $actual = $fecha["mday"] . " de " . $meses . " de " . $fecha["year"];
-echo $actual;
 
 $id = 1;
 //2 lunes, 3 martes, 4 Miercoles, 5 jueves, 6 viernes
 
 
-$sql = "SELECT 
-curso.idCurso,
-            concat_ws(' ',instructor.apellidoPaterno,instructor.apellidomaterno,instructor.nombre) as maestro,
-            curso.nombreCurso as curso,
-            curso.objetivo,
-            concat_ws(' - ', DATE_FORMAT(curso.fechaInicio, '%d/%m/%Y'), DATE_FORMAT(curso.fechaFin, '%d/%m/%Y')) as fecha,
-            concat_ws(' a ',curso.horaInicio,curso.horaFin) as horario,
-            curso.lugar,
-            curso.duracion,
-            curso.destinatarios,
-            curso.observaciones,
-            curso.validado
-            FROM instructor Inner join curso
-            ON curso.Instructor_idInstructor=instructor.idInstructor      
-            WHERE periodo LIKE '$response%'
-            AND YEAR(curso.fechaInicio) = $año
-            AND curso.Departamento_idDepartamento = $idDpto
+$sql = "SELECT      
+         concat_ws(' ',usuario.apellidoPaterno,usuario.apellidoMaterno,usuario.nombre) AS nombre,
+        IF(asistencia.asistencia = NULL, 'X', DATE_FORMAT(asistencia.fecha,'%d/%m')) AS fecha 
+        FROM asistencia 
+        INNER JOIN usuario
+        ON usuario.idUsuario = asistencia.Usuario_idUsuario
+        WHERE asistencia.Curso_idCurso = $idCurso
+        AND DAYOFWEEK(fecha) = 6
+        AND fecha > DATE_SUB(NOW(), INTERVAL 1 WEEK)
+        ORDER BY nombre
 ";
 
 /* Ejecución de la consulta */

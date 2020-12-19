@@ -22,6 +22,72 @@ $documento = \PhpOffice\PhpSpreadsheet\IOFactory::load('../XLSX/plantillaListaAs
 $activeSheet = $documento->getActiveSheet();
 $activeSheet->setTitle("Lista de Asistencia");
 
+
+// Consultas de asistencia para lunes
+$lunes = $conn->query("SELECT      
+        concat_ws(' ',usuario.apellidoPaterno,usuario.apellidoMaterno,usuario.nombre) AS nombre,
+        IF(asistencia.asistencia = '0', 'X', DATE_FORMAT(asistencia.fecha,'%d/%m')) AS fecha 
+        FROM asistencia 
+        INNER JOIN usuario
+        ON usuario.idUsuario = asistencia.Usuario_idUsuario
+        WHERE asistencia.Curso_idCurso = $idCurso
+        AND DAYOFWEEK(fecha) = 2
+        AND fecha > DATE_SUB(NOW(), INTERVAL 1 WEEK)
+        ORDER BY nombre
+        ");
+
+// Consultas de asistencia para martes
+$martes = $conn->query("SELECT      
+        concat_ws(' ',usuario.apellidoPaterno,usuario.apellidoMaterno,usuario.nombre) AS nombre,
+        IF(asistencia.asistencia = '0', 'X', DATE_FORMAT(asistencia.fecha,'%d/%m')) AS fecha 
+        FROM asistencia 
+        INNER JOIN usuario
+        ON usuario.idUsuario = asistencia.Usuario_idUsuario
+        WHERE asistencia.Curso_idCurso = $idCurso
+        AND DAYOFWEEK(fecha) = 3
+        AND fecha > DATE_SUB(NOW(), INTERVAL 1 WEEK)
+        ORDER BY nombre
+        ");
+
+// Consultas de asistencia para miercoles
+$miercoles = $conn->query("SELECT      
+        concat_ws(' ',usuario.apellidoPaterno,usuario.apellidoMaterno,usuario.nombre) AS nombre,
+        IF(asistencia.asistencia = '0', 'X', DATE_FORMAT(asistencia.fecha,'%d/%m')) AS fecha 
+        FROM asistencia 
+        INNER JOIN usuario
+        ON usuario.idUsuario = asistencia.Usuario_idUsuario
+        WHERE asistencia.Curso_idCurso = $idCurso
+        AND DAYOFWEEK(fecha) = 4
+        AND fecha > DATE_SUB(NOW(), INTERVAL 1 WEEK)
+        ORDER BY nombre
+        ");
+
+// Consultas de asistencia para jueves
+$jueves = $conn->query("SELECT      
+        concat_ws(' ',usuario.apellidoPaterno,usuario.apellidoMaterno,usuario.nombre) AS nombre,
+        IF(asistencia.asistencia = '0', 'X', DATE_FORMAT(asistencia.fecha,'%d/%m')) AS fecha 
+        FROM asistencia 
+        INNER JOIN usuario
+        ON usuario.idUsuario = asistencia.Usuario_idUsuario
+        WHERE asistencia.Curso_idCurso = $idCurso
+        AND DAYOFWEEK(fecha) = 5
+        AND fecha > DATE_SUB(NOW(), INTERVAL 1 WEEK)
+        ORDER BY nombre
+        ");
+
+// Consultas de asistencia para viernes
+$viernes = $conn->query("SELECT      
+        concat_ws(' ',usuario.apellidoPaterno,usuario.apellidoMaterno,usuario.nombre) AS nombre,
+        IF(asistencia.asistencia = '0', 'X', DATE_FORMAT(asistencia.fecha,'%d/%m')) AS fecha 
+        FROM asistencia 
+        INNER JOIN usuario
+        ON usuario.idUsuario = asistencia.Usuario_idUsuario
+        WHERE asistencia.Curso_idCurso = $idCurso
+        AND DAYOFWEEK(fecha) = 6
+        AND fecha > DATE_SUB(NOW(), INTERVAL 1 WEEK)
+        ORDER BY nombre
+        ");
+
 /* Obtener nombre del coordinador(a) de Actualizacion Docente */
 $sqlGetCoord = $conn->query("SELECT Jefe
                 FROM departamento
@@ -86,6 +152,7 @@ $query = $conn->query("SELECT
             ON curso.Instructor_idInstructor=instructor.idInstructor
             WHERE usuario.rol = 3 
             AND activo = 'SI'      
+            ORDER BY nombre
         ");
 
 /* Si se obtiene el número de filas del resultado de la primera consulta, 
@@ -96,6 +163,47 @@ if($sqlGetCoord->num_rows > 0) {
     // Ciclo while que recorremo los resultados de la consulta y los imprime
     while($row = $sqlGetCoord->fetch_assoc()) {
         $activeSheet->setCellValue('D'.'42' , $row['Jefe']);
+        $i++;
+    }
+}
+
+// Asistencias e inasistencias
+if($lunes->num_rows > 0) {
+    $i = 22;
+    while($row = $lunes->fetch_assoc()) {
+        $activeSheet->setCellValue('G'.$i , $row['fecha']);
+        $i++;
+    }
+}
+
+if($martes->num_rows > 0) {
+    $i = 22;
+    while($row = $martes->fetch_assoc()) {
+        $activeSheet->setCellValue('H'.$i , $row['fecha']);
+        $i++;
+    }
+}
+
+if($miercoles->num_rows > 0) {
+    $i = 22;
+    while($row = $miercoles->fetch_assoc()) {
+        $activeSheet->setCellValue('I'.$i , $row['fecha']);
+        $i++;
+    }
+}
+
+if($jueves->num_rows > 0) {
+    $i = 22;
+    while($row = $jueves->fetch_assoc()) {
+        $activeSheet->setCellValue('J'.$i , $row['fecha']);
+        $i++;
+    }
+}
+
+if($viernes->num_rows > 0) {
+    $i = 22;
+    while($row = $viernes->fetch_assoc()) {
+        $activeSheet->setCellValue('K'.$i , $row['fecha']);
         $i++;
     }
 }

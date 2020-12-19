@@ -9,32 +9,24 @@
             </div>
         </div>
     </div>
-    <div class="table-responsive">
-        <table class="table table-bordered text-center">
+    <div class=" table-responsive ">
+        <table class="table text-center">
             <thead class="bg-wine text-white">
                 <tr>
                     <td class="font-italic align-middle">Participante</td>
                     <td class="font-italic align-middle">Sexo</td>
-                    <td class="font-italic align-middle">Contrato</td>
-                    <td class="font-italic align-middle">RFC</td>
                     <td class="font-italic align-middle">Departamento</td>
                     <td class="font-italic align-middle">Horas</td>
                     <td class="font-italic align-middle">Nivel</td>
-                    <td class="font-italic align-middle">Perfil deseable</td>
-                    <td class="font-italic align-middle">Función Administrativa</td>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="x in participantes">
                     <td class="align-middle"> {{x.nombre}} </td>
                     <td class="align-middle"> {{x.sexo}} </td>
-                    <td class="align-middle"> {{x.contrato}} </td>
-                    <td class="align-middle"> {{x.RFC}} </td>
                     <td class="align-middle"> {{x.nombreD}} </td>
                     <td class="align-middle"> {{x.horas}} </td>
                     <td class="align-middle"> {{x.nivel}} </td>
-                    <td class="align-middle"> {{x.perfilDeseable}} </td>
-                    <td class="align-middle"> {{x.FD}} </td>
                 </tr>
             </tbody>
             <tbody ng-show="participantes | isEmpty">
