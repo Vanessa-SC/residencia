@@ -12,11 +12,13 @@ $sql = "SELECT
     instructor.idInstructor,
     concat_ws(' ',instructor.apellidoPaterno,instructor.apellidoMaterno,instructor.nombre) as nombre,
     instructor.RFC, instructor.CURP, DATE_FORMAT(instructor.fechaNacimiento, '%d-%M-%Y') as fechaNacimiento, 
-    instructor.telefono, instructor.Correo, instructor.personal,
+    instructor.telefono, instructor.Correo, instructor.personal, usuario.Departamento_idDepartamento, departamento.nombreDepartamento, 
     usuario.horas, usuario.perfilDeseable, usuario.activo, usuario.funcionAdministrativa, usuario.nivel
     FROM instructor 
     Inner join usuario
     ON instructor.idUsuario = usuario.idUsuario
+    INNER JOIN departamento
+    ON usuario.Departamento_idDepartamento=departamento.idDepartamento
     ORDER BY instructor.apellidoPaterno ASC 
 ";
 

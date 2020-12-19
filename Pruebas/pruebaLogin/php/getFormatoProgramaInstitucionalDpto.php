@@ -4,6 +4,9 @@
 require_once "../XLSX/PHPWord_0.17/autoload.php";
 include_once 'conexion.php';
 
+//Variable que se obtiene al momento de llamar al método
+$idDpto = $_GET['idd'];
+
 // Nombre del nuevo archivo que se genera
 $template_word = '../XLSX/plantillaProgramaInstitucional.docx';
 // Instancias de creación
@@ -17,6 +20,19 @@ if ( $mes <= 6 ){
     $periodo = 'Enero / Junio ' . $año;
 } else {
     $periodo = 'Agosto / Diciembre ' . $año;
+}
+
+// Se imprime el periodo
+$templateProcessor->setValue('periodo', $periodo);
+
+// Obtiene el periodo actual para la consulta
+$mes = date('n');
+$año = date('Y');
+
+if ( $mes <= 6 ){
+    $response = 'Enero / Junio ';
+} else {
+    $response = 'Agosto / Diciembre ';
 }
 
 //Obtiene la fecha del día
@@ -33,19 +49,6 @@ $actual = $fecha["mday"] . " de " . $meses . " de " . $fecha["year"];
 
 // Imprime la fecha
 $templateProcessor->setValue('fecha', $actual); 
-
-// Se imprime el periodo
-$templateProcessor->setValue('periodo', $periodo);
-
-// Obtiene el periodo actual para la consulta
-$mes = date('n');
-$año = date('Y');
-
-if ( $mes <= 6 ){
-    $response = 'Enero / Junio ';
-} else {
-    $response = 'Agosto / Diciembre ';
-}
 
 /* Obtener nombre del jefe(a) de Desarrollo Académico */
 $sqlGetDes = "SELECT Jefe
@@ -73,6 +76,7 @@ $query = "SELECT count(*) idCurso
             WHERE periodo 
             LIKE '$response%'
             AND YEAR(curso.fechaInicio) = $año
+            AND curso.Departamento_idDepartamento = $idDpto
         ";
 $resql = mysqli_query($conn,$query);
 $data = mysqli_fetch_array($resql);
@@ -96,6 +100,7 @@ $query = "SELECT
             ON curso.Instructor_idInstructor=instructor.idInstructor      
             WHERE periodo LIKE '$response%'
             AND YEAR(curso.fechaInicio) = $año
+            AND curso.Departamento_idDepartamento = $idDpto
         ";
 
 $res = mysqli_query($conn,$query);

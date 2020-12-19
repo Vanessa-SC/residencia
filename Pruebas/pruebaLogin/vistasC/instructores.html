@@ -29,39 +29,23 @@
             </div>
         </div>
     </div>
-    <div class="table-responsive">
-        <table class="table table-sm table-responsive">
-            <thead class="bg-wine text-white text-center">
+    <div class=" table-responsive ">
+        <table class="table text-center">
+            <thead class="bg-wine text-white">
                 <tr>
-                    <td class="align-middle italic-font">Nombre</th>
-                    <td class="align-middle italic-font">Personal</th>
-                    <td class="align-middle italic-font">RFC</th>
-                    <td class="align-middle italic-font">CURP</th>
-                    <td class="align-middle italic-font">Fecha de Nacimiento</th>
-                    <td class="align-middle italic-font">Tel&eacute;fono</th>
-                    <td class="align-middle italic-font">Correo</th>
-                    <td class="align-middle italic-font">Horas</th>
-                    <td class="align-middle italic-font">Nivel</th>
-                    <td class="align-middle italic-font">Perfil Deseable</th>
-                    <td class="align-middle italic-font">Funci&oacute;n Administrativa</th>
-                    <td class="align-middle italic-font">Activo</th>
-                    <td class="align-middle italic-font"></th>
+                    <td class="align-middle font-italic">Nombre</th>
+                    <td class="align-middle font-italic">Personal</th>
+                    <td class="align-middle font-italic">Departamento</th>
+                    <td class="align-middle font-italic">Horas</th>
+                    <td class="align-middle font-italic"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="x in instructores | filter:filtro">
                     <td class="align-middle"> {{x.nombre}} </td>
                     <td class="align-middle"> {{x.personal}} </td>
-                    <td class="align-middle"> {{x.RFC}} </td>
-                    <td class="align-middle"> {{x.CURP}} </td>
-                    <td class="align-middle"> {{x.fechaNacimiento}} </td>
-                    <td class="align-middle"> {{x.telefono}} </td>
-                    <td class="align-middle"> {{x.Correo}} </td>
+                    <td class="align-middle"> {{x.nombreDepartamento}} </td>
                     <td class="align-middle"> {{x.horas}} </td>
-                    <td class="align-middle"> {{x.nivel}} </td>
-                    <td class="align-middle"> {{x.perfilDeseable}} </td>
-                    <td class="align-middle"> {{x.funcionAdministrativa}} </td>
-                    <td class="align-middle"> {{x.activo}} </td>
                     <td class="align-middle">
                         <a href="#!/inicioC/instructores/actualizarInstructor" ng-click=instructorID(x.idInstructor)>
                             <button class="btn btn-sm bg-white editar_icon mb-1" title="Editar"></button>

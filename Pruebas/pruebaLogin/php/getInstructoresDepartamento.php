@@ -18,13 +18,15 @@ $sql = "SELECT
         instructor.idInstructor,
         concat_ws(' ',instructor.apellidoPaterno,instructor.apellidoMaterno,instructor.nombre) as nombre,
         instructor.RFC, instructor.CURP, DATE_FORMAT(instructor.fechaNacimiento, '%d-%M-%Y') as fechaNacimiento, 
-        instructor.telefono, instructor.Correo, instructor.personal,
+        instructor.telefono, instructor.Correo, instructor.personal, departamento.nombreDepartamento, 
         usuario.horas, usuario.perfilDeseable, usuario.activo, usuario.funcionAdministrativa, usuario.nivel
         FROM instructor 
         Inner join usuario
         ON instructor.idUsuario = usuario.idUsuario
-        AND usuario.Departamento_idDepartamento = '$id' 
-        OR (usuario.idUsuario=instructor.idUsuario and usuario.Departamento_idDepartamento = 1)        
+        INNER JOIN departamento
+        ON usuario.Departamento_idDepartamento=departamento.idDepartamento      
+        WHERE usuario.Departamento_idDepartamento = '$id' 
+        OR (usuario.idUsuario=instructor.idUsuario and usuario.Departamento_idDepartamento = 1)  
         ORDER BY instructor.apellidoPaterno ASC 
         ";
         /*!- El ID 1 corresponde al departamento "No asignado" */

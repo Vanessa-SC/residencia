@@ -155,28 +155,6 @@ app.config(function ($routeProvider, $locationProvider) {
 			templateUrl: './vistasC/generar-constancia.html',
 			controller: 'constanciasCtrl'
 
-		}).when('/inicioC/convocatorias', {
-			resolve: {
-				check: function ($location, user) {
-					if (user.getRol() != 1) {
-						$location.path(user.getPath());
-					}
-				},
-			},
-			templateUrl: './vistasC/convocatoria.html',
-			controller: 'convocatoriaCtrl'
-
-		}).when('/inicioC/convocatorias/generar', {
-			resolve: {
-				check: function ($location, user) {
-					if (user.getRol() != 1) {
-						$location.path(user.getPath());
-					}
-				},
-			},
-			templateUrl: './vistasC/generar-convocatoria.html',
-			controller: 'convocatoriaCtrl'
-
 		}).when('/inicioC/instructores', {
 			resolve: {
 				check: function ($location, user) {
@@ -1709,8 +1687,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 	//Formatos
 	/* Archivo excel de indicadores */
 	$scope.printIndicadores = function () {
-		$scope.idCurso = curso.getID();
-		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getFormatoIndicadores.php?idc=' + $scope.idCurso, '_blank');
+		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getFormatoIndicadores.php?', '_blank');
 	}
 
 	/* Archivo word de Programa Institucional */
@@ -1938,10 +1915,6 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 	$scope.getConstancias();
 	$scope.getPeriodos();
 	$scope.getConstanciasPeriodoActual();
-});
-
-app.controller('convocatoriaCtrl', function ($scope, $http, $location, user, periodoService) {
-	$scope.user = user.getName();
 });
 
 app.controller('instructoresCtrl', function ($scope, $http, $location, user, periodoService, instructor, $timeout) {
@@ -3102,13 +3075,12 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 	//Formatos
 	/* Archivo excel de indicadores */
 	$scope.printIndicadores = function () {
-		$scope.idCurso = curso.getID();
-		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getFormatoIndicadores.php?idc=' + $scope.idCurso, '_blank');
+		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getFormatoIndicadoresDpto.php?idd=' + user.getIdDepartamento(), '_blank');
 	}
 
 	/* Archivo word de Programa Institucional */
 	$scope.printProgramaInstitucional = function () {
-		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getFormatoProgramaInstitucional.php?', '_blank');
+		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getFormatoProgramaInstitucionalDpto.php?idd=' + user.getIdDepartamento(), '_blank');
 	}
 
 	/*Obtiene plantilla de Ficha Técnica del Servicio */

@@ -112,7 +112,7 @@ SELECT
     IF(usuario.funcionAdministrativa = 'SI', 'X', usuario.funcionAdministrativa) AS FD,
 */
 
-$idDepartamento = 2;
+$idDpto = 2;
 $date_start = date('2019-07-06');
 $date_end = date('2019-09-18');
 
@@ -125,19 +125,39 @@ if ( $mes <= 6 ){
     $response = 'Agosto / Diciembre ';
 }
 
+setlocale(LC_TIME, 'es_MX');
+/* Fecha actual en español */
+$bMeses = array("void", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+$bDias = array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
+$fecha = getdate();
+
+$dias = $bDias[$fecha["wday"]];
+$meses = $bMeses[$fecha["mon"]];
+
+$actual = $fecha["mday"] . " de " . $meses . " de " . $fecha["year"];
+echo $actual;
 
 $id = 1;
 //2 lunes, 3 martes, 4 Miercoles, 5 jueves, 6 viernes
 
+
 $sql = "SELECT 
-concat_ws(' ',usuario.apellidoPaterno,usuario.apellidoMaterno,usuario.nombre) AS nombre,
-DATE_FORMAT(asistencia.fecha,'%d/%m') as fecha 
-FROM asistencia 
-INNER JOIN usuario
-ON usuario.idUsuario = asistencia.Usuario_idUsuario
-WHERE asistencia.Curso_idCurso = 1
-AND DAYOFWEEK(fecha) = 5
-AND fecha > DATE_SUB(NOW(), INTERVAL 1 WEEK)
+curso.idCurso,
+            concat_ws(' ',instructor.apellidoPaterno,instructor.apellidomaterno,instructor.nombre) as maestro,
+            curso.nombreCurso as curso,
+            curso.objetivo,
+            concat_ws(' - ', DATE_FORMAT(curso.fechaInicio, '%d/%m/%Y'), DATE_FORMAT(curso.fechaFin, '%d/%m/%Y')) as fecha,
+            concat_ws(' a ',curso.horaInicio,curso.horaFin) as horario,
+            curso.lugar,
+            curso.duracion,
+            curso.destinatarios,
+            curso.observaciones,
+            curso.validado
+            FROM instructor Inner join curso
+            ON curso.Instructor_idInstructor=instructor.idInstructor      
+            WHERE periodo LIKE '$response%'
+            AND YEAR(curso.fechaInicio) = $año
+            AND curso.Departamento_idDepartamento = $idDpto
 ";
 
 /* Ejecución de la consulta */
@@ -148,6 +168,25 @@ $curso = mysqli_fetch_all($result, MYSQLI_ASSOC);
 echo json_encode($curso);
 
 /* 
+
+(CASE WHEN a.asistencia IS NULL THEN 0 ELSE a.asistencia END) as asistencia, 
+DATE(a.fecha) mydate 
+FROM asistencia a  
+WHERE a.Curso_idCurso = 1
+AND fecha > DATE_SUB(NOW(), INTERVAL 1 WEEK)
+
+
+SELECT SUM(CASE WHEN caja_hoy IS NULL THEN 0 ELSE caja_hoy END) as monto, DATE(fecha) mydate FROM salidas WHERE date(fecha) >= date('2017-07-1') AND date(fecha) <='2017-07-31' GROUP BY mydate
+
+concat_ws(' ',usuario.apellidoPaterno,usuario.apellidoMaterno,usuario.nombre) AS nombre,
+DATE_FORMAT(asistencia.fecha,'%d/%m') as fecha 
+FROM asistencia 
+INNER JOIN usuario
+ON usuario.idUsuario = asistencia.Usuario_idUsuario
+WHERE asistencia.Curso_idCurso = 1
+AND DAYOFWEEK(fecha) = 5
+AND fecha > DATE_SUB(NOW(), INTERVAL 1 WEEK)
+
 
 $sql = "SELECT usuario.nombre, CONCAT(ELT(WEEKDAY(asistencia.fecha)+1, 'L', 'M', 'M', 'J', 'V')) AS DIA_SEMANA, 
 DATE_FORMAT(asistencia.fecha,'%d/%m') as fecha

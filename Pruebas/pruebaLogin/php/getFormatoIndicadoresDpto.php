@@ -4,6 +4,9 @@
 require_once "../XLSX/vendor/autoload.php";
 include_once 'conexion.php';
 
+//Variable que se obtiene al momento de llamar al método
+$idDpto = $_GET['idd'];
+
 // Instancias de creación
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -18,24 +21,6 @@ $documento = \PhpOffice\PhpSpreadsheet\IOFactory::load('../XLSX/plantillaIndicad
 
 $activeSheet = $documento->getActiveSheet();
 $activeSheet->setTitle("Indicadores");
-
-/*
-Consulta a la base de datos para obtener los nombres de los departamentos, 
-filtrarlos según los usuarios pertenecientes al curso y contar los departamentos
-*/
-$sql = $conn->query("SELECT
-        curso.nombreCurso, 
-        departamento.nombreDepartamento, COUNT(usuario.Departamento_idDepartamento) AS totalDpto 
-        FROM usuario 
-        INNER JOIN departamento 
-        ON usuario.Departamento_idDepartamento = departamento.idDepartamento 
-        INNER JOIN usuario_has_curso
-        ON usuario.idUsuario = usuario_has_curso.Usuario_idUsuario
-        INNER JOIN curso
-        ON curso.idCurso = usuario_has_curso.Curso_idCurso
-        WHERE departamento.idDepartamento IN(SELECT idDepartamento FROM departamento) 
-        GROUP BY curso.nombreCurso, departamento.nombreDepartamento
-        ");
 
 // Obtiene el periodo actual para la consulta
 $mes = date('n');
@@ -81,6 +66,7 @@ $query = $conn->query("SELECT
         WHERE usuario.rol = 3
         AND periodo LIKE '$response%'
         AND YEAR(curso.fechaInicio) = $año
+        AND curso.Departamento_idDepartamento = $idDpto
         GROUP BY curso.nombreCurso
         ");
 
@@ -132,31 +118,6 @@ if($query->num_rows > 0) {
         $activeSheet->setCellValue('S51','=SUM(S11:S50)');
         $activeSheet->setCellValue('T51','=SUM(T11:T50)');
         $activeSheet->setCellValue('U51','=SUM(U11:U50)');
-        $i++;
-    }
-}
-
-// Creación de nueva hoja
-$hoja = $documento->createSheet();
-$hoja->setTitle("Departamentos");
-
-// Valores por defecto
-$hoja->setCellValue('A1', 'Nombre del curso')->getColumnDimension('A')->setWidth(60);
-$hoja->setCellValue('B1', 'Departamento')->getColumnDimension('B')->setWidth(30);
-$hoja->setCellValue('C1', 'Total');
-
-/*
-Si se obtiene el número de filas del resultado de la primera consulta, 
-entonces comienza el recorrido para imprimir los Cursos y los Departamentos de los participantes
-*/
-if($sql->num_rows > 0) {
-    // Comienza en la fila 22
-    $i = 2;
-    // Ciclo while que recorremo los resultados de la consulta y los imprime
-    while($row = $sql->fetch_assoc()) {
-        $hoja->setCellValue('A'.$i , $row['nombreCurso']);
-        $hoja->setCellValue('B'.$i , $row['nombreDepartamento']);
-        $hoja->setCellValue('C'.$i , $row['totalDpto']);
         $i++;
     }
 }
