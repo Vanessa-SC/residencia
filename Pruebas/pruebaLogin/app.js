@@ -514,7 +514,7 @@ app.config(function ($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistasA/actualizar-usuario.html',
 			controller: 'usuariosACtrl'
-		
+
 		}).when('/inicioA/instructores', {
 			resolve: {
 				check: function ($location, user) {
@@ -1799,11 +1799,10 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 		}).then(function successCallback(response) {
 			$scope.participantesCurso = response.data;
 			// adición de la opción "todos los participantes"
-			$scope.participantesCurso.push({
+			$scope.participantesCurso.unshift({
 				'idUsuario': '0',
 				'nombre': 'Todos los participantes aprobados'
 			});
-			$scope.participantesList = response.data;
 		});
 	}
 
@@ -1813,6 +1812,12 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 		curso.setID(idCurso);
 		$scope.getConstancia();
 	};
+
+	$scope.habilitarBoton = function () {
+		if ($scope.constancia.curso != "") {
+			$("#btn_generar").attr('disabled', false);
+		}
+	}
 
 	/* Obtener datos de una constancia */
 	$scope.getConstancia = function () {
@@ -1842,42 +1847,81 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 
 	/* Creación de una constancia */
 	$scope.crearConstancia = function () {
-		if ($scope.constancia.participante.nombre != "Todos los participantes aprobados") {
-			/* se guardan los datos en un json */
-			var datos = {
-				'folio': $scope.constancia.folio,
-				'participante': $scope.constancia.participante.nombre,
-				'idUsuario': $scope.constancia.participante.idUsuario,
-				'rol': $scope.constancia.participante.rol,
-				'curso': $scope.constancia.curso.curso,
-				'idCurso': $scope.constancia.curso.idCurso,
-				'fecha': $scope.constancia.curso.fecha,
-				'duracion': $scope.constancia.curso.duracion
-			}
-			/* Manda el json  */
-			$http({
-				method: 'POST',
-				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/generarConstancia.php',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				data: JSON.stringify(datos)
-			}).then(function successCallback(response) {
-				/* Valida el éxito de la inserción
-				-Insertado: muestra alerta, vacía formulario y recarga listado de constancias
-				-No insertado: muestra alerta */
-				if (response.data.status == "ok") {
-					$scope.alert = {
-						titulo: '¡Listo!',
-						tipo: 'success',
-						mensaje: 'Constancia generada con éxito.'
-					};
-					$(document).ready(function () {
-						$('#alerta').toast('show');
-					});
-					$scope.getConstanciasPeriodoActual();
-					$scope.constancia = {};
-				} else {
+		if ($scope.constancia.curso.folio != "") {
+			if ($scope.constancia.participante.nombre != "Todos los participantes aprobados") {
+				/* se guardan los datos en un json */
+				var datos = {
+					'folio': $scope.constancia.curso.folio,
+					'fecha': $scope.constancia.curso.fechaFin,
+					'participante': $scope.constancia.participante.nombre,
+					'idUsuario': $scope.constancia.participante.idUsuario,
+					'curso': $scope.constancia.curso.curso,
+					'idCurso': $scope.constancia.curso.idCurso,
+					'duracion': $scope.constancia.curso.duracion
+				}
+				/* Manda el json  */
+				$http({
+					method: 'POST',
+					url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/generarConstancia.php',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					data: JSON.stringify(datos)
+				}).then(function successCallback(response) {
+					/* Valida el éxito de la inserción
+					-Insertado: muestra alerta, vacía formulario y recarga listado de constancias
+					-No insertado: muestra alerta */
+					if (response.data.status == "ok") {
+						$scope.alert = {
+							titulo: '¡Listo!',
+							tipo: 'success',
+							mensaje: 'Constancia generada con éxito.'
+						};
+						$(document).ready(function () {
+							$('#alerta').toast('show');
+						});
+						$scope.getConstanciasPeriodoActual();
+						$scope.constancia = {};
+					} else {
+						$scope.alert = {
+							titulo: '¡Error!',
+							tipo: 'danger',
+							mensaje: 'Ocurrió un error al generar la constancia.'
+						};
+						$(document).ready(function () {
+							$('#alerta').toast('show');
+						});
+					}
+				});
+			} else {
+				var datos = {
+					'fecha': $scope.constancia.curso.fechaFin,
+					'folio': $scope.constancia.curso.folio,
+					'idUsuario': $scope.constancia.participante.idUsuario,
+					'curso': $scope.constancia.curso.curso,
+					'idCurso': $scope.constancia.curso.idCurso
+				}
+				$http({
+					method: 'POST',
+					url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/generarConstanciasCurso.php',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					data: JSON.stringify(datos)
+				}).then(function successCallback(response) {
+					if (response.data.status == "ok") {
+						$scope.alert = {
+							titulo: '¡Listo!',
+							tipo: 'success',
+							mensaje: 'Constancias generadas con éxito.'
+						};
+						$(document).ready(function () {
+							$('#alerta').toast('show');
+						});
+						$scope.getConstanciasPeriodoActual();
+						$scope.constancia = [];
+					}
+				}, function errorCallback(response) {
 					$scope.alert = {
 						titulo: '¡Error!',
 						tipo: 'danger',
@@ -1886,46 +1930,20 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 					$(document).ready(function () {
 						$('#alerta').toast('show');
 					});
-				}
-			});
-		} else {
-			var datos = {
-				'folio': $scope.constancia.folio,
-				'idUsuario': $scope.constancia.participante.idUsuario,
-				'curso': $scope.constancia.curso.curso,
-				'idCurso': $scope.constancia.curso.idCurso
-			}
-			$http({
-				method: 'POST',
-				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/generarConstanciasCurso.php',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				data: JSON.stringify(datos)
-			}).then(function successCallback(response) {
-				if (response.data.status == "ok") {
-					$scope.alert = {
-						titulo: '¡Listo!',
-						tipo: 'success',
-						mensaje: 'Constancias generadas con éxito.'
-					};
-					$(document).ready(function () {
-						$('#alerta').toast('show');
-					});
-					$scope.getConstanciasPeriodoActual();
-					$scope.constancia = [];
-				}
-			}, function errorCallback(response){
-				$scope.alert = {
-					titulo: '¡Error!',
-					tipo: 'danger',
-					mensaje: 'Ocurrió un error al generar la constancia.'
-				};
-				$(document).ready(function () {
-					$('#alerta').toast('show');
 				});
+			}
+		} else {
+			$scope.alert = {
+				titulo: 'Hey!',
+				tipo: 'warning',
+				mensaje: 'El curso no tiene asignado el Folio del TecNM. Agrégalo primero.'
+			};
+			$(document).ready(function () {
+				$('#alerta').toast('show');
 			});
 		}
+
+
 	}
 
 	/* Datos que serán usados en la vista */
@@ -4194,7 +4212,7 @@ app.controller('departamentosACtrl', function ($scope, $http, $location, user, p
 			},
 			data: data
 		}).then(function successCallback(response) {
-			if(response.data.status == 'ok'){
+			if (response.data.status == 'ok') {
 				$scope.alert = {
 					titulo: '¡Actualizaco!',
 					tipo: 'success',
@@ -4204,7 +4222,7 @@ app.controller('departamentosACtrl', function ($scope, $http, $location, user, p
 					$('#alerta').toast('show');
 				});
 				$scope.getDepartamentos();
-			}else {
+			} else {
 				$scope.alert = {
 					titulo: '¡Error!',
 					tipo: 'danger',

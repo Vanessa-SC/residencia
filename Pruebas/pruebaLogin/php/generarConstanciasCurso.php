@@ -13,19 +13,7 @@ $response = [];
 $curso = $data->curso;
 $idc = $data->idCurso;
 $folio = $data->folio;
-
-/* Obtener fecha actual en español */
-
-date_default_timezone_set('America/Mexico_City');
-
-$bMeses = array("void", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
-$bDias = array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
-$fecha = getdate();
-
-$dias = $bDias[$fecha["wday"]];
-$meses = $bMeses[$fecha["mon"]];
-
-$hoy = $fecha["mday"] . " de " . $meses . " de " . $fecha["year"];
+$fecha = $data->fecha;
 
 // Obtener listado de participantes con asistencia mayor a 80%
 $queryAlumnos   =  "SELECT a.Usuario_idUsuario as idUsuario, 
@@ -73,7 +61,7 @@ foreach($participantes as list($id,$nombre)){
     $pdf->MultiCell(0, 7, utf8_decode(mb_strtoupper('por su valiosa participación en el curso '.$curso,'utf-8')) , 0, 'C', false);
     $pdf->SetFont('Montserrat-medium', '', 11);
     $pdf->Ln(10);
-    $pdf->MultiCell(0, 0, 'Victoria de Durango, Dgo. a ' . $hoy, 0, 'C', false);
+    $pdf->MultiCell(0, 0, 'Victoria de Durango, Dgo. a ' . $fecha, 0, 'C', false);
 
     // Nombre del PDF C_+ marca de tiempo + extension
     $archivo = 'C_' . time() . $id . '.pdf';
@@ -122,7 +110,7 @@ $pdf->Ln(90);
 $pdf->MultiCell(0, 5, utf8_decode(mb_strtoupper('por haber impartido el curso '.$curso,'utf-8')) , 0, 'C', false);
 $pdf->SetFont('Montserrat-medium', '', 11);
 $pdf->Ln(15);
-$pdf->MultiCell(0, 0, utf8_decode(mb_strtoupper('Victoria de Durango, Dgo. a ' . $hoy,'utf-8')), 0, 'C', false);
+$pdf->MultiCell(0, 0, utf8_decode(mb_strtoupper('Victoria de Durango, Dgo. a ' . $fecha,'utf-8')), 0, 'C', false);
 
 $archivo = 'R_' . time() . '.pdf';
 

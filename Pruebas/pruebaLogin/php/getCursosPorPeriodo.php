@@ -18,11 +18,13 @@ mysqli_query($conn,$formatt);
 
 // SQL de consulta
 $sql = "SELECT curso.idCurso,
+            curso.folio,
             concat_ws(' ',instructor.apellidoPaterno,instructor.apellidomaterno,instructor.nombre) as maestro,
             curso.nombreCurso as curso,
             curso.objetivo,
             curso.duracion,
             concat_ws(' - ', DATE_FORMAT(curso.fechaInicio, '%d de %M'), DATE_FORMAT(curso.fechaFin, '%d de %M, %Y')) as fecha,
+            DATE_FORMAT(curso.fechaFin, '%d de %M del %Y') as fechaFin,
             concat_ws(' a ',curso.horaInicio,curso.horaFin) as horario,
             curso.validado,
             curso.periodo

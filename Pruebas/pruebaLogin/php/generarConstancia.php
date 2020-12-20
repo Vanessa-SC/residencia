@@ -10,24 +10,6 @@ include_once 'conexion.php';
 /* Recepción de datos */
 $datos = json_decode(file_get_contents("php://input"));
 
-/* Obtener fecha actual en español */
-$bMeses = array("void", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
-$bDias = array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
-$fecha = getdate();
-
-$dias = $bDias[$fecha["wday"]];
-$meses = $bMeses[$fecha["mon"]];
-
-$actual = $fecha["mday"] . " de " . $meses . " de " . $fecha["year"];
-
-/* Asignar rol */
-if ($datos->rol == 3) {
-    $rol = 'alumno';
-}
-if ($datos->rol == 4) {
-    $rol = 'instructor';
-}
-
 /* Creación del documento PDF */
 
 // documento en 'landscape' (orientacion horizontal)
@@ -57,7 +39,7 @@ $pdf->SetFont('Montserrati', 'I', 14);
 $pdf->MultiCell(0, 7, utf8_decode(mb_strtoupper('por su valiosa participación en el curso '.$datos->curso,'utf-8')) , 0, 'C', false);
 $pdf->SetFont('Montserrati', 'I', 11);
 $pdf->Ln(10);
-$pdf->MultiCell(0, 0, 'Victoria de Durango, Dgo. a ' . $actual, 0, 'C', false);
+$pdf->MultiCell(0, 0, 'Victoria de Durango, Dgo. a ' . $datos->fecha, 0, 'C', false);
 
 // Nombre del PDF C_+ marca de tiempo + extension
 $archivo = 'C_' . time() . '.pdf';
