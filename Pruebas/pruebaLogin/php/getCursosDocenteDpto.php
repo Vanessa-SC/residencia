@@ -35,6 +35,7 @@ $sql = "SELECT curso.idCurso,
         Inner join curso
         ON curso.Instructor_idInstructor=instructor.idInstructor     
         AND curso.Departamento_idDepartamento = '$id' 
+        AND curso.validado='SI'
         UNION 
         SELECT curso.idCurso,
                 concat_ws(' ',instructor.apellidoPaterno,instructor.apellidomaterno,instructor.nombre) as maestro,
@@ -46,7 +47,8 @@ $sql = "SELECT curso.idCurso,
         FROM instructor 
         Inner join curso
         ON curso.Instructor_idInstructor=instructor.idInstructor     
-        AND curso.Departamento_idDepartamento = '$dpto[0]' 
+        AND curso.Departamento_idDepartamento = '$dpto[0]'
+        AND curso.validado='SI' 
         ";
 
 // Validación de ejecución de la consulta

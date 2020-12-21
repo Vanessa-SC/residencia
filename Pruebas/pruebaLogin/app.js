@@ -1265,7 +1265,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 			}).then(function successCallback(response) {
 				$scope.actCurso = response.data;
 				/* Determina la modalidad basado en el string */
-				if (response.data.modalidad.indexOf("Virtual") !== -1) {
+				if ((response.data.modalidad).indexOf("Virtual") !== -1) {
 					$scope.actCurso.modalidad = 2;
 				} else if (response.data.modalidad.indexOf("Presencial") !== -1) {
 					$scope.actCurso.modalidad = 1;
@@ -1381,11 +1381,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 			});
 		}
 	}
-
-	/* Declaración del array que almacenará los datos del curso */
-	//! ---- Es posible que se innecesario y se pueda borrar ---- !
-	$scope.curso = {};
-
+	
 	/* Envía los datos actualizados del curso */
 	$scope.actualizarCurso = function (datos) {
 		$http({

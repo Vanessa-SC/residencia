@@ -25,7 +25,7 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="mc in misCursos">
-                        <th class="align-middle" scope="row">{{mc.idCurso}}</th>
+                        <th class="align-middle" scope="row">{{ $index +1 }}</th>
                         <td class="align-middle">{{mc.curso}}</td>
                         <td class="align-middle">{{mc.fecha}} <br>{{mc.horario}} Hrs.</td>
                         <td class="align-middle">
@@ -61,7 +61,7 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="mcC in misCursosC">
-                        <td class="align-middle" scope="row">{{mcC.idCurso}}</td>
+                        <td class="align-middle" scope="row">{{ $index +1 }}</td>
                         <td class="align-middle">{{mcC.curso}}</td>
                         <td class="align-middle">{{mcC.fecha}} <br>{{mc.horario}} Hrs.</td>
                         <td class="align-middle"><button class="btn bg-white documento_icon"></button></td>
