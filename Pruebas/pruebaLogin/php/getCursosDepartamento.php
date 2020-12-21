@@ -24,8 +24,7 @@ $sql = "SELECT curso.idCurso,
         FROM instructor Inner join curso
         ON curso.Instructor_idInstructor=instructor.idInstructor 
         AND curso.Departamento_idDepartamento = '$id' 
-        OR (curso.Instructor_idInstructor=instructor.idInstructor and curso.Departamento_idDepartamento = 5)
-        AND curso.validado='SI'";
+        OR (curso.Instructor_idInstructor=instructor.idInstructor and curso.Departamento_idDepartamento = 5)";
         /*!- El ID 5 corresponde al departamento "Todos los Departamentos" */
 
 // Validación de ejecución de la consulta
