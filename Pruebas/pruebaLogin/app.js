@@ -340,7 +340,7 @@ app.config(function ($routeProvider, $locationProvider) {
 			templateUrl: './vistasI/asistencia.html',
 			controller: 'asistenciaICtrl'
 
-		}).when('/inicioI/participantes', {
+		}).when('/inicioI/asistenciaCurso', {
 			resolve: {
 				check: function ($location, user) {
 					if (user.getRol() != 4) {
@@ -348,8 +348,8 @@ app.config(function ($routeProvider, $locationProvider) {
 					}
 				},
 			},
-			templateUrl: './vistasI/participantes.html',
-			controller: 'participantesICtrl'
+			templateUrl: './vistasI/asistenciaCurso.html',
+			controller: 'asistenciaICtrl'
 
 		})
 		/*  RUTAS PARA EL USUARIO JEFE DE DOCENCIA */
@@ -1381,7 +1381,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 			});
 		}
 	}
-	
+
 	/* Envía los datos actualizados del curso */
 	$scope.actualizarCurso = function (datos) {
 		$http({
@@ -2435,32 +2435,6 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 
 	/* Llamado al curso */
 	$scope.getCursos();
-});
-
-app.controller('participantesICtrl', function ($scope, $http, $location, user, curso, periodoService) {
-
-	$scope.user = user.getName();
-
-	$scope.cursoID = function (id) {
-		curso.setID(id);
-	}
-
-	/* Obtiene participantes de un curso */
-	$scope.getParticipantes = function () {
-		$scope.idCurso = curso.getID();
-		if ($scope.idCurso != "") {
-			$http({
-				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getParticipantes.php',
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded'
-				},
-				data: 'idCurso=' + $scope.idCurso
-			}).then(function successCallback(response) {
-				$scope.participantes = response.data;
-			});
-		}
-	}
 
 	/* abre el oficio del curso en otra pestaña */
 	$scope.printFormato = function () {
@@ -2468,7 +2442,21 @@ app.controller('participantesICtrl', function ($scope, $http, $location, user, c
 		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getFormatoListaAsistencia.php?idc=' + $scope.idCurso, '_blank');
 	}
 
-	$scope.getParticipantes();
+	$scope.getAsistenciaCurso = function () {
+		if (curso.getID != undefined) {
+			$http({
+				method: 'POST',
+				url: '/Residencia/Pruebas/pruebaLogin/php/getAsistenciaCurso.php',
+				headers: {
+					'Content-type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idc=' + curso.getID()
+			}).then(function successCallback(response) {
+				$scope.aCurso = response.data;
+
+			});
+		}
+	}
 });
 
 app.controller('reconocimientosICtrl', function ($scope, $http, $location, user, curso, periodoService, constancia) {
