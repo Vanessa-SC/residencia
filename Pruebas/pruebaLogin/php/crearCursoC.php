@@ -95,7 +95,7 @@ $sql = "INSERT INTO curso
             '$curso->resultados',
             '$curso->fuentes',
             '$curso->observaciones',
-            'no',
+            'NO',
             null,
             '$curso->username',
             '$curso->instructor',
