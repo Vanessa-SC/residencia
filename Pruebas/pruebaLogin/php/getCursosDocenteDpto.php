@@ -11,6 +11,16 @@ if (!isset($_POST)) {
 // Asignación de variables
 $id = mysqli_real_escape_string($conn, $_POST['idDepartamento']);
 
+// Obtiene el periodo actual
+$mes = date('n');
+$año = date('Y');
+
+if ( $mes <= 6 ){
+    $periodo = 'Enero / Junio ' . $año;
+} else {
+    $periodo = 'Agosto / Diciembre ' . $año;
+}
+
 /* Obtener ID del departamento "Todos los Departamentos" */
 $sqlGetDpto= "SELECT idDepartamento
                 FROM departamento
@@ -34,6 +44,8 @@ $sql = "SELECT curso.idCurso,
         FROM instructor 
         Inner join curso
         ON curso.Instructor_idInstructor=instructor.idInstructor     
+        WHERE curso.periodo LIKE '$periodo%'
+        AND YEAR(curso.fechaInicio) = $año
         AND curso.Departamento_idDepartamento = '$id' 
         AND curso.validado='SI'
         UNION 
@@ -46,7 +58,7 @@ $sql = "SELECT curso.idCurso,
                 curso.validado
         FROM instructor 
         Inner join curso
-        ON curso.Instructor_idInstructor=instructor.idInstructor     
+        ON curso.Instructor_idInstructor=instructor.idInstructor             
         AND curso.Departamento_idDepartamento = '$dpto[0]'
         AND curso.validado='SI' 
         ";
