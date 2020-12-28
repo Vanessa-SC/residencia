@@ -9,12 +9,36 @@
             <p class="font-weight-bold">Encuesta de opinion</p>
         </div>
     </div>
+    <div id="instrucciones">
+        <div class="p-2 bg-light">
+            <p class="font-weight-bold">
+                La presente encuesta tiene como finalidad conocer su opinión sobre el curso de capacitación en el que
+                participó, las respuestas nos servirán para mejorarlo.
+            </p>
+            <p>
+                <strong>INSTRUCCIÓN:</strong> Solicitamos exprese su opinión sobre los siguientes aspectos escribiendo
+                el
+                número correspondiente en el recuadro de la derecha según la siguiente escala: <br>
+                <div class="text-center">
+                    <ul class="list-group list-group-horizontal font-weight-bold">
+                        <li class="list-group-item">5. Totalmente de acuerdo</li>
+                        <li class="list-group-item">4. Parcialmente de acuerdo</li>
+                        <li class="list-group-item">3. Indiferente </li>
+                        <li class="list-group-item">2. Parcialmente en desacuerdo</li>
+                        <li class="list-group-item">1. En desacuerdo </li>
+                    </ul>
+
+                </div>
+            </p>
+        </div>
+    </div>
     <div class="p-2">
         <form id="encuestaForm">
             <table class="table table-sm">
                 <thead>
                     <tr>
-                        <td class="align-middle font-italic"></th>
+                        <td class="align-middle font-italic">
+                            </th>
                         <td class="align-middle font-italic">5</th>
                         <td class="align-middle font-italic">4</th>
                         <td class="align-middle font-italic">3</th>
@@ -62,31 +86,33 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="6"> 
+                        <td colspan="6">
                             <div class="form-group">
                                 <label for="sugerencias" class="font-weight-bold ml-3">Sugerencias:</label>
-                                <textarea class="form-control" id="sugerencias"  rows="2" ng-model="sugerencias"></textarea>
+                                <textarea class="form-control" id="sugerencias" rows="2"
+                                    ng-model="sugerencias"></textarea>
                             </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div class="text-center">
-                <button class="btn bg-wine text-white" id="btn_enviar" type="submit" ng-click="enviar()" <i class="ok2_icon"></i>Enviar
+                <button class="btn bg-wine text-white" id="btn_enviar" type="submit" ng-click="enviar()" <i
+                    class="ok2_icon"></i>Enviar
                 </button>
             </div>
         </form>
     </div>
-</div>
-<div class="toast w-75" data-autohide="false" id="alerta"
-    style="position: fixed; top: 50px; right: 30px; background-color: rgb(250, 250, 250);">
-    <div class="toast-header bg-{{alert.tipo}} text-dark">
-        <strong class="mr-auto">{{alert.titulo}}</strong>
-        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
-            <span aria-hidden="true" style="font-size: 1.1em;">&times;</span>
-        </button>
-    </div>
-    <div class="toast-body">
-        <div>{{alert.mensaje}}</div>
+    <div class="toast w-75" data-autohide="false" id="alerta"
+        style="position: fixed; top: 50px; right: 30px; background-color: rgb(250, 250, 250);">
+        <div class="toast-header bg-{{alert.tipo}} text-dark">
+            <strong class="mr-auto">{{alert.titulo}}</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
+                <span aria-hidden="true" style="font-size: 1.1em;">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            <div>{{alert.mensaje}}</div>
+        </div>
     </div>
 </div>

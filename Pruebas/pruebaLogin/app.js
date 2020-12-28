@@ -3529,6 +3529,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 		$timeout(function () {
 			if ($scope.encuesta == 'contestada') {
 				$("input").attr('disabled', true);
+				$("#instrucciones").hide();
 				$("textarea").attr('disabled', true);
 				$("#btn_enviar").attr('disabled', true);
 				$('#encuestaForm').replaceWith('<div class="text-center align-middle mt-5"><span class="font-italic" style="font-size: 2rem !important;">Ya ha respondido esta encuesta.</span></div>');
@@ -3582,7 +3583,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 			}).then(function successCallback(response) {
 				console.log(response.data);
 				if (response.data.status == 'ok') {
-					$scope.alerta = {
+					$scope.alert = {
 						titulo: 'Listo!',
 						tipo: 'success',
 						mensaje: 'Sus respuestas fueron registradas con éxito. En breve será redireccionado...'
@@ -3592,7 +3593,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 					});
 					$timeout(function () {
 						$location.path(user.getPath());
-					}, 1250);
+					}, 2500);
 				}
 			});
 		} else {
