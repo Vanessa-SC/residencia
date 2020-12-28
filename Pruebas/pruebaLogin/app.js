@@ -2403,7 +2403,7 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 			});
 		} else {
 			/* Si falla sólo muestra la alerta */
-			$scope.alerta = {
+			$scope.alert = {
 				titulo: '¡Atención!',
 				tipo: 'warning',
 				mensaje: 'No se ha podido registrar la asistencia.'
@@ -3361,7 +3361,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 				$('#modal1' + id).modal('hide');
 				$('.modal-backdrop').remove();
 
-				$scope.alerta = {
+				$scope.alert = {
 					titulo: '¡Has salido!',
 					tipo: 'success',
 					mensaje: 'Has salido del curso correctamente.'
@@ -3372,7 +3372,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 				$scope.getCursos();
 				$scope.getMisCursos();
 			} else {
-				$scope.alerta = {
+				$scope.alert = {
 					titulo: '¡Error!',
 					tipo: 'danger',
 					mensaje: 'No se pudo salir del curso.'
@@ -3597,7 +3597,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 				}
 			});
 		} else {
-			$scope.alerta = {
+			$scope.alert = {
 				titulo: '¡Atención!',
 				tipo: 'warning',
 				mensaje: 'No ha respondido todas las preguntas.'

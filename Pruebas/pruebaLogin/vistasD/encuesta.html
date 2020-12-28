@@ -20,12 +20,13 @@
                 el
                 número correspondiente en el recuadro de la derecha según la siguiente escala: <br>
                 <div class="text-center">
-                    <ul class="list-group list-group-horizontal font-weight-bold">
-                        <li class="list-group-item">5. Totalmente de acuerdo</li>
-                        <li class="list-group-item">4. Parcialmente de acuerdo</li>
-                        <li class="list-group-item">3. Indiferente </li>
-                        <li class="list-group-item">2. Parcialmente en desacuerdo</li>
-                        <li class="list-group-item">1. En desacuerdo </li>
+                    <ul
+                        class="list-group list-group-horizontal font-weight-bold d-flex flex-wrap justify-content-center">
+                        <li class="list-group-item" style="font-size: small;">5. Totalmente de acuerdo</li>
+                        <li class="list-group-item" style="font-size: small;">4. Parcialmente de acuerdo</li>
+                        <li class="list-group-item" style="font-size: small;">3. Indiferente</li>
+                        <li class="list-group-item" style="font-size: small;">2. Parcialmente en desacuerd</li>
+                        <li class="list-group-item" style="font-size: small;">1. En desacuerdo</li>
                     </ul>
 
                 </div>
@@ -33,51 +34,50 @@
         </div>
     </div>
     <div class="p-2">
-        <form id="encuestaForm">
-            <table class="table table-sm">
-                <thead>
+        <form id="encuestaForm" class="py-3">
+            <table class="table table-sm table-fixed p-2 shadow">
+                <thead class="bg-wine text-white">
                     <tr>
-                        <td class="align-middle font-italic">
-                            </th>
-                        <td class="align-middle font-italic">5</th>
-                        <td class="align-middle font-italic">4</th>
-                        <td class="align-middle font-italic">3</th>
-                        <td class="align-middle font-italic">2</th>
-                        <td class="align-middle font-italic">1</th>
+                        <td class="align-middle col-sm-7 font-italic">
+                        <td class="align-middle col-sm-1 font-italic" style="padding:5px 13px;">5</th>
+                        <td class="align-middle col-sm-1 font-italic" style="padding:5px 13px;">4</th>
+                        <td class="align-middle col-sm-1 font-italic" style="padding:5px 13px;">3</th>
+                        <td class="align-middle col-sm-1 font-italic" style="padding:5px 13px;">2</th>
+                        <td class="align-middle col-sm-1 font-italic" style="padding:5px 30px 0px 13px;">1</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="p in preguntas">
-                        <th scope="row">{{ $index + 1 }}.- {{p.pregunta}}</th>
-                        <td>
+                    <tr ng-repeat="p in preguntas" class="table-default">
+                        <th class="col-sm-7" scope="row">{{ $index + 1 }}.- {{p.pregunta}}
+                        <td class="col-sm-1">
                             <div class="custom-control custom-radio">
                                 <input name="p{{p.id}}" required class="custom-control-input" type="radio"
                                     ng-model="listaRespuestas[p.id]" value="5" id="r5-{{p.id}}" />
                                 <label class="custom-control-label" for="r5-{{p.id}}"></label>
                             </div>
                         </td>
-                        <td>
+                        <td class="col-sm-1">
                             <div class="custom-control custom-radio">
                                 <input name="p{{p.id}}" class="custom-control-input" type="radio"
                                     ng-model="listaRespuestas[p.id]" value="4" id="r4-{{p.id}}" />
                                 <label class="custom-control-label" for="r4-{{p.id}}"></label>
                             </div>
                         </td>
-                        <td>
+                        <td class="col-sm-1">
                             <div class="custom-control custom-radio">
                                 <input name="p{{p.id}}" class="custom-control-input" type="radio"
                                     ng-model="listaRespuestas[p.id]" value="3" id="r3-{{p.id}}" />
                                 <label class="custom-control-label" for="r3-{{p.id}}"></label>
                             </div>
                         </td>
-                        <td>
+                        <td class="col-sm-1">
                             <div class="custom-control custom-radio">
                                 <input name="p{{p.id}}" class="custom-control-input" type="radio"
                                     ng-model="listaRespuestas[p.id]" value="2" id="r2-{{p.id}}" />
                                 <label class="custom-control-label" for="r2-{{p.id}}"></label>
                             </div>
                         </td>
-                        <td>
+                        <td class="col-sm-1">
                             <div class="custom-control custom-radio">
                                 <input name="p{{p.id}}" class="custom-control-input" type="radio"
                                     ng-model="listaRespuestas[p.id]" value="1" id="r1-{{p.id}}" />
@@ -87,7 +87,7 @@
                     </tr>
                     <tr>
                         <td colspan="6">
-                            <div class="form-group">
+                            <div class="form-group py-3">
                                 <label for="sugerencias" class="font-weight-bold ml-3">Sugerencias:</label>
                                 <textarea class="form-control" id="sugerencias" rows="2"
                                     ng-model="sugerencias"></textarea>
@@ -97,8 +97,8 @@
                 </tbody>
             </table>
             <div class="text-center">
-                <button class="btn bg-wine text-white" id="btn_enviar" type="submit" ng-click="enviar()" <i
-                    class="ok2_icon"></i>Enviar
+                <button class="btn bg-wine text-white w-25" id="btn_enviar" type="submit" ng-click="enviar()">
+                    <span class="ok2_icon mx-2"></span><span class="font-italic font-weight-bold">Enviar</span>
                 </button>
             </div>
         </form>

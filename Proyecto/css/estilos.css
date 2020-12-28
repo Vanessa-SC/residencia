@@ -163,23 +163,18 @@ button.op {
 }
 
 
-/* Tabla sin resultados */
-table > tbody:empty {
-  position: relative;
-  display: table-caption;
-  caption-side: bottom;
-  min-height: 50px;
-  background-color: rgb(240,240,240);
-  text-align: center;
+/* thead fixed top */
+.table-fixed tbody {
+  height:400px;
+  overflow-y:auto;
+  width: 100%;
 }
-table > tbody:empty:before {
-  content: 'SIN DATOS';
-  position: absolute;
-  font-size: 12px;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+
+.table-fixed thead,.table-fixed tbody{
+  display:block;
+}
+.table-fixed td{
+  display: table-cell;
 }
 
 /* RESULTADI CURP Y RFC */
