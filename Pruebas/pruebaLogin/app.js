@@ -1976,6 +1976,7 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 });
 
 app.controller('programasCtrl', function ($scope, $http, $location, $filter, user, curso, periodoService, $timeout) {
+	$scope.user = user.getName();
 
 	/** Obtiene todos los cursos */
 	$scope.getTodosLosCursos = function () {
@@ -1987,6 +1988,28 @@ app.controller('programasCtrl', function ($scope, $http, $location, $filter, use
 		});
 	}
 
+	/** Obtener listado de los cursos del periodo seleccionado */
+	$scope.getCursosDelPeriodo = function (periodo) {
+		$http({
+			url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getCursosPorPeriodo.php',
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'periodo=' + periodo.periodo
+		}).then(function successCallback(response) {
+			$scope.TodosCursos = response.data;
+		});
+	}
+
+	/** Valida si se solicitan los cursos por periodo o todos */
+	$scope.getCursos = function(data){
+		if(data.periodo == "Todos"){
+			$scope.getTodosLosCursos();
+		} else {
+			$scope.getCursosDelPeriodo(data);
+		}
+	}
 	/** Obtener listado de las asistencias de los participantes del curso seleccionado */
 	$scope.getAsistenciaCurso = function () {
 		if (curso.getID != undefined) {
@@ -2002,6 +2025,19 @@ app.controller('programasCtrl', function ($scope, $http, $location, $filter, use
 
 			});
 		}
+	}
+
+	/* Obtener listado de todos los periodos registrados */
+	$scope.getPeriodos = function () {
+		$http({
+			method: 'GET',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getPeriodos.php'
+		}).then(function successCallback(response) {
+			$scope.periodos = response.data;
+			$scope.periodos.unshift({
+				'periodo': 'Todos'
+			});
+		});
 	}
 });
 

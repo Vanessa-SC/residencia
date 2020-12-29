@@ -162,7 +162,11 @@ button.op {
   background-color: #000;
 }
 
-
+/* Centrar elemento verticalmente */
+.element-center {
+  display: flex;
+  align-items: center;
+}
 /* thead fixed top */
 .table-fixed tbody {
   height:400px;
