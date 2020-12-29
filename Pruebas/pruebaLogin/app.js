@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'angular.filter']);
+var app = angular.module('myApp', ['ngRoute', 'angular.filter', 'chart.js']);
 
 /* Configuración de todas las rutas */
 app.config(function ($routeProvider, $locationProvider) {
@@ -52,7 +52,7 @@ app.config(function ($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistasC/programa.html',
 			controller: 'programaCtrl'
-		
+
 		}).when('/inicioC/generarCurso', {
 			resolve: {
 				/* Comprueba el rol del usuario para
@@ -187,7 +187,6 @@ app.config(function ($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistasC/instructores.html',
 			controller: 'instructoresCtrl'
-
 		}).when('/inicioC/instructores/agregarInstructor', {
 			resolve: {
 				check: function ($location, user) {
@@ -198,7 +197,6 @@ app.config(function ($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistasC/agregar-instructor.html',
 			controller: 'instructoresCtrl'
-
 		}).when('/inicioC/instructores/actualizarInstructor', {
 			resolve: {
 				check: function ($location, user) {
@@ -209,6 +207,16 @@ app.config(function ($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistasC/actualizar-instructor.html',
 			controller: 'instructoresCtrl'
+		}).when('/inicioC/resultadosEncuestas', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 1) {
+						$location.path(user.getPath());
+					}
+				},
+			},
+			templateUrl: './vistasC/resultados-encuestas.html',
+			controller: 'encuestasCtrl'
 		})
 
 		/*  RUTAS PARA EL USUARIO DOCENTE */
@@ -1978,6 +1986,11 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 app.controller('programasCtrl', function ($scope, $http, $location, $filter, user, curso, periodoService, $timeout) {
 	$scope.user = user.getName();
 
+	$scope.cursoID = function (id) {
+		curso.setID(id);
+		console.log(id);
+	}
+
 	/** Obtiene todos los cursos */
 	$scope.getTodosLosCursos = function () {
 		$http({
@@ -2003,8 +2016,8 @@ app.controller('programasCtrl', function ($scope, $http, $location, $filter, use
 	}
 
 	/** Valida si se solicitan los cursos por periodo o todos */
-	$scope.getCursos = function(data){
-		if(data.periodo == "Todos"){
+	$scope.getCursos = function (data) {
+		if (data.periodo == "Todos") {
 			$scope.getTodosLosCursos();
 		} else {
 			$scope.getCursosDelPeriodo(data);
@@ -2232,6 +2245,91 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 		});
 	}
 
+
+});
+
+app.controller('encuestasCtrl', function ($scope, $http, user, periodoService,curso) {
+	$scope.user = user.getName();
+
+	/** Obtener encuestas del curso seleccionado */
+	$scope.getEncuestasCurso = function () {
+		if (curso.getID() != undefined) {
+			$http({
+				url: 'http://localhost/Residencia/Pruebas/pruebaLogin/php/getEncuestasCurso.php',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idc=' + curso.getID()
+			}).then(function successCallback(response) {
+				$scope.encuestasCurso = response.data;
+			});
+		} else {
+			console.log('curso vacio');
+		}
+	}
+
+	$scope.preguntas = [];
+	$scope.resultados = [];
+	$scope.idPreguntas = [];
+	/* obtiene las preguntas de la encuesta de opinión */
+	$scope.getPreguntasEncuesta = function (ide) {
+		if (ide != undefined) {
+			$http({
+				method: 'POST',
+				url: '/Residencia/Pruebas/pruebaLogin/php/getPreguntasEncuesta.php',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'ide=' + ide
+			}).then(function successCallback(response) {
+				$scope.preguntas = response.data;
+				angular.forEach(response.data, function (value, key) {
+					var idP = value.id;
+					$scope.idPreguntas.push(value.id);
+				});
+				
+			});
+		}
+	}
+
+	$scope.getResultadosEncuesta = function (ide){
+		console.log(ide);
+		if (ide != undefined) {
+			$http({
+				method: 'POST',
+				url: '/Residencia/Pruebas/pruebaLogin/php/getResultadosEncuesta.php',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'ide=' + ide +"&idc="+curso.getID()
+			}).then(function successCallback(response) {
+				angular.forEach(response.data, function (value, key) {
+					$scope.resultados.push(value.resultado);
+				});
+			});
+		}
+	}
+
+	$scope.cargarDatos = function (encuesta){
+		var ide = encuesta.id;
+		$scope.nombreEncuesta = encuesta.nombreEncuesta;
+		if(ide != undefined){
+			$scope.getPreguntasEncuesta(ide);
+			$scope.getResultadosEncuesta(ide);
+
+			$scope.labels = $scope.idPreguntas;
+			$scope.data = $scope.resultados;
+
+			console.log($scope.labels);
+			console.log($scope.data);
+		}
+	}
+	/** graficacion de resultados encuesta */
+	$scope.labels = [];
+	$scope.series = [];
+	$scope.data = [];
+	
 
 });
 

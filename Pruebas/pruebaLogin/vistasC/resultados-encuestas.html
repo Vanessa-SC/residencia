@@ -1,0 +1,30 @@
+<ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasC/nav.html'"></ng-include>
+<div class="container" ng-init="getEncuestasCurso();">
+    <div class="d-flex flex-wrap border-bottom border-secondary">
+        <div class="input-group my-4 col-sm-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="Encuesta">Encuesta</label>
+            </div>
+            <select required class="custom-select" id="Encuesta" ng-model="encuesta.id"
+                ng-change="cargarDatos(encuesta)">
+                <option ng-repeat="e in encuestasCurso" value="{{e.idEncuesta}}"> {{e.nombreEncuesta}} </option>
+            </select>
+        </div>
+    </div>
+    <div class="panel panel-default p-3 mt-3">
+        <div class="panel-heading"> <i class="fa fa-bar-chart" aria-hidden="true"></i> Resultados de la encuesta {{nombreEncuesta}}</div>
+        <div class="panel-body d-flex justify-content-center">
+            <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series">
+            </canvas>
+        </div>
+    </div>
+    <div class="panel panel-default p-3 mt-3">
+        <div class="panel-heading"><i class="fa fa-list-ul mx-2" aria-hidden="true"></i>Preguntas</div>
+        <div class="panel-body">
+            <ul  class="list-unstyled">
+                <li ng-repeat="p in preguntas">{{p.id}}.- {{p.pregunta}} </li>
+            </ul>
+           
+        </div> 
+    </div> 
+</div>
