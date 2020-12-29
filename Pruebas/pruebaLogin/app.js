@@ -52,7 +52,7 @@ app.config(function ($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistasC/programa.html',
 			controller: 'programaCtrl'
-
+		
 		}).when('/inicioC/generarCurso', {
 			resolve: {
 				/* Comprueba el rol del usuario para
@@ -121,6 +121,28 @@ app.config(function ($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistasC/subir-docscurso.html',
 			controller: 'programaCtrl'
+
+		}).when('/inicioC/todosProgramas', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 1) {
+						$location.path(user.getPath());
+					}
+				},
+			},
+			templateUrl: './vistasC/programas.html',
+			controller: 'programasCtrl'
+
+		}).when('/inicioC/asistencia', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 1) {
+						$location.path(user.getPath());
+					}
+				},
+			},
+			templateUrl: './vistasC/asistenciaCurso.html',
+			controller: 'programasCtrl'
 
 		}).when('/inicioC/constancias', {
 			resolve: {
@@ -1951,6 +1973,36 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 	$scope.getConstancias();
 	$scope.getPeriodos();
 	$scope.getConstanciasPeriodoActual();
+});
+
+app.controller('programasCtrl', function ($scope, $http, $location, $filter, user, curso, periodoService, $timeout) {
+
+	/** Obtiene todos los cursos */
+	$scope.getTodosLosCursos = function () {
+		$http({
+			method: 'GET',
+			url: '/Residencia/Pruebas/pruebaLogin/php/getTodosLosCursos.php'
+		}).then(function successCallback(response) {
+			$scope.TodosCursos = response.data;
+		});
+	}
+
+	/** Obtener listado de las asistencias de los participantes del curso seleccionado */
+	$scope.getAsistenciaCurso = function () {
+		if (curso.getID != undefined) {
+			$http({
+				method: 'POST',
+				url: '/Residencia/Pruebas/pruebaLogin/php/getAsistenciaCurso.php',
+				headers: {
+					'Content-type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idc=' + curso.getID()
+			}).then(function successCallback(response) {
+				$scope.aCurso = response.data;
+
+			});
+		}
+	}
 });
 
 app.controller('instructoresCtrl', function ($scope, $http, $location, user, periodoService, instructor, $timeout) {

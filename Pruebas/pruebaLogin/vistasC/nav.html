@@ -6,8 +6,13 @@
     <div class="username-mobile text-light mx-auto pr-4">{{user}} <span class="user2_icon ml-2"></span></div>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item">
-                <a class="nav-link" href="#!/inicioC/">Programa Institucional</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">Programa Institucional</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#!/inicioC/">Programa Institucional</a>
+                    <a class="dropdown-item" href="#!/inicioC/todosProgramas">Todos los Programas Institucionales</a>
+                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#!/inicioC/constancias">Constancias</a>

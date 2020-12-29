@@ -7,16 +7,6 @@ include_once 'conexion.php';
 // Formato de fechas en español
 $formatt = "SET lc_time_names = 'es_MX' ";
 mysqli_query($conn,$formatt);
-
-// Obtiene el periodo actual
-$mes = date('n');
-$año = date('Y');
-
-if ( $mes <= 6 ){
-    $periodo = 'Enero / Junio ' . $año;
-} else {
-    $periodo = 'Agosto / Diciembre ' . $año;
-}
 // SQL de consulta
 $sql = "SELECT curso.idCurso,
             concat_ws(' ',instructor.apellidoPaterno,instructor.apellidomaterno,instructor.nombre) as maestro,
@@ -27,8 +17,8 @@ $sql = "SELECT curso.idCurso,
             curso.validado
     FROM instructor Inner join curso
     ON curso.Instructor_idInstructor=instructor.idInstructor 
-    WHERE curso.periodo LIKE '$periodo%'
-    AND YEAR(curso.fechaInicio) = $año";
+    ORDER BY curso.fechaInicio DESC
+    ";
 // Validación de resultados de ejecución
 $result = $conn->query($sql) or die($conn->error . __LINE__);
 // Array de resultados
