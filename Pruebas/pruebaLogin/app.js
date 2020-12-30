@@ -3344,7 +3344,7 @@ app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso,
 		
 	$desde = new Date('2020-12-06');
 	$hasta = new Date('2020-12-31');
-	$dia_actual = new Date('2020-12-01');
+	$dia_actual = new Date('2020-12-30');
 		if ($dia_actual >= $desde && $dia_actual <= $hasta) {
 			if (encuesta.getID() != undefined) {
 				$http({
