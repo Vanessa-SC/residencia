@@ -112,9 +112,12 @@ SELECT
     IF(usuario.funcionAdministrativa = 'SI', 'X', usuario.funcionAdministrativa) AS FD,
 */
 
+date_default_timezone_set("America/Mexico_City");
 $idDpto = 2;
 $date_start = date('2019-07-06');
 $date_end = date('2019-09-18');
+$actual = date('Y-m-d');
+echo($date_start.$date_end.$actual);
 
 $mes = date('n');
 $año = date('Y');

@@ -472,7 +472,7 @@ app.config(function ($routeProvider, $locationProvider) {
 				},
 			},
 			templateUrl: './vistasJ/encuesta.html',
-			controller: 'cursosJCtrl'
+			controller: 'encuestaJCtrl'
 
 		}).when('/inicioJ/instructores', {
 			resolve: {
@@ -2716,7 +2716,7 @@ app.controller('reconocimientosICtrl', function ($scope, $http, $location, user,
 
 /* CONTROLADORES PARA EL USUARIO JEFE */
 
-app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, periodoService, $timeout) {
+app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, periodoService, $timeout, encuesta, encuestaService) {
 
 	$scope.user = user.getName();
 
@@ -3309,8 +3309,115 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 	$scope.getListaDocumentosSubidos();
 });
 
-app.controller('encuestaJCtrl', function ($scope, $http, $location, user, periodoService) {
+app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso, encuesta, periodoService, $timeout, encuestaService) {
 	$scope.user = user.getName();
+
+	/* Obtiene el periodo */
+	$scope.periodo = periodoService.getPeriodo()
+		.then(function (response) {
+			$scope.periodo = response;
+		});
+
+	/* validar si el docente ya respondió la encuesta de opinión del curso */
+	$scope.encuestaRespondida = encuestaService.existe(0, user.getIdUsuario())
+		.then(function (response) {
+			$scope.encuesta = response;
+		});
+
+	/* Si ya respondió la encuesta oculta el formulario y 
+	muestra un mensaje en su lugar*/
+	$scope.YaRespondioEncuesta = function () {
+		$timeout(function () {
+			if ($scope.encuesta == 'contestada') {
+				$("input").attr('disabled', true);
+				$("#instrucciones").hide();
+				$("textarea").attr('disabled', true);
+				$("#btn_enviar").attr('disabled', true);
+				$('#encuestaForm').replaceWith('<div class="text-center align-middle mt-5"><span class="font-italic" style="font-size: 2rem !important;">Ya ha respondido esta encuesta.</span></div>');
+			}
+		}, 1000);
+	}
+
+
+	/* obtiene las preguntas de la encuesta de opinión /getPreguntasEncuesta.php */
+	$scope.getPreguntasEncuesta = function () {
+		
+	$desde = new Date('2020-12-06');
+	$hasta = new Date('2020-12-31');
+	$dia_actual = new Date('2020-12-01');
+		if ($dia_actual >= $desde && $dia_actual <= $hasta) {
+			if (encuesta.getID() != undefined) {
+				$http({
+					method: 'POST',
+					url: '/Residencia/Pruebas/pruebaLogin/php/getPreguntasEncuestaJefe.php',
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					},
+					data: 'ide=' + 2
+				}).then(function successCallback(response) {
+					$scope.preguntas = response.data;
+				});
+			}
+		} else {
+			$("input").attr('disabled', true);
+				$("#instrucciones").hide();
+				$("textarea").attr('disabled', true);
+				$("#btn_enviar").attr('disabled', true);
+				$('#encuestaForm').replaceWith('<div class="text-center align-middle mt-5"><span class="font-italic" style="font-size: 2rem !important;">No está en tiempo.</span></div>');
+		}
+	}
+
+	/* declaración del json que contendrá las respuestas */
+	$scope.listaRespuestas = {};
+
+	$scope.enviar = function () {
+		/* almacena en un json la lista de respuestas, las sugerencias y los ID */
+		var datos = {
+			respuestas: $scope.listaRespuestas,
+			sugerencias: $scope.sugerencias,
+			idCurso: 0,
+			idUsuario: user.getIdUsuario(),
+			idEncuesta: 2
+		};
+		/* valida si se han respondido todas las preguntas antes de enviar 
+		las respuestas */
+		if (Object.keys($scope.listaRespuestas).length == ($scope.preguntas).length) {
+			$http({
+				method: 'POST',
+				url: '/Residencia/Pruebas/pruebaLogin/php/registrarRespuestasEncuesta.php',
+				headers: {
+					'Content-type': 'json/application'
+				},
+				data: JSON.stringify(datos)
+			}).then(function successCallback(response) {
+				console.log(response.data);
+				if (response.data.status == 'ok') {
+					$scope.alert = {
+						titulo: 'Listo!',
+						tipo: 'success',
+						mensaje: 'Sus respuestas fueron registradas con éxito. En breve será redireccionado...'
+					};
+					$(document).ready(function () {
+						$('#alerta').toast('show');
+					});
+					$timeout(function () {
+						$location.path(user.getPath());
+					}, 2500);
+				}
+			});
+		} else {
+			$scope.alert = {
+				titulo: '¡Atención!',
+				tipo: 'warning',
+				mensaje: 'No ha respondido todas las preguntas.'
+			};
+			$(document).ready(function () {
+				$('#alerta').toast('show');
+			});
+		}
+	}
+	/* Llamado a funciones */
+	$scope.getPreguntasEncuesta();
 });
 
 app.controller('instructoresJCtrl', function ($scope, $http, $location, user, periodoService, instructor, $timeout) {
