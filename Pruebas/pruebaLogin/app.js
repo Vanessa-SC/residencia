@@ -3309,7 +3309,7 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 	$scope.getListaDocumentosSubidos();
 });
 
-app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso, encuesta, periodoService, $timeout, encuestaService) {
+app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso, encuesta, periodoService, fechaService, $timeout, encuestaService) {
 	$scope.user = user.getName();
 
 	/* Obtiene el periodo */
@@ -3338,33 +3338,40 @@ app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso,
 		}, 1000);
 	}
 
+	var fecha = fechaService.getFecha()
+		.then(function (response) {
+			$scope.fechaActual = response;
+		});
 
-	/* obtiene las preguntas de la encuesta de opinión /getPreguntasEncuesta.php */
+
+	/* obtiene las preguntas de la encuesta de eficacia /getPreguntasEncuesta.php */
 	$scope.getPreguntasEncuesta = function () {
-		
-	$desde = new Date('2020-12-06');
-	$hasta = new Date('2020-12-31');
-	$dia_actual = new Date('2020-12-30');
-		if ($dia_actual >= $desde && $dia_actual <= $hasta) {
-			if (encuesta.getID() != undefined) {
-				$http({
-					method: 'POST',
-					url: '/Residencia/Pruebas/pruebaLogin/php/getPreguntasEncuestaJefe.php',
-					headers: {
-						'Content-Type': 'application/x-www-form-urlencoded'
-					},
-					data: 'ide=' + 2
-				}).then(function successCallback(response) {
-					$scope.preguntas = response.data;
-				});
-			}
-		} else {
-			$("input").attr('disabled', true);
-				$("#instrucciones").hide();
-				$("textarea").attr('disabled', true);
-				$("#btn_enviar").attr('disabled', true);
-				$('#encuestaForm').replaceWith('<div class="text-center align-middle mt-5"><span class="font-italic" style="font-size: 2rem !important;">No está en tiempo.</span></div>');
-		}
+		$timeout(function(){
+			$desde = new Date('2020-12-06');
+			$hasta = new Date('2020-12-31');
+			$dia_actual = new Date($scope.fechaActual);
+			console.log($dia_actual);
+				if ($dia_actual >= $desde && $dia_actual <= $hasta) {
+					if (encuesta.getID() != undefined) {
+						$http({
+							method: 'POST',
+							url: '/Residencia/Pruebas/pruebaLogin/php/getPreguntasEncuestaJefe.php',
+							headers: {
+								'Content-Type': 'application/x-www-form-urlencoded'
+							},
+							data: 'ide=' + 2
+						}).then(function successCallback(response) {
+							$scope.preguntas = response.data;
+						});
+					}
+				} else {
+					$("input").attr('disabled', true);
+						$("#instrucciones").hide();
+						$("textarea").attr('disabled', true);
+						$("#btn_enviar").attr('disabled', true);
+						$('#encuestaForm').replaceWith('<div class="text-center align-middle mt-5"><span class="font-italic" style="font-size: 2rem !important;">No está en tiempo.</span></div>');
+				}
+		}, 1000);
 	}
 
 	/* declaración del json que contendrá las respuestas */

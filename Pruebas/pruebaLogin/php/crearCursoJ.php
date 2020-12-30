@@ -78,8 +78,6 @@ if(empty($curso->folio)){
     $curso->folio = "";
 }
 
-
-// if(array_key_exists('observaciones', get_object_vars($curso))){
 //     /* Query de inserción */
     $sql = "INSERT INTO curso
     VALUES ('',
@@ -110,33 +108,16 @@ if(empty($curso->folio)){
         '$curso->instructor',
         '$departamento')
     ";
-// } else {
-//     /* Query de insercion */
-//     $sql = "INSERT INTO curso
-//     VALUES ('',
-//         '$curso->folio',
-//         '$curso->clave',
-//         '$curso->nombre',
-//         '$periodo',
-//         '$curso->duracion',
-//         '$curso->horaInicio',
-//         '$curso->horaFin',
-//         '$fechaInicio',
-//         '$fechaFin',
-//         '$modalidad',
-//         '$curso->lugar',
-//         '$curso->destinatarios',
-//         '$curso->Objetivo',
-//         'Ninguna',
-//         'no',
-//         null,
-//         '$curso->username',
-//         '$curso->instructor',
-//         '$departamento')
-//     ";
-// }
 
 if (mysqli_query($conn, $sql)) {
+    
+    // Asignar los tipos de encuesta al curso
+    $idc = mysqli_insert_id($conn);
+    $sqlEncuestasCurso = "INSERT INTO curso_has_encuesta
+                          VALUES($idc,1),($idc,2),($idc,3)";
+    mysqli_query($conn,$sqlEncuestasCurso);
+
+
     $response['status'] = 'ok';
 } else {
     $response['status'] = 'error' . mysqli_error($conn);

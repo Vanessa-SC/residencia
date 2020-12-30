@@ -8,7 +8,7 @@ date_default_timezone_set('America/Mexico_City');
 // Array de respuesta
 $res = [];
 // Formato y obtención de la fecha
-$fecha = date('d/m/Y');
+$fecha = date('Y-m-d');
     // Guardado de la fecha
     $res['fecha'] = $fecha;
     // Impresión

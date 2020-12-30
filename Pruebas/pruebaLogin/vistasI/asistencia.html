@@ -22,7 +22,10 @@
                 <thead class="bg-wine text-white">
                     <tr>
                         <td class="align-middle font-italic">Participantes</th>
-                        <td class="align-middle font-italic text-center"> Fecha: <br> <strong>{{fecha}}</strong> </th>
+                        <td class="align-middle font-italic text-center"> 
+                            Fecha: <br> 
+                            <strong>{{fecha | date: 'dd/MM/yyyy'}}</strong>
+                        </td>
                     </tr>
                 </thead>
                 <tbody>

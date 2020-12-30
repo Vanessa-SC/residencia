@@ -104,6 +104,14 @@ $sql = "INSERT INTO curso
 
 /* Ejecución del Query */
 if (mysqli_query($conn, $sql)) {
+
+    // Asignar los tipos de encuesta al curso
+    $idc = mysqli_insert_id($conn);
+    $sqlEncuestasCurso = "INSERT INTO curso_has_encuesta
+                          VALUES($idc,1),($idc,2),($idc,3)";
+    mysqli_query($conn,$sqlEncuestasCurso);
+
+
     $response['status'] = 'ok';
 } else {
     $response['status'] = 'error' . mysqli_error($conn);
