@@ -1,0 +1,39 @@
+<ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasD/nav.html'"></ng-include>
+<div class="container" ng-init="getAsistenciaCurso()">
+    <div class="programa_page d-flex justify-content-center">
+        <div class="p-2"><img src="http://localhost/Residencia/ActualizacionDocente/images/Logo ITD.png" alt="logo ITD" class="logoITD"></div>
+        <div class="p-4">
+            <div class="text-center border-bottom border-secondary ">
+                <h1 class="">Periodo: {{periodo}}</h1>
+                <h3 class="pb-3">Programa Institucional de Formaci&oacute;n y Actualizaci&oacute;n Docente y Profesional</h3>
+                <h5 class="border-top pt-2 border-secondary align-self-center" ng-repeat="a in asistencia | unique: 'nombreCurso'">{{ a.nombreCurso}}</h5>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <div class="d-flex justify-content-center">
+            <div class="p-2 bd-highlight w-100">
+                <table class="table table-secondary">
+                    <thead>
+                        <tr class="bg-wine text-white text-center">
+                            <th scope="col">Fecha</th>
+                            <th scope="col"> Asistencia</th>
+                        </tr>
+                        <tr ng-repeat="a in asistencia | unique: 'fecha'">
+                            <th scope="col" class="text-center">  {{a.fecha}}</th>
+                            <th scope="col" class="align-middle" >
+                                <div class="custom-control custom-checkbox text-center align-middle">
+                                    <input disabled type="checkbox" class="custom-control-input" id="c{{$index+1}}" 
+                                    ng-true-value="'1'" ng-false-value="'0'" ng-model="a.asistencia"/>
+                                    <label class="custom-control-label" for="c{{$index+1}}"></label>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+       
+    </div>
+
+</div>

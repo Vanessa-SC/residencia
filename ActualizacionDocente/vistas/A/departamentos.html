@@ -1,0 +1,140 @@
+<ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasA/nav.html'"></ng-include>
+<div class="container px-5" ng-controlelr="constanciasController" ng-init="getDepartamentoAct();getDepartamentos()">
+	<table class="table border-bottom border-dark">
+
+		<div class="input-group mb-3 mt-4 col-sm-12">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="usuario">Jefe de Departamento</label>
+			</div>
+			<select required class="custom-select" id="usuario" ng-model="dpto.usuario">
+				<option ng-repeat="x in usuarios" value="{{x.nombre}}"> {{x.nombre}} </option>
+			</select>
+		</div>
+		<div class="input-group mb-3 mt-4 col-sm-12">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="nombreDpto">Nombre Departamento</label>
+			</div>
+			<input required type="text" id="nombreDpto" class="form-control" ng-model="dpto.nombreDpto">
+		</div>
+		<div class="text-center mt-4">
+			<button class="btn bg-wine text-white"  ng-click="agregarDepartamento(dpto)"> 
+				<span class="ok2_icon"></span>Agregar
+			</button>
+		</div>
+	</table>
+	<br>
+	<h4 class="text-center">Departamentos Académicos</h4>
+	<div class=" table-responsive mt-4">
+        <table class="table">
+            <thead class="bg-wine text-white">
+				<tr>
+					<td class="align-middle font-italic text-left">Departamento</td>
+					<td class="align-middle font-italic text-left">Jefe</td>
+					<td class="align-middle font-italic text-center"></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="d in dptos">
+					<th class="align-middle" scope="row">{{d.nombreDepartamento}}</th>
+					<td class="align-middle">{{d.Jefe}}</td>
+					<td class="align-middle text-center">
+                        <a ng-click="departamentoID(d.idDepartamento)">
+							<button class="btn btn-sm bg-white editar_icon mb-1" data-toggle="modal" data-target="#modalEditar{{d.idDepartamento}}"
+								title="Editar"></button>
+						</a>
+						
+						<!-- Modal -->
+                        <div class="modal fade" id="modalEditar{{d.idDepartamento}}" tabindex="-1" role="dialog" aria-labelledby="modalEditar"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-wine text-white">
+                                        <h5 class="modal-title" id="modalEditarTitulo">Editar departamento</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="input-group mb-2  mt-3">
+                                                <div class="input-group-prepend">
+                                                    <label class="input-group-text" for="usuario">Jefe</label>
+                                                </div>
+                                                <select required class="custom-select" id="usuario{{d.idDepartamento}}" ng-model="actDpto.Jefe">
+                                                    <option ng-repeat="x in usuarios" value="{{x.nombre}}"> {{x.nombre}} </option>
+                                                </select>
+                                            </div>
+                                            <div class="input-group mb-2  mt-3">
+                                                <div class="input-group-prepend">
+                                                    <label class="input-group-text" for="nombreDpto">Nombre Departamento</label>
+                                                </div>
+                                                <input required type="text" id="nombreDpto{{d.idDepartamento}}" class="form-control" ng-model="actDpto.nombreDepartamento" ng-value="d.nombreDepartamento">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn bg-wine" data-dismiss="modal" ng-click="actualizarDepartamento(actDpto)">Guardar cambios</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Button trigger modal -->
+
+
+                        <button type="button" class="btn btn-light bg-white borrar_icon" data-toggle="modal"
+                            data-target="#modal{{d.idDepartamento}}"></button>
+
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="modal{{d.idDepartamento}}" tabindex="-1" role="dialog"
+                            aria-labelledby="Title" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-wine">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ¿Está seguro de que quiere eliminar el Departamento: <br> "<span
+                                            class="font-italic">{{d.nombreDepartamento}}</span>"?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn bg-wine text-white" title="Aceptar"
+                                            ng-click="deleteDepartamento(d.idDepartamento, d.nombreDepartamento)"
+                                            data-backdrop="false">Aceptar</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                            data-backdrop="false">Cancelar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+				</tr>
+
+			</tbody>
+			<tbody ng-show="dptos | isEmpty">
+				<tr class="text-center">
+					<td class="align-middle" colspan="4" class=" bg-light align-middle p-4 font-italic">
+						<h5>No hay constancias este periodo</h5>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="card-footer text-muted text-center">Todos los derechos reservados. ITD 2020</div>
+</div>
+<div class="toast w-75" data-autohide="false" id="alerta"
+    style="position: fixed; top: 50px; right: 30px; background-color: rgb(250, 250, 250);">
+    <div class="toast-header bg-{{alert.tipo}} text-dark">
+        <strong class="mr-auto">{{alert.titulo}}</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
+            <span aria-hidden="true" style="font-size: 1.1em;">&times;</span>
+        </button>
+    </div>
+    <div class="toast-body">
+        <div>{{alert.mensaje}}</div>
+    </div>
+</div>

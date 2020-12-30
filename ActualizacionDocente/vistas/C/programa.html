@@ -1,0 +1,120 @@
+<ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasC/nav.html'"></ng-include>
+<div class="container" ng-init="getCursos();faltaDocumentacion()">
+    <div class="programa_page d-flex justify-content-center">
+        <div class="p-2"><img src="http://localhost/Residencia/ActualizacionDocente/images/Logo ITD.png" alt="logo ITD" class="logoITD"></div>
+        <div class="p-4">
+            <div class="text-center">
+                <h1>Periodo {{periodo}}</h1>
+                <h3>Programa Institucional de Formaci&oacute;n y Actualizaci&oacute;n Docente y Profesional</h3>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-end mr-5">
+        <div class="p-2">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="nuevaConstancia">Generar Curso</label>
+                <a href="#!/inicioC/generarCurso"><button id="nuevoCurso" class="btn bg-white border-dark plus_icon"
+                        type="button"></button></a>
+            </div>
+        </div>
+    </div>
+
+    <div class=" table-responsive ">
+        <table class="table text-center">
+            <thead class="bg-wine text-white">
+                <tr>
+                    <td class="align-middle font-italic"> Validación</td>
+                    <td class="align-middle font-italic">Instructor</td>
+                    <td class="align-middle font-italic">Curso a impartir</td>
+                    <td class="align-middle font-italic">Fecha</td>
+                    <td class="align-middle font-italic">Subir Documentos</td>
+                    <td class="align-middle font-italic">Validar Documentos</td>
+                    <td class="align-middle font-italic">+</td>
+                    <td class="align-middle font-italic"></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="x in cursos">
+                    <td scope="row" class=" align-middle ">
+                        <span id="documentacion{{x.idCurso}}"></span>
+                        <img ng-src="http://localhost/Residencia/ActualizacionDocente/images/{{x.validado}}.png"
+                            title="estado de validacion del curso">
+                    </td>
+                    <td class=" align-middle "> {{x.maestro}} </td>
+                    <td class=" align-middle "> {{x.curso}} </td>
+                    <td class=" align-middle "> {{x.fecha}} <br> {{x.horario}} </td>
+                    <td class=" align-middle ">
+                        <a href="#!/inicioC/subirDocumentos" ng-click=cursoID(x.idCurso)>
+                            <button class="btn bg-white subirDocumento_icon"></button>
+                        </a>
+                    </td>
+                    <td class=" align-middle ">
+                        <a href="#!/inicioC/documentosCurso" ng-click=cursoID(x.idCurso)>
+                            <button class="btn bg-white validarDocumento_icon">
+                            </button>
+                        </a>
+                    </td>
+
+                    <td class=" align-middle "><a href="#!/inicioC/infoCurso" ng-click=cursoID(x.idCurso)><button
+                                class="btn btn-light moreinfo_icon" title="Ver más información"></button></a></td>
+                    <td class="align-middle">
+
+                        <a href="#!/inicioC/actualizarCurso" ng-click="cursoID(x.idCurso)">
+                            <button class="btn btn-sm bg-white editar_icon mb-1" title="Editar"></button>
+                        </a>
+
+                        <!-- Button trigger modal -->
+
+
+                        <button type="button" class="btn btn-light bg-white borrar_icon" data-toggle="modal"
+                            data-target="#modal{{x.idCurso}}"></button>
+
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="modal{{x.idCurso}}" tabindex="-1" role="dialog"
+                            aria-labelledby="Title" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-wine">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ¿Está seguro de que quiere eliminar el curso: <br> "<span
+                                            class="font-italic">{{x.curso}}</span>"?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn bg-wine text-white" title="Aceptar"
+                                            ng-click="deleteCurso(x.idCurso)" data-backdrop="false">Aceptar</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                            data-backdrop="false">Cancelar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody ng-show="cursos | isEmpty">
+                <tr class="text-center">
+                    <td class="align-middle" colspan="4" class=" bg-light align-middle p-4 font-italic">
+                        <h5>No hay cursos registrados</h5>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="toast w-75" data-autohide="false" id="alerta"
+            style="position: fixed; top: 50px; right: 30px; background-color: rgb(250, 250, 250);">
+            <div class="toast-header bg-{{alert.tipo}} text-dark">
+                <strong class="mr-auto">{{alert.titulo}}</strong>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
+                    <span aria-hidden="true" style="font-size: 1.1em;">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                <div>{{alert.mensaje}}</div>
+            </div>
+        </div>
+    </div>
+</div>

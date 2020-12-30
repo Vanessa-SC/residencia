@@ -1,0 +1,68 @@
+<ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasI/nav.html'"></ng-include>
+<div class="container" ng-init="getAsistenciaCurso()">
+    <div class="programa_page d-flex justify-content-center" ng-init="getParticipantes()">
+        <div class="p-2"><img src="http://localhost/Residencia/ActualizacionDocente/images/Logo ITD.png" alt="logo ITD" class="logoITD"></div>
+        <div class="p-4">
+            <div class="text-center">
+                <h1>Periodo: Agosto/Diciembre 2020</h1>
+                <h3>Programa Institucional de Formaci&oacute;n y Actualizaci&oacute;n Docente y Profesional</h3>
+            </div>
+        </div>
+    </div>
+    <div class="text-center bg-light align-middle p-3">
+        <button class="btn bg-wine text-white p-2 m-2" ng-click="printFormato()">
+            <span class="downloadDocs_icon mr-2"></span>Formato Lista de Asistencia del Curso
+        </button>
+    </div>
+    <div class="table-responsive d-flex justify-content-center">
+        <table class="table table-secondary w-75 mt-4">
+            <thead class="bg-wine text-white">
+                <tr>
+                    <td class="pl-3">Docente</td>
+                    <td>Fecha</td>
+                    <td>Asistencia</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="a in aCurso">
+                    <td class="align-middle col-sm-5 text-left pl-3">
+                        {{a.docente}}
+                    </td>
+                    <td class="font-weight-bold align-middle col-sm-3 text-center">
+                        {{a.fecha}}
+                    </td>
+                    <td class="col-sm-3 text-center">
+                        <div class="custom-control custom-checkbox text-center align-middle">
+                            <input disabled type="checkbox" class="custom-control-input" id="c{{$index}}" 
+                            ng-true-value="'1'" ng-false-value="'0'" ng-model="a.asistencia"/>
+                            <label class="custom-control-label" for="c{{$index}}"></label>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <table class="table table-secondary">
+            <thead>
+                <tr class="bg-wine text-white text-center">
+                    <td class="font-italic">Docente</td>
+                    <td class="text-nowrap" ng-repeat="a in aCurso | unique: 'fecha'"><small>{{a.fecha}}</small></td>
+                </tr>
+                <tr ng-repeat="ac in aCurso | unique: 'docente'">
+                    <td class="text-center">{{ac.docente}}</td>
+                    <th scope="col" class="align-middle" ng-repeat="ac in aCurso | unique: 'fecha'">
+                        <div class="custom-control custom-checkbox text-center align-middle">
+                            <input type="checkbox" class="custom-control-input" id="c{{$index}}{{ac.idUsuario}}" 
+                            ng-true-value="'1'" ng-false-value="'0'" ng-model="ac.asistencia"/>
+                            <label class="custom-control-label" for="c{{$index}}{{ac.idUsuario}}"></label>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+        </table> -->
+        <!-- <p>{{aCurso}}</p> -->
+        
+    </div>
+    <div class="text-center" ng-hide="participantesCurso | isEmpty">
+    </div>
+    
+</div>

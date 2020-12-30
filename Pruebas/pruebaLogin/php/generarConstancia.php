@@ -19,7 +19,7 @@ $pdf->SetAutoPageBreak(false);
 // Agregar página
 $pdf->AddPage();
 // Background
-$pdf->Image('C:\xampp\htdocs\Residencia\Pruebas\pruebaLogin\FPDF\CONSTANCIA.jpg', 0, 0, 220);
+$pdf->Image('C:\xampp\htdocs\Residencia\ActualizacionDocente\FPDF\CONSTANCIA.jpg', 0, 0, 220);
 $pdf->Ln(50);
 // Tipografía
 $pdf->AddFont('Montserrat','','montserrat.php');

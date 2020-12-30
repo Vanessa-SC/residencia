@@ -1,0 +1,36 @@
+<ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasD/nav.html'"></ng-include>
+<div class="container" ng-init="getInfoCurso()">
+    <div class="d-flex align-middle">
+        <div class=" pt-4">
+            <button title="Regresar a la página anterior" class="btn-back back_icon" ng-click="back()">
+            </button>            
+        </div>
+        <div class="text-justify p-3 mt-2 border-bottom border-dark">
+            <h1>{{infoCurso.curso}}</h1>
+        </div>
+    </div>
+    <div>
+        <div class="text-justify p-3" style="padding-bottom: 15px;" ><strong>Objetivo: </strong>{{infoCurso.objetivo}}</div>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <tbody class="bg-white text-center table table-bordered mt-2 pt-2">
+                <tr class="bg-wine">
+                    <td class="font-italic text-white align-middle">Periodo de realizaci&oacute;n</td>
+                    <td class="font-italic text-white align-middle">Lugar</td>
+                    <td class="font-italic text-white align-middle">No. de horas por curso</td>
+                    <td class="font-italic text-white align-middle">Instructor (a)</td>
+                    <td class="font-italic text-white align-middle">Dirigido a:</td>
+                </tr>
+                <tr>
+                    <td class="align-middle">{{infoCurso.fecha}} <br>
+                    {{infoCurso.horario}}</td>
+                    <td class="align-middle">{{infoCurso.lugar}}</td>
+                    <td class="align-middle">{{infoCurso.duracion}}</td>
+                    <td class="align-middle">{{infoCurso.maestro}}</td>
+                    <td class="align-middle">{{infoCurso.destinatarios}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

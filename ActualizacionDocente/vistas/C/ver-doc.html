@@ -1,0 +1,26 @@
+<ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasC/nav.html'"></ng-include>
+
+<div class="container" ng-repeat="doc in documentoCurso">
+    <div class="text-center align-middle">
+        <div class="row align-items-center justify-content-center border-bottom border-dark">
+            <div class="pt-3 d-flex mx-auto">
+                <button title="Regresar a la página anterior" class="btn-back back_icon px-auto" ng-click="back()">
+                </button>
+                <img src="http://localhost/Residencia/ActualizacionDocente/images/Logo%20ITD.png" class="logoITD">
+
+                <h1 style="align-self: center;">Documento: {{doc.nombreDocumento}}</h1>
+
+            </div>
+        </div>
+    </div>
+    <div class="d-flex mx-auto pt-4">
+        <div class="embed-responsive embed-responsive-16by9">
+            <object data="{{getDocumento(doc.rutaArchivo)}}" width="400" height="300" type="text/html">
+                El documento no pudo ser cargado, pero puede descargarlo con el siguiente botón <br>
+                <a class="btn text-white btn-warning" href="http://localhost/Residencia/ActualizacionDocente/files/{{doc.rutaArchivo}}"
+                    target="_blank">Descargar documento</a>
+            </object>
+        </div>
+    </div>
+</div>
+<div class="card-footer text-muted text-center">Todos los derechos reservados. ITD 2020</div>

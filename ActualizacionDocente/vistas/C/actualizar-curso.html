@@ -1,0 +1,183 @@
+<ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasC/nav.html'"></ng-include>
+<div class="container px-5" ng-init="getCursoAct();getDepartamentos();getInstructores()">
+	<div class="text-center mt-3 border-bottom">
+		<h4>Actualizar curso</h4>
+	</div>
+	<form>
+		<div class="input-group mb-4 mt-5">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="folio">Folio</label>
+			</div>
+			<input type="text" id="folio" class="form-control" ng-model="actCurso.Folio">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="ClaveRegistro">Clave registro</label>
+			</div>
+			<input readonly type="text" id="ClaveRegistro" class="form-control" ng-model="actCurso.ClaveRegistro">
+		</div>
+
+		<div class="dropdown-divider mb-4 mt-4"></div>
+		<h5>Datos generales del curso</h5>
+
+		<div class="input-group mb-3 mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="nombreCurso">Nombre</label>
+			</div>
+			<input required type="text" id="nombreCurso" class="form-control" ng-model="actCurso.curso">
+		</div>
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="duracion">Duraci&oacute;n</label>
+			</div>
+			<input required type="number" id="duracion" class="form-control" min="30" string-to-number
+				ng-model="actCurso.duracion">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="horaInicio">Hora de Inicio</label>
+			</div>
+			<input required type="time" id="horaInicio" class="form-control" as-date ng-model="actCurso.horaInicio"
+				ng-value="actCurso.horaInicio">
+
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="horaFin">Hora de Termino</label>
+			</div>
+			<input required type="time" id="horaFin" class="form-control" as-date ng-model="actCurso.horaFin"
+				ng-value="actCurso.horaFin">
+		</div>
+		<div class="input-group mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="fechaInicio">Fecha Inicio</label>
+			</div>
+			<input required type="date" id="fechaInicio" class="form-control" as-date
+				ng-model="actCurso.fechaInicio" ng-value="actCurso.fechaInicio">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="fechaFin">Fecha Fin</label>
+			</div>
+			<input required type="date" id="fechaFin" class="form-control" as-date
+				ng-model="actCurso.fechaFin" ng-value="actCurso.fechaFin">
+		</div>
+
+		<div class="dropdown-divider mb-4 mt-4"></div>
+
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="modalidad">Modalidad</label>
+			</div>
+
+			<select required class="custom-select" id="modalidad" ng-model="actCurso.modalidad"
+				ng-value="actCurso.modalidad">
+				<option value="1">Presencial</option>
+				<option value="2">Virtual</option>
+				<option value="3">Semipresencial</option>
+			</select>
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="lugar">Lugar</label>
+			</div>
+			<input required type="text" id="lugar" class="form-control" ng-model="actCurso.lugar">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="destinatarios">Destinatarios</label>
+			</div>
+			<input required type="text" id="destinatarios" class="form-control" ng-model="actCurso.destinatarios">
+		</div>
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="departamento">Departamento</label>
+			</div>
+			<select required class="custom-select" id="departamento" ng-model="actCurso.departamento">
+				<option ng-repeat="x in dptos" value="{{x.idDepartamento}}"> {{x.nombreDepartamento}} </option>
+			</select>
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="instructor">Instructor</label>
+			</div>
+			<select required class="custom-select" id="instructor" ng-model="actCurso.instructor">
+				<option ng-repeat="x in instructor" value="{{x.idInstructor}}"> {{x.nombre}} </option>
+			</select>
+		</div>
+
+		<div class="dropdown-divider mb-4 mt-4"></div>
+		<h5>Descripci&oacute;n del curso</h5>
+
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="introduccion">Introducci&oacute;n</label>
+			</div>
+			<textarea required type="text" id="introduccion" class="form-control"
+				ng-model="actCurso.introduccion"></textarea>
+		</div>
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="justificacion">Justificaci&oacute;n</label>
+			</div>
+			<textarea required type="text" id="justificacion" class="form-control"
+				ng-model="actCurso.justificacion"></textarea>
+		</div>
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="objetivo">Objetivo</label>
+			</div>
+			<textarea required type="text" id="objetivo" class="form-control" ng-model="actCurso.objetivo"></textarea>
+		</div>
+
+		<div class="dropdown-divider mb-4 mt-4"></div>
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="contenido">Contenido Tem&aacute;tico</label>
+			</div>
+			<textarea required type="text" id="contenido" class="form-control" ng-model="actCurso.contenido"></textarea>
+		</div>
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="materiales">Materiales Did&aacute;cticos</label>
+			</div>
+			<textarea required type="text" id="materiales" class="form-control"
+				ng-model="actCurso.materiales"></textarea>
+		</div>
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="criterios">Criterios de evaluaci&oacute;n</label>
+			</div>
+			<textarea required type="text" id="criterios" class="form-control" ng-model="actCurso.criterios"></textarea>
+		</div>
+
+		<div class="dropdown-divider mb-4 mt-4"></div>
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="resultados">Resultados</label>
+			</div>
+			<textarea required type="text" id="resultados" class="form-control"
+				ng-model="actCurso.resultados"></textarea>
+		</div>
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="fuentes">Fuentes de Informaci&oacute;n</label>
+			</div>
+			<textarea required type="text" id="fuentes" class="form-control" ng-model="actCurso.fuentes"></textarea>
+		</div>
+
+		<div class="dropdown-divider mt-4"></div>
+		<div class="input-group mb-4  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="observaciones">Observaciones</label>
+			</div>
+			<textarea type="text" id="observaciones" class="form-control" ng-model="actCurso.observaciones"></textarea>
+		</div>
+
+		<div class="text-center mt-5 mb-5">
+			<button class="btn bg-wine" ng-click="actualizarCurso(actCurso)">
+				<span class="ok2_icon"></span>Actualizar
+				<br>
+			</button>
+		</div>
+	</form>
+	<div class="card-footer text-muted text-center">Todos los derechos reservados. ITD 2020</div>
+</div>
+<div class="toast w-75" data-autohide="false" id="alerta"
+	style="position: fixed; top: 50px; right: 30px; background-color: rgb(250, 250, 250);">
+	<div class="toast-header bg-{{alert.tipo}} text-dark">
+		<strong class="mr-auto">{{alert.titulo}}</strong>
+		<button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
+			<span aria-hidden="true" style="font-size: 1.1em;">&times;</span>
+		</button>
+	</div>
+	<div class="toast-body">
+		<div>{{alert.mensaje}}</div>
+	</div>
+</div>

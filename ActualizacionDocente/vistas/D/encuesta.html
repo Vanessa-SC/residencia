@@ -1,0 +1,118 @@
+<ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasD/nav.html'"></ng-include>
+<div class="container" ng-init="YaRespondioEncuesta()">
+    <div class="d-flex justify-content-center">
+        <div class="mt-2">
+            <img src="\Residencia\Proyecto\images\Logo ITD.png" class="logoITD" alt="">
+        </div>
+        <div class="p-2 mt-2 align-self-center align-middle text-center">
+            <h1>Periodo {{periodo}} </h1>
+            <p class="font-weight-bold">Encuesta de opini&oacute;n</p>
+        </div>
+    </div>
+    <div id="instrucciones">
+        <div class="p-2 bg-light">
+            <p class="font-weight-bold">
+                La presente encuesta tiene como finalidad conocer su opini&oacute;n sobre el curso de capacitaci&oacute;n en el que
+                particip&oacute;, las respuestas nos servir&aacute;n para mejorarlo.
+            </p>
+            <p>
+                <strong>INSTRUCCI&Oacute;N:</strong> Solicitamos exprese su opini&oacute;n sobre los siguientes aspectos escribiendo
+                el
+                número correspondiente en el recuadro de la derecha seg&uacute;n la siguiente escala: <br>
+                <div class="text-center">
+                    <ul
+                        class="list-group list-group-horizontal font-weight-bold d-flex flex-wrap justify-content-center">
+                        <li class="list-group-item" style="font-size: small;">5. Totalmente de acuerdo</li>
+                        <li class="list-group-item" style="font-size: small;">4. Parcialmente de acuerdo</li>
+                        <li class="list-group-item" style="font-size: small;">3. Indiferente</li>
+                        <li class="list-group-item" style="font-size: small;">2. Parcialmente en desacuerd</li>
+                        <li class="list-group-item" style="font-size: small;">1. En desacuerdo</li>
+                    </ul>
+
+                </div>
+            </p>
+        </div>
+    </div>
+    <div class="p-2">
+        <form id="encuestaForm" class="py-3">
+            <table class="table table-sm table-fixed p-2 shadow">
+                <thead class="bg-wine text-white">
+                    <tr>
+                        <td class="align-middle col-sm-7 font-italic">
+                        <td class="align-middle col-sm-1 font-italic" style="padding:5px 13px;">5</th>
+                        <td class="align-middle col-sm-1 font-italic" style="padding:5px 13px;">4</th>
+                        <td class="align-middle col-sm-1 font-italic" style="padding:5px 13px;">3</th>
+                        <td class="align-middle col-sm-1 font-italic" style="padding:5px 13px;">2</th>
+                        <td class="align-middle col-sm-1 font-italic" style="padding:5px 30px 0px 13px;">1</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="p in preguntas" class="table-default">
+                        <th class="col-sm-7" scope="row">{{ $index + 1 }}.- {{p.pregunta}}
+                        <td class="col-sm-1">
+                            <div class="custom-control custom-radio">
+                                <input name="p{{p.id}}" required class="custom-control-input" type="radio"
+                                    ng-model="listaRespuestas[p.id]" value="5" id="r5-{{p.id}}" />
+                                <label class="custom-control-label" for="r5-{{p.id}}"></label>
+                            </div>
+                        </td>
+                        <td class="col-sm-1">
+                            <div class="custom-control custom-radio">
+                                <input name="p{{p.id}}" class="custom-control-input" type="radio"
+                                    ng-model="listaRespuestas[p.id]" value="4" id="r4-{{p.id}}" />
+                                <label class="custom-control-label" for="r4-{{p.id}}"></label>
+                            </div>
+                        </td>
+                        <td class="col-sm-1">
+                            <div class="custom-control custom-radio">
+                                <input name="p{{p.id}}" class="custom-control-input" type="radio"
+                                    ng-model="listaRespuestas[p.id]" value="3" id="r3-{{p.id}}" />
+                                <label class="custom-control-label" for="r3-{{p.id}}"></label>
+                            </div>
+                        </td>
+                        <td class="col-sm-1">
+                            <div class="custom-control custom-radio">
+                                <input name="p{{p.id}}" class="custom-control-input" type="radio"
+                                    ng-model="listaRespuestas[p.id]" value="2" id="r2-{{p.id}}" />
+                                <label class="custom-control-label" for="r2-{{p.id}}"></label>
+                            </div>
+                        </td>
+                        <td class="col-sm-1">
+                            <div class="custom-control custom-radio">
+                                <input name="p{{p.id}}" class="custom-control-input" type="radio"
+                                    ng-model="listaRespuestas[p.id]" value="1" id="r1-{{p.id}}" />
+                                <label class="custom-control-label" for="r1-{{p.id}}"></label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            <div class="form-group py-3">
+                                <label for="sugerencias" class="font-weight-bold ml-3">Sugerencias:</label>
+                                <textarea class="form-control" id="sugerencias" rows="2"
+                                    ng-model="sugerencias"></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-center">
+                <button class="btn bg-wine text-white w-25" id="btn_enviar" type="submit" ng-click="enviar()">
+                    <span class="ok2_icon mx-2"></span><span class="font-italic font-weight-bold">Enviar</span>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="toast w-75" data-autohide="false" id="alerta"
+        style="position: fixed; top: 50px; right: 30px; background-color: rgb(250, 250, 250);">
+        <div class="toast-header bg-{{alert.tipo}} text-dark">
+            <strong class="mr-auto">{{alert.titulo}}</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
+                <span aria-hidden="true" style="font-size: 1.1em;">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            <div>{{alert.mensaje}}</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,979 @@
+* {
+  font-size: 16px;
+}
+
+h1 {
+  font-size: 20px;
+  font-weight: 700;
+}
+.bg-wine {
+  background-color: #6f193f;
+  color: #fff;
+}
+
+.btn.bg-wine:hover {
+  background-color: #4c011a;
+  color: #fff;
+}
+
+/* HEADER */
+
+.titulo {
+  display: inline-block;
+  float: center;
+  text-align: center;
+}
+
+div.navbar.header {
+  flex-wrap: nowrap !important;
+}
+
+.logoSEP {
+  width: 200px;
+  height: auto;
+}
+
+.logoTecNM {
+  width: 150px;
+}
+
+.navbar h1 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.navbar h2 {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.navbar h3 {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.menu {
+  background-color: #6f193f;
+}
+
+.titulo_white {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+button.op {
+  padding: 0.18rem 0.5rem !important;
+  font-size: 0.875rem !important;
+}
+
+.btnLogout {
+  background-color: #c5c5c5;
+  border: none;
+  font-style: italic;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.btnLogout:hover {
+  -webkit-box-shadow: 0px 0px 20px 0px rgba(255, 255, 255, 0.5);
+  -moz-box-shadow: 0px 0px 20px 0px rgba(255, 255, 255, 0.5);
+  box-shadow: 0px 0px 20px 0px rgba(255, 255, 255, 0.5);
+}
+
+.prog_menu ul {
+  background-color: #6f193f;
+  color: #fff;
+  padding: 0.5em 4em;
+  width: 100%;
+  text-align: center;
+}
+
+.prog_menu li {
+  display: inline;
+}
+
+.prog_menu li a {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.prog_menu ul li:hover {
+  background-color: #cccccc;
+  padding: 10px;
+}
+
+.menu a.nav-link {
+  color: #fff;
+}
+
+.welcome p {
+  padding: 20px 0;
+  margin: 0 0 0 15px;
+  font-weight: 500;
+  color: #791425;
+}
+
+.item {
+  list-style: none;
+}
+
+.item-start {
+  list-style: none;
+  text-align: left;
+}
+
+.item-end {
+  list-style: none;
+  display: block;
+  text-align: right !important;
+}
+
+/* Programa_institucional */
+
+.logoITD {
+  width: 5rem;
+  padding: 0px;
+  height: auto;
+  display: inline-flex;
+  margin: auto;
+}
+
+.programa_page h1 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.programa_page h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Borders and colors */
+
+.border-wine {
+  border: #6f193f solid 1px;
+}
+.text-wine {
+  color: #6f193f;
+}
+
+.bg-black {
+  background-color: #000;
+}
+
+/* Centrar elemento verticalmente */
+.element-center {
+  display: flex;
+  align-items: center;
+}
+
+/* Panel gráficas*/
+.panel-default {
+  border-color: #ddd !important;
+}
+.panel {
+  margin-bottom: 20px;
+  background-color: #fff;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+  box-shadow: 0 1px 1px rgba(0,0,0,.05);
+  margin:auto;
+}
+.panel-default>.panel-heading {
+  color: #333;
+  background-color: #f5f5f5;
+  border-color: #ddd;
+}
+.panel-heading {
+  font-weight: bold;
+}
+.panel-heading {
+  padding: 10px 15px;
+  border-bottom: 1px solid transparent;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.panel-body {
+  padding: 15px;
+}
+
+#bar{
+  max-height: 700px !important;
+  max-width: 80% !important;
+}
+/* thead fixed top */
+.table-fixed tbody {
+  height:400px;
+  overflow-y:auto;
+  width: 100%;
+}
+
+.table-fixed thead,.table-fixed tbody{
+  display:block;
+}
+.table-fixed td{
+  display: table-cell;
+}
+
+/* RESULTADI CURP Y RFC */
+#resultadoR {
+  color: red;
+  font-weight: bold;
+}
+#resultadoR.ok {
+  color: green;
+  font-weight: bold;
+}
+
+#resultadoC {
+  color: red;
+  font-weight: bold;
+}
+#resultadoC.ok {
+  color: green;
+  font-weight: bold;
+}
+
+/*  LOGIN PAGE */
+
+.h100 {
+  min-height: 100vh;
+}
+
+#login form {
+  width: 250px;
+}
+
+#login,
+.logo {
+  display: inline-block;
+  width: 40%;
+}
+
+#login {
+  padding: 0px 5px;
+  width: 50%;
+}
+
+.logo {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/Logo%20ITD.png) no-repeat center;
+  background-size: cover;
+  background-size: contain;
+}
+.logo-hm {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/Logo%20ITD.png) no-repeat center;
+  background-size: cover;
+  background-size: contain;
+}
+
+#login form span.fa {
+  background-color: #fff;
+  border-radius: 3px 0px 0px 3px;
+  color: #000;
+  display: block;
+  float: left;
+  height: 50px;
+  font-size: 24px;
+  line-height: 50px;
+  text-align: center;
+  width: 50px;
+}
+
+#login form input {
+  height: 50px;
+}
+
+#login form input[type="text"],
+input[type="password"] {
+  background-color: #fff;
+  border-radius: 0px 3px 3px 0px;
+  color: #000;
+  margin-bottom: 1em;
+  padding: 0 16px;
+  width: 200px;
+}
+
+#login form input[type="submit"] {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background-color: #000000;
+  color: #eee;
+  font-weight: bold;
+  /* margin-bottom: 2em; */
+  text-transform: uppercase;
+  padding: 5px 10px;
+  height: 30px;
+}
+
+#login > p {
+  text-align: center;
+}
+
+#login > p span {
+  padding-left: 5px;
+}
+
+.middle {
+  display: flex;
+  width: 600px;
+}
+
+#login.login {
+  box-sizing: border-box;
+  margin: 0px auto;
+
+  /* &:before,
+    &:after {
+        box-sizing: border-box;
+    } */
+}
+
+input {
+  border: none;
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5em;
+  padding: 0;
+  -webkit-appearance: none;
+}
+
+.container-login {
+  left: 50%;
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* IMAGENES, ICONOS & BOTONES */
+
+.center {
+  align-content: center;
+}
+.nav-link:hover {
+  color: #fff !important;
+}
+
+button.btn-back {
+  border: solid 1px #6f193f;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 0.25em;
+}
+
+button.btn-back:hover {
+  background-color: #6f193f;
+  color: #ffffff;
+}
+
+.back_icon:hover {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/back_white.png) no-repeat center;
+  padding: 0.875rem !important;
+  background-size: contain;
+}
+
+.home_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/home.png) no-repeat center;
+  padding: 0.875rem !important;
+  background-size: cover;
+  background-position: center;
+  background-size: contain;
+}
+
+.home_icon2 {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/home-circle.png) no-repeat center;
+  padding: 0.875rem !important;
+  background-size: cover;
+  background-position: center;
+  background-size: contain;
+}
+
+.editar_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/editar.png) no-repeat center;
+  padding: 0.8em !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.back_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/back_wine.png) no-repeat center;
+  padding: 0.875rem !important;
+  background-size: contain;
+  margin: auto;
+  width: 1em;
+  height: 1em;
+}
+
+.import_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/import.png) no-repeat center;
+  padding: 0.875rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.ok_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/ok.png) no-repeat center;
+  padding: 0.875rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.ok2_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/ok2.png) no-repeat center;
+  padding: 0.875rem !important;
+  width: 0.8em;
+  height: 0.8em;
+  margin: 2px;
+  background-size: contain;
+}
+
+.no_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/cancel.png) no-repeat center;
+  padding: 0.875rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.cancel_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/cancel.png) no-repeat center;
+  padding: 0.875rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.no_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/no.png) no-repeat center;
+  padding: 0.875rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.info_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/info.png) no-repeat center;
+  padding: 0.875rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.moreinfo_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/mas-info.png) no-repeat center;
+  padding: 0.875rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.add_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/add.png) no-repeat center;
+  padding: 0.875rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.add_icon2 {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/add2.png) no-repeat center;
+  padding: 0.875rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.comment_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/coment.png) no-repeat center;
+  padding: 0.5rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.comment-black_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/comment-b.png) no-repeat center;
+  padding: 0.5rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.comment2_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/coment2.png) no-repeat center;
+  padding: 0.5rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.adduser_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/adduser.png) no-repeat center;
+  padding: 0.875rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+.ok-blank_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/ok-blank.png) no-repeat center;
+  padding: 1.1rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.plus_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/plus.png) no-repeat center;
+  padding: 1.1rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.eye_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/eye.png) no-repeat center;
+  padding: 1.1rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.erase_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/erase.png) no-repeat center;
+  padding: 1rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.borrar_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/borrar.png) no-repeat center;
+  padding: 0.8em !important;
+  background-size: cover;
+  background-size: contain;
+}
+.documento_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/documento.png) no-repeat center;
+  padding: 1.1rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.subirDocumento_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/documento-s.png) no-repeat center;
+  padding: 1.1rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.validarDocumento_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/documento-v.png) no-repeat center;
+  padding: 1.1rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.documentos_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/documentos.png) no-repeat center;
+  padding: 1.1rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.send_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/send.png) no-repeat center;
+  padding: 1.1rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+.user_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/user.png) no-repeat center;
+  padding: 1.1rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.grupo_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/grupo.png) no-repeat center;
+  padding: 1.1rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.pass_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/password.png) no-repeat center;
+  padding: 1.1rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.reload_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/reload.png) no-repeat center;
+  padding: 1.1rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.atras_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/atras.png) no-repeat center;
+  padding: 1.1rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.adelante_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/adelante.png) no-repeat center;
+  padding: 1.1rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.calendario_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/calendario.png) no-repeat center;
+  padding: 1.1rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.encuesta_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/encuesta.png) no-repeat center;
+  padding: 1.2rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.logout_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/logout.png) no-repeat center;
+  padding: 1.1rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.papel_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/documentos.png) no-repeat center;
+  padding: 1.2rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.download_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/download.png) no-repeat center;
+  padding: 1.1rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.upload_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/upload.png) no-repeat center;
+  padding: 1em !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.user_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/blank-user.png) no-repeat center;
+  padding: 0.8em !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.user2_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/user-2.png) no-repeat center;
+  padding: 0.8em !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.print_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/printer.png) no-repeat center;
+  padding: 0.8em !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.downloadDocs_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/download_docs.png) no-repeat
+    center;
+  padding: 0.5em !important;
+  background-size: cover;
+  background-size: contain;
+}
+
+.red {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/red.png) no-repeat center;
+  background-size: cover;
+  background-position: center;
+}
+
+.green {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/green.png) no-repeat center;
+  background-size: cover;
+  background-position: center;
+}
+
+.text-wine {
+  color: #6f193f;
+}
+
+.docup {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/upload.png) no-repeat center;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+}
+
+.no-cursor {
+  cursor: default !important;
+}
+
+.btn-inv {
+  background-color: #6f193f !important;
+  background-position: center;
+  background-size: contain;
+  border: none;
+  padding-right: 2.275rem !important;
+}
+
+button.btn.btn-inv.no-btn {
+  cursor: default;
+}
+
+.subir {
+  padding: 5px 10px;
+  background: #6f193f;
+  color: #fff;
+  border: 0px solid #fff;
+}
+
+.subir:hover {
+  color: #fff;
+  background: #cfaa54;
+}
+
+/* Upload button */
+.upload {
+  display: none;
+}
+.uploader {
+  border: 1px solid #ccc;
+  width: 300px;
+  position: relative;
+  height: 30px;
+  display: flex;
+}
+.uploader .input-value {
+  width: 250px;
+  padding: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 25px;
+  font-family: sans-serif;
+  font-size: 16px;
+}
+.uploader label {
+  cursor: pointer;
+  margin: 0;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 0;
+  background: #6f193f url("http://localhost/Residencia/ActualizacionDocente/images/upload-sm.png") no-repeat
+    center;
+  background-size: cover;
+}
+
+@media only screen and (min-width: 992px) {
+  .logoHeader {
+    display: block;
+  }
+  .username {
+    display: block;
+  }
+  .username-mobile {
+    display: none;
+  }
+  .nav-login {
+    display: none;
+  }
+  .bg-login {
+    background-color: #6f193f;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .logoHeader {
+    display: none;
+  }
+  .header {
+    display: none !important;
+  }
+  .logoITD {
+    display: none;
+  }
+  .username {
+    display: none;
+  }
+  .username-mobile {
+    display: block;
+  }
+  .hide-mobile {
+    display: none;
+  }
+  .nav-login {
+    display: block;
+  }
+  .bg-login {
+    background-color: #6f193f;
+  }
+  #login form input[type="text"],
+  input[type="password"] {
+    background-color: #eee;
+    border-radius: 0px 3px 3px 0px;
+    color: #000;
+    margin-bottom: 1em;
+    padding: 0 16px;
+    width: 200px;
+  }
+  #login form input[type="submit"] {
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    /* margin-bottom: 2em; */
+    text-transform: uppercase;
+    padding: 5px 10px;
+    height: 30px;
+  }
+  #login form span.fa {
+    background-color: #fff;
+    border-radius: 3px 0px 0px 3px #6f193f;
+    color: #000;
+    display: block;
+    float: left;
+    height: 50px;
+    font-size: 24px;
+    line-height: 50px;
+    text-align: center;
+    width: 50px;
+  }
+}
+
+/* Estilos del TOAST */
+.wrap {
+  float: left;
+  position: relative;
+  left: 50%;
+}
+
+.content {
+  float: left;
+  position: relative;
+  left: -50%;
+}
+
+.center {
+  display: table;
+  margin: auto;
+  position: fixed;
+  top: 20%;
+  left: 35%;
+  box-shadow: -1em 0.8rem 0.6rem rgba(0, 0, 0, 0.31);
+}
+
+/* Cursores */
+.cursor-alias {
+  cursor: alias !important;
+}
+.cursor-all-scroll {
+  cursor: all-scroll !important;
+}
+.cursor-auto {
+  cursor: auto !important;
+}
+.cursor-cell {
+  cursor: cell !important;
+}
+.cursor-context-menu {
+  cursor: context-menu !important;
+}
+.cursor-col-resize {
+  cursor: col-resize !important;
+}
+.cursor-copy {
+  cursor: copy !important;
+}
+.cursor-crosshair {
+  cursor: crosshair !important;
+}
+.cursor-default {
+  cursor: default !important;
+}
+.cursor-e-resize {
+  cursor: e-resize !important;
+}
+.cursor-ew-resize {
+  cursor: ew-resize !important;
+}
+.cursor-grab {
+  cursor: -webkit-grab;
+  cursor: grab !important;
+}
+.cursor-grabbing {
+  cursor: -webkit-grabbing;
+  cursor: grabbing !important;
+}
+.cursor-help {
+  cursor: help !important;
+}
+.cursor-move {
+  cursor: move !important;
+}
+.cursor-n-resize {
+  cursor: n-resize !important;
+}
+.cursor-ne-resize {
+  cursor: ne-resize !important;
+}
+.cursor-nesw-resize {
+  cursor: nesw-resize !important;
+}
+.cursor-ns-resize {
+  cursor: ns-resize !important;
+}
+.cursor-nw-resize {
+  cursor: nw-resize !important;
+}
+.cursor-nwse-resize {
+  cursor: nwse-resize !important;
+}
+.cursor-no-drop {
+  cursor: no-drop !important;
+}
+.cursor-none {
+  cursor: none !important;
+}
+.cursor-not-allowed {
+  cursor: not-allowed !important;
+}
+.cursor-pointer {
+  cursor: pointer !important;
+}
+.cursor-progress {
+  cursor: progress !important;
+}
+.cursor-row-resize {
+  cursor: row-resize !important;
+}
+.cursor-s-resize {
+  cursor: s-resize !important;
+}
+.cursor-se-resize {
+  cursor: se-resize !important;
+}
+.cursor-sw-resize {
+  cursor: sw-resize !important;
+}
+.cursor-text {
+  cursor: text !important;
+}
+.cursor-w-resize {
+  cursor: w-resize !important;
+}
+.cursor-wait {
+  cursor: wait !important;
+}
+.cursor-zoom-in {
+  cursor: zoom-in !important;
+}
+.cursor-zoom-out {
+  cursor: zoom-out !important;
+}

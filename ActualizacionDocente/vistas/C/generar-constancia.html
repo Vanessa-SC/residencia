@@ -1,0 +1,89 @@
+<ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasC/nav.html'"></ng-include>
+<div class="container px-5" ng-controlelr="constanciasController">
+	<div class="alert alert-warning alert-dismissible fade show mt-4" role="alert">
+		<strong>Si el curso no tiene asignado el folio del TecNM agréguelo primero.</strong>
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<table class="table border-bottom border-dark">
+		<div class="input-group mb-3 mt-4 col-sm-7">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="periodo">Periodo</label>
+			</div>
+			<select required class="custom-select" id="periodo" ng-model="constancia.periodo"
+				ng-options='p.periodo for p in periodos' ng-change="getCursosDelPeriodo(constancia.periodo)">
+				<option value="{{p.periodo}}"> {{p.periodo}} </option>
+			</select>
+		</div>
+		<div class="input-group mb-3 mt-4 col-sm-12">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="curso">Curso</label>
+			</div>
+			<select required class="custom-select" id="curso" ng-model="constancia.curso"
+				ng-options='c.curso for c in cursosPeriodo' ng-change="cursoSeleccionado(constancia.curso)">
+				<option value="{{c.curso}}"> {{c.curso}} </option>
+			</select>
+		</div>
+		<div class="input-group mb-3 mt-4 col-sm-10">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="participante">Participante</label>
+			</div>
+			<select required class="custom-select" id="participante" ng-model="constancia.participante"
+				ng-options='p.nombre for p in participantesCurso' ng-change="habilitarBoton()">
+				<option value="{{p.nombre}}"> {{p.nombre}} </option>
+			</select>
+		</div>
+		<div class="text-center">
+			<button disabled class="btn bg-wine text-white" id="btn_generar" ng-click="crearConstancia()">
+				<span class="ok2_icon"></span>Generar
+			</button>
+		</div>
+	</table>
+	<h4 class="text-center">Constancias. <br> Periodo {{periodo}} </h4>
+	<div class="table-responsive">
+
+		<table class="table table-bordered">
+			<thead class="bg-wine text-white text-center">
+				<tr>
+					<td class="align-middle font-italic">Folio</td>
+					<td class="align-middle font-italic">Docente</td>
+					<td class="align-middle font-italic">Curso</td>
+					<td class="align-middle font-italic">Fecha</td>
+					<td class="align-middle font-italic">Descargar</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="x in constanciasPeriodoActual">
+					<th class="align-middle" scope="row">{{x.folio}}</th>
+					<td class="align-middle">{{x.nombre}}</td>
+					<td class="align-middle">{{x.curso}}</td>
+					<td class="align-middle">{{x.fecha}}</td>
+					<td class="align-middle text-center"><a href="http://localhost/Residencia/ActualizacionDocente/files/{{x.rutaConstancia}}"
+							target="_blank"><button class="btn bg-white download_icon"></button></a></td>
+				</tr>
+
+			</tbody>
+			<tbody ng-show="constanciasPeriodoActual | isEmpty">
+				<tr class="text-center">
+					<td class="align-middle" colspan="5" class=" bg-light align-middle p-4 font-italic">
+						<h5>No hay constancias este periodo</h5>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="card-footer text-muted text-center">Todos los derechos reservados. ITD 2020</div>
+</div>
+<div class="toast w-75" data-autohide="false" id="alerta"
+	style="position: fixed; top: 50px; right: 30px; background-color: rgb(250, 250, 250);">
+	<div class="toast-header bg-{{alert.tipo}} text-dark">
+		<strong class="mr-auto">{{alert.titulo}}</strong>
+		<button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
+			<span aria-hidden="true" style="font-size: 1.1em;">&times;</span>
+		</button>
+	</div>
+	<div class="toast-body">
+		<div>{{alert.mensaje}}</div>
+	</div>
+</div>

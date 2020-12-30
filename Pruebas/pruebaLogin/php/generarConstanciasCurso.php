@@ -41,7 +41,7 @@ foreach($participantes as list($id,$nombre)){
     // Agregar página
     $pdf->AddPage();
     // Background
-    $pdf->Image('C:\xampp\htdocs\Residencia\Pruebas\pruebaLogin\FPDF\CONSTANCIA.jpg', 3, 0, 210);
+    $pdf->Image('C:\xampp\htdocs\Residencia\ActualizacionDocente\FPDF\CONSTANCIA.jpg', 3, 0, 210);
     $pdf->Ln(43);
     // Tipografía
     $pdf->AddFont('Montserrat','','montserrat.php');
@@ -94,7 +94,7 @@ $idi = $data[0]['idUsuario'];
 $pdf = new FPDF('P', 'mm', 'letter');
 $pdf->SetAutoPageBreak(false);
 $pdf->AddPage();
-$pdf->Image('C:\xampp\htdocs\Residencia\Pruebas\pruebaLogin\FPDF\RECONOCIMIENTO.jpg', 3, 0, 210);
+$pdf->Image('C:\xampp\htdocs\Residencia\ActualizacionDocente\FPDF\RECONOCIMIENTO.jpg', 3, 0, 210);
 $pdf->Ln(43);
 
 $pdf->AddFont('Montserrat','','montserrat.php');

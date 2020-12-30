@@ -1,0 +1,192 @@
+<ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasJ/nav.html'"></ng-include>
+<div class="container px-5" ng-controlelr="constanciasController" ng-init="getNuevoFolio()">
+	<form>
+		<div class="text-center mt-3 border-bottom">
+			<h4>Agregar nuevo curso</h4>
+		</div>
+		<div class="input-group mb-4 mt-5">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="folio">Folio TecNM</label>
+			</div>
+			<input type="text" id="folio" class="form-control" ng-model="curso.folio">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="ClaveRegistro">Clave registro</label>
+			</div>
+			<input readonly type="text" id="ClaveRegistro" class="form-control" ng-model="curso.clave">
+		</div>
+		<div class="dropdown-divider mb-4 mt-4"></div>
+		<h5>Datos generales del curso</h5>
+		<div class="input-group mb-3 mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="nombreCurso">Nombre</label>
+			</div>
+			<input required type="text" id="nombreCurso" class="form-control" ng-model="curso.nombre">
+		</div>
+
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="duracion">Duraci&oacute;n</label>
+			</div>
+			<input required type="number" min="30" id="duracion" class="form-control" ng-model="curso.duracion"
+				string-to-number>
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="horaInicio">Hora de Inicio</label>
+			</div>
+			<input required type="time" id="horaInicio" class="form-control" ng-model="curso.horaInicio" as-date>
+
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="horaFin">Hora de Termino</label>
+			</div>
+			<input required type="time" id="horaFin" class="form-control" ng-model="curso.horaFin" as-date>
+		</div>
+		<div class="input-group mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="fechaInicio">Fecha Inicio</label>
+			</div>
+			<input required type="date" id="fechaInicio" class="form-control" ng-model="curso.fechaInicio" as-date>
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="fechaFin">Fecha Fin</label>
+			</div>
+			<input required type="date" id="fechaFin" class="form-control" ng-model="curso.fechaFin" as-date>
+		</div>
+
+		<div class="dropdown-divider mb-4 mt-4"></div>
+
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="modalidad">Modalidad</label>
+			</div>
+			<select required class="custom-select" id="modalidad" ng-model="curso.modalidad">
+				<option selected value="1">Presencial</option>
+				<option value="2">Virtual</option>
+				<option value="3">Semipresencial</option>
+			</select>
+
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="lugar">Lugar</label>
+			</div>
+			<input required type="text" id="lugar" class="form-control" ng-model="curso.lugar">
+
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="destinatarios">Destinatarios</label>
+			</div>
+			<input required type="text" id="destinatarios" class="form-control" ng-model="curso.destinatarios">
+		</div>
+
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="departamento">Departamento</label>
+			</div>
+			<select required class="custom-select" id="departamento" ng-model="curso.departamento" ng-change="getNuevoFolio()" >
+				<option value="0"> Cualquier departamento </option>
+				<option ng-value="dpto.idDepartamento"> {{dpto.nombreDepartamento}} </option>
+			</select>
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="instructor">Instructor</label>
+			</div>
+			<select required class="custom-select" id="instructor" ng-model="curso.instructor">
+				<option ng-repeat="x in instructor" value="{{x.idInstructor}}"> {{x.nombre}} </option>
+			</select>
+		</div>
+
+		<div class="dropdown-divider mb-4 mt-4"></div>
+		<h5>Descripci&oacute;n del curso</h5>
+
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="introduccion">Introducci&oacute;n</label>
+			</div>
+			<textarea required type="text" id="introduccion" class="form-control" ng-model="curso.introduccion"
+			placeholder="En un máximo de 250 palabras de una breve introducción del curso. En la introducción normalmente se describe el alcance del documento, y se da una breve explicación o resumen del mismo. También puede explicar algunos antecedentes que son importantes para el posterior desarrollo del tema central."
+			></textarea>
+		</div>
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="justificacion">Justificaci&oacute;n</label>
+			</div>
+			<textarea required type="text" id="justificacion" class="form-control" ng-model="curso.justificacion"
+			placeholder="Es 'por qué' se requiere impartir dicho curso."
+			></textarea>
+		</div>
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="objetivo">Objetivo</label>
+			</div>
+			<textarea required type="text" id="objetivo" class="form-control" ng-model="curso.Objetivo"
+			placeholder="Debe dar respuesta a las preguntas: 'qué', 'cómo', 'para qué' y 'para quién'."
+			></textarea>
+		</div>
+
+		<div class="dropdown-divider mb-4 mt-4"></div>
+
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="contenido">Contenido Tem&aacute;tico</label>
+			</div>
+			<textarea required type="text" id="contenido" class="form-control" ng-model="curso.contenido"
+			placeholder="Es 'qué' temas abordará."
+			></textarea>
+		</div>
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="materiales">Materiales Did&aacute;cticos</label>
+			</div>
+			<textarea type="text" id="materiales" class="form-control" ng-model="curso.materiales"
+			placeholder="Describir los materiales y soporte tecnológico que se necesitará."
+			></textarea>
+		</div>
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="criterios">Criterios de evaluaci&oacute;n</label>
+			</div>
+			<textarea required type="text" id="criterios" class="form-control" ng-model="curso.criterios"
+			placeholder="Ej. 80% Asistencia, 20% Prácticas."
+			></textarea>
+		</div>
+
+		<div class="dropdown-divider mb-4 mt-4"></div>
+
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="resultados">Resultados</label>
+			</div>
+			<textarea required type="text" id="resultados" class="form-control" ng-model="curso.resultados"
+			placeholder="Describir los resultados que se esperan obtener con la impartición del curso."
+			></textarea>
+		</div>
+		<div class="input-group mb-3  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="fuentes">Fuentes de Informaci&oacute;n</label>
+			</div>
+			<textarea type="text" id="fuentes" class="form-control" ng-model="curso.fuentes"
+			placeholder="Describir la bibliografía consultada para la elaboración de este curso."
+			></textarea>
+		</div>
+
+		<div class="dropdown-divider mt-4"></div>
+		<div class="input-group mb-4  mt-4">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="observaciones">Observaciones</label>
+			</div>
+			<textarea type="text" id="observaciones" class="form-control" ng-model="curso.observaciones"
+				ng-init="curso.observaciones='Ninguna'"></textarea>
+		</div>
+
+		<div class="align-middle text-center mb-5">
+			<button class="btn bg-wine" ng-click="crearCurso(curso)"><span class="ok2_icon"></span> Crear curso</button>
+		</div>
+	</form>
+	<div class="card-footer text-muted text-center">Todos los derechos reservados. ITD 2020</div>
+</div>
+<div class="toast w-75" data-autohide="false" id="alerta"
+    style="position: fixed; top: 50px; right: 30px; background-color: rgb(250, 250, 250);">
+    <div class="toast-header bg-{{alert.tipo}} text-dark">
+        <strong class="mr-auto">{{alert.titulo}}</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
+            <span aria-hidden="true" style="font-size: 1.1em;">&times;</span>
+        </button>
+    </div>
+    <div class="toast-body">
+        <div>{{alert.mensaje}}</div>
+    </div>
+</div>

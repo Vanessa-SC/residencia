@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg navbar-dark menu">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="username-mobile text-light mx-auto pr-4">{{user}} <span class="user2_icon ml-2"></span></div>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">Programa Institucional</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#!/inicioC/">Programa Institucional</a>
+                    <a class="dropdown-item" href="#!/inicioC/todosProgramas">Todos los Programas</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#!/inicioC/constancias">Constancias</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#!/inicioC/instructores">Instructores</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Formatos
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" ng-click="printIndicadores()">Formato de Indicadores de Participantes del Periodo Actual</a>
+                    <a class="dropdown-item" ng-click="printProgramaInstitucional()">Formato del Programa Institucional de Formación y Actualización Docente</a>
+                </div>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <div class=" username text-light mx-auto pr-4">{{user}} <span class="user2_icon ml-2"></span></div>
+            <a href="#!/logout"><button type="button" class="btn btn-small btn-outline-light">Cerrar sesión</button></a>
+        </form>
+    </div>
+</nav>

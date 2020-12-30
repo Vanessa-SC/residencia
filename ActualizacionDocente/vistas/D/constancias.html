@@ -1,0 +1,54 @@
+<ng-include src="'/Residencia/Pruebas/pruebaLogin/vistasD/nav.html'"></ng-include>
+<div class="container">
+	<div class="text-center mt-4">
+		<h1>Periodo {{periodo}}</h1>
+	</div>
+	<div class="d-flex justify-content-between">
+
+		<div class="input-group mb-3 p-2 col-sm-4 mt-2">
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span class="input-group-text">Constancias:</span>
+				</div>
+				<input type="text" class="form-control" ng-model="filtro" placeholder="Filtrar">
+			</div>
+		</div>
+	</div>
+	<div class="table-responsive">
+		<table class="table table-bordered table-sm">
+			<thead class="bg-wine text-white text-center">
+				<tr>
+					<td class="align-middle font-italic">Folio</td>
+					<td class="align-middle font-italic">Curso</td>
+					<td class="align-middle font-italic">Fecha del curso</td>
+					<td class="align-middle font-italic">Fecha de expedición</td>
+					<td class="align-middle font-italic">Duración</td>
+					<td class="align-middle font-italic">Instructor</td>
+					<td></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="x in constancias | filter:filtro">
+					<th scope="row" class="align-middle" style="font-size: small;">{{x.folio}}</th>
+					<td class="align-middle">{{x.nombreCurso}}</td>
+					<td class="align-middle">{{x.fecha}} <br>{{x.horario}}</td>
+					<td class="align-middle">{{x.fechaExpedicion}}</td>
+					<td class="align-middle">{{x.duracion}} Hrs.</td>
+					<td class="align-middle"> {{x.maestro}} </td>
+					<td class="align-middle">
+						<a href="#!/inicioD/constancias/descargar">
+							<button class="btn bg-white eye_icon" ng-click="verConstancia(x.folio,x.idCurso)"></button></button>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+			<tbody ng-show="constancias | isEmpty">
+				<tr class="text-center">
+					<td class="align-middle" colspan="7" class=" bg-light align-middle p-4 font-italic">
+						<h5>No hay registros</h5>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
