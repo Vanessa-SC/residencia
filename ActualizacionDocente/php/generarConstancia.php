@@ -57,5 +57,13 @@ if (mysqli_query($conn, $sql)) {
     $response['status'] = 'error';
 }
 
+$sqli = "UPDATE usuario_has_curso
+        SET estado = '0'
+        WHERE Usuario_idUsuario = $datos->idUsuario
+        AND Curso_idCurso = $datos->idCurso
+        ";
+
+mysqli_query($conn, $sqli);
+
 /* Respuesta */
 echo json_encode($response, JSON_FORCE_OBJECT);

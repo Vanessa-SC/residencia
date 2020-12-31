@@ -143,16 +143,13 @@ $id = 1;
 //2 lunes, 3 martes, 4 Miercoles, 5 jueves, 6 viernes
 
 
-$sql = "SELECT      
-         concat_ws(' ',usuario.apellidoPaterno,usuario.apellidoMaterno,usuario.nombre) AS nombre,
-        IF(asistencia.asistencia = NULL, 'X', DATE_FORMAT(asistencia.fecha,'%d/%m')) AS fecha 
-        FROM asistencia 
-        INNER JOIN usuario
-        ON usuario.idUsuario = asistencia.Usuario_idUsuario
-        WHERE asistencia.Curso_idCurso = $idCurso
-        AND DAYOFWEEK(fecha) = 6
-        AND fecha > DATE_SUB(NOW(), INTERVAL 1 WEEK)
-        ORDER BY nombre
+$sql = "SELECT a.Usuario_idUsuario as idUsuario, 
+upper(concat_ws(' ',u.nombre,u.apellidoPaterno,u.apellidoMaterno)) as nombre
+FROM asistencia a, usuario u
+WHERE a.Curso_idCurso = $idCurso
+AND a.Usuario_idUsuario = u.idUsuario
+group by a.Usuario_idUsuario
+HAVING ROUND((SUM(CASE WHEN a.asistencia = '1' THEN 1 ELSE 0 END)/COUNT(*)*100),2) <= 80
 ";
 
 /* Ejecución de la consulta */

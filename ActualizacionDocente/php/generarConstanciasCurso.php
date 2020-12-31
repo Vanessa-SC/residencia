@@ -28,6 +28,29 @@ $queryAlumnos   =  "SELECT a.Usuario_idUsuario as idUsuario,
 $res = mysqli_query($conn, $queryAlumnos);
 $participantes = mysqli_fetch_all ($res);
 
+// Obtener listado de participantes con asistencia menor a 80%
+$queryAlumnosR   =  "SELECT a.Usuario_idUsuario as idUsuario, 
+                    upper(concat_ws(' ',u.nombre,u.apellidoPaterno,u.apellidoMaterno)) as nombre
+                    FROM asistencia a, usuario u
+                    WHERE a.Curso_idCurso = $idc 
+                    AND a.Usuario_idUsuario = u.idUsuario
+                    group by a.Usuario_idUsuario
+                    HAVING ROUND((SUM(CASE WHEN a.asistencia = '1' THEN 1 ELSE 0 END)/COUNT(*)*100),2) <= 80";
+
+
+$resA = mysqli_query($conn, $queryAlumnosR);
+$participantesR = mysqli_fetch_all ($resA);
+
+/* Recorrer el arreglo y hacer inserciones  */
+foreach($participantesR as list($id,$nombre)){
+    $sqli = "UPDATE usuario_has_curso
+        SET estado = '2'
+        WHERE Usuario_idUsuario = $id
+        AND Curso_idCurso = $idc
+        ";
+
+    mysqli_query($conn, $sqli);
+}
 
 /* Recorrer el arreglo y hacer inserciones  */
 foreach($participantes as list($id,$nombre)){
@@ -73,6 +96,14 @@ foreach($participantes as list($id,$nombre)){
             VALUES('','$folio-$id','$archivo',$idc,$id)";
 
     mysqli_query($conn, $sql);
+
+    $sqli = "UPDATE usuario_has_curso
+        SET estado = '0'
+        WHERE Usuario_idUsuario = $id
+        AND Curso_idCurso = $idc
+        ";
+
+    mysqli_query($conn, $sqli);
 }
 
 /** Obtener nombre del instructor */
