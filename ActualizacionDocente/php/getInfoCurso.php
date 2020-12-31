@@ -28,7 +28,10 @@ $sql = "SELECT curso.idCurso,
             curso.lugar,
             curso.duracion,
             curso.destinatarios, 
-            curso.validado,
+            curso.validado,            
+            curso.contenido,
+            curso.criterios,
+            curso.fuentes,
             departamento.nombreDepartamento,
             curso.Departamento_idDepartamento as departamento
         FROM instructor 

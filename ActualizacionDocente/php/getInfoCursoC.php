@@ -23,6 +23,9 @@ $sql = "SELECT curso.idCurso,
             curso.duracion,
             curso.destinatarios, 
             curso.validado,
+            curso.contenido,
+            curso.criterios,
+            curso.fuentes,
             departamento.nombreDepartamento,
             curso.Departamento_idDepartamento as departamento
         FROM instructor Inner join curso

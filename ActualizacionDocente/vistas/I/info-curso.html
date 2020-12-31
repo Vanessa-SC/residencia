@@ -38,6 +38,20 @@
             </tbody>
         </table>
     </div>
+    <div class="table-responsive">
+        <table class="table">
+            <tbody class="bg-white text-center table table-bordered mt-2 pt-2">
+                <tr class="bg-wine">
+                    <td class="font-italic align-middle">Contenido Tem&aacute;tico del curso </td>
+                    <td class="font-italic align-middle">Criterios de Evaluaci&oacute;n</td>
+                </tr>
+                <tr>
+                    <td class=" align-middle ">{{infoCurso.contenido}}</td>
+                    <td class=" align-middle ">{{infoCurso.criterios}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <div class="text-center mt-4">
             <button class="btn bg-wine text-white" ng-click="printOficio()">
                 <span class="print_icon mr-2"></span>Imprimir Oficio del Curso
