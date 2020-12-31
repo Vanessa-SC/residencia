@@ -35,8 +35,10 @@ if ( $mes <= 6 ){
     $response = 'Agosto / Diciembre ';
 }
 
-//Obtiene la fecha del día
+// Obtiene la fecha del día
 setlocale(LC_TIME, 'es_MX');
+// Establece la zona horaria
+date_default_timezone_set("America/Mexico_City");
 /* Fecha actual en español */
 $bMeses = array("void", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
 $bDias = array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");

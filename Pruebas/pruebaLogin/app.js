@@ -2622,7 +2622,7 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 	/* Llamado al curso */
 	$scope.getCursos();
 
-	/* abre el oficio del curso en otra pestaña */
+	/* Abre el oficio del curso en otra pestaña */
 	$scope.printFormato = function () {
 		$scope.idCurso = curso.getID();
 		window.open('http://localhost/Residencia/Pruebas/pruebaLogin/php/getFormatoListaAsistencia.php?idc=' + $scope.idCurso, '_blank');

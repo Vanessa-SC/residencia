@@ -2038,6 +2038,12 @@ app.controller('programasCtrl', function ($scope, $http, $location, $filter, use
 
 			});
 		}
+
+	/* Abre el Formato de Lista de Asistencia curso en otra pestaña */
+	$scope.printFormato = function () {
+		$scope.idCurso = curso.getID();
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoListaAsistencia.php?idc=' + $scope.idCurso, '_blank');
+	}
 	}
 
 	/* Obtener listado de todos los periodos registrados */
@@ -2574,7 +2580,7 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 					$('#modal').modal('hide');
 					$('.modal-backdrop').remove();
 					$scope.alert = {
-						titulo: 'Listo!',
+						titulo: '¡Listo!',
 						tipo: 'success',
 						mensaje: 'La asistencia se registro con éxito. En breve será redireccionado...'
 					};
@@ -2621,7 +2627,7 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 	/* Llamado al curso */
 	$scope.getCursos();
 
-	/* abre el oficio del curso en otra pestaña */
+	/* Abre el Formato de Lista de Asistencia del curso en otra pestaña */
 	$scope.printFormato = function () {
 		$scope.idCurso = curso.getID();
 		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoListaAsistencia.php?idc=' + $scope.idCurso, '_blank');
@@ -2641,11 +2647,6 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 
 			});
 		}
-	}
-
-	/*Obtiene plantilla de Currículum con Datos principales del instructor */
-	$scope.printFormato = function () {
-		window.open('http://localhost/Residencia/ActualizacionDocente/php/getCurriculum.php?id=' + user.getIdUsuario(), '_blank');
 	}
 });
 
@@ -3100,7 +3101,7 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 		}).then(function successCallback(response) {
 			if (response.data.status == 'ok') {
 				$scope.alert = {
-					titulo: 'Archivo subido!',
+					titulo: '¡Archivo subido!',
 					tipo: 'success',
 					mensaje: 'Archivo subido correctamente.'
 				};
@@ -3321,17 +3322,6 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso, encuesta, periodoService, fechaService, $timeout, encuestaService) {
 	$scope.user = user.getName();
 
-	//Formatos
-	/* Archivo excel de indicadores */
-	$scope.printIndicadores = function () {
-		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoIndicadoresDpto.php?idd=' + user.getIdDepartamento(), '_blank');
-	}
-
-	/* Archivo word de Programa Institucional */
-	$scope.printProgramaInstitucional = function () {
-		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoProgramaInstitucionalDpto.php?idd=' + user.getIdDepartamento(), '_blank');
-	}
-
 	/* Obtiene el periodo */
 	$scope.periodo = periodoService.getPeriodo()
 		.then(function (response) {
@@ -3420,7 +3410,7 @@ app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso,
 				console.log(response.data);
 				if (response.data.status == 'ok') {
 					$scope.alert = {
-						titulo: 'Listo!',
+						titulo: '¡Listo!',
 						tipo: 'success',
 						mensaje: 'Sus respuestas fueron registradas con éxito. En breve será redireccionado...'
 					};
@@ -3508,6 +3498,27 @@ app.controller('instructoresJCtrl', function ($scope, $http, $location, user, pe
 		}).then(function successCallback(response) {
 			$scope.dpto = response.data;
 			$scope.instructor.departamento = $scope.dpto.idDepartamento;
+		});
+	}
+
+	/* Oculta campos en el formulario */
+	$scope.ocultarCampos = function () {
+		$("#personal").change(function () {
+			if ($(this).val() == 1) {
+				$("#contrato").removeAttr("disabled");
+				$("#contrato").focus();
+				$("#horas").removeAttr("disabled");
+				$("#horas").focus();
+				$("#departamento").removeAttr("disabled");
+				$("#departamento").focus();
+				$("#funcionAdministrativa").removeAttr("disabled");
+				$("#funcionAdministrativa").focus();
+			} else {
+				$("#contrato").attr("disabled", "disabled");
+				$("#horas").attr("disabled", "disabled");
+				$("#departamento").attr("disabled", "disabled");
+				$("#funcionAdministrativa").attr("disabled", "disabled");
+			}
 		});
 	}
 
@@ -3915,7 +3926,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 				console.log(response.data);
 				if (response.data.status == 'ok') {
 					$scope.alert = {
-						titulo: 'Listo!',
+						titulo: '¡Listo!',
 						tipo: 'success',
 						mensaje: 'Sus respuestas fueron registradas con éxito. En breve será redireccionado...'
 					};
