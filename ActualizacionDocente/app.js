@@ -589,6 +589,63 @@ app.config(function ($routeProvider, $locationProvider) {
 			templateUrl: './vistas/A/departamentos.html',
 			controller: 'departamentosACtrl'
 
+		})
+
+		/** RUTA PARA EL CAMBIO DE CONTRASEÑA Y PAGINA ERROR 404 */
+		.when('/cambiarDatosC/',{
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 1) {
+						$location.path(user.getPath());
+					}
+				},
+			},
+			templateUrl: './vistas/C/cambiar-datos.html',
+			controller: 'loginCtrl'
+		}).when('/cambiarDatosJ/',{
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 2) {
+						$location.path(user.getPath());
+					}
+				},
+			},
+			templateUrl: './vistas/J/cambiar-datos.html',
+			controller: 'loginCtrl'
+			
+		}).when('/cambiarDatosD/',{
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 3) {
+						$location.path(user.getPath());
+					}
+				},
+			},
+			templateUrl: './vistas/D/cambiar-datos.html',
+			controller: 'loginCtrl'
+			
+		}).when('/cambiarDatosI/',{
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 4) {
+						$location.path(user.getPath());
+					}
+				},
+			},
+			templateUrl: './vistas/I/cambiar-datos.html',
+			controller: 'loginCtrl'
+			
+		}).when('/cambiarDatosA/',{
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 5) {
+						$location.path(user.getPath());
+					}
+				},
+			},
+			templateUrl: './vistas/A/cambiar-datos.html',
+			controller: 'loginCtrl'
+			
 		}).otherwise({
 			templateUrl: '404.html'
 		});
@@ -1106,7 +1163,7 @@ function validarInputR(input) {
 
 /* Controlador para el inicio de sesión */
 app.controller('loginCtrl', function ($scope, $http, $location, user) {
-
+	$scope.user = user.getName();
 	/* Functión para inicio de sesión */
 	$scope.login = function () {
 		/* Declaración de variables */
@@ -1159,6 +1216,9 @@ app.controller('loginCtrl', function ($scope, $http, $location, user) {
 				return false;
 			}
 	}
+
+
+	
 });
 
 /* CONTROLADORES PARA EL USUARIO COORDINADOR*/

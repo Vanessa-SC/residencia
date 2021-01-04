@@ -26,8 +26,18 @@
           </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-        <div class=" username text-light mx-auto pr-4">{{user}}  <span class="user2_icon ml-2"></span></div>
-        <a href="#!/logout"><button type="button" class="btn btn-small btn-outline-light">Cerrar sesión</button></a>
+        <div class="btn-group">
+            <button class="btn bg-wine btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <span style="font-size: small;">{{user}}</span>
+                <span class="user2_icon"></span>
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#!/cambiarDatosJ">Cambiar contraseña</a>
+            </div>
+            <a href="#!/logout">
+                <button type="button" class="btn btn-small btn-outline-light">Cerrar sesión</button>
+            </a>
     </form>
 </div>
 </nav>
