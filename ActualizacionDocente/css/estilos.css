@@ -238,6 +238,12 @@ button.op {
 
 /*  LOGIN PAGE */
 
+.login div#rfc_ok, .login div#rfc {
+  height: auto;
+  padding: 2px !important;
+  margin-bottom: 0 !important;
+}
+
 .h100 {
   min-height: 100vh;
 }
