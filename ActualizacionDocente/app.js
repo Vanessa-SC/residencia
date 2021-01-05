@@ -589,6 +589,17 @@ app.config(function ($routeProvider, $locationProvider) {
 			templateUrl: './vistas/A/departamentos.html',
 			controller: 'departamentosACtrl'
 
+		}).when('/inicioA/encuestas', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 5) {
+						$location.path(user.getPath());
+					}
+				},
+			},
+			templateUrl: './vistas/A/encuestas.html',
+			controller: 'encuestasACtrl'
+
 		})
 
 		/** RUTA PARA EL CAMBIO DE CONTRASEÑA Y PAGINA ERROR 404 */
@@ -4722,6 +4733,75 @@ app.controller('departamentosACtrl', function ($scope, $http, $location, user, p
 		});
 	}
 
+
+});
+
+app.controller('encuestasACtrl', function ($scope, $http, $timeout) {
+
+	$scope.getEncuestas = function () {
+		$timeout(function () {
+			$http({
+				method: 'GET',
+				url: 'http://localhost/Residencia/ActualizacionDocente/php/getEncuestas.php'
+			}).then(function successCallback(response) {
+				$scope.encuestas = response.data;
+			});
+		}, 500);
+	}
+
+	$scope.getPreguntasEncuesta = function () {
+		if ($scope.encuesta.id != undefined) {
+			$http({
+				method: 'POST',
+				url: 'http://localhost/Residencia/ActualizacionDocente/php/getPreguntasEncuesta.php',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'ide=' + $scope.encuesta.id
+			}).then(function successCallback(response) {
+				$scope.preguntas = response.data;
+			});
+		} else {
+			console.log($scope.encuesta);
+		}
+	}
+
+	$scope.actualizarPregunta = function (pregunta) {
+		idp = pregunta.id;
+		pregunta = $scope.encuesta.preguntaMod;
+
+		$http({
+				method: 'POST',
+				url: 'http://localhost/Residencia/ActualizacionDocente/php/actPregunta.php',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idp='+idp+'&pregunta='+pregunta
+			}).then(function successCallback(response) {
+				if(response.data.status = 'ok'){
+					$scope.alert = {
+						titulo: '¡Actualizado!',
+						tipo: 'success',
+						mensaje: 'Actualización exitosa.'
+					};
+					$(document).ready(function () {
+						$('#alerta').toast('show');
+					});
+
+					$scope.getPreguntasEncuesta();
+				} else {
+					$scope.alert = {
+						titulo: '¡Error!',
+						tipo: 'danger',
+						mensaje: 'Ocurrió un error.'
+					};
+					$(document).ready(function () {
+						$('#alerta').toast('show');
+					});
+				}
+			});
+		
+	}
 
 });
 

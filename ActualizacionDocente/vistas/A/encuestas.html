@@ -1,0 +1,73 @@
+<ng-include src="'/Residencia/ActualizacionDocente/vistas/A/nav.html'"></ng-include>
+<div class="container" ng-init="getEncuestas()">
+
+    <div class="input-group mb-3 mt-4 col-sm-12">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="encuesta">Tipo de encuesta</label>
+        </div>
+        <select required class="custom-select" id="encuesta.tipo" ng-model="encuesta.id" ng-change="getPreguntasEncuesta()">
+            <option ng-repeat="x in encuestas" value="{{x.tipoEncuesta}}"> {{x.nombreEncuesta}} </option>
+        </select>
+    </div>
+    <div class="panel panel-default">
+        <table class="table table-bordered">
+            <thead class="bg-wine text-white font-italic">
+                <tr class="text-center">
+                    <td>N°</td>
+                    <td>Pregunta</td>
+                    <td>Editar</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="p in preguntas">
+                    <td>{{ $index +1 }}</td>
+                    <td>{{ p.pregunta}}</td>
+                    <td class="text-center">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-white editar_icon" data-toggle="modal"
+                            data-target="#modalEditar{{$index}}">
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalEditar{{$index}}" tabindex="-1" role="dialog"
+                            aria-labelledby="modalEditarTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-wine text-white">
+                                        <h5 class="modal-title" id="modalEditarTitle">Editar pregunta</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text">Pregunta</span>
+                                            </div>
+                                            <textarea class="form-control" aria-label="Pregunta" ng-model="encuesta.preguntaMod" ng-value="p.pregunta"></textarea>
+                                          </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn bg-wine text-white" ng-click="actualizarPregunta(p,encuesta)" data-dismiss="modal">Guardar cambios</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-white borrar_icon"></button>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody ng-show="preguntas | isEmpty">
+                <tr class="text-center">
+                    <td class="align-middle" colspan="3" class=" bg-light align-middle p-4 font-italic">
+                        <h5 class="mx-auto pt-4">No hay preguntas en esta encuesta</h5>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
