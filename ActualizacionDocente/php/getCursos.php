@@ -17,6 +17,12 @@ if ( $mes <= 6 ){
 } else {
     $periodo = 'Agosto / Diciembre ' . $año;
 }
+
+// Zona horaria y obtención de la fecha
+date_default_timezone_set('America/Mexico_City');
+$fecha = date('Y-m-d');
+
+
 // SQL de consulta
 $sql = "SELECT curso.idCurso,
             concat_ws(' ',instructor.apellidoPaterno,instructor.apellidomaterno,instructor.nombre) as maestro,
@@ -28,7 +34,7 @@ $sql = "SELECT curso.idCurso,
     FROM instructor Inner join curso
     ON curso.Instructor_idInstructor=instructor.idInstructor 
     WHERE curso.periodo LIKE '$periodo%'
-    AND YEAR(curso.fechaInicio) = $año";
+    AND YEAR(curso.fechaFin) = $año";
 // Validación de resultados de ejecución
 $result = $conn->query($sql) or die($conn->error . __LINE__);
 // Array de resultados

@@ -26,6 +26,7 @@ $sql = "SELECT curso.idCurso,
             concat_ws(' - ', DATE_FORMAT(curso.fechaInicio, '%d de %M'), DATE_FORMAT(curso.fechaFin, '%d de %M, %Y')) as fecha,
             DATE_FORMAT(curso.fechaFin, '%d de %M del %Y') as fechaFin,
             concat_ws(' a ',curso.horaInicio,curso.horaFin) as horario,
+            curso.fechaFin as ff,
             curso.validado,
             curso.periodo
         FROM instructor Inner join curso

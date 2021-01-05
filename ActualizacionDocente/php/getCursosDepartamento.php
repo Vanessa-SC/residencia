@@ -13,6 +13,7 @@ $id = mysqli_real_escape_string($conn, $_POST['idDepartamento']);
 // Formato español para la fecha
 $formatt = "SET lc_time_names = 'es_MX' ";
 mysqli_query($conn,$formatt);
+
 // SQL de consulta
 $sql = "SELECT curso.idCurso,
             concat_ws(' ',instructor.apellidoPaterno,instructor.apellidomaterno,instructor.nombre) as maestro,
@@ -24,7 +25,12 @@ $sql = "SELECT curso.idCurso,
         FROM instructor Inner join curso
         ON curso.Instructor_idInstructor=instructor.idInstructor 
         AND curso.Departamento_idDepartamento = '$id' 
-        OR (curso.Instructor_idInstructor=instructor.idInstructor and curso.Departamento_idDepartamento = 5)";
+        AND curso.periodo LIKE '$periodo%'
+        AND YEAR(curso.fechaInicio) = $año
+        OR (curso.Instructor_idInstructor=instructor.idInstructor 
+            AND curso.Departamento_idDepartamento = 5
+            AND curso.periodo LIKE '$periodo%'
+            AND YEAR(curso.fechaFin) = $año)";
         /*!- El ID 5 corresponde al departamento "Todos los Departamentos" */
 
 // Validación de ejecución de la consulta

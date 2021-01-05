@@ -592,7 +592,7 @@ app.config(function ($routeProvider, $locationProvider) {
 		})
 
 		/** RUTA PARA EL CAMBIO DE CONTRASEÑA Y PAGINA ERROR 404 */
-		.when('/cambiarDatosC/',{
+		.when('/cambiarDatosC/', {
 			resolve: {
 				check: function ($location, user) {
 					if (user.getRol() != 1) {
@@ -602,7 +602,7 @@ app.config(function ($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistas/C/cambiar-datos.html',
 			controller: 'loginCtrl'
-		}).when('/cambiarDatosJ/',{
+		}).when('/cambiarDatosJ/', {
 			resolve: {
 				check: function ($location, user) {
 					if (user.getRol() != 2) {
@@ -612,8 +612,8 @@ app.config(function ($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistas/J/cambiar-datos.html',
 			controller: 'loginCtrl'
-			
-		}).when('/cambiarDatosD/',{
+
+		}).when('/cambiarDatosD/', {
 			resolve: {
 				check: function ($location, user) {
 					if (user.getRol() != 3) {
@@ -623,8 +623,8 @@ app.config(function ($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistas/D/cambiar-datos.html',
 			controller: 'loginCtrl'
-			
-		}).when('/cambiarDatosI/',{
+
+		}).when('/cambiarDatosI/', {
 			resolve: {
 				check: function ($location, user) {
 					if (user.getRol() != 4) {
@@ -634,8 +634,8 @@ app.config(function ($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistas/I/cambiar-datos.html',
 			controller: 'loginCtrl'
-			
-		}).when('/cambiarDatosA/',{
+
+		}).when('/cambiarDatosA/', {
 			resolve: {
 				check: function ($location, user) {
 					if (user.getRol() != 5) {
@@ -645,7 +645,7 @@ app.config(function ($routeProvider, $locationProvider) {
 			},
 			templateUrl: './vistas/A/cambiar-datos.html',
 			controller: 'loginCtrl'
-			
+
 		}).otherwise({
 			templateUrl: '404.html'
 		});
@@ -1218,9 +1218,9 @@ app.controller('loginCtrl', function ($scope, $http, $location, user, $timeout) 
 	}
 
 
-	$scope.changePass = function(pass){
-		if(pass != undefined){
-			if(pass.newPass != undefined && pass.confirmPass!= undefined){
+	$scope.changePass = function (pass) {
+		if (pass != undefined) {
+			if (pass.newPass != undefined && pass.confirmPass != undefined) {
 				var data = {
 					idu: user.getIdUsuario(),
 					pass: pass.newPass
@@ -1229,11 +1229,11 @@ app.controller('loginCtrl', function ($scope, $http, $location, user, $timeout) 
 					method: 'POST',
 					url: 'http://localhost/Residencia/ActualizacionDocente/php/changePassword.php',
 					headers: {
-						'Content-type':'json/application'
+						'Content-type': 'json/application'
 					},
 					data: JSON.stringify(data)
 				}).then(function successCallback(response) {
-					if(response.data.status == 'ok'){
+					if (response.data.status == 'ok') {
 						$scope.alert = {
 							titulo: 'Listo!',
 							tipo: 'success',
@@ -1242,9 +1242,9 @@ app.controller('loginCtrl', function ($scope, $http, $location, user, $timeout) 
 						$(document).ready(function () {
 							$('#alerta').toast('show');
 						});
-						$timeout(function(){
+						$timeout(function () {
 							$location.path(user.getPath());
-						},2500);
+						}, 2500);
 					} else {
 						$scope.alert = {
 							titulo: 'Hey!',
@@ -1276,7 +1276,7 @@ app.controller('loginCtrl', function ($scope, $http, $location, user, $timeout) 
 				$('#alerta').toast('show');
 			});
 		}
-		
+
 	}
 });
 
@@ -1870,7 +1870,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 
 });
 
-app.controller('constanciasCtrl', function ($scope, $http, $location, user, periodoService, curso, constancia) {
+app.controller('constanciasCtrl', function ($scope, $http, $location, user, periodoService, curso, constancia, fechaService) {
 	$scope.user = user.getName();
 
 	/* Obtener todas las constancias */
@@ -1884,10 +1884,13 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 	}
 
 	/* consultar el periodo */
-	$scope.periodo = periodoService.getPeriodo()
-		.then(function (response) {
-			$scope.periodo = response;
-		});
+	$scope.periodo = periodoService.getPeriodo().then(function (response) {
+		$scope.periodo = response;
+	});
+
+	$scope.fecha = fechaService.getFecha().then(function (response) {
+		$scope.fecha = response;
+	});
 
 	/* Obtener listado de todos los periodos registrados */
 	$scope.getPeriodos = function () {
@@ -1934,21 +1937,23 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 
 	/** Obtener listado de los participantes del curso seleccionado */
 	$scope.cursoSeleccionado = function (curso) {
-		$http({
-			url: 'http://localhost/Residencia/ActualizacionDocente/php/getParticipantes.php',
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			data: 'idCurso=' + curso.idCurso
-		}).then(function successCallback(response) {
-			$scope.participantesCurso = response.data;
-			// adición de la opción "todos los participantes"
-			$scope.participantesCurso.unshift({
-				'idUsuario': '0',
-				'nombre': 'Todos los participantes aprobados'
+		if (curso != undefined) {
+			$http({
+				url: 'http://localhost/Residencia/ActualizacionDocente/php/getParticipantes.php',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idCurso=' + curso.idCurso
+			}).then(function successCallback(response) {
+				$scope.participantesCurso = response.data;
+				// adición de la opción "todos los participantes"
+				$scope.participantesCurso.unshift({
+					'idUsuario': '0',
+					'nombre': 'Todos los participantes aprobados'
+				});
 			});
-		});
+		}
 	}
 
 	/** Establecer el ID del curso y folio de la constancia */
@@ -1992,6 +1997,7 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 
 	/* Creación de una constancia */
 	$scope.crearConstancia = function () {
+
 		if ($scope.constancia.curso.folio != "") {
 			if ($scope.constancia.participante.nombre != "Todos los participantes aprobados") {
 				/* se guardan los datos en un json */
@@ -2088,7 +2094,6 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 			});
 		}
 
-
 	}
 
 	/* Datos que serán usados en la vista */
@@ -2158,11 +2163,11 @@ app.controller('programasCtrl', function ($scope, $http, $location, $filter, use
 			});
 		}
 
-	/* Abre el Formato de Lista de Asistencia curso en otra pestaña */
-	$scope.printFormato = function () {
-		$scope.idCurso = curso.getID();
-		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoListaAsistencia.php?idc=' + $scope.idCurso, '_blank');
-	}
+		/* Abre el Formato de Lista de Asistencia curso en otra pestaña */
+		$scope.printFormato = function () {
+			$scope.idCurso = curso.getID();
+			window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoListaAsistencia.php?idc=' + $scope.idCurso, '_blank');
+		}
 	}
 
 	/* Obtener listado de todos los periodos registrados */
@@ -2373,7 +2378,7 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 
 });
 
-app.controller('encuestasCtrl', function ($scope, $http, user, periodoService,curso) {
+app.controller('encuestasCtrl', function ($scope, $http, user, periodoService, curso) {
 	$scope.user = user.getName();
 
 	/** Obtener encuestas del curso seleccionado */
@@ -2413,12 +2418,12 @@ app.controller('encuestasCtrl', function ($scope, $http, user, periodoService,cu
 					var idP = value.id;
 					$scope.idPreguntas.push(value.id);
 				});
-				
+
 			});
 		}
 	}
 
-	$scope.getResultadosEncuesta = function (ide){
+	$scope.getResultadosEncuesta = function (ide) {
 		console.log(ide);
 		if (ide != undefined) {
 			$http({
@@ -2427,7 +2432,7 @@ app.controller('encuestasCtrl', function ($scope, $http, user, periodoService,cu
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded'
 				},
-				data: 'ide=' + ide +"&idc="+curso.getID()
+				data: 'ide=' + ide + "&idc=" + curso.getID()
 			}).then(function successCallback(response) {
 				angular.forEach(response.data, function (value, key) {
 					$scope.resultados.push(value.resultado);
@@ -2436,10 +2441,10 @@ app.controller('encuestasCtrl', function ($scope, $http, user, periodoService,cu
 		}
 	}
 
-	$scope.cargarDatos = function (encuesta){
+	$scope.cargarDatos = function (encuesta) {
 		var ide = encuesta.id;
 		$scope.nombreEncuesta = encuesta.nombreEncuesta;
-		if(ide != undefined){
+		if (ide != undefined) {
 			$scope.getPreguntasEncuesta(ide);
 			$scope.getResultadosEncuesta(ide);
 
@@ -2454,7 +2459,7 @@ app.controller('encuestasCtrl', function ($scope, $http, user, periodoService,cu
 	$scope.labels = [];
 	$scope.series = [];
 	$scope.data = [];
-	
+
 
 });
 
@@ -3475,31 +3480,31 @@ app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso,
 
 	/* obtiene las preguntas de la encuesta de eficacia /getPreguntasEncuesta.php */
 	$scope.getPreguntasEncuesta = function () {
-		$timeout(function(){
+		$timeout(function () {
 			$desde = new Date('2020-12-06');
 			$hasta = new Date('2020-12-31');
 			$dia_actual = new Date($scope.fechaActual);
 			console.log($dia_actual);
-				if ($dia_actual >= $desde && $dia_actual <= $hasta) {
-					if (encuesta.getID() != undefined) {
-						$http({
-							method: 'POST',
-							url: 'http://localhost/Residencia/ActualizacionDocente/php/getPreguntasEncuesta.php',
-							headers: {
-								'Content-Type': 'application/x-www-form-urlencoded'
-							},
-							data: 'ide=' + 2
-						}).then(function successCallback(response) {
-							$scope.preguntas = response.data;
-						});
-					}
-				} else {
-					$("input").attr('disabled', true);
-						$("#instrucciones").hide();
-						$("textarea").attr('disabled', true);
-						$("#btn_enviar").attr('disabled', true);
-						$('#encuestaForm').replaceWith('<div class="text-center align-middle mt-5"><span class="font-italic" style="font-size: 2rem !important;">No está en tiempo.</span></div>');
+			if ($dia_actual >= $desde && $dia_actual <= $hasta) {
+				if (encuesta.getID() != undefined) {
+					$http({
+						method: 'POST',
+						url: 'http://localhost/Residencia/ActualizacionDocente/php/getPreguntasEncuesta.php',
+						headers: {
+							'Content-Type': 'application/x-www-form-urlencoded'
+						},
+						data: 'ide=' + 2
+					}).then(function successCallback(response) {
+						$scope.preguntas = response.data;
+					});
 				}
+			} else {
+				$("input").attr('disabled', true);
+				$("#instrucciones").hide();
+				$("textarea").attr('disabled', true);
+				$("#btn_enviar").attr('disabled', true);
+				$('#encuestaForm').replaceWith('<div class="text-center align-middle mt-5"><span class="font-italic" style="font-size: 2rem !important;">No está en tiempo.</span></div>');
+			}
 		}, 1000);
 	}
 
@@ -3568,7 +3573,7 @@ app.controller('instructoresJCtrl', function ($scope, $http, $location, user, pe
 	$scope.printProgramaInstitucional = function () {
 		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoProgramaInstitucionalDpto.php?idd=' + user.getIdDepartamento(), '_blank');
 	}
-	
+
 	$scope.user = user.getName();
 
 	$scope.periodo = periodoService.getPeriodo()

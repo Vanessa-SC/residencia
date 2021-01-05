@@ -2,9 +2,9 @@
 <div class="container px-5" ng-controlelr="constanciasController">
 	<div class="alert alert-warning alert-dismissible fade show mt-4" role="alert">
 		<strong>Si el curso no tiene asignado el folio del TecNM agréguelo primero.</strong>
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
+	</div>
+	<div class="alert alert-danger font-italic font-weight-bold" role="alert" ng-show="constancia.curso.ff >= fecha">
+		No puede generar constancias de un curso que no ha finalizado.
 	</div>
 	<table class="table border-bottom border-dark">
 		<div class="input-group mb-3 mt-4 col-sm-7">
@@ -30,7 +30,7 @@
 				<label class="input-group-text" for="participante">Participante</label>
 			</div>
 			<select required class="custom-select" id="participante" ng-model="constancia.participante"
-				ng-options='p.nombre for p in participantesCurso' ng-change="habilitarBoton()">
+				ng-options='p.nombre for p in participantesCurso' ng-change="habilitarBoton()" ng-disabled="constancia.curso.ff >= fecha"">
 				<option value="{{p.nombre}}"> {{p.nombre}} </option>
 			</select>
 		</div>
@@ -59,7 +59,8 @@
 					<td class="align-middle">{{x.nombre}}</td>
 					<td class="align-middle">{{x.curso}}</td>
 					<td class="align-middle">{{x.fecha}}</td>
-					<td class="align-middle text-center"><a href="http://localhost/Residencia/ActualizacionDocente/files/{{x.rutaConstancia}}"
+					<td class="align-middle text-center"><a
+							href="http://localhost/Residencia/ActualizacionDocente/files/{{x.rutaConstancia}}"
 							target="_blank"><button class="btn bg-white download_icon"></button></a></td>
 				</tr>
 
