@@ -238,6 +238,10 @@ button.op {
 
 /*  LOGIN PAGE */
 
+.changePass{
+  
+}
+
 .login div#rfc_ok, .login div#rfc {
   height: auto;
   padding: 2px !important;
@@ -292,7 +296,7 @@ button.op {
 }
 
 #login form input[type="text"],
-input[type="password"] {
+#login input[type="password"] {
   background-color: #fff;
   border-radius: 0px 3px 3px 0px;
   color: #000;

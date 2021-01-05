@@ -1162,7 +1162,7 @@ function validarInputR(input) {
 }
 
 /* Controlador para el inicio de sesión */
-app.controller('loginCtrl', function ($scope, $http, $location, user) {
+app.controller('loginCtrl', function ($scope, $http, $location, user, $timeout) {
 	$scope.user = user.getName();
 	/* Functión para inicio de sesión */
 	$scope.login = function () {
@@ -1218,7 +1218,66 @@ app.controller('loginCtrl', function ($scope, $http, $location, user) {
 	}
 
 
-	
+	$scope.changePass = function(pass){
+		if(pass != undefined){
+			if(pass.newPass != undefined && pass.confirmPass!= undefined){
+				var data = {
+					idu: user.getIdUsuario(),
+					pass: pass.newPass
+				};
+				$http({
+					method: 'POST',
+					url: 'http://localhost/Residencia/ActualizacionDocente/php/changePassword.php',
+					headers: {
+						'Content-type':'json/application'
+					},
+					data: JSON.stringify(data)
+				}).then(function successCallback(response) {
+					if(response.data.status == 'ok'){
+						$scope.alert = {
+							titulo: 'Listo!',
+							tipo: 'success',
+							mensaje: 'Contraseña actualizada correctamente. Será redirigido en unos segundos...'
+						};
+						$(document).ready(function () {
+							$('#alerta').toast('show');
+						});
+						$timeout(function(){
+							$location.path(user.getPath());
+						},2500);
+					} else {
+						$scope.alert = {
+							titulo: 'Hey!',
+							tipo: 'darning',
+							mensaje: 'Ocurrió un error al actualizar.'
+						};
+						$(document).ready(function () {
+							$('#alerta').toast('show');
+						});
+					}
+				});
+			} else {
+				$scope.alert = {
+					titulo: 'Hey!',
+					tipo: 'warning',
+					mensaje: 'Hay campos vacíos.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+			}
+		} else {
+			$scope.alert = {
+				titulo: 'Hey!',
+				tipo: 'warning',
+				mensaje: 'Verifica que todos los campos estén llenos.'
+			};
+			$(document).ready(function () {
+				$('#alerta').toast('show');
+			});
+		}
+		
+	}
 });
 
 /* CONTROLADORES PARA EL USUARIO COORDINADOR*/
