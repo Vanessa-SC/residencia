@@ -4738,6 +4738,7 @@ app.controller('departamentosACtrl', function ($scope, $http, $location, user, p
 
 app.controller('encuestasACtrl', function ($scope, $http, $timeout) {
 
+	/** Obtener listado de las encuestas */
 	$scope.getEncuestas = function () {
 		$timeout(function () {
 			$http({
@@ -4749,8 +4750,12 @@ app.controller('encuestasACtrl', function ($scope, $http, $timeout) {
 		}, 500);
 	}
 
+	/** Obtener preguntas de la encuesta seleccionada */
 	$scope.getPreguntasEncuesta = function () {
 		if ($scope.encuesta.id != undefined) {
+			if($scope.encuesta.id == 1){ $scope.encuestaSel = 'Opinión'}
+			if($scope.encuesta.id == 2){ $scope.encuestaSel = 'Eficacia de capacitación docente - Jefe'}
+			if($scope.encuesta.id == 3){ $scope.encuestaSel = 'Eficacia de capacitación docente'}
 			$http({
 				method: 'POST',
 				url: 'http://localhost/Residencia/ActualizacionDocente/php/getPreguntasEncuesta.php',
@@ -4766,6 +4771,7 @@ app.controller('encuestasACtrl', function ($scope, $http, $timeout) {
 		}
 	}
 
+	/** Modificar una pregunta */
 	$scope.actualizarPregunta = function (pregunta) {
 		idp = pregunta.id;
 		pregunta = $scope.encuesta.preguntaMod;
@@ -4803,6 +4809,75 @@ app.controller('encuestasACtrl', function ($scope, $http, $timeout) {
 		
 	}
 
+	/** Agregar una pregunta a una encuesta */
+	$scope.addPreguntaEncuesta = function () {
+		if ( $scope.encuesta.pregunta != undefined ){
+			var preg = $scope.encuesta.pregunta;
+			var enc = $scope.encuesta.id;
+			$http({
+				method: 'POST',
+				url: 'http://localhost/Residencia/ActualizacionDocente/php/addPreguntaEncuesta.php',
+				headers: {'Content-Type':'application/x-www-form-urlencoded'},
+				data: 'preg='+preg+'&enc='+enc
+			}).then(function successCallback(response){
+				if(response.data.status == 'ok'){
+					$scope.alert = {
+						titulo: '¡Listo!',
+						tipo: 'success',
+						mensaje: 'Pregunta agregada correctamente.'
+					};
+					$(document).ready(function () {
+						$('#alerta').toast('show');
+					});
+					$scope.getPreguntasEncuesta();
+					$scope.encuesta.pregunta = '';
+				} else {
+					$scope.alert = {
+						titulo: 'Error!',
+						tipo: 'danger',
+						mensaje: 'No pudimos agregar la pregunta.'
+					};
+					$(document).ready(function () {
+						$('#alerta').toast('show');
+					});
+				}
+			});
+		}
+	}
+
+	/** Eliminar una pregunta */
+	$scope.eliminarPregunta = function (idp) {
+		if (idp != undefined ){
+			$http({
+				method: 'POST',
+				url: 'http://localhost/Residencia/ActualizacionDocente/php/eliminarPreguntaEncuesta.php',
+				headers: {'Content-Type':'application/x-www-form-urlencoded'},
+				data: 'idp='+idp+'&ide='+$scope.encuesta.id
+			}).then(function successCallback(response){
+				if(response.data.status == 'ok'){
+					$scope.alert = {
+						titulo: '¡Listo!',
+						tipo: 'success',
+						mensaje: 'Pregunta eliminada correctamente.'
+					};
+					$(document).ready(function () {
+						$('#alerta').toast('show');
+					});
+					$scope.getPreguntasEncuesta();
+				} else {
+					$scope.alert = {
+						titulo: 'Error!',
+						tipo: 'danger',
+						mensaje: 'No pudimos eliminar la pregunta.'
+					};
+					$(document).ready(function () {
+						$('#alerta').toast('show');
+					});
+				}
+			});
+		}
+	}
+	
 });
 
 /* Controlador para pruebas individuales */
