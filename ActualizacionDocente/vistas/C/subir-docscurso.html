@@ -76,20 +76,25 @@
 							aria-labelledby="Title" aria-hidden="true">
 							<div class="modal-dialog modal-dialog-centered" role="document">
 								<div class="modal-content">
-									<div class="modal-header">
+									<div class="modal-header bg-wine text-white">
 										<h5 class="modal-title">Subir documento: {{doc.nombreDocumento}}</h5>
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 											<span aria-hidden="true">&times;</span>
 										</button>
 									</div>
 									<div class="modal-body">
-										<input class="btn btn-sm btn-light" type="file" ng-model="archivo"
-											id='file{{doc.idDocumento}}' accept="application/pdf" />
+										<p><input class="btn btn-sm btn-light" type="file" ng-model="archivo"
+											id='file{{doc.idDocumento}}' accept="application/pdf" /
+											>
+										</p>
+										<p class="font-italic text-danger">
+											<small>*Sólo se pueden subir documentos en formato PDF</small>
+										</p>
 									</div>
-									<div class="modal-footer">
-										<button class="btn btn-success" title="Subir documento"
+									<div class="modal-footer bg-light">
+										<button class="btn bg-wine text-white" title="Subir documento"
 											ng-click="upload(doc.idDocumento,infoCurso.idCurso)">Subir</button>
-										<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 									</div>
 								</div>
 							</div>

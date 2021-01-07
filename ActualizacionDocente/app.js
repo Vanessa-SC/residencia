@@ -1881,6 +1881,83 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 
 });
 
+app.controller('programasCtrl', function ($scope, $http, $location, $filter, user, curso, periodoService, $timeout) {
+	$scope.user = user.getName();
+
+	$scope.cursoID = function (id) {
+		curso.setID(id);
+		console.log(id);
+	}
+
+	/** Obtiene todos los cursos */
+	$scope.getTodosLosCursos = function () {
+		$http({
+			method: 'GET',
+			url: 'http://localhost/Residencia/ActualizacionDocente/php/getTodosLosCursos.php'
+		}).then(function successCallback(response) {
+			$scope.TodosCursos = response.data;
+		});
+	}
+
+	/** Obtener listado de los cursos del periodo seleccionado */
+	$scope.getCursosDelPeriodo = function (periodo) {
+		$http({
+			url: 'http://localhost/Residencia/ActualizacionDocente/php/getCursosPorPeriodo.php',
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'periodo=' + periodo.periodo
+		}).then(function successCallback(response) {
+			$scope.TodosCursos = response.data;
+		});
+	}
+
+	/** Valida si se solicitan los cursos por periodo o todos */
+	$scope.getCursos = function (data) {
+		if (data.periodo == "Todos") {
+			$scope.getTodosLosCursos();
+		} else {
+			$scope.getCursosDelPeriodo(data);
+		}
+	}
+	/** Obtener listado de las asistencias de los participantes del curso seleccionado */
+	$scope.getAsistenciaCurso = function () {
+		if (curso.getID != undefined) {
+			$http({
+				method: 'POST',
+				url: 'http://localhost/Residencia/ActualizacionDocente/php/getAsistenciaCurso.php',
+				headers: {
+					'Content-type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idc=' + curso.getID()
+			}).then(function successCallback(response) {
+				$scope.aCurso = response.data;
+
+			});
+		}
+
+		/* Abre el Formato de Lista de Asistencia curso en otra pestaña */
+		$scope.printFormato = function () {
+			$scope.idCurso = curso.getID();
+			window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoListaAsistencia.php?idc=' + $scope.idCurso, '_blank');
+		}
+	}
+
+	/* Obtener listado de todos los periodos registrados */
+	$scope.getPeriodos = function () {
+		$http({
+			method: 'GET',
+			url: 'http://localhost/Residencia/ActualizacionDocente/php/getPeriodos.php'
+		}).then(function successCallback(response) {
+			$scope.periodos = response.data;
+			$scope.periodos.unshift({
+				'periodo': 'Todos'
+			});
+		});
+	}
+});
+
 app.controller('constanciasCtrl', function ($scope, $http, $location, user, periodoService, curso, constancia, fechaService) {
 	$scope.user = user.getName();
 
@@ -2116,83 +2193,6 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 	$scope.getConstancias();
 	$scope.getPeriodos();
 	$scope.getConstanciasPeriodoActual();
-});
-
-app.controller('programasCtrl', function ($scope, $http, $location, $filter, user, curso, periodoService, $timeout) {
-	$scope.user = user.getName();
-
-	$scope.cursoID = function (id) {
-		curso.setID(id);
-		console.log(id);
-	}
-
-	/** Obtiene todos los cursos */
-	$scope.getTodosLosCursos = function () {
-		$http({
-			method: 'GET',
-			url: 'http://localhost/Residencia/ActualizacionDocente/php/getTodosLosCursos.php'
-		}).then(function successCallback(response) {
-			$scope.TodosCursos = response.data;
-		});
-	}
-
-	/** Obtener listado de los cursos del periodo seleccionado */
-	$scope.getCursosDelPeriodo = function (periodo) {
-		$http({
-			url: 'http://localhost/Residencia/ActualizacionDocente/php/getCursosPorPeriodo.php',
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			data: 'periodo=' + periodo.periodo
-		}).then(function successCallback(response) {
-			$scope.TodosCursos = response.data;
-		});
-	}
-
-	/** Valida si se solicitan los cursos por periodo o todos */
-	$scope.getCursos = function (data) {
-		if (data.periodo == "Todos") {
-			$scope.getTodosLosCursos();
-		} else {
-			$scope.getCursosDelPeriodo(data);
-		}
-	}
-	/** Obtener listado de las asistencias de los participantes del curso seleccionado */
-	$scope.getAsistenciaCurso = function () {
-		if (curso.getID != undefined) {
-			$http({
-				method: 'POST',
-				url: 'http://localhost/Residencia/ActualizacionDocente/php/getAsistenciaCurso.php',
-				headers: {
-					'Content-type': 'application/x-www-form-urlencoded'
-				},
-				data: 'idc=' + curso.getID()
-			}).then(function successCallback(response) {
-				$scope.aCurso = response.data;
-
-			});
-		}
-
-		/* Abre el Formato de Lista de Asistencia curso en otra pestaña */
-		$scope.printFormato = function () {
-			$scope.idCurso = curso.getID();
-			window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoListaAsistencia.php?idc=' + $scope.idCurso, '_blank');
-		}
-	}
-
-	/* Obtener listado de todos los periodos registrados */
-	$scope.getPeriodos = function () {
-		$http({
-			method: 'GET',
-			url: 'http://localhost/Residencia/ActualizacionDocente/php/getPeriodos.php'
-		}).then(function successCallback(response) {
-			$scope.periodos = response.data;
-			$scope.periodos.unshift({
-				'periodo': 'Todos'
-			});
-		});
-	}
 });
 
 app.controller('instructoresCtrl', function ($scope, $http, $location, user, periodoService, instructor, $timeout) {
@@ -2474,393 +2474,7 @@ app.controller('encuestasCtrl', function ($scope, $http, user, periodoService, c
 
 });
 
-/* CONTROLADORES PARA EL USUARIO INSTRUCTOR */
-app.controller('cursosICtrl', function ($scope, $http, $timeout, user, curso, periodoService) {
-
-	$scope.user = user.getName();
-
-	$scope.periodo = periodoService.getPeriodo()
-		.then(function (response) {
-			$scope.periodo = response;
-		});
-
-	/* Obtiene el listado de los cursos asignados al instructor */
-	$scope.getCursos = function () {
-		$scope.id = user.getIdUsuario();
-		/* valida que el id no esté vacío */
-		if ($scope.id != undefined) {
-			$http({
-				url: 'http://localhost/Residencia/ActualizacionDocente/php/getCursosInstructor.php',
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded'
-				},
-				data: 'idUsuario=' + $scope.id
-			}).then(function successCallback(response) {
-				$scope.cursos = response.data;
-			});
-		}
-	}
-
-	/* Obtiene el listado de documentos del curso */
-	$scope.getListaDocumentosCurso = function () {
-		$http({
-			method: 'GET',
-			url: 'http://localhost/Residencia/ActualizacionDocente/php/getDocumentos.php'
-		}).then(function successCallback(response) {
-			$scope.documentos = response.data;
-		}, function errorCallback(response) {
-
-		});
-	}
-
-	/*Obtiene plantilla de Currículum con Datos principales del instructor */
-	$scope.printFormato = function () {
-		window.open('http://localhost/Residencia/ActualizacionDocente/php/getCurriculum.php?id=' + user.getIdUsuario(), '_blank');
-	}
-
-	/*Obtiene plantilla de Ficha Técnica del Servicio */
-	$scope.printFicha = function () {
-		$scope.id = curso.getID();
-		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFichaTecnica.php?id=' + $scope.id, '_blank');
-	}
-
-	/* Establece el id del curso */
-	$scope.cursoID = function (id) {
-		curso.setID(id);
-	}
-	/* Obtiene la información del curso siempre y cuando el id no esté vacío */
-	$scope.getInfoCurso = function () {
-		$scope.idCurso = curso.getID();
-		if ($scope.idCurso != undefined) {
-			$http({
-				url: 'http://localhost/Residencia/ActualizacionDocente/php/getInfoCurso.php',
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded'
-				},
-				data: 'idCurso=' + $scope.idCurso
-			}).then(function successCallback(response) {
-				$scope.infoCurso = response.data;
-			});
-		}
-	}
-
-	/* Funcion para subir un documento, igual a la del usuario Coordinador */
-	$scope.upload = function (idDoc, idCurso) {
-		var fd = new FormData();
-		var files = document.getElementById('file' + idDoc).files[0];
-		fd.append('archivo', files);
-		fd.append('idCurso', idCurso);
-		fd.append('idDocumento', idDoc);
-		$http({
-			method: 'post',
-			url: 'http://localhost/Residencia/ActualizacionDocente/php/subirArchivo.php',
-			data: fd,
-			headers: {
-				'Content-Type': undefined
-			},
-		}).then(function successCallback(response) {
-			if (response.data.status == 'ok') {
-				$scope.alert = {
-					titulo: '¡Archivo subido!',
-					tipo: 'success',
-					mensaje: 'Archivo subido correctamente.'
-				};
-				$(document).ready(function () {
-					$('#alerta').toast('show');
-				});
-				$('#modal' + idDoc).modal('hide');
-				document.getElementById('mensaje' + idDoc).innerHTML = 'Documento guardado';
-				$('#linkDocumento' + idDoc).replaceWith('<span id="linkDocumento' + idDoc + '"><a href="http://localhost/Residencia/ActualizacionDocente/files/' + response.data.doc + '" target="_blank">Ver documento</a></span>');
-			}
-		});
-	}
-
-	/* valida si ya se ha subido un documento antes */
-	$scope.existeDocumento = function () {
-		$timeout(function () {
-			$http({
-				method: 'post',
-				url: 'http://localhost/Residencia/ActualizacionDocente/php/documentosExistentesCurso.php',
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded'
-				},
-				data: 'idc=' + curso.getID()
-			}).then(function successCallback(response) {
-				if (response.data.status = "existe") {
-					angular.forEach(response.data.documentos, function (value, key) {
-						$('#linkDocumento' + key).append('<a target="_blank" href="http://localhost/Residencia/ActualizacionDocente/files/' + value + '">Ver documento</a>');
-					});
-				}
-			});
-		}, 500);
-	}
-	/* Consulta si falta documentación de cada curso */
-	$scope.faltaDocumentacion = function () {
-		$timeout(function () {
-			$http({
-				method: 'GET',
-				url: 'http://localhost/Residencia/ActualizacionDocente/php/numDocsCursos.php',
-			}).then(function successCallback(response) {
-				angular.forEach(response.data.numDocsCurso, function (value, key) {
-					if (value.num_docs < 7) {
-						$("#documentacion" + value.idCurso).append('<button class="btn bg-white info_icon" title="Falta documentación"></button>');
-					}
-				});
-			});
-		}, 500);
-	}
-
-	/* Pasa parametros GET para llenado del Oficio del curso y lo abre
-	en otra pestaña */
-	$scope.printOficio = function () {
-		window.open('http://localhost/Residencia/ActualizacionDocente/php/getOficioCurso.php?idd=' + user.getIdDepartamento() +
-			'&idc=' + $scope.infoCurso.idCurso + '&idu=' + user.getIdUsuario(), '_blank');
-	}
-
-	/* regresa atrás en el navegador */
-	$scope.back = function () {
-		window.history.back();
-	};
-
-	/* llamado a las funciones */
-	$scope.getCursos();
-	$scope.getInfoCurso();
-});
-
-app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curso, periodoService, fechaService, asistenciaService, $timeout) {
-
-	$scope.user = user.getName();
-
-	$scope.cursoID = function (id) {
-		curso.setID(id);
-	}
-
-	/* Obtener cursos dirigidos al departamento que pertenece el usuario */
-	$scope.getCursos = function () {
-		$http({
-			method: 'POST',
-			url: 'http://localhost/Residencia/ActualizacionDocente/php/getCursosDepartamento.php',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			data: 'idDepartamento=' + user.getIdDepartamento()
-		}).then(function successCallback(response) {
-			$scope.cursos = response.data;
-		});
-	}
-
-	$scope.periodo = periodoService.getPeriodo()
-		.then(function (response) {
-			$scope.periodo = response;
-		});
-
-	$scope.fecha = fechaService.getFecha()
-		.then(function (response) {
-			$scope.fecha = response;
-		});
-
-	/* Obtiene la lista de los docentes inscritos a X curso */
-
-	$scope.getParticipantes = function () {
-		$scope.idCurso = curso.getID();
-		if ($scope.idCurso != "") {
-			$http({
-				url: 'http://localhost/Residencia/ActualizacionDocente/php/getParticipantes.php',
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded'
-				},
-				data: 'idCurso=' + $scope.idCurso
-			}).then(function successCallback(response) {
-				$scope.participantes = response.data;
-			});
-		}
-	}
-
-	/* limpia los checkbox de asistencia */
-	$scope.uncheck = function () {
-		$(":checkbox").prop("checked", false);
-	}
-
-	/* Declaración del array que almacenará la asistencia de cada participante */
-	$scope.listaAlumnos = {};
-	/* Function que realiza el registro de la asistencia de un curso */
-	$scope.registrarAsistencia = function () {
-		/* valida que el id del curso esté establecido */
-		if (curso.getID() != undefined) {
-			/* Guarda en un json la lista de asistencia, la lista de participantes
-			del curso y el id del curso */
-			var datos = {
-				lista: $scope.listaAlumnos,
-				participantes: $scope.participantes,
-				idCurso: curso.getID()
-			}
-			$http({
-				url: 'http://localhost/Residencia/ActualizacionDocente/php/addAsistencia.php',
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				data: JSON.stringify(datos)
-			}).then(function successCallback(response) {
-				/* Si la inserción fue correcta deshabilita los checkbox,
-				los botones, oculta el modal, muestra una alerta y redirecciona
-				al inicio */
-				if (response.data.status == 'ok') {
-					$(":checkbox").attr('disabled', true);
-					$("#btn_enviar").attr('disabled', true);
-					$("#btn_borrar").attr('disabled', true);
-					$('#modal').modal('hide');
-					$('.modal-backdrop').remove();
-					$scope.alert = {
-						titulo: '¡Listo!',
-						tipo: 'success',
-						mensaje: 'La asistencia se registro con éxito. En breve será redireccionado...'
-					};
-					$(document).ready(function () {
-						$('#alerta').toast('show');
-					});
-					$timeout(function () {
-						$location.path('/inicioI');
-					}, 2000);
-				}
-			});
-		} else {
-			/* Si falla sólo muestra la alerta */
-			$scope.alert = {
-				titulo: '¡Atención!',
-				tipo: 'warning',
-				mensaje: 'No se ha podido registrar la asistencia.'
-			};
-			$(document).ready(function () {
-				$('#alerta').toast('show');
-			});
-		}
-	}
-
-	/* Consulta si la asistencia ya se registro el día de hoy para un curso */
-	$scope.existeAsistencia = asistenciaService.existe(curso.getID())
-		.then(function (response) {
-			$scope.asistencia = response;
-		});
-
-	/* Si el registro de asistencia existe deshabilita el formulario y 
-	muestra un mensaje */
-	$scope.YaSeRegistroAsistencia = function () {
-		$timeout(function () {
-			if ($scope.asistencia == 'existe') {
-				$(":checkbox").attr('disabled', true);
-				$("#btn_enviar").attr('disabled', true);
-				$("#btn_borrar").attr('disabled', true);
-				$("#mensaje").append('Ya tomó asistencia hoy, vuelva mañana.');
-			}
-		}, 1000);
-	}
-
-	/* Llamado al curso */
-	$scope.getCursos();
-
-	/* Abre el Formato de Lista de Asistencia del curso en otra pestaña */
-	$scope.printFormato = function () {
-		$scope.idCurso = curso.getID();
-		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoListaAsistencia.php?idc=' + $scope.idCurso, '_blank');
-	}
-
-	$scope.getAsistenciaCurso = function () {
-		if (curso.getID != undefined) {
-			$http({
-				method: 'POST',
-				url: 'http://localhost/Residencia/ActualizacionDocente/php/getAsistenciaCurso.php',
-				headers: {
-					'Content-type': 'application/x-www-form-urlencoded'
-				},
-				data: 'idc=' + curso.getID()
-			}).then(function successCallback(response) {
-				$scope.aCurso = response.data;
-
-			});
-		}
-	}
-});
-
-app.controller('reconocimientosICtrl', function ($scope, $http, $location, user, curso, periodoService, constancia) {
-
-	$scope.user = user.getName();
-
-	$scope.periodo = periodoService.getPeriodo()
-		.then(function (response) {
-			$scope.periodo = response;
-		});
-
-	/* Obtener todas los reconocimientos del Instructor */
-	$scope.getConstancias = function () {
-		//Obtiene el ID del usuario
-		$scope.id = user.getIdUsuario();
-		if ($scope.id != undefined) {
-			$http({
-				url: 'http://localhost/Residencia/ActualizacionDocente/php/getMisReconocimientos.php',
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded'
-				},
-				data: 'idUsuario=' + $scope.id
-			}).then(function successCallback(response) {
-				$scope.constancias = response.data;
-			});
-		}
-	}
-
-	/** Establecer el ID del curso y folio de la constancia */
-	$scope.verConstancia = function (folio, idCurso) {
-		constancia.setFolio(folio);
-		curso.setID(idCurso);
-		$scope.getConstancia();
-	};
-
-	/* Obtener datos de una constancia */
-	$scope.getConstancia = function () {
-		/** Recurperar folio y ID  */
-		var idCurso = curso.getID();
-		var folio = constancia.getFolio();
-		$http({
-			method: 'POST',
-			url: 'http://localhost/Residencia/ActualizacionDocente/php/getConstancia.php',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			data: 'idCurso=' + idCurso + '&folio=' + folio
-		}).then(function successCallback(response) {
-			$scope.constancia = response.data;
-		});
-	}
-
-	/* Retorna la URL del documento */
-	$scope.getDocumento = function () {
-		return 'http://localhosthttp://localhost/Residencia/ActualizacionDocente/files/' + constancia.getRuta();
-	};
-
-	$scope.back = function () {
-		window.history.back();
-	};
-
-	/* Datos que serán usados en la vista */
-	$scope.folioConstancia = constancia.getFolio();
-	$scope.rutaConstancia = constancia.getRuta();
-
-	/*Obtiene plantilla de Currículum con Datos principales del instructor */
-	$scope.printFormato = function () {
-		window.open('http://localhost/Residencia/ActualizacionDocente/php/getCurriculum.php?id=' + user.getIdUsuario(), '_blank');
-	}
-
-	/* Llamado a las funciones */
-	$scope.getConstancia();
-	$scope.getConstancias();
-});
-
 /* CONTROLADORES PARA EL USUARIO JEFE */
-
 app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, periodoService, $timeout, encuesta, encuestaService) {
 
 	$scope.user = user.getName();
@@ -4152,6 +3766,394 @@ app.controller('constanciasDCtrl', function ($scope, $http, $location, user, cur
 	/* Datos que serán usados en la vista */
 	$scope.folioConstancia = constancia.getFolio();
 	$scope.rutaConstancia = constancia.getRuta();
+
+	/* Llamado a las funciones */
+	$scope.getConstancia();
+	$scope.getConstancias();
+});
+
+/* CONTROLADORES PARA EL USUARIO INSTRUCTOR */
+app.controller('cursosICtrl', function ($scope, $http, $timeout, user, curso, periodoService) {
+
+	$scope.user = user.getName();
+
+	$scope.periodo = periodoService.getPeriodo()
+		.then(function (response) {
+			$scope.periodo = response;
+		});
+
+	/* Obtiene el listado de los cursos asignados al instructor */
+	$scope.getCursos = function () {
+		$scope.id = user.getIdUsuario();
+		/* valida que el id no esté vacío */
+		if ($scope.id != undefined) {
+			$http({
+				url: 'http://localhost/Residencia/ActualizacionDocente/php/getCursosInstructor.php',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idUsuario=' + $scope.id
+			}).then(function successCallback(response) {
+				$scope.cursos = response.data;
+			});
+		}
+	}
+
+	/* Obtiene el listado de documentos del curso */
+	$scope.getListaDocumentosCurso = function () {
+		$http({
+			method: 'GET',
+			url: 'http://localhost/Residencia/ActualizacionDocente/php/getDocumentos.php'
+		}).then(function successCallback(response) {
+			$scope.documentos = response.data;
+		}, function errorCallback(response) {
+
+		});
+	}
+
+	/*Obtiene plantilla de Currículum con Datos principales del instructor */
+	$scope.printFormato = function () {
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getCurriculum.php?id=' + user.getIdUsuario(), '_blank');
+	}
+
+	/*Obtiene plantilla de Ficha Técnica del Servicio */
+	$scope.printFicha = function () {
+		$scope.id = curso.getID();
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFichaTecnica.php?id=' + $scope.id, '_blank');
+	}
+
+	/* Establece el id del curso */
+	$scope.cursoID = function (id) {
+		curso.setID(id);
+	}
+	/* Obtiene la información del curso siempre y cuando el id no esté vacío */
+	$scope.getInfoCurso = function () {
+		$scope.idCurso = curso.getID();
+		if ($scope.idCurso != undefined) {
+			$http({
+				url: 'http://localhost/Residencia/ActualizacionDocente/php/getInfoCurso.php',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idCurso=' + $scope.idCurso
+			}).then(function successCallback(response) {
+				$scope.infoCurso = response.data;
+			});
+		}
+	}
+
+	/* Funcion para subir un documento, igual a la del usuario Coordinador */
+	$scope.upload = function (idDoc, idCurso) {
+		var fd = new FormData();
+		var files = document.getElementById('file' + idDoc).files[0];
+		fd.append('archivo', files);
+		fd.append('idCurso', idCurso);
+		fd.append('idDocumento', idDoc);
+		$http({
+			method: 'post',
+			url: 'http://localhost/Residencia/ActualizacionDocente/php/subirArchivo.php',
+			data: fd,
+			headers: {
+				'Content-Type': undefined
+			},
+		}).then(function successCallback(response) {
+			if (response.data.status == 'ok') {
+				$scope.alert = {
+					titulo: '¡Archivo subido!',
+					tipo: 'success',
+					mensaje: 'Archivo subido correctamente.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$('#modal' + idDoc).modal('hide');
+				document.getElementById('mensaje' + idDoc).innerHTML = 'Documento guardado';
+				$('#linkDocumento' + idDoc).replaceWith('<span id="linkDocumento' + idDoc + '"><a href="http://localhost/Residencia/ActualizacionDocente/files/' + response.data.doc + '" target="_blank">Ver documento</a></span>');
+			}
+		});
+	}
+
+	/* valida si ya se ha subido un documento antes */
+	$scope.existeDocumento = function () {
+		$timeout(function () {
+			$http({
+				method: 'post',
+				url: 'http://localhost/Residencia/ActualizacionDocente/php/documentosExistentesCurso.php',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idc=' + curso.getID()
+			}).then(function successCallback(response) {
+				if (response.data.status = "existe") {
+					angular.forEach(response.data.documentos, function (value, key) {
+						$('#linkDocumento' + key).append('<a target="_blank" href="http://localhost/Residencia/ActualizacionDocente/files/' + value + '">Ver documento</a>');
+					});
+					angular.forEach(response.data.comentariosDocumentos, function (value, key) {
+						$("textarea#comentarioDocu" + key).val(value);
+					});
+				}
+			});
+		}, 500);
+	}
+	/* Consulta si falta documentación de cada curso */
+	$scope.faltaDocumentacion = function () {
+		$timeout(function () {
+			$http({
+				method: 'GET',
+				url: 'http://localhost/Residencia/ActualizacionDocente/php/numDocsCursos.php',
+			}).then(function successCallback(response) {
+				angular.forEach(response.data.numDocsCurso, function (value, key) {
+					if (value.num_docs < 7) {
+						$("#documentacion" + value.idCurso).append('<button class="btn bg-white info_icon" title="Falta documentación"></button>');
+					}
+				});
+			});
+		}, 500);
+	}
+
+	/* Pasa parametros GET para llenado del Oficio del curso y lo abre
+	en otra pestaña */
+	$scope.printOficio = function () {
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getOficioCurso.php?idd=' + user.getIdDepartamento() +
+			'&idc=' + $scope.infoCurso.idCurso + '&idu=' + user.getIdUsuario(), '_blank');
+	}
+
+	/* regresa atrás en el navegador */
+	$scope.back = function () {
+		window.history.back();
+	};
+
+	/* llamado a las funciones */
+	$scope.getCursos();
+	$scope.getInfoCurso();
+});
+
+app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curso, periodoService, fechaService, asistenciaService, $timeout) {
+
+	$scope.user = user.getName();
+
+	$scope.cursoID = function (id) {
+		curso.setID(id);
+	}
+
+	/* Obtener cursos dirigidos al departamento que pertenece el usuario */
+	$scope.getCursos = function () {
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/ActualizacionDocente/php/getCursosDepartamento.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idDepartamento=' + user.getIdDepartamento()
+		}).then(function successCallback(response) {
+			$scope.cursos = response.data;
+		});
+	}
+
+	$scope.periodo = periodoService.getPeriodo()
+		.then(function (response) {
+			$scope.periodo = response;
+		});
+
+	$scope.fecha = fechaService.getFecha()
+		.then(function (response) {
+			$scope.fecha = response;
+		});
+
+	/* Obtiene la lista de los docentes inscritos a X curso */
+
+	$scope.getParticipantes = function () {
+		$scope.idCurso = curso.getID();
+		if ($scope.idCurso != "") {
+			$http({
+				url: 'http://localhost/Residencia/ActualizacionDocente/php/getParticipantes.php',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idCurso=' + $scope.idCurso
+			}).then(function successCallback(response) {
+				$scope.participantes = response.data;
+			});
+		}
+	}
+
+	/* limpia los checkbox de asistencia */
+	$scope.uncheck = function () {
+		$(":checkbox").prop("checked", false);
+	}
+
+	/* Declaración del array que almacenará la asistencia de cada participante */
+	$scope.listaAlumnos = {};
+	/* Function que realiza el registro de la asistencia de un curso */
+	$scope.registrarAsistencia = function () {
+		/* valida que el id del curso esté establecido */
+		if (curso.getID() != undefined) {
+			/* Guarda en un json la lista de asistencia, la lista de participantes
+			del curso y el id del curso */
+			var datos = {
+				lista: $scope.listaAlumnos,
+				participantes: $scope.participantes,
+				idCurso: curso.getID()
+			}
+			$http({
+				url: 'http://localhost/Residencia/ActualizacionDocente/php/addAsistencia.php',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				data: JSON.stringify(datos)
+			}).then(function successCallback(response) {
+				/* Si la inserción fue correcta deshabilita los checkbox,
+				los botones, oculta el modal, muestra una alerta y redirecciona
+				al inicio */
+				if (response.data.status == 'ok') {
+					$(":checkbox").attr('disabled', true);
+					$("#btn_enviar").attr('disabled', true);
+					$("#btn_borrar").attr('disabled', true);
+					$('#modal').modal('hide');
+					$('.modal-backdrop').remove();
+					$scope.alert = {
+						titulo: '¡Listo!',
+						tipo: 'success',
+						mensaje: 'La asistencia se registro con éxito. En breve será redireccionado...'
+					};
+					$(document).ready(function () {
+						$('#alerta').toast('show');
+					});
+					$timeout(function () {
+						$location.path('/inicioI');
+					}, 2000);
+				}
+			});
+		} else {
+			/* Si falla sólo muestra la alerta */
+			$scope.alert = {
+				titulo: '¡Atención!',
+				tipo: 'warning',
+				mensaje: 'No se ha podido registrar la asistencia.'
+			};
+			$(document).ready(function () {
+				$('#alerta').toast('show');
+			});
+		}
+	}
+
+	/* Consulta si la asistencia ya se registro el día de hoy para un curso */
+	$scope.existeAsistencia = asistenciaService.existe(curso.getID())
+		.then(function (response) {
+			$scope.asistencia = response;
+		});
+
+	/* Si el registro de asistencia existe deshabilita el formulario y 
+	muestra un mensaje */
+	$scope.YaSeRegistroAsistencia = function () {
+		$timeout(function () {
+			if ($scope.asistencia == 'existe') {
+				$(":checkbox").attr('disabled', true);
+				$("#btn_enviar").attr('disabled', true);
+				$("#btn_borrar").attr('disabled', true);
+				$("#mensaje").append('Ya tomó asistencia hoy, vuelva mañana.');
+			}
+		}, 1000);
+	}
+
+	/* Llamado al curso */
+	$scope.getCursos();
+
+	/* Abre el Formato de Lista de Asistencia del curso en otra pestaña */
+	$scope.printFormato = function () {
+		$scope.idCurso = curso.getID();
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoListaAsistencia.php?idc=' + $scope.idCurso, '_blank');
+	}
+
+	$scope.getAsistenciaCurso = function () {
+		if (curso.getID != undefined) {
+			$http({
+				method: 'POST',
+				url: 'http://localhost/Residencia/ActualizacionDocente/php/getAsistenciaCurso.php',
+				headers: {
+					'Content-type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idc=' + curso.getID()
+			}).then(function successCallback(response) {
+				$scope.aCurso = response.data;
+
+			});
+		}
+	}
+});
+
+app.controller('reconocimientosICtrl', function ($scope, $http, $location, user, curso, periodoService, constancia) {
+
+	$scope.user = user.getName();
+
+	$scope.periodo = periodoService.getPeriodo()
+		.then(function (response) {
+			$scope.periodo = response;
+		});
+
+	/* Obtener todas los reconocimientos del Instructor */
+	$scope.getConstancias = function () {
+		//Obtiene el ID del usuario
+		$scope.id = user.getIdUsuario();
+		if ($scope.id != undefined) {
+			$http({
+				url: 'http://localhost/Residencia/ActualizacionDocente/php/getMisReconocimientos.php',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idUsuario=' + $scope.id
+			}).then(function successCallback(response) {
+				$scope.constancias = response.data;
+			});
+		}
+	}
+
+	/** Establecer el ID del curso y folio de la constancia */
+	$scope.verConstancia = function (folio, idCurso) {
+		constancia.setFolio(folio);
+		curso.setID(idCurso);
+		$scope.getConstancia();
+	};
+
+	/* Obtener datos de una constancia */
+	$scope.getConstancia = function () {
+		/** Recurperar folio y ID  */
+		var idCurso = curso.getID();
+		var folio = constancia.getFolio();
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/ActualizacionDocente/php/getConstancia.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idCurso=' + idCurso + '&folio=' + folio
+		}).then(function successCallback(response) {
+			$scope.constancia = response.data;
+		});
+	}
+
+	/* Retorna la URL del documento */
+	$scope.getDocumento = function () {
+		return 'http://localhosthttp://localhost/Residencia/ActualizacionDocente/files/' + constancia.getRuta();
+	};
+
+	$scope.back = function () {
+		window.history.back();
+	};
+
+	/* Datos que serán usados en la vista */
+	$scope.folioConstancia = constancia.getFolio();
+	$scope.rutaConstancia = constancia.getRuta();
+
+	/*Obtiene plantilla de Currículum con Datos principales del instructor */
+	$scope.printFormato = function () {
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getCurriculum.php?id=' + user.getIdUsuario(), '_blank');
+	}
 
 	/* Llamado a las funciones */
 	$scope.getConstancia();

@@ -44,6 +44,7 @@ if ($result->num_rows > 0) {
 
         /* Almacenamos la ruta de los documentos individuales */
         $response['documentos'][$i+1] = $docs[$i]['rutaArchivo'];
+        $response['comentariosDocumentos'][$i+1] = $docs[$i]['comentario'];
 
     }
 }

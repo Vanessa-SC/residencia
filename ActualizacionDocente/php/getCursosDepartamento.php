@@ -14,6 +14,15 @@ $id = mysqli_real_escape_string($conn, $_POST['idDepartamento']);
 $formatt = "SET lc_time_names = 'es_MX' ";
 mysqli_query($conn,$formatt);
 
+// Obtiene el periodo actual
+$mes = date('n');
+$año = date('Y');
+
+if ( $mes <= 6 ){
+    $periodo = 'Enero / Junio ' . $año;
+} else {
+    $periodo = 'Agosto / Diciembre ' . $año;
+}
 // SQL de consulta
 $sql = "SELECT curso.idCurso,
             concat_ws(' ',instructor.apellidoPaterno,instructor.apellidomaterno,instructor.nombre) as maestro,
