@@ -3503,11 +3503,11 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 					});
 					$scope.getCursos();
 					$scope.getMisCursos();
-				} else if (response.data.status == "Ya existe") {
+				} else if (response.data.status == "Ya se ha inscrito a este curso." || response.data.status == "Ya se inscribió a un curso a esa hora.") {
 					$scope.alert = {
-						titulo: '¡Ya estás inscrito!',
+						titulo: '¡Hey!',
 						tipo: 'warning',
-						mensaje: 'Intenta inscribirte a otro curso, en este ya estás.'
+						mensaje: response.data.status
 					};
 					$(document).ready(function () {
 						$('#alerta').toast('show');
