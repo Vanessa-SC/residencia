@@ -39,11 +39,11 @@ if ($row_cnt > 0) {
     //Obtener cursos a los que está inscrito que coincidan con el horario o fecha del nuevo curso
     $sqlCursosInscritos = "SELECT c.idCurso, c.horaInicio, c.horaFin, c.fechaInicio, c.fechaFin
                             FROM usuario_has_curso uc , curso c
-                            WHERE uc.usuario_idUsuario = 6
+                            WHERE uc.usuario_idUsuario = $idUsuario 
                                 AND uc.Curso_idCurso = c.idCurso
                                 AND c.fechaInicio between '$fi' and '$ff'
                                 AND c.horaInicio between '$hi' AND '$hf'
-                            OR ( uc.usuario_idUsuario = 6
+                            OR ( uc.usuario_idUsuario = $idUsuario 
                                 AND uc.Curso_idCurso = c.idCurso
                                 AND c.fechaInicio between '$fi' and '$ff'
                                 AND c.horaInicio between '$hi' AND '$hf' )";
