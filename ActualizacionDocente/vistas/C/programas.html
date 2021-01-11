@@ -48,11 +48,11 @@
             </thead>
             <tbody>
                 <tr ng-repeat="x in TodosCursos | filter:filtro">
-                    <td class=" align-middle text-center "> <small style="font-weight: 700;">{{x.folio}}</small></td>
-                    <td class=" align-middle "> {{x.maestro}} </td>
-                    <td class=" align-middle "> {{x.curso}} </td>
+                    <td class=" align-middle text-left"> <small style="font-weight: 700;">{{x.folio}}</small></td>
+                    <td class=" align-middle text-left"> {{x.maestro}} </td>
+                    <td class=" align-middle text-left"> {{x.curso}} </td>
                     <td class=" align-middle ">
-                        <small>{{x.fecha}}<br> {{x.horario}}</small>
+                        <small>{{x.fecha}}<br> {{x.horario}} Hrs.</small>
                     </td>
 
                     <td class=" align-middle ">

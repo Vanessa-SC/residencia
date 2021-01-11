@@ -57,6 +57,7 @@
                         <td class="align-middle font-italic">Curso</td>
                         <td class="align-middle font-italic">Periodo de realizaci&oacute;n</td>
                         <td class="align-middle font-italic">Constancia</td>
+                        <td class="font-italic align-middle" scope="col">Encuesta de opini&oacute;n</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -65,11 +66,16 @@
                         <td class="align-middle">{{mcC.curso}}</td>
                         <td class="align-middle">{{mcC.fecha}} <br>{{mc.horario}} Hrs.</td>
                         <td class="align-middle"><button class="btn bg-white documento_icon"></button></td>
+                        <td class="align-middle">
+                            <a href="#!/inicioD/encuesta" ng-click="getEncuesta(1,mc.idCurso)">
+                                <button class="btn bg-white encuesta_icon"></button>
+                            </a>
+                        </td>
                     </tr>
                 </tbody>
                 <tbody ng-show="misCursosC | isEmpty">
                     <tr class="text-center">
-                        <td class="align-middle" colspan="4" class=" bg-light align-middle p-4 font-italic">
+                        <td class="align-middle" colspan="5" class=" bg-light align-middle p-4 font-italic">
                             <h5>No hay registros</h5>
                         </td>
                     </tr>

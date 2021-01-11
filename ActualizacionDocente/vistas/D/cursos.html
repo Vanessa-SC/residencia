@@ -20,8 +20,7 @@
                     <tr>
                         <td class="font-italic align-middle" scope="col">Curso</td>
                         <td class="font-italic align-middle" scope="col">Periodo de realizaci&oacute;n</td>
-                        <td class="font-italic align-middle" scope="col">Salir del curso</td>
-                        <td class="font-italic align-middle" scope="col">Encuesta de opini&oacute;n</td>
+                        <td class="font-italic align-middle" scope="col">Salir del curso</td>                        
                     </tr>
                 </thead>
                 <tbody>
@@ -56,16 +55,11 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="align-middle">
-                            <a href="#!/inicioD/encuesta" ng-click="getEncuesta(1,mc.idCurso)">
-                                <button class="btn bg-white encuesta_icon"></button>
-                            </a>
-                        </td>
                     </tr>
                 </tbody>
                 <tbody ng-show="misCursos | isEmpty">
                     <tr class="text-center">
-                        <td class="align-middle" colspan="4" class=" bg-light align-middle p-4 font-italic">
+                        <td class="align-middle" colspan="3" class=" bg-light align-middle p-4 font-italic">
                             <h5>No hay registros</h5>
                         </td>
                     </tr>
