@@ -2027,7 +2027,7 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 	$scope.cursoSeleccionado = function (curso) {
 		if (curso != undefined) {
 			$http({
-				url: 'http://localhost/Residencia/ActualizacionDocente/php/getParticipantes.php',
+				url: 'http://localhost/Residencia/ActualizacionDocente/php/getParticipantesAprobados.php',
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded'

@@ -35,7 +35,7 @@ mysqli_query($conn,$formatt);
 
 // SQL de consulta
 $sql = "SELECT curso.idCurso,
-            concat_ws(' ',instructor.apellidoPaterno,instructor.apellidomaterno,instructor.nombre) as maestro,
+            concat_ws(' ',instructor.apellidoPaterno,instructor.apellidoMaterno,instructor.nombre) as maestro,
             curso.nombreCurso as curso,
             curso.objetivo,
             concat_ws(' - ', DATE_FORMAT(curso.fechaInicio, '%d de %M'), DATE_FORMAT(curso.fechaFin, '%d de %M, %Y')) as fecha,
@@ -50,7 +50,7 @@ $sql = "SELECT curso.idCurso,
         AND curso.validado='SI'
         UNION 
         SELECT curso.idCurso,
-                concat_ws(' ',instructor.apellidoPaterno,instructor.apellidomaterno,instructor.nombre) as maestro,
+                concat_ws(' ',instructor.apellidoPaterno,instructor.apellidoMaterno,instructor.nombre) as maestro,
                 curso.nombreCurso as curso,
                 curso.objetivo,
                 concat_ws(' - ', DATE_FORMAT(curso.fechaInicio, '%d de %M'), DATE_FORMAT(curso.fechaFin, '%d de %M, %Y')) as fecha,

@@ -30,23 +30,23 @@
         </div>
     </div>
     <div class=" table-responsive ">
-        <table class="table text-center">
-            <thead class="bg-wine text-white">
-                <tr>
-                    <td class="align-middle font-italic">Nombre</th>
-                    <td class="align-middle font-italic">Personal</th>
-                    <td class="align-middle font-italic">Departamento</th>
-                    <td class="align-middle font-italic">Horas</th>
-                    <td class="align-middle font-italic"></th>
+        <table class="table table-bordered">
+            <thead class="bg-wine text-white font-italic">
+                <tr class="text-center">
+                    <td>Nombre</th>
+                    <td>Personal</th>
+                    <td>Departamento</th>
+                    <td>Horas</th>
+                    <td>Editar/Eliminar</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="x in instructores | filter:filtro">
-                    <td class="align-middle"> {{x.nombre}} </td>
-                    <td class="align-middle"> {{x.personal}} </td>
-                    <td class="align-middle"> {{x.nombreDepartamento}} </td>
-                    <td class="align-middle"> {{x.horas}} </td>
-                    <td class="align-middle">
+                    <td> {{x.nombre}} </td>
+                    <td> {{x.personal}} </td>
+                    <td> {{x.nombreDepartamento}} </td>
+                    <td> {{x.horas}} </td>
+                    <td class="text-center">
                         <a href="#!/inicioC/instructores/actualizarInstructor" ng-click=instructorID(x.idInstructor)>
                             <button class="btn btn-sm bg-white editar_icon mb-1" title="Editar"></button>
                         </a>

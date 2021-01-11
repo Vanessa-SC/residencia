@@ -46,9 +46,23 @@ $archivo = 'C_' . time() . '.pdf';
 // Salida del archivo -> mostrar en el navegador para su visualizar o descargar
 $pdf->Output("C:/xampp/htdocs/Residencia/ActualizacionDocente/files/" . $archivo, 'F');
 
-/* Inserción del nombre del documento a la base de datos */
-$sql = "INSERT INTO constancia
-        VALUES('','$datos->folio','$archivo',$datos->idCurso,$datos->idUsuario)";
+//Query para determinar si ya se ha subido un documento previamente
+$query = "SELECT * FROM constancia
+WHERE Usuario_idUsuario = $datos->idUsuario
+AND Curso_idCurso = $datos->idCurso";
+$result = mysqli_query($conn, $query);
+
+/* Si no existe un registro previo, hace una inserción en la base de datos. Caso contrario realiza un update para actualizar el nombre el archivo */
+if ($rowcount = mysqli_num_rows($result) == 0 ) {
+    /* Inserción del nombre del documento a la base de datos */
+    $sql = "INSERT INTO constancia
+            VALUES('','$datos->folio','$archivo',$datos->idCurso,$datos->idUsuario)";
+} else {
+    $sql = "UPDATE constancia
+            SET rutaConstancia='$archivo'
+            WHERE Usuario_idUsuario = $datos->idUsuario
+            AND Curso_idCurso = $datos->idCurso";
+}
 
 /* Ejecucuón del Query */
 if (mysqli_query($conn, $sql)) {

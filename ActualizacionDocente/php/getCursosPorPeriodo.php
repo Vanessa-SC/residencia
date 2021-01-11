@@ -19,7 +19,7 @@ mysqli_query($conn,$formatt);
 // SQL de consulta
 $sql = "SELECT curso.idCurso,
             curso.folio,
-            concat_ws(' ',instructor.apellidoPaterno,instructor.apellidomaterno,instructor.nombre) as maestro,
+            concat_ws(' ',instructor.apellidoPaterno,instructor.apellidoMaterno,instructor.nombre) as maestro,
             curso.nombreCurso as curso,
             curso.objetivo,
             curso.duracion,

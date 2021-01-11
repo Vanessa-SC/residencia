@@ -30,7 +30,7 @@
 				<label class="input-group-text" for="participante">Participante</label>
 			</div>
 			<select required class="custom-select" id="participante" ng-model="constancia.participante"
-				ng-options='p.nombre for p in participantesCurso' ng-change="habilitarBoton()" ng-disabled="constancia.curso.ff >= fecha"">
+				ng-options='p.nombre for p in participantesCurso' ng-change="habilitarBoton()" ng-disabled="constancia.curso.ff >= fecha">
 				<option value="{{p.nombre}}"> {{p.nombre}} </option>
 			</select>
 		</div>

@@ -29,26 +29,26 @@
             </div>
         </div>
     </div>
-    <div class=" table-responsive ">
-        <table class="table text-center">
-            <thead class="bg-wine text-white">
-                <tr>
-                    <td class="align-middle font-italic">Nombre</th>
-                    <td class="align-middle font-italic">Rol</th>
-                    <td class="align-middle font-italic">Departamento</th>
-                    <td class="align-middle font-italic">Horas</th>
-                    <td class="align-middle font-italic">Activo</th>
-                    <td class="align-middle font-italic"></th>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead class="bg-wine text-white font-italic">
+                <tr class="text-center">
+                    <td>Nombre</th>
+                    <td>Rol</th>
+                    <td>Departamento</th>
+                    <td>Horas</th>
+                    <td>Activo</th>
+                    <td>Editar/Eliminar</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="x in usuarios | filter:filtro">
-                    <td class="align-middle text-left"> {{x.nombre}} </td>
-                    <td class="align-middle"> {{x.rol}} </td>
-                    <td class="align-middle"> {{x.nombreDepartamento}} </td>
-                    <td class="align-middle"> {{x.horas}} </td>
-                    <td class="align-middle"> {{x.activo}} </td>
-                    <td class="align-middle">
+                    <td> {{x.nombre}} </td>
+                    <td> {{x.rol}} </td>
+                    <td> {{x.nombreDepartamento}} </td>
+                    <td> {{x.horas}} </td>
+                    <td class="text-center"> {{x.activo}} </td>
+                    <td class="text-center">
                         <a href="#!/inicioA/usuarios/actualizarUsuario" ng-click=usuarioID(x.idUsuario)>
                             <button class="btn btn-sm bg-white editar_icon mb-1" title="Editar"></button>
                         </a>
@@ -83,6 +83,13 @@
                                 </div>
                             </div>
                         </div>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody ng-show="usuarios | isEmpty">
+                <tr class="text-center">
+                    <td colspan="6" class=" bg-light align-middle p-5 font-italic">
+                        <h5 class="mx-auto">No hay usuarios</h5>
                     </td>
                 </tr>
             </tbody>

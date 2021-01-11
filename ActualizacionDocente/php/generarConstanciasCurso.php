@@ -41,7 +41,7 @@ $queryAlumnosR   =  "SELECT a.Usuario_idUsuario as idUsuario,
 $resA = mysqli_query($conn, $queryAlumnosR);
 $participantesR = mysqli_fetch_all ($resA);
 
-/* Recorrer el arreglo y hacer inserciones  */
+/* Recorrer el arreglo y hacer la actualización de estado 2 -> reprobado  */
 foreach($participantesR as list($id,$nombre)){
     $sqli = "UPDATE usuario_has_curso
         SET estado = '2'
@@ -52,7 +52,7 @@ foreach($participantesR as list($id,$nombre)){
     mysqli_query($conn, $sqli);
 }
 
-/* Recorrer el arreglo y hacer inserciones  */
+/* Recorrer el arreglo y hacer inserciones de usuarios aprobados */
 foreach($participantes as list($id,$nombre)){
    
     /* Creación del documento PDF */
@@ -91,19 +91,33 @@ foreach($participantes as list($id,$nombre)){
     // Salida del archivo -> mostrar en el navegador para su visualizar o descargar
     $pdf->Output("C:/xampp/htdocs/Residencia/ActualizacionDocente/files/" . $archivo, 'F');
 
-    // /* Inserción del nombre del documento a la base de datos */
-    $sql = "INSERT INTO constancia
-            VALUES('','$folio-$id','$archivo',$idc,$id)";
+    //Query para determinar si ya se ha subido un documento previamente
+    $query = "SELECT * FROM constancia
+                WHERE Usuario_idUsuario = $id
+                AND Curso_idCurso = $idc";
+    $result = mysqli_query($conn, $query);
 
-    mysqli_query($conn, $sql);
+    /* Si no existe un registro previo, hace una inserción en la base de datos. Caso contrario realiza un update para actualizar el nombre el archivo */
+    if ($rowcount = mysqli_num_rows($result) == 0 ) {
+         // /* Inserción del nombre del documento a la base de datos */
+        $sql = "INSERT INTO constancia
+        VALUES('','$folio-$id','$archivo',$idc,$id)";
+        mysqli_query($conn, $sql);
 
-    $sqli = "UPDATE usuario_has_curso
+        // Actualización de estado 0 -> concluyó satisfactoriamente el curso
+        $sqli = "UPDATE usuario_has_curso
         SET estado = '0'
         WHERE Usuario_idUsuario = $id
         AND Curso_idCurso = $idc
         ";
-
-    mysqli_query($conn, $sqli);
+        mysqli_query($conn, $sqli);
+    } else {
+        $sql = "UPDATE constancia
+                SET rutaConstancia='$archivo'
+                WHERE Usuario_idUsuario = $id
+                AND Curso_idCurso = $idc";
+        mysqli_query($conn, $sql);
+    }
 }
 
 /** Obtener nombre del instructor */
@@ -147,14 +161,25 @@ $archivo = 'R_' . time() . '.pdf';
 
 $pdf->Output("C:/xampp/htdocs/Residencia/ActualizacionDocente/files/" . $archivo, 'F');
 
-$sql2 = "INSERT INTO constancia
-        VALUES('','$folio-$idi-R','$archivo',$idc,$idi)";
+//Query para determinar si ya se ha subido un documento previamente
+$queryi = "SELECT * FROM constancia
+WHERE Usuario_idUsuario = $idi
+AND Curso_idCurso = $idc";
+$result = mysqli_query($conn, $queryi);
 
-
-mysqli_query($conn, $sql2);
-
-
-
+ /* Si no existe un registro previo, hace una inserción en la base de datos. Caso contrario realiza un update para actualizar el nombre el archivo */
+ if ($rowcount = mysqli_num_rows($result) == 0 ) {
+    // /* Inserción del nombre del documento a la base de datos */
+    $sql2 = "INSERT INTO constancia
+    VALUES('','$folio-$idi-R','$archivo',$idc,$idi)";
+    mysqli_query($conn, $sql2);
+} else {
+   $sql = "UPDATE constancia
+           SET rutaConstancia='$archivo'
+           WHERE Usuario_idUsuario = $idi
+           AND Curso_idCurso = $idc";
+   mysqli_query($conn, $sql);
+}
 
 $response['status'] = 'ok';
 
