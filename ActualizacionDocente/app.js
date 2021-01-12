@@ -1466,7 +1466,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 
 	/* Retorna el link del documento */
 	$scope.getDocumento = function (doc) {
-		return 'http://localhosthttp://localhost/Residencia/ActualizacionDocente/files/' + doc;
+		return 'http://localhost/Residencia/ActualizacionDocente/files/' + doc;
 	};
 
 	/* Función para la creación de un curso */
