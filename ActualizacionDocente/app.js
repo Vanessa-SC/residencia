@@ -1878,7 +1878,6 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 		$scope.id = curso.getID();
 		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFichaTecnica.php?id=' + $scope.id, '_blank');
 	}
-
 });
 
 app.controller('programasCtrl', function ($scope, $http, $location, $filter, user, curso, periodoService, $timeout) {

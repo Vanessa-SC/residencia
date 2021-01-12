@@ -112,44 +112,14 @@ SELECT
     IF(usuario.funcionAdministrativa = 'SI', 'X', usuario.funcionAdministrativa) AS FD,
 */
 
-date_default_timezone_set("America/Mexico_City");
-$idDpto = 2;
-$date_start = date('2019-07-06');
-$date_end = date('2019-09-18');
-$actual = date('Y-m-d');
-echo($date_start.$date_end.$actual);
-
-$mes = date('n');
-$año = date('Y');
-
-if ( $mes <= 6 ){
-    $response = 'Enero / Junio ';
-} else {
-    $response = 'Agosto / Diciembre ';
-}
-
-setlocale(LC_TIME, 'es_MX');
-/* Fecha actual en español */
-$bMeses = array("void", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
-$bDias = array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
-$fecha = getdate();
-
-$dias = $bDias[$fecha["wday"]];
-$meses = $bMeses[$fecha["mon"]];
-
-$actual = $fecha["mday"] . " de " . $meses . " de " . $fecha["year"];
-
-$id = 1;
-//2 lunes, 3 martes, 4 Miercoles, 5 jueves, 6 viernes
 
 
-$sql = "SELECT a.Usuario_idUsuario as idUsuario, 
-upper(concat_ws(' ',u.nombre,u.apellidoPaterno,u.apellidoMaterno)) as nombre
-FROM asistencia a, usuario u
-WHERE a.Curso_idCurso = $idCurso
-AND a.Usuario_idUsuario = u.idUsuario
-group by a.Usuario_idUsuario
-HAVING ROUND((SUM(CASE WHEN a.asistencia = '1' THEN 1 ELSE 0 END)/COUNT(*)*100),2) <= 80
+$sql = "SELECT ur.pregunta_idPregunta as idPregunta, p.descripcion
+FROM usuario_responde_encuesta ur 
+INNER JOIN pregunta p
+ON p.idPregunta = ur.pregunta_idPregunta
+Where ur.Encuesta_idEncuesta = 1
+group by ur.pregunta_idPregunta
 ";
 
 /* Ejecución de la consulta */
