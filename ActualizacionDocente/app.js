@@ -1956,6 +1956,17 @@ app.controller('programasCtrl', function ($scope, $http, $location, $filter, use
 			});
 		});
 	}
+
+	//Formatos
+	/* Archivo excel de indicadores */
+	$scope.printIndicadores = function () {
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoIndicadores.php?', '_blank');
+	}
+
+	/* Archivo word de Programa Institucional */
+	$scope.printProgramaInstitucional = function () {
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoProgramaInstitucional.php?', '_blank');
+	}
 });
 
 app.controller('constanciasCtrl', function ($scope, $http, $location, user, periodoService, curso, constancia, fechaService) {
@@ -2184,6 +2195,17 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 
 	}
 
+	//Formatos
+	/* Archivo excel de indicadores */
+	$scope.printIndicadores = function () {
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoIndicadores.php?', '_blank');
+	}
+
+	/* Archivo word de Programa Institucional */
+	$scope.printProgramaInstitucional = function () {
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoProgramaInstitucional.php?', '_blank');
+	}
+
 	/* Datos que serán usados en la vista */
 	$scope.folioConstancia = constancia.getFolio();
 	$scope.rutaConstancia = constancia.getRuta();
@@ -2386,7 +2408,16 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 		});
 	}
 
+	//Formatos
+	/* Archivo excel de indicadores */
+	$scope.printIndicadores = function () {
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoIndicadores.php?', '_blank');
+	}
 
+	/* Archivo word de Programa Institucional */
+	$scope.printProgramaInstitucional = function () {
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoProgramaInstitucional.php?', '_blank');
+	}
 });
 
 app.controller('encuestasCtrl', function ($scope, $http, user, periodoService, curso) {
@@ -2471,6 +2502,16 @@ app.controller('encuestasCtrl', function ($scope, $http, user, periodoService, c
 	$scope.series = [];
 	$scope.data = [];
 
+	//Formatos
+	/* Archivo excel de indicadores */
+	$scope.printIndicadores = function () {
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoIndicadores.php?', '_blank');
+	}
+
+	/* Archivo word de Programa Institucional */
+	$scope.printProgramaInstitucional = function () {
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoProgramaInstitucional.php?', '_blank');
+	}
 
 });
 
@@ -3182,6 +3223,18 @@ app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso,
 			});
 		}
 	}
+
+	//Formatos
+	/* Archivo excel de indicadores */
+	$scope.printIndicadores = function () {
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoIndicadoresDpto.php?idd=' + user.getIdDepartamento(), '_blank');
+	}
+
+	/* Archivo word de Programa Institucional */
+	$scope.printProgramaInstitucional = function () {
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoProgramaInstitucionalDpto.php?idd=' + user.getIdDepartamento(), '_blank');
+	}
+
 	/* Llamado a funciones */
 	$scope.getPreguntasEncuesta();
 });
@@ -3408,6 +3461,16 @@ app.controller('instructoresJCtrl', function ($scope, $http, $location, user, pe
 		});
 	}
 
+	//Formatos
+	/* Archivo excel de indicadores */
+	$scope.printIndicadores = function () {
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoIndicadoresDpto.php?idd=' + user.getIdDepartamento(), '_blank');
+	}
+
+	/* Archivo word de Programa Institucional */
+	$scope.printProgramaInstitucional = function () {
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoProgramaInstitucionalDpto.php?idd=' + user.getIdDepartamento(), '_blank');
+	}
 
 });
 
@@ -3813,7 +3876,7 @@ app.controller('cursosICtrl', function ($scope, $http, $timeout, user, curso, pe
 	}
 
 	/*Obtiene plantilla de Currículum con Datos principales del instructor */
-	$scope.printFormato = function () {
+	$scope.printCurriculum = function () {
 		window.open('http://localhost/Residencia/ActualizacionDocente/php/getCurriculum.php?id=' + user.getIdUsuario(), '_blank');
 	}
 
@@ -4069,6 +4132,11 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoListaAsistencia.php?idc=' + $scope.idCurso, '_blank');
 	}
 
+	/*Obtiene plantilla de Currículum con Datos principales del instructor */
+	$scope.printCurriculum = function () {
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getCurriculum.php?id=' + user.getIdUsuario(), '_blank');
+	}
+
 	$scope.getAsistenciaCurso = function () {
 		if (curso.getID != undefined) {
 			$http({
@@ -4151,7 +4219,7 @@ app.controller('reconocimientosICtrl', function ($scope, $http, $location, user,
 	$scope.rutaConstancia = constancia.getRuta();
 
 	/*Obtiene plantilla de Currículum con Datos principales del instructor */
-	$scope.printFormato = function () {
+	$scope.printCurriculum = function () {
 		window.open('http://localhost/Residencia/ActualizacionDocente/php/getCurriculum.php?id=' + user.getIdUsuario(), '_blank');
 	}
 
