@@ -2076,7 +2076,7 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 
 	/* Retorna la URL del documento */
 	$scope.getDocumento = function () {
-		return 'http://localhosthttp://localhost/Residencia/ActualizacionDocente/files/' + constancia.getRuta();
+		return 'http://localhost/Residencia/ActualizacionDocente/files/' + constancia.getRuta();
 	};
 
 	$scope.back = function () {
@@ -3756,7 +3756,7 @@ app.controller('constanciasDCtrl', function ($scope, $http, $location, user, cur
 
 	/* Retorna la URL del documento */
 	$scope.getDocumento = function () {
-		return 'http://localhosthttp://localhost/Residencia/ActualizacionDocente/files/' + constancia.getRuta();
+		return 'http://localhost/Residencia/ActualizacionDocente/files/' + constancia.getRuta();
 	};
 
 	$scope.back = function () {
@@ -4139,7 +4139,7 @@ app.controller('reconocimientosICtrl', function ($scope, $http, $location, user,
 
 	/* Retorna la URL del documento */
 	$scope.getDocumento = function () {
-		return 'http://localhosthttp://localhost/Residencia/ActualizacionDocente/files/' + constancia.getRuta();
+		return 'http://localhost/Residencia/ActualizacionDocente/files/' + constancia.getRuta();
 	};
 
 	$scope.back = function () {
