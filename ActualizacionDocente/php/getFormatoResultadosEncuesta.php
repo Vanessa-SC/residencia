@@ -5,8 +5,8 @@ require_once "../XLSX/vendor/autoload.php";
 include_once 'conexion.php';
 
 // Variable que se obtiene al momento de llamar al método
-$idc = $_GET['idc'];
-$ide = $_GET['ide'];
+$idc = 1;
+$ide = 1;
 
 // Instancias de creación
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -78,6 +78,7 @@ $sql = $conn->query("SELECT ur.pregunta_idPregunta as idPregunta,
         COUNT(CASE WHEN ur.respuesta = '3' THEN 1 END) AS totalR3,
         COUNT(CASE WHEN ur.respuesta = '2' THEN 1 END) AS totalR2,
         COUNT(CASE WHEN ur.respuesta = '1' THEN 1 END) AS totalR1,
+        SUM(ur.respuesta) AS total,
         round(avg(ur.respuesta),1) AS resultado
         FROM usuario_responde_encuesta ur 
         Where ur.Curso_idCurso = $idc
@@ -98,7 +99,8 @@ if($sql->num_rows > 0) {
             $activeSheet->setCellValue('E'.$i , $row['totalR3']);
             $activeSheet->setCellValue('F'.$i , $row['totalR2']);
             $activeSheet->setCellValue('G'.$i , $row['totalR1']);
-            $activeSheet->setCellValue('H'.$i , $row['resultado']);
+            $activeSheet->setCellValue('H'.$i , $row['total']);
+            $activeSheet->setCellValue('I'.$i , $row['resultado']);
             $i++;
 
             // Totales
