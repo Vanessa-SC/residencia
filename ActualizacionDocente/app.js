@@ -1887,6 +1887,39 @@ app.controller('programasCtrl', function ($scope, $http, $location, $filter, use
 		console.log(id);
 	}
 
+	/* Realizar la modificación de los datos del departamento */
+	$scope.activarEncuesta = function (data) {
+		$http({
+			url: 'http://localhost/Residencia/ActualizacionDocente/php/activarEncuesta.php',
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			data: data
+		}).then(function successCallback(response) {
+			if (response.data.status == 'ok') {
+				$scope.alert = {
+					titulo: '¡Agregado!',
+					tipo: 'success',
+					mensaje: 'Fechas de activación de encuesta agragadas correctamente.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+				$scope.getTodosLosCursos();
+			} else {
+				$scope.alert = {
+					titulo: '¡Error!',
+					tipo: 'danger',
+					mensaje: 'No se pudo agregar las fechas de activación de encuesta.'
+				};
+				$(document).ready(function () {
+					$('#alerta').toast('show');
+				});
+			}
+		});
+	}
+
 	/** Obtiene todos los cursos */
 	$scope.getTodosLosCursos = function () {
 		$http({
@@ -3140,35 +3173,45 @@ app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso,
 			$scope.fechaActual = response;
 		});
 
-
-	/* obtiene las preguntas de la encuesta de eficacia /getPreguntasEncuesta.php */
 	$scope.getPreguntasEncuesta = function () {
 		$timeout(function () {
-			$desde = new Date('2020-12-06');
-			$hasta = new Date('2020-12-31');
-			$dia_actual = new Date($scope.fechaActual);
-			console.log($dia_actual);
-			if ($dia_actual >= $desde && $dia_actual <= $hasta) {
-				if (encuesta.getID() != undefined) {
-					$http({
-						method: 'POST',
-						url: 'http://localhost/Residencia/ActualizacionDocente/php/getPreguntasEncuesta.php',
-						headers: {
-							'Content-Type': 'application/x-www-form-urlencoded'
-						},
-						data: 'ide=' + 2
-					}).then(function successCallback(response) {
-						$scope.preguntas = response.data;
-					});
+			$http({
+					method: 'POST',
+					url: 'http://localhost/Residencia/ActualizacionDocente/php/getFechaEncuesta.php',
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					},
+					data: 'ide=' + 2
+			}).then(function successCallback(response) {
+				
+				$scope.fechas = response.data;
+				$scope.fechaInicio = $scope.fechas.fechaInicio;
+				$scope.fechaFin = $scope.fechas.fechaFin;
+
+				$dia_actual = $scope.fechaActual;
+				
+				if ($scope.fechaActual >= $scope.fechaInicio && $scope.fechaActual <= $scope.fechaFin) {
+					if (encuesta.getID() != undefined) {
+						$http({
+							method: 'POST',
+							url: 'http://localhost/Residencia/ActualizacionDocente/php/getPreguntasEncuesta.php',
+							headers: {
+								'Content-Type': 'application/x-www-form-urlencoded'
+							},
+							data: 'ide=' + 2
+						}).then(function successCallback(response) {
+							$scope.preguntas = response.data;
+						});
+					}
+				} else {
+					$("input").attr('disabled', true);
+					$("#instrucciones").hide();
+					$("textarea").attr('disabled', true);
+					$("#btn_enviar").attr('disabled', true);
+					$('#encuestaForm').replaceWith('<div class="text-center align-middle mt-5"><span class="font-italic" style="font-size: 2rem !important;">No está en tiempo.</span></div>');
 				}
-			} else {
-				$("input").attr('disabled', true);
-				$("#instrucciones").hide();
-				$("textarea").attr('disabled', true);
-				$("#btn_enviar").attr('disabled', true);
-				$('#encuestaForm').replaceWith('<div class="text-center align-middle mt-5"><span class="font-italic" style="font-size: 2rem !important;">No está en tiempo.</span></div>');
-			}
-		}, 1000);
+			}, 1000);
+		});
 	}
 
 	/* declaración del json que contendrá las respuestas */

@@ -529,6 +529,13 @@ button.btn-back:hover {
   background-size: contain;
 }
 
+.act2_icon {
+  background: url(http://localhost/Residencia/ActualizacionDocente/images/act2.png) no-repeat center;
+  padding: 1.1rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
 .eye_icon {
   background: url(http://localhost/Residencia/ActualizacionDocente/images/eye.png) no-repeat center;
   padding: 1.1rem !important;

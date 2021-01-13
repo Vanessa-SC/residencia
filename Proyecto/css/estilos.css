@@ -519,6 +519,13 @@ button.btn-back:hover {
   background-size: contain;
 }
 
+.act13_icon {
+  background: url(/Residencia/proyecto/images/act13.png) no-repeat center;
+  padding: 1.1rem !important;
+  background-size: cover;
+  background-size: contain;
+}
+
 .eye_icon {
   background: url(/Residencia/proyecto/images/eye.png) no-repeat center;
   padding: 1.1rem !important;
