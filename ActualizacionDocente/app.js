@@ -3191,7 +3191,7 @@ app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso,
 		});
 	}
 
-	
+
 	/* Obtiene la información de un curso */
 	$scope.getInfoCurso = function () {
 		$scope.idCurso = curso.getID();
@@ -3254,7 +3254,7 @@ app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso,
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded'
 				},
-				data: 'ide=' + 2 +'&idc='+curso.getID()
+				data: 'ide=' + 2 + '&idc=' + curso.getID()
 			}).then(function successCallback(response) {
 				console.log(response.data);
 				$scope.fechas = response.data;
@@ -3587,7 +3587,7 @@ app.controller('instructoresJCtrl', function ($scope, $http, $location, user, pe
 });
 
 /*	CONTROLADORES PARA EL USUARIO DOCENTE */
-app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, encuesta, periodoService, $timeout, encuestaService) {
+app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, encuesta, periodoService, $timeout, fechaService, encuestaService) {
 
 	$scope.user = user.getName();
 
@@ -3803,6 +3803,14 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 		}, 1000);
 	}
 
+	$scope.DeterminarTipoEncuesta = function () {
+		if (encuesta.getID() == 1) {
+			$scope.tipoEncuesta = 'Opinión';
+		} else {
+			$scope.tipoEncuesta = 'Eficacia';
+		}
+	}
+
 	/* Establece los id de la encuesta y del curso */
 	$scope.getEncuesta = function (ide, idc) {
 		encuesta.setID(ide);
@@ -3812,18 +3820,62 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 	/* obtiene las preguntas de la encuesta de opinión */
 	$scope.getPreguntasEncuesta = function () {
 		if (encuesta.getID() != undefined) {
-			$http({
-				method: 'POST',
-				url: 'http://localhost/Residencia/ActualizacionDocente/php/getPreguntasEncuesta.php',
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded'
-				},
-				data: 'ide=' + encuesta.getID()
-			}).then(function successCallback(response) {
-				$scope.preguntas = response.data;
-			});
+			if (encuesta.getID() == 3) {
+				$http({
+					method: 'POST',
+					url: 'http://localhost/Residencia/ActualizacionDocente/php/getFechaEncuesta.php',
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					},
+					data: 'ide=' + 3 + '&idc=' + curso.getID()
+				}).then(function successCallback(response) {
+					console.log(response.data);
+					$scope.fechas = response.data;
+					$scope.fechaInicio = $scope.fechas.fechaInicio;
+					$scope.fechaFin = $scope.fechas.fechaFin;
+					
+					if ($scope.fechaActual >= $scope.fechaInicio && $scope.fechaActual <= $scope.fechaFin) {
+						if (encuesta.getID() != undefined) {
+							$http({
+								method: 'POST',
+								url: 'http://localhost/Residencia/ActualizacionDocente/php/getPreguntasEncuesta.php',
+								headers: {
+									'Content-Type': 'application/x-www-form-urlencoded'
+								},
+								data: 'ide=' + 3
+							}).then(function successCallback(response) {
+								$scope.preguntas = response.data;
+							});
+						}
+					} else {
+						$("input").attr('disabled', true);
+						$("#instrucciones").hide();
+						$("textarea").attr('disabled', true);
+						$("#btn_enviar").attr('disabled', true);
+						$('#encuestaForm').replaceWith('<div class="text-center align-middle mt-5"><span class="font-italic" style="font-size: 2rem !important;">No está en tiempo.</span></div>');
+					}
+				});
+			} else {
+				$http({
+					method: 'POST',
+					url: 'http://localhost/Residencia/ActualizacionDocente/php/getPreguntasEncuesta.php',
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					},
+					data: 'ide=' + encuesta.getID()
+				}).then(function successCallback(response) {
+					$scope.preguntas = response.data;
+				});
+			}
 		}
 	}
+
+	var fecha = fechaService.getFecha()
+		.then(function (response) {
+			$scope.fechaActual = response;
+		});
+
+
 	/* declaración del json que contendrá las respuestas */
 	$scope.listaRespuestas = {};
 

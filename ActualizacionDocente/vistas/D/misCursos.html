@@ -57,6 +57,7 @@
                         <td class="align-middle font-italic">Curso</td>
                         <td class="align-middle font-italic">Periodo de realizaci&oacute;n</td>
                         <td class="font-italic align-middle" scope="col">Encuesta de opini&oacute;n</td>
+                        <td class="font-italic align-middle" scope="col">Encuesta de eficacia</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -66,6 +67,11 @@
                         <td class="align-middle">{{mcC.fecha}} <br>{{mcC.horario}} Hrs.</td>
                         <td class="align-middle">
                             <a href="#!/inicioD/encuesta" ng-click="getEncuesta(1,mcC.idCurso)">
+                                <button class="btn bg-white encuesta_icon"></button>
+                            </a>
+                        </td>
+                        <td class="align-middle">
+                            <a href="#!/inicioD/encuesta" ng-click="getEncuesta(3,mcC.idCurso)">
                                 <button class="btn bg-white encuesta_icon"></button>
                             </a>
                         </td>

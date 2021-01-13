@@ -31,4 +31,10 @@ if (count($encuesta) > 0) {
 
 // Impresión de resultados
     echo json_encode($encuesta[0], true);
+} else {
+    $res = [];
+    $res['query'] = $sql;
+    $res['resultados'] = $encuesta;
+
+    echo json_encode($res,true);
 }

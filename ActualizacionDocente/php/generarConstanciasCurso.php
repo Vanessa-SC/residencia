@@ -98,7 +98,7 @@ foreach($participantes as list($id,$nombre)){
     $result = mysqli_query($conn, $query);
 
     /* Si no existe un registro previo, hace una inserción en la base de datos. Caso contrario realiza un update para actualizar el nombre el archivo */
-    if ($rowcount = mysqli_num_rows($result) == 0 ) {
+    if (mysqli_num_rows($result) == 0 ) {
          // /* Inserción del nombre del documento a la base de datos */
         $sql = "INSERT INTO constancia
         VALUES('','$folio-$id','$archivo',$idc,$id)";
