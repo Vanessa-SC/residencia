@@ -5,8 +5,8 @@ require_once "../XLSX/vendor/autoload.php";
 include_once 'conexion.php';
 
 // Variable que se obtiene al momento de llamar al método
-$idc = 1;
-$ide = 1;
+$idc = $_GET['idc'];
+$ide = $_GET['ide'];
 
 // Instancias de creación
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
