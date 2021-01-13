@@ -7,7 +7,7 @@ include_once 'conexion.php';
 //Variable que se obtiene al momento de llamar al método
 $idDpto = $_GET['idd'];
 
-// Nombre del nuevo archivo que se genera
+// LLamado a la plantilla
 $template_word = '../XLSX/plantillaProgramaInstitucional.docx';
 // Instancias de creación
 $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($template_word);

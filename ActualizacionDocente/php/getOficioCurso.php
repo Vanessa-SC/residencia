@@ -18,7 +18,7 @@ $formatt = "SET lc_time_names = 'es_MX' ";
 mysqli_query($conn,$formatt);
 
 /* Obtener nombre del departamento */
-$sqlGetDepto = "SELECT nombreDepartamento
+$sqlGetDepto = "SELECT nombreDepartamento, Jefe
                 FROM departamento
                 WHERE idDepartamento='$idDepartamento'";
 

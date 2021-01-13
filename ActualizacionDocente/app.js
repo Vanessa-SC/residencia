@@ -1727,8 +1727,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 
 	/* Pasa los datos GET para obtener el oficio de creación de un curso */
 	$scope.printOficio = function () {
-		window.open('http://localhost/Residencia/ActualizacionDocente/php/getOficioCurso.php?idd=' + user.getIdDepartamento() +
-			'&idc=' + $scope.infoCurso.idCurso + '&idu=' + user.getIdUsuario(), '_blank');
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getOficioRegistro.php?idc=' + $scope.infoCurso.idCurso, '_blank');
 	}
 
 	/* valida si hay cursos a los que les falta documentación,
@@ -2943,10 +2942,9 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 		});
 	}
 
-	/* Generación del oficio de registro en una nueva pestaña */
+	/* Pasa los datos GET para obtener el oficio de creación de un curso */
 	$scope.printOficio = function () {
-		window.open('http://localhost/Residencia/ActualizacionDocente/php/getOficioCurso.php?idd=' + user.getIdDepartamento() +
-			'&idc=' + curso.getID() + '&idu=' + user.getIdUsuario(), '_blank');
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getOficioRegistro.php?idc=' + $scope.infoCurso.idCurso, '_blank');
 	}
 
 
@@ -3975,11 +3973,9 @@ app.controller('cursosICtrl', function ($scope, $http, $timeout, user, curso, pe
 		}, 500);
 	}
 
-	/* Pasa parametros GET para llenado del Oficio del curso y lo abre
-	en otra pestaña */
+	/* Pasa los datos GET para obtener el oficio de creación de un curso */
 	$scope.printOficio = function () {
-		window.open('http://localhost/Residencia/ActualizacionDocente/php/getOficioCurso.php?idd=' + user.getIdDepartamento() +
-			'&idc=' + $scope.infoCurso.idCurso + '&idu=' + user.getIdUsuario(), '_blank');
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getOficioRegistro.php?idc=' + $scope.infoCurso.idCurso, '_blank');
 	}
 
 	/* regresa atrás en el navegador */
