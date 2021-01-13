@@ -1,5 +1,6 @@
 <ng-include src="'/Residencia/ActualizacionDocente/vistas/J/nav.html'"></ng-include>
-<div class="container" ng-init="YaRespondioEncuesta();getPreguntasEncuesta()">
+<div class="container" 
+    ng-init="YaRespondioEncuesta();getPreguntasEncuesta();getInfoCurso()">
     <div class="d-flex justify-content-center">
         <div class="mt-2">
             <img src="\Residencia\Proyecto\images\Logo ITD.png" class="logoITD" alt="">
@@ -11,6 +12,11 @@
     </div>
     <div id="instrucciones">
         <div class="p-2 bg-light">
+            
+            <div class="text-center p-3 text-wine">
+                CURSO: 
+                <span class="font-italic font-weight-bold">{{ infoCurso.curso }}</span>
+             </div>
             <p class="font-weight-bold">
                 La presente encuesta tiene como finalidad conocer su opini&oacute;n sobre el curso de capacitaci&oacute;n en el que
                 particip&oacute;, las respuestas nos servir&aacute;n para mejorarlo.

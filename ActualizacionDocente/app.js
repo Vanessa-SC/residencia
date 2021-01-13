@@ -463,7 +463,7 @@ app.config(function ($routeProvider, $locationProvider) {
 			templateUrl: './vistas/J/validarDoc.html',
 			controller: 'cursosJCtrl'
 
-		}).when('/inicioJ/encuesta', {
+		}).when('/inicioJ/encuestas', {
 			resolve: {
 				check: function ($location, user) {
 					if (user.getRol() != 2) {
@@ -471,7 +471,18 @@ app.config(function ($routeProvider, $locationProvider) {
 					}
 				},
 			},
-			templateUrl: './vistas/J/encuesta.html',
+			templateUrl: './vistas/J/encuestas.html',
+			controller: 'encuestaJCtrl'
+
+		}).when('/inicioJ/encuestaCurso', {
+			resolve: {
+				check: function ($location, user) {
+					if (user.getRol() != 2) {
+						$location.path(user.getPath());
+					}
+				},
+			},
+			templateUrl: './vistas/J/encuestaCurso.html',
 			controller: 'encuestaJCtrl'
 
 		}).when('/inicioJ/instructores', {
@@ -1906,7 +1917,7 @@ app.controller('programasCtrl', function ($scope, $http, $location, $filter, use
 				$(document).ready(function () {
 					$('#alerta').toast('show');
 				});
-				$scope.getTodosLosCursos();
+				// $scope.getTodosLosCursos();
 			} else {
 				$scope.alert = {
 					titulo: '¡Error!',
@@ -1917,6 +1928,16 @@ app.controller('programasCtrl', function ($scope, $http, $location, $filter, use
 					$('#alerta').toast('show');
 				});
 			}
+		});
+	}
+
+	/* Obtener listado de todos los periodos registrados */
+	$scope.getPeriodos2 = function () {
+		$http({
+			method: 'GET',
+			url: 'http://localhost/Residencia/ActualizacionDocente/php/getPeriodos.php'
+		}).then(function successCallback(response) {
+			$scope.periodosEnc = response.data;
 		});
 	}
 
@@ -3156,13 +3177,51 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso, encuesta, periodoService, fechaService, $timeout, encuestaService) {
 	$scope.user = user.getName();
 
+	/* Obtiene cursos del departamento */
+	$scope.getCursos = function () {
+		$http({
+			method: 'POST',
+			url: 'http://localhost/Residencia/ActualizacionDocente/php/getCursosEncuestas.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idDepartamento=' + user.getIdDepartamento()
+		}).then(function successCallback(response) {
+			$scope.cursos = response.data;
+		});
+	}
+
+	
+	/* Obtiene la información de un curso */
+	$scope.getInfoCurso = function () {
+		$scope.idCurso = curso.getID();
+		if ($scope.idCurso != "") {
+			$http({
+				url: 'http://localhost/Residencia/ActualizacionDocente/php/getInfoCurso.php',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idCurso=' + $scope.idCurso
+			}).then(function successCallback(response) {
+				$scope.infoCurso = response.data;
+			});
+		}
+	}
+
+	/* Establecer id del curso */
+	$scope.cursoID = function (id) {
+		curso.setID(id);
+	}
+
+
 	/* Obtiene el periodo */
 	$scope.periodo = periodoService.getPeriodo()
 		.then(function (response) {
 			$scope.periodo = response;
 		});
 
-	/* validar si el docente ya respondió la encuesta de opinión del curso */
+	/* validar si el Jefe de Docencia ya respondió la encuesta de eficacia de un curso */
 	$scope.encuestaRespondida = encuestaService.existe(0, user.getIdUsuario())
 		.then(function (response) {
 			$scope.encuesta = response;
@@ -3195,9 +3254,9 @@ app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso,
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded'
 				},
-				data: 'ide=' + 2
+				data: 'ide=' + 2 +'&idc='+curso.getID()
 			}).then(function successCallback(response) {
-
+				console.log(response.data);
 				$scope.fechas = response.data;
 				$scope.fechaInicio = $scope.fechas.fechaInicio;
 				$scope.fechaFin = $scope.fechas.fechaFin;
@@ -3289,8 +3348,7 @@ app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso,
 		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoProgramaInstitucionalDpto.php?idd=' + user.getIdDepartamento(), '_blank');
 	}
 
-	/* Llamado a funciones */
-	$scope.getPreguntasEncuesta();
+
 });
 
 app.controller('instructoresJCtrl', function ($scope, $http, $location, user, periodoService, instructor, $timeout) {

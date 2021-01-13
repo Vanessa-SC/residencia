@@ -1,0 +1,44 @@
+<ng-include src="'/Residencia/ActualizacionDocente/vistas/J/nav.html'"></ng-include>
+<div class="container" ng-init="getCursos()">
+    <div class="programa_page d-flex justify-content-center">
+        <div class="p-2"><img src="http://localhost/Residencia/ActualizacionDocente/images/Logo ITD.png" alt="logo ITD"
+                class="logoITD"></div>
+        <div class="p-4">
+            <div class="text-center">
+                <h1>Periodo {{periodo}}</h1>
+                <h3>Programa Institucional de Formaci&oacute;n y Actualizaci&oacute;n Docente y Profesional</h3>
+            </div>
+        </div>
+    </div>
+    <div class=" table-responsive ">
+        <table class="table table-sm table-striped text-center">
+            <thead class="bg-wine text-white">
+                <tr>
+                    <td class="align-middle font-italic">Curso</td>
+                    <td class="align-middle font-italic">Fecha</td>
+                    <td class="align-middle font-italic">Periodo</td>
+                    <td class="align-middle font-italic">Encuesta de eficacia</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="x in cursos">
+                    <td class=" align-middle "> {{x.curso}} </td>
+                    <td class=" align-middle "> {{x.fecha}} <br> {{x.horario}} </td>
+                    <td class=" align-middle "> {{x.periodo}} </td>
+                    <td class=" align-middle ">
+                        <a href="#!/inicioJ/encuestaCurso" ng-click=cursoID(x.idCurso)>
+                            <button class="btn encuesta_icon"></button>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody ng-show="cursos | isEmpty">
+                <tr class="text-center">
+                    <td class="align-middle" colspan="8" class=" bg-light align-middle p-4 font-italic">
+                        <h5>No hay registros</h5>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
