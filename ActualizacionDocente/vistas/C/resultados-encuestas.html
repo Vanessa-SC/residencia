@@ -12,7 +12,21 @@
         </div>
     </div>
     <div class="panel panel-default p-3 mt-3">
-        <div class="panel-heading"> <i class="fa fa-bar-chart" aria-hidden="true"></i> Resultados de la encuesta {{nombreEncuesta}}</div>
+        <div class="panel-heading"> 
+            <div class="d-flex justify-content-between">
+                <div class="my-auto">
+                    <i class="fa fa-bar-chart" aria-hidden="true"></i> Resultados de la encuesta {{nombreEncuesta}}
+                </div>
+                <div>
+                    <button ng-disabled="ResLength == 0" id="exportResultados" class="btn bg-wine text-white p-2 my-auto" ng-click="exportarResultados()">
+                        <i class="bi bi-file-earmark-excel"></i>
+                        Exportar resultados
+                    </button>
+                </div>
+
+            </div>
+           
+        </div>
         <div class="panel-body d-flex justify-content-center">
             <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series">
             </canvas>
