@@ -3256,14 +3256,7 @@ app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso,
 				},
 				data: 'ide=' + 2 + '&idc=' + curso.getID()
 			}).then(function successCallback(response) {
-				console.log(response.data);
-				$scope.fechas = response.data;
-				$scope.fechaInicio = $scope.fechas.fechaInicio;
-				$scope.fechaFin = $scope.fechas.fechaFin;
-
-				$dia_actual = $scope.fechaActual;
-
-				if ($scope.fechaActual >= $scope.fechaInicio && $scope.fechaActual <= $scope.fechaFin) {
+				if(response.data.status != "out of date"){
 					if (encuesta.getID() != undefined) {
 						$http({
 							method: 'POST',
@@ -3829,12 +3822,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 					},
 					data: 'ide=' + 3 + '&idc=' + curso.getID()
 				}).then(function successCallback(response) {
-					console.log(response.data);
-					$scope.fechas = response.data;
-					$scope.fechaInicio = $scope.fechas.fechaInicio;
-					$scope.fechaFin = $scope.fechas.fechaFin;
-					
-					if ($scope.fechaActual >= $scope.fechaInicio && $scope.fechaActual <= $scope.fechaFin) {
+					if(response.data.status != "out of date"){
 						if (encuesta.getID() != undefined) {
 							$http({
 								method: 'POST',
