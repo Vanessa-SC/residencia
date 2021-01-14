@@ -4200,7 +4200,7 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 				},
 				data: 'idCurso=' + $scope.idCurso
 			}).then(function successCallback(response) {
-				$scope.participantes = response.data;
+				$scope.participantes = response.data;			
 			});
 		}
 	}
@@ -4211,16 +4211,16 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 	}
 
 	/* Declaración del array que almacenará la asistencia de cada participante */
-	$scope.listaAlumnos = {};
+	$scope.listaAlumnos = [];
 	/* Function que realiza el registro de la asistencia de un curso */
 	$scope.registrarAsistencia = function () {
+		console.log($scope.listaAlumnos);
 		/* valida que el id del curso esté establecido */
 		if (curso.getID() != undefined) {
 			/* Guarda en un json la lista de asistencia, la lista de participantes
 			del curso y el id del curso */
 			var datos = {
 				lista: $scope.listaAlumnos,
-				participantes: $scope.participantes,
 				idCurso: curso.getID()
 			}
 			$http({
