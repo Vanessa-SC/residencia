@@ -3177,21 +3177,52 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso, encuesta, periodoService, fechaService, $timeout, encuestaService) {
 	$scope.user = user.getName();
 
-	/* Obtiene cursos del departamento */
-	$scope.getCursos = function () {
+	/** Obtiene todos los cursos */
+	$scope.getTodosLosCursos = function () {
 		$http({
-			method: 'POST',
-			url: 'http://localhost/Residencia/ActualizacionDocente/php/getCursosEncuestas.php',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			data: 'idDepartamento=' + user.getIdDepartamento()
+			method: 'GET',
+			url: 'http://localhost/Residencia/ActualizacionDocente/php/getTodosLosCursos.php'
 		}).then(function successCallback(response) {
-			$scope.cursos = response.data;
+			$scope.TodosCursos = response.data;
 		});
 	}
 
+	/** Obtener listado de los cursos del periodo seleccionado */
+	$scope.getCursosDelPeriodo = function (p) {
+		$http({
+			url: 'http://localhost/Residencia/ActualizacionDocente/php/getCursosPorPeriodo.php',
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'periodo=' + p.periodo
+		}).then(function successCallback(response) {
+			$scope.TodosCursos = response.data;
+		});
+	}
 
+	/** Valida si se solicitan los cursos por periodo o todos */
+	$scope.getCursos = function (data) {
+		// console.log(data);
+		if (data.periodo == "Todos") {
+			$scope.getTodosLosCursos();
+		} else {
+			$scope.getCursosDelPeriodo(data);
+		}
+	}
+
+	/* Obtener listado de todos los periodos registrados */
+	$scope.getPeriodos = function () {
+		$http({
+			method: 'GET',
+			url: 'http://localhost/Residencia/ActualizacionDocente/php/getPeriodos.php'
+		}).then(function successCallback(response) {
+			$scope.periodos = response.data;
+			$scope.periodos.unshift({
+				'periodo': 'Todos'
+			});
+		});
+	}
 	/* Obtiene la información de un curso */
 	$scope.getInfoCurso = function () {
 		$scope.idCurso = curso.getID();
@@ -3240,11 +3271,6 @@ app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso,
 			}
 		}, 1000);
 	}
-
-	var fecha = fechaService.getFecha()
-		.then(function (response) {
-			$scope.fechaActual = response;
-		});
 
 	$scope.getPreguntasEncuesta = function () {
 		$timeout(function () {
