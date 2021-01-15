@@ -45,7 +45,7 @@ $sql = $conn->query("SELECT
         ON curso.idCurso = usuario_has_curso.Curso_idCurso
         WHERE departamento.idDepartamento IN(SELECT idDepartamento FROM departamento) 
         AND usuario.rol = 3
-        AND periodo LIKE '$response%'
+        AND curso.periodo LIKE '$response%'
         AND YEAR(curso.fechaInicio) = $año
         GROUP BY curso.nombreCurso, departamento.nombreDepartamento
         ");
@@ -82,7 +82,7 @@ $query = $conn->query("SELECT
         INNER JOIN curso
         ON curso.idCurso = usuario_has_curso.Curso_idCurso
         WHERE usuario.rol = 3
-        AND periodo LIKE '$response%'
+        AND curso.periodo LIKE '$response%'
         AND YEAR(curso.fechaInicio) = $año
         GROUP BY curso.nombreCurso
         ");
