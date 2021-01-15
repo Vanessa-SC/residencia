@@ -19,6 +19,16 @@ $documento = \PhpOffice\PhpSpreadsheet\IOFactory::load('../XLSX/plantillaIndicad
 $activeSheet = $documento->getActiveSheet();
 $activeSheet->setTitle("Indicadores");
 
+// Obtiene el periodo actual para la consulta
+$mes = date('n');
+$año = date('Y');
+
+if ( $mes <= 6 ){
+    $response = 'Enero / Junio ';
+} else {
+    $response = 'Agosto / Diciembre ';
+}
+
 /*
 Consulta a la base de datos para obtener los nombres de los departamentos, 
 filtrarlos según los usuarios pertenecientes al curso y contar los departamentos
@@ -34,18 +44,11 @@ $sql = $conn->query("SELECT
         INNER JOIN curso
         ON curso.idCurso = usuario_has_curso.Curso_idCurso
         WHERE departamento.idDepartamento IN(SELECT idDepartamento FROM departamento) 
+        AND usuario.rol = 3
+        AND periodo LIKE '$response%'
+        AND YEAR(curso.fechaInicio) = $año
         GROUP BY curso.nombreCurso, departamento.nombreDepartamento
         ");
-
-// Obtiene el periodo actual para la consulta
-$mes = date('n');
-$año = date('Y');
-
-if ( $mes <= 6 ){
-    $response = 'Enero / Junio ';
-} else {
-    $response = 'Agosto / Diciembre ';
-}
 
 /*
 Consulta a la base de datos para contar los diferentes indicadores de los usuarios pertenecientes al curso
