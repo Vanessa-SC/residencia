@@ -112,6 +112,44 @@ if($sql->num_rows > 0) {
         }
     }
     
+// Creación de nueva hoja
+$hoja = $documento->createSheet();
+$hoja->setTitle("Participantes");
+
+// Valores por defecto
+$hoja->setCellValue('A1', 'Nombre del participante')->getColumnDimension('A')->setWidth(30);
+$hoja->setCellValue('B1', 'Pregunta')->getColumnDimension('B')->setWidth(60);
+$hoja->setCellValue('C1', 'Respuesta');
+
+$query = $conn->query("SELECT p.descripcion,
+concat_ws(' ',u.apellidoPaterno,u.apellidoMaterno,u.nombre) AS nombre,
+ur.pregunta_idPregunta as idPregunta, ur.respuesta
+FROM usuario_responde_encuesta ur 
+INNER JOIN usuario u
+ON u.idUsuario = ur.Usuario_idUsuario
+INNER JOIN pregunta p
+ON p.idPregunta = ur.pregunta_idPregunta
+Where ur.Curso_idCurso = $idc
+AND ur.Encuesta_idEncuesta = $ide
+group by nombre, ur.pregunta_idPregunta");
+
+/*
+Si se obtiene el número de filas del resultado de la primera consulta, 
+entonces comienza el recorrido para imprimir los Cursos y los Departamentos de los participantes
+*/
+if($query->num_rows > 0) {
+        // Comienza en la fila 22
+        $i = '2'; 
+        // Ciclo while que recorremo los resultados de la consulta y los imprime
+        while($row = $query->fetch_assoc()) {
+            $hoja->setCellValue('A'.$i , $row['nombre']);
+            $hoja->setCellValue('B'.$i , $row['descripcion']);
+            $hoja->setCellValue('C'.$i , $row['respuesta']);
+            $i++;
+
+        }
+    }
+
 // Creación de documento
 $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($documento, 'Xlsx');
 $writer->save("php://output");
