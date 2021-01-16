@@ -3210,8 +3210,12 @@ app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso,
 	/** Obtiene todos los cursos */
 	$scope.getTodosLosCursos = function () {
 		$http({
-			method: 'GET',
-			url: 'http://localhost/Residencia/ActualizacionDocente/php/getTodosLosCursos.php'
+			method: 'POST',
+			url: 'http://localhost/Residencia/ActualizacionDocente/php/getCursosDepartamento.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: 'idDepartamento=' + user.getIdDepartamento()
 		}).then(function successCallback(response) {
 			$scope.TodosCursos = response.data;
 		});
