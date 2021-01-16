@@ -1002,14 +1002,14 @@ app.service('asistenciaService', function ($http, $q) {
 app.service('encuestaService', function ($http, $q) {
 	/* Consultar si X docente ya respondió la encuesta de X curso */
 	return {
-		existe: function (idc, idu) {
+		existe: function (idc, idu, ide) {
 			return $http({
 				method: 'POST',
 				url: 'http://localhost/Residencia/ActualizacionDocente/php/getRegistroEncuestaUsuarioCurso.php',
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded'
 				},
-				data: 'idc=' + idc + '&idu=' + idu
+				data: 'idc=' + idc + '&idu=' + idu + '&ide=' + ide
 			}).then(function successCallback(response) {
 				return response.data.status;
 			}, function errorCallback(response) {
@@ -3287,7 +3287,7 @@ app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso,
 		});
 
 	/* validar si el Jefe de Docencia ya respondió la encuesta de eficacia de un curso */
-	$scope.encuestaRespondida = encuestaService.existe(0, user.getIdUsuario())
+	$scope.encuestaRespondida = encuestaService.existe(curso.getID(), user.getIdUsuario(), 2)
 		.then(function (response) {
 			$scope.encuesta = response;
 		});
@@ -3348,7 +3348,7 @@ app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso,
 		var datos = {
 			respuestas: $scope.listaRespuestas,
 			sugerencias: $scope.sugerencias,
-			idCurso: 0,
+			idCurso: curso.getID(),
 			idUsuario: user.getIdUsuario(),
 			idEncuesta: 2
 		};
@@ -3396,6 +3396,11 @@ app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso,
 		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoIndicadoresDpto.php?idd=' + user.getIdDepartamento(), '_blank');
 	}
 
+	/* Archivo excel de Indicadores Totales */
+	$scope.printIndicadoresTotales = function () {
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoIndicadoresDptoTotales.php?idd=' + user.getIdDepartamento(), '_blank');
+	}
+
 	/* Archivo word de Programa Institucional */
 	$scope.printProgramaInstitucional = function () {
 		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoProgramaInstitucionalDpto.php?idd=' + user.getIdDepartamento(), '_blank');
@@ -3410,6 +3415,11 @@ app.controller('instructoresJCtrl', function ($scope, $http, $location, user, pe
 	/* Archivo excel de indicadores */
 	$scope.printIndicadores = function () {
 		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoIndicadoresDpto.php?idd=' + user.getIdDepartamento(), '_blank');
+	}
+
+	/* Archivo excel de Indicadores Totales */
+	$scope.printIndicadoresTotales = function () {
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoIndicadoresDptoTotales.php?idd=' + user.getIdDepartamento(), '_blank');
 	}
 
 	/* Archivo word de Programa Institucional */
@@ -3632,6 +3642,11 @@ app.controller('instructoresJCtrl', function ($scope, $http, $location, user, pe
 		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoIndicadoresDpto.php?idd=' + user.getIdDepartamento(), '_blank');
 	}
 
+	/* Archivo excel de Indicadores Totales */
+	$scope.printIndicadoresTotales = function () {
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoIndicadoresDptoTotales.php?idd=' + user.getIdDepartamento(), '_blank');
+	}
+
 	/* Archivo word de Programa Institucional */
 	$scope.printProgramaInstitucional = function () {
 		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoProgramaInstitucionalDpto.php?idd=' + user.getIdDepartamento(), '_blank');
@@ -3837,7 +3852,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 		});
 
 	/* validar si el docente ya respondió la encuesta de opinión del curso */
-	$scope.encuestaRespondida = encuestaService.existe(curso.getID(), user.getIdUsuario())
+	$scope.encuestaRespondida = encuestaService.existe(curso.getID(), user.getIdUsuario(),encuesta.getID())
 		.then(function (response) {
 			$scope.encuesta = response;
 		});

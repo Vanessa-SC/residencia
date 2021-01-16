@@ -11,6 +11,7 @@ include_once 'conexion.php';
 /* Recepción de variables POST */
 $idCurso = mysqli_real_escape_string($conn,$_POST['idc']);
 $idUsuario = mysqli_real_escape_string($conn,$_POST['idu']);
+$idEncuesta = mysqli_real_escape_string($conn,$_POST['ide']);
 
 /* Array que almacenará resultados */
 $response = [];
@@ -19,7 +20,8 @@ $response = [];
 $query = "SELECT * 
         FROM usuario_responde_encuesta
         WHERE usuario_responde_encuesta.Usuario_idUsuario = $idUsuario
-        AND usuario_responde_encuesta.Curso_idCurso = $idCurso";
+        AND usuario_responde_encuesta.Curso_idCurso = $idCurso
+        AND usuario_responde_encuesta.Encuesta_idEncuesta = $idEncuesta";
 
 /* Ejecución de la consulta */
 $result = $conn->query($query) or die($conn->error . __LINE__);
