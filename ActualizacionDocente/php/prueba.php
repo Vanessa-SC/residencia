@@ -122,15 +122,16 @@ if ( $mes <= 6 ){
     $response = 'Agosto / Diciembre ';
 }
 
-$sql = "SELECT u.contrato, count(distinct u.idUsuario) as usuarios 
-    FROM usuario u, usuario_has_curso uc, curso c
-    WHERE u.idUsuario = uc.Usuario_idUsuario
-    AND c.idCurso = uc.Curso_idCurso
-    AND u.rol = 3
-    AND uc.estado = 0
-    AND c. periodo LIKE '$response%'
-    AND YEAR(c.fechaInicio) = $año
-    group by u.contrato
+$sql = "SELECT s.comentario,
+concat_ws(' ',u.apellidoPaterno,u.apellidoMaterno,u.nombre) AS nombre
+FROM usuario_responde_encuesta ur 
+INNER JOIN usuario u
+ON u.idUsuario = ur.Usuario_idUsuario
+INNER JOIN sugerencia s
+ON s.Encuesta_idEncuesta = ur.Encuesta_idEncuesta
+Where ur.Curso_idCurso = 1
+AND ur.Encuesta_idEncuesta = 1
+group by nombre, s.comentario
 ";
 
 /* Ejecución de la consulta */

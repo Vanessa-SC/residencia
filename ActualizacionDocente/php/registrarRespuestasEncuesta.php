@@ -35,7 +35,7 @@ $contador = 0;
     /* Insertar sugerencias */
     if(!empty($sugerencias)){
         $sql2 = "INSERT INTO sugerencia
-                VALUES('','$sugerencias',$idCurso,$idUsuario)";
+                VALUES('','$sugerencias',$idCurso,$idUsuario,$idEncuesta)";
         mysqli_query($conn, $sql2);
     }
     

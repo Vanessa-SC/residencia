@@ -87,7 +87,7 @@ $sql = $conn->query("SELECT ur.pregunta_idPregunta as idPregunta,
 
 /*
 Si se obtiene el número de filas del resultado de la primera consulta, 
-entonces comienza el recorrido para imprimir los Cursos y los Departamentos de los participantes
+entonces comienza el recorrido para imprimir 
 */
 if($sql->num_rows > 0) {
         // Comienza en la fila 22
@@ -135,7 +135,7 @@ group by nombre, ur.pregunta_idPregunta");
 
 /*
 Si se obtiene el número de filas del resultado de la primera consulta, 
-entonces comienza el recorrido para imprimir los Cursos y los Departamentos de los participantes
+entonces comienza el recorrido para imprimir 
 */
 if($query->num_rows > 0) {
         // Comienza en la fila 22
@@ -148,7 +148,42 @@ if($query->num_rows > 0) {
             $i++;
 
         }
-    }
+}
+
+// Creación de nueva hoja
+$hoja1 = $documento->createSheet();
+$hoja1->setTitle("Comentarios");
+
+// Valores por defecto
+$hoja1->setCellValue('A1', 'Nombre del participante')->getColumnDimension('A')->setWidth(30);
+$hoja1->setCellValue('B1', 'Comentario')->getColumnDimension('B')->setWidth(60);
+
+$query = $conn->query("SELECT s.comentario,
+concat_ws(' ',u.apellidoPaterno,u.apellidoMaterno,u.nombre) AS nombre
+FROM usuario_responde_encuesta ur 
+INNER JOIN usuario u
+ON u.idUsuario = ur.Usuario_idUsuario
+INNER JOIN sugerencia s
+ON s.Encuesta_idEncuesta = ur.Encuesta_idEncuesta
+Where ur.Curso_idCurso = $idc
+AND ur.Encuesta_idEncuesta = $ide
+group by nombre, s.comentario");
+
+/*
+Si se obtiene el número de filas del resultado de la primera consulta, 
+entonces comienza el recorrido para imprimir los Cursos y los Departamentos de los Comentarios
+*/
+if($query->num_rows > 0) {
+        // Comienza en la fila 22
+        $i = '2'; 
+        // Ciclo while que recorremo los resultados de la consulta y los imprime
+        while($row = $query->fetch_assoc()) {
+            $hoja1->setCellValue('A'.$i , $row['nombre']);
+            $hoja1->setCellValue('B'.$i , $row['comentario']);
+            $i++;
+
+        }
+}
 
 // Creación de documento
 $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($documento, 'Xlsx');
