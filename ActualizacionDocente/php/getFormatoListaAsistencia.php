@@ -26,7 +26,7 @@ $activeSheet->setTitle("Lista de Asistencia");
 // Consultas de asistencia para lunes
 $lunes = $conn->query("SELECT      
         concat_ws(' ',usuario.apellidoPaterno,usuario.apellidoMaterno,usuario.nombre) AS nombre,
-        IF(asistencia.asistencia = '1', DATE_FORMAT(asistencia.fecha,'%d/%m'), 'X') AS fecha 
+        IF(asistencia.asistencia = '1', DATE_FORMAT(asistencia.fecha,'%d/%m'), '/') AS fecha 
         FROM asistencia 
         INNER JOIN usuario
         ON usuario.idUsuario = asistencia.Usuario_idUsuario
@@ -39,7 +39,7 @@ $lunes = $conn->query("SELECT
 // Consultas de asistencia para martes
 $martes = $conn->query("SELECT      
         concat_ws(' ',usuario.apellidoPaterno,usuario.apellidoMaterno,usuario.nombre) AS nombre,
-        IF(asistencia.asistencia = '1', DATE_FORMAT(asistencia.fecha,'%d/%m'), 'X') AS fecha 
+        IF(asistencia.asistencia = '1', DATE_FORMAT(asistencia.fecha,'%d/%m'), '/') AS fecha 
         FROM asistencia 
         INNER JOIN usuario
         ON usuario.idUsuario = asistencia.Usuario_idUsuario
@@ -52,7 +52,7 @@ $martes = $conn->query("SELECT
 // Consultas de asistencia para miercoles
 $miercoles = $conn->query("SELECT      
         concat_ws(' ',usuario.apellidoPaterno,usuario.apellidoMaterno,usuario.nombre) AS nombre,
-        IF(asistencia.asistencia = '1', DATE_FORMAT(asistencia.fecha,'%d/%m'), 'X') AS fecha 
+        IF(asistencia.asistencia = '1', DATE_FORMAT(asistencia.fecha,'%d/%m'), '/') AS fecha 
         FROM asistencia 
         INNER JOIN usuario
         ON usuario.idUsuario = asistencia.Usuario_idUsuario
@@ -65,7 +65,7 @@ $miercoles = $conn->query("SELECT
 // Consultas de asistencia para jueves
 $jueves = $conn->query("SELECT      
         concat_ws(' ',usuario.apellidoPaterno,usuario.apellidoMaterno,usuario.nombre) AS nombre,
-        IF(asistencia.asistencia = '1', DATE_FORMAT(asistencia.fecha,'%d/%m'), 'X') AS fecha 
+        IF(asistencia.asistencia = '1', DATE_FORMAT(asistencia.fecha,'%d/%m'), '/') AS fecha 
         FROM asistencia 
         INNER JOIN usuario
         ON usuario.idUsuario = asistencia.Usuario_idUsuario
@@ -78,7 +78,7 @@ $jueves = $conn->query("SELECT
 // Consultas de asistencia para viernes
 $viernes = $conn->query("SELECT      
         concat_ws(' ',usuario.apellidoPaterno,usuario.apellidoMaterno,usuario.nombre) AS nombre,
-        IF(asistencia.asistencia = '1', DATE_FORMAT(asistencia.fecha,'%d/%m'), 'X') AS fecha 
+        IF(asistencia.asistencia = '1', DATE_FORMAT(asistencia.fecha,'%d/%m'), '/') AS fecha 
         FROM asistencia 
         INNER JOIN usuario
         ON usuario.idUsuario = asistencia.Usuario_idUsuario
