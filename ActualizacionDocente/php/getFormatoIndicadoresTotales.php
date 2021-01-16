@@ -54,7 +54,7 @@ entonces comienza el recorrido para imprimir el total de indicadores
 if($sexo->num_rows > 0) {
     // Comienza en la columna A
     $i = 'A';
-    // Ciclo while que recorremo los resultados de la consulta y los imprime
+    // Ciclo while que recorre los resultados de la consulta y los imprime
     while($row = $sexo->fetch_assoc()) {
         $activeSheet->setCellValue($i . '12' , $row['sexo']);
         $activeSheet->setCellValue($i . '13' , $row['usuarios']);
@@ -79,9 +79,9 @@ $contrato = $conn->query("SELECT
 entonces comienza el recorrido para imprimir el total de indicadores
 */
 if($contrato->num_rows > 0) {
-    // Comienza en la columna A
+    // Comienza en la columna C
     $i = 'C';
-    // Ciclo while que recorremo los resultados de la consulta y los imprime
+    // Ciclo while que recorre los resultados de la consulta y los imprime
     while($row = $contrato->fetch_assoc()) {
         $activeSheet->setCellValue($i . '12' , $row['contrato']);
         $activeSheet->setCellValue($i . '13' , $row['usuarios']);
@@ -106,9 +106,9 @@ $horas = $conn->query("SELECT
 entonces comienza el recorrido para imprimir el total de indicadores
 */
 if($horas->num_rows > 0) {
-    // Comienza en la columna A
+    // Comienza en la columna F
     $i = 'F';
-    // Ciclo while que recorremo los resultados de la consulta y los imprime
+    // Ciclo while que recorre los resultados de la consulta y los imprime
     while($row = $horas->fetch_assoc()) {
         $activeSheet->setCellValue($i . '12' , $row['horas']);
         $activeSheet->setCellValue($i . '13' , $row['usuarios']);
@@ -133,9 +133,9 @@ $nivel = $conn->query("SELECT
 entonces comienza el recorrido para imprimir el total de indicadores
 */
 if($nivel->num_rows > 0) {
-    // Comienza en la columna A
+    // Comienza en la columna K
     $i = 'K';
-    // Ciclo while que recorremo los resultados de la consulta y los imprime
+    // Ciclo while que recorre los resultados de la consulta y los imprime
     while($row = $nivel->fetch_assoc()) {
         $activeSheet->setCellValue($i . '12' , $row['nivel']);
         $activeSheet->setCellValue($i . '13' , $row['usuarios']);
@@ -160,9 +160,9 @@ $perfilDeseable = $conn->query("SELECT
 entonces comienza el recorrido para imprimir el total de indicadores
 */
 if($perfilDeseable->num_rows > 0) {
-    // Comienza en la columna A
+    // Comienza en la columna O
     $i = 'O';
-    // Ciclo while que recorremo los resultados de la consulta y los imprime
+    // Ciclo while que recorre los resultados de la consulta y los imprime
     while($row = $perfilDeseable->fetch_assoc()) {
         $activeSheet->setCellValue($i . '12' , $row['perfilDeseable']);
         $activeSheet->setCellValue($i . '13' , $row['usuarios']);
@@ -187,9 +187,9 @@ $funcionAdministrativa = $conn->query("SELECT
 entonces comienza el recorrido para imprimir el total de indicadores
 */
 if($funcionAdministrativa->num_rows > 0) {
-    // Comienza en la columna A
+    // Comienza en la columna R
     $i = 'R';
-    // Ciclo while que recorremo los resultados de la consulta y los imprime
+    // Ciclo while que recorre los resultados de la consulta y los imprime
     while($row = $funcionAdministrativa->fetch_assoc()) {
         $activeSheet->setCellValue($i . '12' , $row['funcionAdministrativa']);
         $activeSheet->setCellValue($i . '13' , $row['usuarios']);

@@ -27,7 +27,7 @@ $fecha = date('Y-m-d');
 $sql = "SELECT curso.idCurso,
             concat_ws(' ',instructor.apellidoPaterno,instructor.apellidoMaterno,instructor.nombre) as maestro,
             curso.nombreCurso as curso,
-            curso.objetivo,
+            curso.objetivo, curso.periodo,
             concat_ws(' - ', DATE_FORMAT(curso.fechaInicio, '%d de %M'), DATE_FORMAT(curso.fechaFin, '%d de %M, %Y')) as fecha,
             concat_ws(' a ',curso.horaInicio,curso.horaFin) as horario,
             curso.validado

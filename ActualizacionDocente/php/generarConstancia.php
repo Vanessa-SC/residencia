@@ -11,9 +11,23 @@ include_once 'conexion.php';
 $datos = json_decode(file_get_contents("php://input"));
 
 /* Creación del documento PDF */
+class PDF extends FPDF
+{
+    // Pie de página
+    public function Footer()
+    {
+        global $datos;
 
+        // Posición: a 1,5 cm del final
+        $this->SetY(-15);
+        // Arial italic 8
+        $this->SetFont('Montserrat', '', 11);
+        // Número de página
+        $this->Cell(0, 10, $datos->folio.'          '. utf8_decode(mb_strtoupper($datos->ClaveRegistro,'utf-8')), 0, 0, 'C');
+    }
+}
 // documento en 'landscape' (orientacion horizontal)
-$pdf = new FPDF('P', 'mm', 'letter');
+$pdf = new PDF('P', 'mm', 'letter');
 // Deshabilitar el salto de página automático
 $pdf->SetAutoPageBreak(false);
 // Agregar página
@@ -31,15 +45,18 @@ $pdf->AddFont('Montserrat-medium','','Montserrat-Medium.php');
 $pdf->SetFont('Montserrat-black','B',18);
 
 /* Nombre del participante */
-$pdf->Cell(200, 160, strtoupper(utf8_decode( $datos->participante)), 0, 0, 'C');
-$pdf->SetFont('Montserrat-medium', '', 14);
-$pdf->Ln(90);
-
-$pdf->SetFont('Montserrati', 'I', 14);
-$pdf->MultiCell(0, 7, utf8_decode(mb_strtoupper('por su valiosa participación en el curso '.$datos->curso,'utf-8')) , 0, 'C', false);
-$pdf->SetFont('Montserrati', 'I', 11);
+$pdf->Cell(200, 160, strtoupper(utf8_decode($datos->participante)), 0, 0, 'C');
 $pdf->Ln(10);
-$pdf->MultiCell(0, 0, 'Victoria de Durango, Dgo. a ' . $datos->fecha, 0, 'C', false);
+$pdf->SetFont('Montserrat-medium', '', 14);
+$pdf->Cell(200, 160, utf8_decode(mb_strtoupper('por su participación en el curso:', 'utf-8')), 0, 0, 'C');
+$pdf->Ln(90);
+$pdf->MultiCell(0, 7, utf8_decode(mb_strtoupper($datos->curso, 'utf-8')), 0, 'C', false);
+$pdf->Ln(5);
+$pdf->MultiCell(0, 7, utf8_decode(mb_strtoupper('REALIZADO DEL ' . $datos->fechaInicio.' al '.$datos->fechaFin, 'UTF-8')), 0, 'C', false);
+$pdf->MultiCell(0, 7, utf8_decode(mb_strtoupper('CON UNA DURACIÓN DE ' . $datos->duracion . ' HORAS', 'UTF-8')), 0, 'C', false);
+$pdf->SetFont('Montserrat-medium', '', 11);
+$pdf->Ln(10);
+$pdf->MultiCell(0, 0, strtoupper('Victoria de Durango, Dgo. a ' . $datos->fechaFin), 0, 'C', false);
 
 // Nombre del PDF C_+ marca de tiempo + extension
 $archivo = 'C_' . time() . '.pdf';
@@ -53,10 +70,10 @@ AND Curso_idCurso = $datos->idCurso";
 $result = mysqli_query($conn, $query);
 
 /* Si no existe un registro previo, hace una inserción en la base de datos. Caso contrario realiza un update para actualizar el nombre el archivo */
-if ($rowcount = mysqli_num_rows($result) == 0 ) {
+if (mysqli_num_rows($result) == 0 ) {
     /* Inserción del nombre del documento a la base de datos */
     $sql = "INSERT INTO constancia
-            VALUES('','$datos->folio','$archivo',$datos->idCurso,$datos->idUsuario)";
+            VALUES('','$datos->folio-$datos->idUsuario','$archivo',$datos->idCurso,$datos->idUsuario)";
 } else {
     $sql = "UPDATE constancia
             SET rutaConstancia='$archivo'

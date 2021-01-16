@@ -1303,7 +1303,7 @@ app.controller('loginCtrl', function ($scope, $http, $location, user, $timeout) 
 });
 
 /* CONTROLADORES PARA EL USUARIO COORDINADOR*/
-app.controller('programaCtrl', function ($scope, $http, $location, $filter, user, curso, periodoService, $timeout) {
+app.controller('programaCtrl', function ($scope, $http, $location, user, curso, periodoService, $timeout) {
 
 	/* Obtener nombre del usuario para ponerlo en la barra del menú */
 	$scope.user = user.getName();
@@ -1895,7 +1895,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 	}
 });
 
-app.controller('programasCtrl', function ($scope, $http, $location, $filter, user, curso, periodoService, $timeout) {
+app.controller('programasCtrl', function ($scope, $http, user, curso, periodoService, $timeout) {
 	$scope.user = user.getName();
 
 	$scope.cursoID = function (id) {
@@ -2031,7 +2031,7 @@ app.controller('programasCtrl', function ($scope, $http, $location, $filter, use
 	}
 });
 
-app.controller('constanciasCtrl', function ($scope, $http, $location, user, periodoService, curso, constancia, fechaService) {
+app.controller('constanciasCtrl', function ($scope, $http, user, periodoService, curso, constancia, fechaService) {
 	$scope.user = user.getName();
 
 	/* Obtener todas las constancias */
@@ -2164,7 +2164,9 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 				/* se guardan los datos en un json */
 				var datos = {
 					'folio': $scope.constancia.curso.folio,
-					'fecha': $scope.constancia.curso.fechaFin,
+					'ClaveRegistro': $scope.constancia.curso.ClaveRegistro,
+					'fechaFin': $scope.constancia.curso.fechaFin,
+					'fechaInicio': $scope.constancia.curso.fechaInicio,
 					'participante': $scope.constancia.participante.nombre,
 					'idUsuario': $scope.constancia.participante.idUsuario,
 					'curso': $scope.constancia.curso.curso,
@@ -2207,8 +2209,11 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 				});
 			} else {
 				var datos = {
-					'fecha': $scope.constancia.curso.fechaFin,
 					'folio': $scope.constancia.curso.folio,
+					'ClaveRegistro': $scope.constancia.curso.ClaveRegistro,
+					'fechaFin': $scope.constancia.curso.fechaFin,
+					'fechaInicio': $scope.constancia.curso.fechaInicio,
+					'duracion': $scope.constancia.curso.duracion,
 					'idUsuario': $scope.constancia.participante.idUsuario,
 					'curso': $scope.constancia.curso.curso,
 					'idCurso': $scope.constancia.curso.idCurso
@@ -2607,7 +2612,7 @@ app.controller('encuestasCtrl', function ($scope, $http, user, periodoService, c
 });
 
 /* CONTROLADORES PARA EL USUARIO JEFE */
-app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, periodoService, $timeout, encuesta, encuestaService) {
+app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, periodoService, $timeout) {
 
 	$scope.user = user.getName();
 
@@ -2716,28 +2721,6 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 				$("#coment" + idDoc).show();
 			});
 		}
-	}
-
-	/* Valida si en la carga de la vista ya hay documentos subidos 
-	   para un curso, por cada documento ya existente muestra el link
-	   de dicho documento para abrirlo */
-	$scope.existeDocumento = function () {
-		$timeout(function () {
-			$http({
-				method: 'post',
-				url: 'http://localhost/Residencia/ActualizacionDocente/php/documentosExistentesCurso.php',
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded'
-				},
-				data: 'idc=' + curso.getID()
-			}).then(function successCallback(response) {
-				if (response.data.status = "existe") {
-					angular.forEach(response.data.documentos, function (value, key) {
-						$('#linkDocumento' + key).append('<a target="_blank" href="http://localhost/Residencia/ActualizacionDocente/files/' + value + '">Ver documento</a>');
-					});
-				}
-			});
-		}, 500);
 	}
 
 	/* Valida si en la carga de la vista ya hay documentos subidos 
@@ -3204,14 +3187,14 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 	$scope.getListaDocumentosSubidos();
 });
 
-app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso, encuesta, periodoService, fechaService, $timeout, encuestaService) {
+app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso, encuesta, periodoService, $timeout, encuestaService) {
 	$scope.user = user.getName();
 
 	/** Obtiene todos los cursos */
 	$scope.getTodosLosCursos = function () {
 		$http({
 			method: 'POST',
-			url: 'http://localhost/Residencia/ActualizacionDocente/php/getCursosDepartamento.php',
+			url: 'http://localhost/Residencia/ActualizacionDocente/php/getTodosCursosDepartamento.php',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},
@@ -3224,12 +3207,12 @@ app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso,
 	/** Obtener listado de los cursos del periodo seleccionado */
 	$scope.getCursosDelPeriodo = function (p) {
 		$http({
-			url: 'http://localhost/Residencia/ActualizacionDocente/php/getCursosPorPeriodo.php',
+			url: 'http://localhost/Residencia/ActualizacionDocente/php/getCursosPorPeriodoDepto.php',
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},
-			data: 'periodo=' + p.periodo
+			data: 'periodo=' + p.periodo +'&idd=' + user.getIdDepartamento()
 		}).then(function successCallback(response) {
 			$scope.TodosCursos = response.data;
 		});

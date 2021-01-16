@@ -33,13 +33,10 @@ $sql = "SELECT curso.idCurso,
             curso.validado
         FROM instructor Inner join curso
         ON curso.Instructor_idInstructor=instructor.idInstructor 
-        AND curso.Departamento_idDepartamento = '$id' 
-        AND curso.periodo LIKE '$periodo%'
-        AND YEAR(curso.fechaInicio) = $año
+        AND curso.Departamento_idDepartamento = $id
         OR (curso.Instructor_idInstructor=instructor.idInstructor 
             AND curso.Departamento_idDepartamento = 5
-            AND curso.periodo LIKE '$periodo%'
-            AND YEAR(curso.fechaFin) = $año)";
+            AND curso.periodo LIKE '$periodo%')";
         /*!- El ID 5 corresponde al departamento "Todos los Departamentos" */
 
 // Validación de ejecución de la consulta

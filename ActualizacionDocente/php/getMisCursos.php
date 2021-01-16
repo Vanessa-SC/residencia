@@ -28,7 +28,7 @@ $sql = "SELECT curso.idCurso, curso.nombreCurso as curso,
         curso.objetivo, 
         concat_ws(' - ', DATE_FORMAT(curso.fechaInicio, '%d de %M'), DATE_FORMAT(curso.fechaFin, '%d de %M, %Y')) as fecha, 
         concat_ws(' - ',curso.horaInicio,curso.horaFin) as horario, 
-        curso.lugar,curso.duracion,curso.destinatarios, curso.validado
+        curso.lugar,curso.duracion,curso.destinatarios, curso.validado, curso.periodo
         FROM usuario_has_curso Inner join curso 
         ON curso.idCurso = usuario_has_curso.Curso_idCurso
         WHERE curso.periodo LIKE '$periodo%'
