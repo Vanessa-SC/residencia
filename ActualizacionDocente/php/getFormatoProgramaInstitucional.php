@@ -96,7 +96,7 @@ $query = "SELECT
             curso.validado
             FROM instructor Inner join curso
             ON curso.Instructor_idInstructor=instructor.idInstructor      
-            WHERE periodo LIKE '$response%'
+            WHERE curso.periodo LIKE '$response%'
             AND YEAR(curso.fechaInicio) = $año
         ";
 

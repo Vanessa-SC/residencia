@@ -1873,9 +1873,14 @@ app.controller('programaCtrl', function ($scope, $http, $location, $filter, user
 	}
 
 	//Formatos
-	/* Archivo excel de indicadores */
+	/* Archivo excel de Indicadores Totales por cursos */
 	$scope.printIndicadores = function () {
 		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoIndicadores.php?', '_blank');
+	}
+
+	/* Archivo excel de Indicadores Totales */
+	$scope.printIndicadoresTotales = function () {
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoIndicadoresTotales.php?', '_blank');
 	}
 
 	/* Archivo word de Programa Institucional */
@@ -2013,6 +2018,11 @@ app.controller('programasCtrl', function ($scope, $http, $location, $filter, use
 	/* Archivo excel de indicadores */
 	$scope.printIndicadores = function () {
 		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoIndicadores.php?', '_blank');
+	}
+
+	/* Archivo excel de Indicadores Totales */
+	$scope.printIndicadoresTotales = function () {
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoIndicadoresTotales.php?', '_blank');
 	}
 
 	/* Archivo word de Programa Institucional */
@@ -2253,6 +2263,11 @@ app.controller('constanciasCtrl', function ($scope, $http, $location, user, peri
 		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoIndicadores.php?', '_blank');
 	}
 
+	/* Archivo excel de Indicadores Totales */
+	$scope.printIndicadoresTotales = function () {
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoIndicadoresTotales.php?', '_blank');
+	}
+
 	/* Archivo word de Programa Institucional */
 	$scope.printProgramaInstitucional = function () {
 		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoProgramaInstitucional.php?', '_blank');
@@ -2466,6 +2481,11 @@ app.controller('instructoresCtrl', function ($scope, $http, $location, user, per
 		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoIndicadores.php?', '_blank');
 	}
 
+	/* Archivo excel de Indicadores Totales */
+	$scope.printIndicadoresTotales = function () {
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoIndicadoresTotales.php?', '_blank');
+	}
+
 	/* Archivo word de Programa Institucional */
 	$scope.printProgramaInstitucional = function () {
 		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoProgramaInstitucional.php?', '_blank');
@@ -2566,6 +2586,11 @@ app.controller('encuestasCtrl', function ($scope, $http, user, periodoService, c
 	/* Archivo excel de indicadores */
 	$scope.printIndicadores = function () {
 		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoIndicadores.php?', '_blank');
+	}
+
+	/* Archivo excel de Indicadores Totales */
+	$scope.printIndicadoresTotales = function () {
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoIndicadoresTotales.php?', '_blank');
 	}
 
 	/* Archivo word de Programa Institucional */
@@ -3151,6 +3176,11 @@ app.controller('cursosJCtrl', function ($scope, $http, $location, user, curso, p
 	/* Archivo excel de indicadores */
 	$scope.printIndicadores = function () {
 		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoIndicadoresDpto.php?idd=' + user.getIdDepartamento(), '_blank');
+	}
+
+	/* Archivo excel de Indicadores Totales */
+	$scope.printIndicadoresTotales = function () {
+		window.open('http://localhost/Residencia/ActualizacionDocente/php/getFormatoIndicadoresDptoTotales.php?idd=' + user.getIdDepartamento(), '_blank');
 	}
 
 	/* Archivo word de Programa Institucional */

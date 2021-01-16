@@ -112,14 +112,25 @@ SELECT
     IF(usuario.funcionAdministrativa = 'SI', 'X', usuario.funcionAdministrativa) AS FD,
 */
 
+// Obtiene el periodo actual para la consulta
+$mes = date('n');
+$año = date('Y');
 
+if ( $mes <= 6 ){
+    $response = 'Enero / Junio ';
+} else {
+    $response = 'Agosto / Diciembre ';
+}
 
-$sql = "SELECT ur.pregunta_idPregunta as idPregunta, p.descripcion
-FROM usuario_responde_encuesta ur 
-INNER JOIN pregunta p
-ON p.idPregunta = ur.pregunta_idPregunta
-Where ur.Encuesta_idEncuesta = 1
-group by ur.pregunta_idPregunta
+$sql = "SELECT u.contrato, count(distinct u.idUsuario) as usuarios 
+    FROM usuario u, usuario_has_curso uc, curso c
+    WHERE u.idUsuario = uc.Usuario_idUsuario
+    AND c.idCurso = uc.Curso_idCurso
+    AND u.rol = 3
+    AND uc.estado = 0
+    AND c. periodo LIKE '$response%'
+    AND YEAR(c.fechaInicio) = $año
+    group by u.contrato
 ";
 
 /* Ejecución de la consulta */
@@ -130,6 +141,13 @@ $curso = mysqli_fetch_all($result, MYSQLI_ASSOC);
 echo json_encode($curso);
 
 /* 
+u.contrato, count(distinct u.idUsuario) as usuarios 
+	FROM usuario u, usuario_has_curso uc, curso c
+	WHERE u.idUsuario = uc.Usuario_idUsuario
+	AND c.idCurso = uc.Curso_idCurso
+	AND u.rol = 3
+	AND c.periodo LIKE 'Agosto / Diciembre 2020'
+	group by u.contrato
 
 (CASE WHEN a.asistencia IS NULL THEN 0 ELSE a.asistencia END) as asistencia, 
 DATE(a.fecha) mydate 

@@ -99,8 +99,8 @@ if($sql->num_rows > 0) {
             $activeSheet->setCellValue('E'.$i , $row['totalR3']);
             $activeSheet->setCellValue('F'.$i , $row['totalR2']);
             $activeSheet->setCellValue('G'.$i , $row['totalR1']);
-            $activeSheet->setCellValue('H'.$i , $row['total']);
-            $activeSheet->setCellValue('I'.$i , $row['resultado']);
+            $activeSheet->setCellValue('I'.$i , $row['total']);
+            $activeSheet->setCellValue('J'.$i , $row['resultado']);
             $i++;
 
             // Totales

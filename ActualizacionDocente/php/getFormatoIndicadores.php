@@ -9,7 +9,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 // Nombre del nuevo archivo que se genera
-$filename = "Indicadores de Participantes del Curso.xlsx";
+$filename = "Formato de Indicadores de Participantes por Cursos del Periodo Actual.xlsx";
 header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheet‌​ml.sheet");
 header('Content-Disposition: attachment; filename="' . $filename. '"');
 
@@ -29,6 +29,8 @@ if ( $mes <= 6 ){
     $response = 'Agosto / Diciembre ';
 }
 
+$activeSheet->setCellValue('G7', 'Periodo '.$response);
+
 /*
 Consulta a la base de datos para obtener los nombres de los departamentos, 
 filtrarlos según los usuarios pertenecientes al curso y contar los departamentos
@@ -45,6 +47,7 @@ $sql = $conn->query("SELECT
         ON curso.idCurso = usuario_has_curso.Curso_idCurso
         WHERE departamento.idDepartamento IN(SELECT idDepartamento FROM departamento) 
         AND usuario.rol = 3
+        AND usuario_has_curso.estado = 0
         AND curso.periodo LIKE '$response%'
         AND YEAR(curso.fechaInicio) = $año
         GROUP BY curso.nombreCurso, departamento.nombreDepartamento
@@ -82,6 +85,7 @@ $query = $conn->query("SELECT
         INNER JOIN curso
         ON curso.idCurso = usuario_has_curso.Curso_idCurso
         WHERE usuario.rol = 3
+        AND usuario_has_curso.estado = 0
         AND curso.periodo LIKE '$response%'
         AND YEAR(curso.fechaInicio) = $año
         GROUP BY curso.nombreCurso
@@ -92,7 +96,7 @@ entonces comienza el recorrido para imprimir el total de indicadores
 */
 if($query->num_rows > 0) {
     // Comienza en la fila 22
-    $i = 11;
+    $i = 13;
     // Ciclo while que recorremo los resultados de la consulta y los imprime
     while($row = $query->fetch_assoc()) {
         $activeSheet->setCellValue('B'.$i , $row['nombreCurso']);
