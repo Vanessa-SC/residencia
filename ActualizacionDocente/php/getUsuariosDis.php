@@ -9,7 +9,7 @@ mysqli_query($conn,$formatt);
 
 // Consulta, ejecución y asociación de resultados
 $sql = "SELECT DISTINCT
-    concat_ws(' ', usuario.nombre, usuario.apellidoPaterno, usuario.apellidoMaterno) as nombre
+    concat_ws(' ', usuario.apellidoPaterno, usuario.apellidoMaterno, usuario.nombre) as nombre
     FROM usuario
     ORDER BY usuario.apellidoPaterno ASC 
 ";
