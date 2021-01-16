@@ -79,6 +79,7 @@ foreach ($participantes as list($id, $nombre)) {
     /* Nombre del participante */
     $pdf->Ln(10);
     $pdf->Cell(200, 160, utf8_decode($nombre), 0, 0, 'C');
+    $pdf->Ln(10);
     $pdf->SetFont('Montserrat-medium', '', 14);
     $pdf->Cell(200, 160, utf8_decode(mb_strtoupper('por su participación en el curso:', 'utf-8')), 0, 0, 'C');
     $pdf->Ln(90);
