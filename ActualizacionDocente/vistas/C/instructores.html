@@ -56,26 +56,24 @@
                         <button type="button" class="btn btn-light bg-white borrar_icon" data-toggle="modal"
                             data-target="#modal{{x.idInstructor}}"></button>
 
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="modal{{x.idInstructor}}" tabindex="-1" role="dialog"
+                         <!-- Modal -->
+                        <div class="modal fade" id="modal{{x.idCurso}}" tabindex="-1" role="dialog"
                             aria-labelledby="Title" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="dialog">
                                 <div class="modal-content">
-                                    <div class="modal-header">
+                                    <div class="modal-header bg-wine">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        ¿Está seguro de que quiere eliminar al instructor: <br> "<span
-                                            class="font-italic">{{x.nombre}}</span>"?
+                                        ¿Está seguro de que quiere eliminar el curso: <br> "<span
+                                            class="font-italic">{{x.curso}}</span>"?
                                     </div>
                                     <div class="modal-footer">
-                                        <button class="btn btn-success" title="Aceptar"
-                                            ng-click="deleteInstructor(x.idInstructor, x.nombre)"
-                                            data-backdrop="false">Aceptar</button>
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal"
+                                        <button class="btn bg-wine text-white" title="Aceptar"
+                                            ng-click="deleteCurso(x.idCurso)" data-backdrop="false">Aceptar</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
                                             data-backdrop="false">Cancelar</button>
                                     </div>
                                 </div>
