@@ -13,17 +13,25 @@ $id = mysqli_real_escape_string($conn, $_POST['idUsuario']);
 // Formato de fechas en español
 $formatt = "SET lc_time_names = 'es_MX' ";
 mysqli_query($conn,$formatt);
+// Obtiene la fecha
+$mes = date('m');
+$año = date('Y');
+$dia = date('d');
+
 // SQL de consulta
-$sql = "SELECT curso.idCurso, curso.nombreCurso as curso, 
+$sql = "SELECT curso.idCurso, curso.nombreCurso AS curso, 
         curso.objetivo, curso.Instructor_idInstructor, curso.periodo,
-        concat_ws(' - ', DATE_FORMAT(curso.fechaInicio, '%d de %M'), DATE_FORMAT(curso.fechaFin, '%d de %M, %Y')) as fecha, 
-        concat_ws(' - ',curso.horaInicio,curso.horaFin) as horario, 
+        concat_ws(' - ', DATE_FORMAT(curso.fechaInicio, '%d de %M'), DATE_FORMAT(curso.fechaFin, '%d de %M, %Y')) AS fecha, 
+        concat_ws(' - ',curso.horaInicio,curso.horaFin) AS horario, 
         curso.lugar,curso.duracion,curso.destinatarios, curso.validado
-        FROM instructor Inner join curso 
+        FROM instructor INNER JOIN curso 
         ON curso.Instructor_idInstructor = instructor.idInstructor
-        Inner join usuario
+        INNER JOIN usuario
         ON usuario.idUsuario = instructor.idUsuario
-        AND usuario.idUsuario = $id
+        WHERE usuario.idUsuario = $id
+        AND YEAR(curso.fechaFin) = $año
+        AND MONTH(curso.fechaFin) <= $mes
+        AND DAY(curso.fechaFin) <= $dia
         ORDER BY fechaInicio ASC
         ";
 // Validación de ejecución de la consulta
