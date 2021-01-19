@@ -1717,23 +1717,25 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 
 	/* Obtiene la Clave de registro para un nuevo curso */
 	$scope.getNuevoFolio = function () {
-		/* Si no se ha asignado un departamento para el curso toma
+		if ($scope.curso != undefined) {
+			/* Si no se ha asignado un departamento para el curso toma
 			por defecto el departamento del usuario */
-		if ($scope.curso.departamento == undefined) {
-			id = user.getIdDepartamento();
-		} else {
-			id = $scope.curso.departamento;
+			if ($scope.curso.departamento == undefined) {
+				id = user.getIdDepartamento();
+			} else {
+				id = $scope.curso.departamento;
+			}
+			$http({
+				method: 'POST',
+				url: 'http://localhost/Residencia/ActualizacionDocente/php/getNuevoFolio.php',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: 'idDepartamento=' + id
+			}).then(function successCallback(response) {
+				$scope.curso.clave = response.data;
+			});
 		}
-		$http({
-			method: 'POST',
-			url: 'http://localhost/Residencia/ActualizacionDocente/php/getNuevoFolio.php',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			data: 'idDepartamento=' + id
-		}).then(function successCallback(response) {
-			$scope.curso.clave = response.data;
-		});
 	}
 
 	/* Pasa los datos GET para obtener el oficio de creación de un curso */
@@ -3212,7 +3214,7 @@ app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso,
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},
-			data: 'periodo=' + p.periodo +'&idd=' + user.getIdDepartamento()
+			data: 'periodo=' + p.periodo + '&idd=' + user.getIdDepartamento()
 		}).then(function successCallback(response) {
 			$scope.TodosCursos = response.data;
 		});
@@ -3299,7 +3301,7 @@ app.controller('encuestaJCtrl', function ($scope, $http, $location, user, curso,
 				},
 				data: 'ide=' + 2 + '&idc=' + curso.getID()
 			}).then(function successCallback(response) {
-				if(response.data.status != "out of date"){
+				if (response.data.status != "out of date") {
 					if (encuesta.getID() != undefined) {
 						$http({
 							method: 'POST',
@@ -3835,7 +3837,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 		});
 
 	/* validar si el docente ya respondió la encuesta de opinión del curso */
-	$scope.encuestaRespondida = encuestaService.existe(curso.getID(), user.getIdUsuario(),encuesta.getID())
+	$scope.encuestaRespondida = encuestaService.existe(curso.getID(), user.getIdUsuario(), encuesta.getID())
 		.then(function (response) {
 			$scope.encuesta = response;
 		});
@@ -3880,7 +3882,7 @@ app.controller('cursosDCtrl', function ($scope, $http, $location, user, curso, e
 					},
 					data: 'ide=' + 3 + '&idc=' + curso.getID()
 				}).then(function successCallback(response) {
-					if(response.data.status != "out of date"){
+					if (response.data.status != "out of date") {
 						if (encuesta.getID() != undefined) {
 							$http({
 								method: 'POST',
@@ -4246,7 +4248,7 @@ app.controller('asistenciaICtrl', function ($scope, $http, $location, user, curs
 				},
 				data: 'idCurso=' + $scope.idCurso
 			}).then(function successCallback(response) {
-				$scope.participantes = response.data;			
+				$scope.participantes = response.data;
 			});
 		}
 	}
