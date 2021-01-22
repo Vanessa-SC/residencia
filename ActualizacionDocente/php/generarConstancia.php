@@ -10,6 +10,27 @@ include_once 'conexion.php';
 /* Recepción de datos */
 $datos = json_decode(file_get_contents("php://input"));
 
+$preFolioCons = "";
+$ClaveRegistro = $datos->ClaveRegistro;
+
+/*Query para determinar si ya se han creado constancias anteriormente para el curso */
+$query = "SELECT * FROM constancia WHERE Curso_idCurso = $datos->idCurso";
+$result = mysqli_query($conn, $query);
+
+
+/* Si no existe un registro previo, el numero del folio inicia en 001 */
+if (mysqli_num_rows($result) == 0 ) {
+    $folioCons = $ClaveRegistro.'-001';
+} else {
+    /** obtener ultimo folio */
+    $getFolio = "SELECT RIGHT(folio,3) as cod FROM constancia WHERE Curso_idCUrso = $datos->idCurso ORDER BY cod DESC LIMIT 1 ";
+    $res = mysqli_query($conn,$getFolio);
+    $code = mysqli_fetch_assoc($res);
+    $codigo = intval($code['cod']) + 1;
+
+    $folioCons = $ClaveRegistro.'-'.str_pad($codigo, 3, "0", STR_PAD_LEFT);
+}
+
 /* Creación del documento PDF */
 class PDF extends FPDF
 {
@@ -17,13 +38,14 @@ class PDF extends FPDF
     public function Footer()
     {
         global $datos;
-
+        global $folioCons;
+       
         // Posición: a 1,5 cm del final
         $this->SetY(-15);
-        // Arial italic 8
+        // fuente
         $this->SetFont('Montserrat', '', 11);
-        // Número de página
-        $this->Cell(0, 10, $datos->folio.'          '. utf8_decode(mb_strtoupper($datos->ClaveRegistro,'utf-8')), 0, 0, 'C');
+        // folios
+        $this->Cell(0, 10, $datos->folio.'          '.utf8_decode(mb_strtoupper($folioCons,'utf-8')), 0, 0, 'C');
     }
 }
 // documento en 'landscape' (orientacion horizontal)
@@ -49,9 +71,8 @@ $pdf->Cell(200, 160, strtoupper(utf8_decode($datos->participante)), 0, 0, 'C');
 $pdf->Ln(10);
 $pdf->SetFont('Montserrat-medium', '', 14);
 $pdf->Cell(200, 160, utf8_decode(mb_strtoupper('por su participación en el curso:', 'utf-8')), 0, 0, 'C');
-$pdf->Ln(90);
+$pdf->Ln(85);
 $pdf->MultiCell(0, 7, utf8_decode(mb_strtoupper($datos->curso, 'utf-8')), 0, 'C', false);
-$pdf->Ln(5);
 $pdf->MultiCell(0, 7, utf8_decode(mb_strtoupper('REALIZADO DEL ' . $datos->fechaInicio.' al '.$datos->fechaFin, 'UTF-8')), 0, 'C', false);
 $pdf->MultiCell(0, 7, utf8_decode(mb_strtoupper('CON UNA DURACIÓN DE ' . $datos->duracion . ' HORAS', 'UTF-8')), 0, 'C', false);
 $pdf->SetFont('Montserrat-medium', '', 11);
@@ -73,7 +94,7 @@ $result = mysqli_query($conn, $query);
 if (mysqli_num_rows($result) == 0 ) {
     /* Inserción del nombre del documento a la base de datos */
     $sql = "INSERT INTO constancia
-            VALUES('','$datos->folio-$datos->idUsuario','$archivo',$datos->idCurso,$datos->idUsuario)";
+            VALUES('','". $folioCons."','$archivo',$datos->idCurso,$datos->idUsuario)";
 } else {
     $sql = "UPDATE constancia
             SET rutaConstancia='$archivo'

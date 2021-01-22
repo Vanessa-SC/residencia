@@ -1784,6 +1784,7 @@ app.controller('programaCtrl', function ($scope, $http, $location, user, curso, 
 					/* Llamamos al método para verificar el estado de validacion
 					   de la documentacion */
 					$scope.validacionDocumentos();
+					$scope.getListaDocumentosSubidos();
 				} else {
 					$scope.alert = {
 						titulo: '¡Error!',
@@ -2169,6 +2170,7 @@ app.controller('constanciasCtrl', function ($scope, $http, user, periodoService,
 					'ClaveRegistro': $scope.constancia.curso.ClaveRegistro,
 					'fechaFin': $scope.constancia.curso.fechaFin,
 					'fechaInicio': $scope.constancia.curso.fechaInicio,
+					'ff': $scope.constancia.curso.ff,
 					'participante': $scope.constancia.participante.nombre,
 					'idUsuario': $scope.constancia.participante.idUsuario,
 					'curso': $scope.constancia.curso.curso,
@@ -2215,6 +2217,7 @@ app.controller('constanciasCtrl', function ($scope, $http, user, periodoService,
 					'ClaveRegistro': $scope.constancia.curso.ClaveRegistro,
 					'fechaFin': $scope.constancia.curso.fechaFin,
 					'fechaInicio': $scope.constancia.curso.fechaInicio,
+					'ff': $scope.constancia.curso.ff,
 					'duracion': $scope.constancia.curso.duracion,
 					'idUsuario': $scope.constancia.participante.idUsuario,
 					'curso': $scope.constancia.curso.curso,

@@ -25,6 +25,9 @@ $sql = "UPDATE curso_has_documento
 
 /* Ejecución de la consulta */
 if(mysqli_query($conn,$sql)){
+    $sqli = "UPDATE curso_has_documento set comentario = null WHERE Curso_idCurso = $idc AND Documento_idDocumento = $idd ";
+    $response['sql'] = $sqli;
+    mysqli_query($conn,$sqli);
     $response['status'] = 'ok';
 } else {
     $response['status'] = 'error: '.mysqli_error($conn);

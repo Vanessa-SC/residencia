@@ -2,8 +2,8 @@
 
 /* 
     Crear la Clave de Registro del curso siguiendo el formato:
-        xxxxx-año-departamento
-    donde xxxxx es un número autoincremental y el año es a dos dígitos
+        xxx-año-departamento
+    donde xxx es un número autoincremental y el año es a dos dígitos
 */
 
 include_once 'conexion.php';
@@ -14,10 +14,10 @@ $idDepto = mysqli_real_escape_string($conn, $_POST['idDepartamento']);
 if ($idDepto != 1){
 
     /* Asignación del código del folio */
-    $cod = "SELECT LEFT(ClaveRegistro,5) as cod FROM curso ORDER BY idCurso DESC LIMIT 1";
+    $cod = "SELECT LEFT(ClaveRegistro,3) as cod FROM curso ORDER BY idCurso DESC LIMIT 1";
     $result = $conn->query($cod) or die($conn->error . __LINE__);
     if (mysqli_num_rows($result) == 0) {
-        $code = 00001;
+        $code = 001;
     } else {
         $code = mysqli_fetch_assoc($result);
     }
@@ -35,7 +35,7 @@ if ($idDepto != 1){
     $año = date('y');
 
     /*Agregar ceros al codigo  y Creación del código final*/
-    $codigo_nuevo = str_pad($codigo, 5, "0", STR_PAD_LEFT) . '-' . $año . '-' . $departamento;
+    $codigo_nuevo = str_pad($codigo, 3, "0", STR_PAD_LEFT) . '-' . $año . '-' . $departamento;
     
     
     echo json_encode($codigo_nuevo);
@@ -43,7 +43,7 @@ if ($idDepto != 1){
 } else if($idDepto = 1){
 
     /* Asignación del código del folio */
-    $cod = "SELECT LEFT(ClaveRegistro,5) as cod FROM curso ORDER BY idCurso DESC LIMIT 1";
+    $cod = "SELECT LEFT(ClaveRegistro,3) as cod FROM curso ORDER BY idCurso DESC LIMIT 1";
     $result = $conn->query($cod) or die($conn->error . __LINE__);
     if (mysqli_num_rows($result) > 0) {
         $code = mysqli_fetch_assoc($result);
@@ -60,7 +60,7 @@ if ($idDepto != 1){
     $año = date('y');
 
     /*Agregar ceros al codigo  y Creación del código final*/
-    $codigo_nuevo = str_pad($codigo, 5, "0", STR_PAD_LEFT) . '-' . $año. '-' . $departamento;
+    $codigo_nuevo = str_pad($codigo, 3, "0", STR_PAD_LEFT) . '-' . $año. '-' . $departamento;
     
     
     echo json_encode($codigo_nuevo);

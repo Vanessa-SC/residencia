@@ -17,6 +17,8 @@ $fechaInicio = $data->fechaInicio;
 $fechaFin = $data->fechaFin;
 $duracion = $data->duracion;
 
+$contador = 1;
+
 // Obtener listado de participantes con asistencia mayor a 80%
 $queryAlumnos = "SELECT a.Usuario_idUsuario as idUsuario,
                     upper(concat_ws(' ',u.nombre,u.apellidoPaterno,u.apellidoMaterno)) as nombre
@@ -56,7 +58,6 @@ foreach ($participantesR as list($id, $nombre)) {
 foreach ($participantes as list($id, $nombre)) {
 
     /* Creación del documento PDF */
-
     
     // documento en 'landscape' (orientacion horizontal)
     $pdf = new FPDF('P', 'mm', 'letter');
@@ -78,18 +79,22 @@ foreach ($participantes as list($id, $nombre)) {
 
     /* Nombre del participante */
     $pdf->Ln(10);
-    $pdf->Cell(200, 160, utf8_decode($nombre), 0, 0, 'C');
+    $pdf->Cell(200, 150, utf8_decode($nombre), 0, 0, 'C');
     $pdf->Ln(10);
     $pdf->SetFont('Montserrat-medium', '', 14);
     $pdf->Cell(200, 160, utf8_decode(mb_strtoupper('por su participación en el curso:', 'utf-8')), 0, 0, 'C');
-    $pdf->Ln(90);
+    $pdf->Ln(85);
     $pdf->MultiCell(0, 7, utf8_decode(mb_strtoupper($curso, 'utf-8')), 0, 'C', false);
-    $pdf->Ln(5);
     $pdf->MultiCell(0, 7, utf8_decode(mb_strtoupper('REALIZADO DEL ' . $fechaInicio . ' al ' . $fechaFin, 'UTF-8')), 0, 'C', false);
     $pdf->MultiCell(0, 7, utf8_decode(mb_strtoupper('CON UNA DURACIÓN DE ' . $duracion . ' HORAS', 'UTF-8')), 0, 'C', false);
     $pdf->SetFont('Montserrat-medium', '', 11);
     $pdf->Ln(10);
     $pdf->MultiCell(0, 0, strtoupper('Victoria de Durango, Dgo. a ' . $fechaFin), 0, 'C', false);
+    // Posición: a 1,5 cm del final
+    $pdf->SetY(-15);
+    $pdf->SetFont('Montserrat', '', 11);
+    // Folios
+    $pdf->Cell(0, 10, $folio.'          '. utf8_decode(mb_strtoupper($ClaveRegistro.'-'.str_pad($contador, 2, "0", STR_PAD_LEFT),'utf-8')), 0, 0, 'C');
 
     // Nombre del PDF C_+ marca de tiempo + extension
     $archivo = 'C_' . time() . $id . '.pdf';
@@ -106,7 +111,7 @@ foreach ($participantes as list($id, $nombre)) {
     if (mysqli_num_rows($result) == 0) {
         // /* Inserción del nombre del documento a la base de datos */
         $sql = "INSERT INTO constancia
-        VALUES('','$folio-$id','$archivo',$idc,$id)";
+        VALUES('','".$ClaveRegistro.'-'.str_pad($contador, 2, "0", STR_PAD_LEFT)."','$archivo',$idc,$id)";
         mysqli_query($conn, $sql);
 
         // Actualización de estado 0 -> concluyó satisfactoriamente el curso
@@ -123,6 +128,8 @@ foreach ($participantes as list($id, $nombre)) {
                 AND Curso_idCurso = $idc";
         mysqli_query($conn, $sql);
     }
+    //aumenta el contador para el folio de la constancia
+    $contador++;
 }
 
 /** Obtener nombre del instructor */
@@ -153,20 +160,24 @@ $pdfR->AddFont('Montserrat-black', 'B', 'Montserrat-Black.php');
 $pdfR->AddFont('Montserrat-medium', '', 'Montserrat-Medium.php');
 $pdfR->SetFont('Montserrat-black', 'B', 18);
 /* Nombre del instructor */
-$pdfR->Cell(200, 160, strtoupper(utf8_decode($instructor)), 0, 0, 'C');
+$pdfR->Cell(200, 150, strtoupper(utf8_decode($instructor)), 0, 0, 'C');
 $pdfR->SetFont('Montserrat-medium', '', 14);
 $pdfR->Ln(10);
 
 $pdfR->Cell(200, 160, utf8_decode(mb_strtoupper('por haber impartido el curso:', 'utf-8')), 0, 0, 'C');
-$pdfR->Ln(90);
+$pdfR->Ln(85);
 $pdfR->MultiCell(0, 7, utf8_decode(mb_strtoupper($curso, 'utf-8')), 0, 'C', false);
-$pdfR->Ln(5);
+
 $pdfR->MultiCell(0, 7, utf8_decode(mb_strtoupper('REALIZADO DEL ' . $fechaInicio . ' al ' . $fechaFin, 'UTF-8')), 0, 'C', false);
 $pdfR->MultiCell(0, 7, utf8_decode(mb_strtoupper('CON UNA DURACIÓN DE ' . $duracion . ' HORAS', 'UTF-8')), 0, 'C', false);
 $pdfR->SetFont('Montserrat-medium', '', 11);
 $pdfR->Ln(10);
 $pdfR->MultiCell(0, 0, strtoupper('Victoria de Durango, Dgo. a ' . $fechaFin), 0, 'C', false);
-
+// Posición: a 1,5 cm del final
+$pdfR->SetY(-15);
+$pdfR->SetFont('Montserrat', '', 11);
+// folios
+$pdfR->Cell(0, 10, $folio.'          '. utf8_decode(mb_strtoupper($ClaveRegistro.'-'.str_pad($contador, 2, "0", STR_PAD_LEFT),'utf-8')), 0, 0, 'C');
 $archivo = 'R_' . time() . '.pdf';
 
 $pdfR->Output("C:/xampp/htdocs/Residencia/ActualizacionDocente/files/" . $archivo, 'F');
@@ -181,7 +192,7 @@ $result = mysqli_query($conn, $queryi);
 if (mysqli_num_rows($result) == 0) {
     // /* Inserción del nombre del documento a la base de datos */
     $sql2 = "INSERT INTO constancia
-    VALUES('','$folio-$idi-R','$archivo',$idc,$idi)";
+    VALUES('','".$ClaveRegistro.'-'.str_pad($contador, 2, "0", STR_PAD_LEFT)."','$archivo',$idc,$idi)";
     mysqli_query($conn, $sql2);
 } else {
     $sql = "UPDATE constancia
